@@ -23,8 +23,6 @@
           >
             <span @click="changeIndex(index)">{{route.title}}</span>
           </router-link>
-           <!-- <li class="icon"></li>
-            <li class="icon icons"></li> -->
         </ul>
       </div>
       <router-view />
@@ -114,19 +112,7 @@ export default {
 
          
         }
-        //  > .icon , .icons{
-        //     width: 1px;
-        //     height: 20px;
-        //     background: rgba(222, 222, 222, 1);
-        //     position: absolute;
-        //     top: 1px;
-        //     left: 237px;
-        //   }
-        //   .icons{
-        //     position: absolute;
-        //     top: 1px;
-        //     left: 138px;
-        //   }
+      
       }
     }
   }
