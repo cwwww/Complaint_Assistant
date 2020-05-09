@@ -1,0 +1,134 @@
+<template>
+  <div class="warp">
+    <van-cell is-link @click="showPopup">上划</van-cell>
+    <van-popup
+      class="content"
+      v-model="show"
+      closeable
+      round
+      position="bottom"
+      :style="{ height: '70%' }"
+    >
+      <img :src="img" alt />
+      <div class="title" id="title">
+        <ul>
+          <router-link
+            v-for="(route, index) in routes"
+            :key="index"
+            data-index="0"
+            :class="{'active': index === curIndex}"
+            class="bigBox"
+            :to="{name: route.name}"
+            tag="li"
+          >
+            <span @click="changeIndex(index)">{{route.title}}</span>
+          </router-link>
+           <!-- <li class="icon"></li>
+            <li class="icon icons"></li> -->
+        </ul>
+      </div>
+      <router-view />
+    </van-popup>
+  </div>
+</template>
+<script>
+export default {
+  name: "ranking",
+  data() {
+    return {
+      curIndex: 0,
+      show: false,
+      img: require("../assets/images/icon.png"),
+      routes: [
+        {
+          name: "Theglobal",
+          title: "全球排行"
+        },
+        {
+          name: "Sentiment",
+          title: "好友排行"
+        },
+        {
+          name: "Friends",
+          title: "人气排行"
+        }
+      ]
+    };
+  },
+  methods: {
+    changeIndex(i) {
+      this.curIndex = i;
+    },
+    showPopup() {
+      this.show = true;
+    }
+  }
+};
+</script>
+<style lang="scss" scoped>
+/deep/ .van-popup {
+  overflow: visible;
+}
+.warp {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: red;
+
+  > .content {
+    width: 100%;
+    height: 466px;
+    background: rgba(255, 255, 255, 1);
+    > img {
+      display: block;
+      width: 65px;
+      height: 65px;
+      margin: 0 auto;
+      margin-top: -31px;
+    }
+    .title {
+      margin-top: 20px;
+      > ul {
+        position: relative;
+        display: flex;
+        justify-content: space-around;
+        padding-left: 63px;
+        padding-right: 62px;
+        & > li.active {
+          font-size: 15px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 600;
+          color: rgba(0, 147, 253, 1);
+          
+        }
+        > .bigBox {
+          height: 21px;
+          font-size: 15px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          // font-weight: 500;
+          color: rgba(102, 102, 102, 1);
+          line-height: 21px;
+
+         
+        }
+        //  > .icon , .icons{
+        //     width: 1px;
+        //     height: 20px;
+        //     background: rgba(222, 222, 222, 1);
+        //     position: absolute;
+        //     top: 1px;
+        //     left: 237px;
+        //   }
+        //   .icons{
+        //     position: absolute;
+        //     top: 1px;
+        //     left: 138px;
+        //   }
+      }
+    }
+  }
+}
+</style>

@@ -1,0 +1,187 @@
+@charset "utf-8";
+html {
+  color: #000;
+  background: #FFF;
+}
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+fieldset,
+img {
+  border: 0;
+}
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+  font-style: normal;
+  font-weight: normal;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+caption,
+th {
+  text-align: left;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+q:before,
+q:after {
+  content: '';
+}
+abbr,
+acronym {
+  border: 0;
+  font-variant: normal;
+}
+sup {
+  vertical-align: text-top;
+}
+sub {
+  vertical-align: text-bottom;
+}
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+input,
+textarea,
+select {
+  *font-size: 100%;
+}
+legend {
+  color: #000;
+}
+html {
+  font: 14px PingFang SC,Microsoft YaHei,\\\5FAE\8F6F\96C5\9ED1,Helvetica,Sans-serif;
+  color: #333;
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+    outline: none;
+}
+
+html,body {
+    height: 100%;
+}
+/*.van-field__control {*/
+  /*display: block;*/
+  /*box-sizing: border-box;*/
+  /*width: 100%;*/
+  /*min-width: 0;*/
+  /*margin: 0;*/
+  /*padding: 0;*/
+  /*color: #323233;*/
+  /*text-align: left;*/
+  /*background-color: transparent;*/
+  /*border: 0;*/
+  /*resize: none;*/
+  /*width: 250px!important;*/
+  /*border: 1px solid #979797!important;*/
+  /*height: 40px!important;*/
+  /*border-radius: 4px!important;*/
+  /*font-family: PingFangSC;*/
+  /*font-size: 14px;*/
+  /*font-weight: 600;*/
+  /*font-stretch: normal;*/
+  /*font-style: normal;*/
+  /*line-height: normal;*/
+  /*letter-spacing: normal;*/
+  /*text-align: left;*/
+  /*color: #000000;*/
+  /*padding-left: 5px;*/
+
+/*}*/
+
+
+/*.van-picker {*/
+  /*width: 100%!important;*/
+/*}*/
+
+/*.van-picker-column {*/
+  /*position: relative;*/
+  /*z-index:1;*/
+  /*&:before {*/
+  /*width: 100%;*/
+  /*height: 100%;*/
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*left: 0;*/
+  /*content: ''*/
+   /*}*/
+/*&>ul {*/
+  /*z-index: -1;*/
+  /*position: relative*/
+/*}  */
+/*}*/
+
+
+
+ /* 多行省略： 显示几行，必须通过height搭配
+@mixin multi-line($height: 1.5em, $line: 2) {
+    height: $height;
+    -webkit-line-clamp: $line;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// 单行文本省略:  必须有一个宽度
+@mixin single-line($width: 100%) {
+    width: $width;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+} */
