@@ -1,0 +1,786 @@
+<template>
+  <div class="contain">
+    <div class="information">
+      <div class="mes">
+        <div class="topHalfPart">
+          <div class="headPortrait">
+            <img :src=homeInit.headimgurl alt="">
+          </div>
+          <div class="infor">
+            <div class="swsName">{{homeInit.name}}&nbsp;事务所</div>
+            <img class="line" :src=line alt="">
+            <img class="experience" :src=experience alt="">
+            <div class="ArticleExperience">{{homeInit.exp}}/{{homeInit.level_exp}}</div>
+            <div class="level">Lv.{{homeInit.level}}</div>
+          </div>
+        </div>
+        <div class="bottomHalfPart"> 
+          <div class="leftPart">
+            <img :src=homeLevel style="height:18px;line-height:18px;" alt="">
+          </div>
+          <div class="rightPart">
+            <div class="imgs">
+            <img :src=money style="width:16px;height:16px;margin-right:4px;" alt="">
+            </div>
+            <div class="res">{{homeInit.bcoin}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="fansAndFriend">
+        <div class="friend">
+          <span class="num">{{homeInit.fans_num}}</span>
+          <img src="../assets/images/friends@2x.png" alt="">
+          <span class="design">好友</span>
+        </div>
+        <div class="fan">
+          <span class="num">{{homeInit.fans_num}}</span>
+          <img src="../assets/images/fans@2x.png" alt="">
+          <span class="design">粉丝</span>
+        </div>
+      </div>
+    </div>
+    <div class="rightList">
+      <ul >
+        <li>
+          <img :src=home_medal alt="">
+          <div>勋章</div>
+        </li>
+        <li>
+          <img :src=home_discover alt="">
+          <div>发现</div>
+        </li>
+        <li style="position:relative;">
+          <img :src=home_mytask alt="">
+          <div>我的任务</div>
+          <img class="new" src="../assets/images/new@2x.png" alt="">
+        </li>
+        <li>
+          <img :src=home_risktest alt="">
+          <div>风险测评</div>
+        </li>
+        <li>
+          <img :src=home_planbook alt="">
+          <div>计划书</div>
+        </li>
+      </ul>
+    </div>
+    <div class="talk">反对浪费空间到了看风景卢卡斯放了口袋利克斯酱豆腐立刻大家来看反对浪费空间到了看风景卢卡斯放进了口袋利克斯酱豆腐立刻大家来看反对浪费空间到了看风景卢卡斯放了口袋利克斯酱豆腐立刻大家来看反对浪费空间到了看风景卢卡斯放进了口袋利克斯酱豆腐立刻大家来看
+      <div style="margin-top:-20px;">
+        <img style="width:24px;height:18px;display: inline-block;" :src=nextpage2 alt="">
+        <img style="width:24px;height:18px;display: inline-block;margin-left:92px;" :src=nextpage alt="">
+      </div>
+    </div>
+    <div class="content">  
+      <img class="moon" :src=moon alt="">
+      <div  class="bebot">
+        <img :src=bebot alt="">
+      </div>
+      <ul class="bottomList">
+          <li> 
+              <img :src=home_zsk alt="">
+              <span>知识库</span>
+          </li>
+          <li @click="FairyShop">
+              <img :src=home_store alt="">
+              <span>精灵商店</span>
+              <router-view ></router-view>
+          </li>
+          <li>
+              <img :src=home_browse alt="">
+              <span>谁看过我</span>
+          </li>
+          <li @click="HomeChat">
+              <img :src=home_chatrecord alt="">
+              <span>聊天记录</span>
+              <router-view ></router-view>
+          </li>
+          <li @click="Ranking">
+              <img :src=home_rankinglist alt="">
+              <span>排行榜</span>
+          </li>
+      </ul>
+      <div class="input-bottom" >
+        <input type="text" placeholder="输入“风险测评”试试" style="width:95%;margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"/>
+      </div>
+      <!-- <img class="earth" :src=earth alt=""> -->
+    </div >
+  </div>
+</template>
+<script>
+import { Popup,Toast } from 'vant';
+import { MessageBox } from 'element-ui';
+import { reqHomeInit } from '../axios/axios-api'
+export default{
+  components: {},
+  data(){
+    return {
+      goodsList:[],
+      homeInit:Object,
+      bxdj:'',
+      show1: false,
+      levelbx:'',
+      homeLevel:'',
+      star:'',
+      isStatus:'',
+      fairyStatus:'',
+      img: require("../assets/images/icon.png"),
+      // index_close: require("../assets/images/index_close@2x.png"),
+      // Group: require("../assets/images/Group@2x.png"),
+      shop: require("../assets/images/shop@2x.png"),
+      home_zsk:require("../assets/images/home_zsk@2x.png"),
+      product_zsk:require("../assets/images/product_zsk@2x.png"),
+      home_store:require("../assets/images/home_store@2x.png"),
+      home_browse:require("../assets/images/home_browse@2x.png"),
+      home_chatrecord:require("../assets/images/home_chatrecord@2x.png"),
+      home_rankinglist:require("../assets/images/home_rankinglist@2x.png"),
+      home_medal:require("../assets/images/home_medal@2x.png"),
+      home_discover:require("../assets/images/home_discover@2x.png"),
+      home_mytask:require("../assets/images/home_mytask@2x.png"),
+      home_risktest:require("../assets/images/home_risktest@2x.png"),
+      home_planbook:require("../assets/images/home_planbook@2x.png"),
+      moon:require("../assets/images/moon@2x.png"),
+      bebot:require("../assets/images/bebot@2x.png"),
+      earth:require("../assets/images/earth@2x.png"),
+      experience:require("../assets/images/experience@2x.png"),
+      line:require("../assets/images/jindu@2x.png"),
+      famous:require("../assets/images/famous@2x.png"),
+      money:require("../assets/images/money@2x.png"),
+      levelbx1:require("../assets/images/等级-保险新手@2x.png"),
+      levelbx2:require("../assets/images/等级-保险复读机@2x.png"),
+      levelbx3:require("../assets/images/等级-保险条款王@2x.png"),
+      levelbx4:require("../assets/images/等级-保险配置王@2x.png"),
+      levelbx5:require("../assets/images/等级-保险百科@2x.png"),
+      levelbx6:require("../assets/images/等级-保险大咖@2x.png"),
+      levelbx7:require("../assets/images/等级-保险名人堂@2x.png"),
+      nextpage:require("../assets/images/nextpage@2x.png"),
+      nextpage2:require("../assets/images/上一页@2x.png"),
+      success:require("../assets/images/success@2x.png")
+    };
+  },
+  methods: {
+    FairyShop(){  //买家精灵商店
+      this.$router.replace('/Home/FairyShop')
+    },
+    HomeChat(){  // 聊天记录
+      this.$router.replace('/Home/HomeChat')
+    },
+    Ranking(){
+      this.$router.replace('/Ranking')
+    },
+  },
+  mounted(){
+    let param = {
+      "robot_id": 33,
+      "broker_id":33,
+      "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+    }
+    let result = reqHomeInit(param)
+    result.then(res=>{
+            this.homeInit = res.result
+            console.log(this.homeInit)
+            if (this.homeInit.title == 1) { //保险等级
+                this.homeLevel = this.levelbx1
+              } else if(this.goodsList.title == 2){
+                this.homeLevel = this.levelbx2
+              } else if(this.goodsList.level == 3){
+                this.homeLevel = this.levelbx3
+              } else if(this.goodsList.level == 4){
+                this.homeLevel = this.levelbx4
+              } else if(this.goodsList.level == 5){
+                this.homeLevel = this.levelbx5
+              } else if(this.goodsList.level == 6){
+                this.homeLevel = this.levelbx6
+              } else if(this.goodsList.level == 7){
+                this.homeLevel = this.levelbx7
+              }
+            }).catch(reslove=>{
+               console.log('error')
+            })
+}
+}
+</script>
+<style lang="scss" scoped>
+@import url("//unpkg.com/element-ui@2.13.1/lib/theme-chalk/index.css");
+/deep/ .van-popup {
+  overflow: visible;
+}
+ .contain{
+    height: 100vh;
+    display: flex;
+    background-color: #0B2733;
+    background-image: url(../assets/images/earth@2x.png);
+    background-size: 100% 34.7%;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+	  justify-content:space-between; 
+    flex-direction: column;
+  .information{
+     height: 90px;
+     margin: 18px 0 0 20px;
+     display: flex;
+    //  align-self: flex-start;
+     .mes{
+       background-image:url(../assets/images/bg@2x.png);
+       width: 198px;
+     }
+     .topHalfPart{
+       display: flex;
+       margin-bottom: 6px;
+       .headPortrait{
+         width: 45px;
+         height: 45px;
+         border-radius: 50%;
+         margin: 15px 5px 0 7px;
+         > img{
+          width: 45px;
+          height: 45px;
+          border-radius: 50%;
+         }
+       }
+       .infor{
+         display: flex;
+         flex-direction: column;
+         margin-top: 13px;
+         position: relative;
+        //  background-image: url(../assets/images/jindu@2x.png);
+         background-repeat: no-repeat;
+         background-size: 99px 16px;
+         background-position: 61px 37px;
+         .swsName{
+          font-size:13px;
+          font-family:PingFangSC-Medium,PingFang SC;
+          font-weight:500;
+          color:rgba(122,234,234,1);
+          line-height:18px;
+          display: flex;
+          margin-bottom: 6px;
+         }
+         .line{
+           width: 99px;
+           height: 16px;
+         }
+         .ArticleExperience{
+          font-size:10px;
+          font-family:DINAlternate-Bold,DINAlternate;
+          font-weight:bold;
+          color:rgba(122,234,234,1);
+          line-height:11px;
+          position: absolute;
+          top: 27px;
+          left: 6px;
+         }
+         .experience{
+           width: 16px; 
+           height: 20px;
+           position: absolute;
+           left: -6px;
+           top: 24px;
+         }
+         .level{
+           position: absolute;
+           top: 26px;
+           right:-34px;
+           font-size:11px;
+            font-family:DINAlternate-Bold,DINAlternate;
+            font-weight:bold;
+            color:rgba(122,234,234,1);
+            line-height:12px;
+         }
+       }
+     }
+    .bottomHalfPart{
+        display: flex;
+        justify-content: space-between;
+        // align-items: center;
+       .leftPart{
+          // padding: 0 5px 0 3px;
+          flex-direction: column;
+          height: 18px;
+          line-height: 18px;
+          background:rgba(197,146,62,1);
+          border-radius:2px;
+          margin-left: 6px;
+        }
+        .imgs{
+          display: inline-block;
+          vertical-align:middle;
+        }
+        .res{
+          display: inline-block;
+        }
+        .rightPart{
+          // margin-left:auto;
+          flex-direction: column;
+          flex: 1;
+          text-align: right;
+          font-size:13px;
+          font-family:DINAlternate-Bold,DINAlternate;
+          font-weight:bold;
+          color:rgba(122,234,234,1);
+          line-height:15px;
+          margin-right:8px;
+        }
+      }
+    .fansAndFriend{
+      display: flex;
+      flex-direction: column;
+      margin-right: 14px;
+      flex: 1;
+      text-align: right;
+      align-items: flex-end;
+      .friend{
+        display: flex;
+        justify-content: center;
+        margin:8px 0 10px 0;
+      }
+      .fan{
+        display: flex;
+        justify-content: center;
+      }
+      .num{
+        color:rgba(255,255,255,1);
+        font-size:13px;
+      }
+      img{
+        width: 20px;
+        height: 20px;
+        line-height:15px;
+        font-weight:bold;
+        margin: -4px 2px 0 4px;
+      }
+      .design{
+        font-size:11px;
+        color:rgba(82,207,209,1);
+        line-height:16px;
+        font-weight:400;
+      }
+
+
+  }
+    }
+  .rightList{
+    display: flex;
+    flex-direction:column;
+    width: 52px;
+    align-self: flex-end;
+    margin-right: 14px;
+    position: absolute;
+    top: 14.2%;
+    right: 0;
+    color: #2DE2E6;
+    li{
+      text-align: center;
+      margin-top: 15px;
+      img{
+        width: 40px;
+        height: 40px;
+      }
+      span{
+        height:18px;
+        font-size:13px;
+        font-weight:500;
+        color:rgba(45,226,230,1);
+        line-height:18px;
+        text-shadow:0px 1px 1px rgba(0,0,0,0.5);
+      }
+      .new{
+        width: 12px;
+        height: 12px;
+        position: absolute;
+        right: 0;
+        top: -4px;
+      }
+    }
+  }
+  .talk{
+    max-height: 30%;
+    width: 60.6%;
+    font-size:14px;
+    // margin-bottom: -20px;
+    // font-family:PingFangSC-Regular,PingFang SC;
+    // font-weight:400;
+    // color:rgba(45,226,230,1);
+    // line-height:18px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 11;
+    overflow: hidden;
+    // white-space:nowrap; 
+    text-overflow:ellipsis;
+    position: absolute;
+    bottom: 52%;
+    margin-left:18.7% ;
+    text-align: center;
+    font-weight:400;
+    color:rgba(101,201,201,1);
+    line-height:19px;
+    height:auto;
+    background:rgba(0,0,0,0.4);
+    box-shadow:0px 0px 4px 0px rgba(45,226,230,0.75);
+    border:2px solid rgba(45,226,230,1);
+    border-radius: 10px;
+    padding: 14px 15px 20px 15px;
+    box-sizing: border-box;
+  }
+  .content{
+    .bebot{
+    margin: 0 auto;
+    // margin-top: -161px;
+    text-align: center;
+    img{
+      width: 128px;
+      height: 201px;
+    }
+  }
+    .bottomList{
+      display: flex;
+      flex-direction:row;
+      z-index: 999;
+      padding: 0 25px;
+      margin-left: 15px;
+      margin-bottom: 10px;
+      justify-content: space-around;
+
+      li{
+        display: flex;
+        text-align: center;
+        opacity: 1;
+        margin-right: 15px;
+        flex-direction: column;
+        justify-content: space-around;
+        img{
+          width: 53px;
+          height: 53px;
+        }
+        span{
+          height:18px;
+          font-size:13px;
+          font-weight:500;
+          color:rgba(255,255,255,1);
+          line-height:18px;
+          text-shadow:0px 1px 1px rgba(0,0,0,0.5);
+          font-family:PingFangSC-Medium,PingFang SC;
+        }
+      }
+    }
+    .input-bottom{
+      width:86.7%;
+      height:42px;
+      background:rgba(92,191,191,0.25);
+      border-radius:8px;
+      border:1px solid rgba(45,226,230,1);
+      flex:0 0 auto;
+      z-index: 999;
+      margin: 0 auto 15px;
+      justify-content:space-between;
+      input{
+        width: 100%;
+        font-size:15px;
+        font-weight:400;
+        color:rgba(122,234,234,1);
+        line-height:21px;
+        background:none;  
+        outline:none;  
+        border:none;
+        overflow:hidden; 
+        white-space:nowrap; 
+        text-overflow:ellipsis;
+      }
+      input::-webkit-input-placeholder,
+      textarea::-webkit-input-placeholder {
+      color:rgba(122,234,234,1);
+      }
+    }
+    .moon{
+      margin-bottom: -16px;
+      width: 70px;
+      height: 92px;
+      flex-shrink: 0
+    }
+  }
+  .earth{
+    opacity: 0.4;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 239px;
+  }
+  .img1{
+      display: block;
+      width: 65px;
+      height: 65px;
+      margin: 0 auto;
+      margin-top: -31px;}
+    .title{
+      font-size:17px;
+      font-weight:500;
+      color:rgba(0,147,253,1);
+      line-height:24px;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration:rgba(239, 239, 239, 1);
+      position: relative;
+      .active{
+        width:35px;
+        height:3px;
+        background:rgba(0,147,253,1);
+        border-radius:2px;
+        position: absolute;
+        bottom:-5px;
+        left:50%;
+        margin-left:-17.5px;
+      }}
+  .wrap {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+  //   border-bottom: 1px solid #cccccc;
+  //   padding-bottom: 15px;
+  > .left {
+    display: flex;
+    margin-left: 20px;
+    margin-top: 20px;
+    > .leftLittleLogon {
+      margin-top: 12px;
+      > img {
+        width: 23px;
+        height: 27px;
+      }
+    }
+    > .leftBigLogon {
+      // margin-left: 10px;
+      width: 50px;
+      height: 50px;
+      > img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+    > .content {
+      > .topTitle {
+        margin-top: -3px;
+        // display: flex;
+        > span {
+          margin-left: 8px;
+          display: block;
+          font-size: 15px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: rgba(51, 51, 51, 1);
+          line-height: 21px;
+        }
+        > .lelve {
+          white-space: nowrap;
+          margin-left: 10px;
+        }
+        > .dengji {
+          margin:3px 0 3px 10px;
+          width: 187px;
+          height: 18px;
+          display: flex;
+          .dengji2{
+            margin-left: 8px;
+          }
+          > img {
+            width: 80px;
+            height: 18px;
+          }
+        }
+      }
+      > .bottom {
+        margin-top: 3px;
+        margin-left: 10px;
+        display: flex;
+        > div img{
+          width: 15px;
+          height: 15px;
+        }
+      }
+    }
+  }
+  .cont2{
+    width: 305px;
+    height: 174px;
+    background:rgba(255,255,255,1);
+    border-radius:15px;
+    .contwrap{
+      font-size:17px;
+      font-family:PingFangSC-Medium,PingFang SC;
+      font-weight:500;
+      color:rgba(51,51,51,1);
+      line-height:24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+      .top{
+        margin-bottom: 7px;
+      }
+      .isOk{
+        display: flex;
+        // align-items: center;
+        // justify-content: center;
+        .isNo{
+          width:125px;
+          height:42px;
+          background:rgba(234,234,234,1);
+          border-radius:4px;
+          text-align: center;
+          line-height: 42px;
+        }
+        .isYes{
+          width:125px;
+          height:42px;
+          background:rgba(0,147,253,1);
+          border-radius:4px;
+          text-align: center;
+          line-height: 42px;
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+  .cont3{
+    width: 170px;
+    height: 170px;
+    background:rgba(255,255,255,1);
+    border-radius:15px;
+    .contwrap{
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      > img{
+        width: 55px;
+        height: 55px;
+        margin: 25px auto 0;
+        
+      }
+      > div{
+        font-size:15px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(51,51,51,1);
+        line-height:21px;
+      }
+    }
+
+  }
+  .cont4{
+    width:305px;
+    height:208px;
+    background:rgba(255,255,255,1);
+    border-radius:15px;
+    .contwrap{
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      > img{
+        width: 55px;
+        height: 55px;
+        margin: 25px auto 0; 
+      }
+      > div{
+        font-size:15px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(51,51,51,1);
+        line-height:21px;
+      }
+    }
+
+  }
+  .cont5{
+    width:305px;
+    height:173px;
+    background:rgba(255,255,255,1);
+    border-radius:15px;
+    color: #333;
+    .contwrap{
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      > img{
+        width: 55px;
+        height: 55px;
+        margin: 25px auto 0; 
+      }
+      > div{
+        font-size:15px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(51,51,51,1);
+        line-height:21px;
+      }
+    }
+
+  }
+  > .rightLogin {
+      width:80px;
+      height:32px;
+      background:rgba(0,147,253,1);
+      border-radius:16px;
+      margin: 29px 20px 0 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      > img{
+        width: 16px;
+        height: 16px;  
+      }
+      > div{
+        font-size:15px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(255,255,255,1);
+        line-height:21px;
+        margin-left: 2px;
+      }
+  }
+  .rightLogin2{
+      width:80px;
+      height:32px;
+      background:rgba(236,236,236,1);
+      border-radius:16px;
+      margin: 29px 20px 0 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight:500;
+      font-family:PingFangSC-Medium,PingFang SC;
+      > div{
+          font-size:15px;
+          font-family:PingFangSC-Medium,PingFang SC;
+          font-weight:500;
+          color:rgba(0,147,253,1);
+          line-height:21px;
+      }
+  }
+  .rightLogin3{
+      width:80px;
+      height:32px;
+      background:rgba(236,236,236,1);
+      border-radius:16px;
+      margin: 29px 20px 0 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      > div{
+        font-size:15px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(172,172,172,1);
+        line-height:21px;
+      }
+  }
+}
+.bottomLine {
+  width: 335px;
+  height: 1px;
+  background: rgba(239, 239, 239, 1);
+  //   margin-top: 15px;
+  margin: 20px auto 0px auto;
+}
+ }
+</style>
