@@ -13,7 +13,7 @@
       <div class="title" id="title">
         <ul>
           <router-link
-            v-for="(route, index) in routes"
+            v-for="(route, index) in lists"
             :key="index"
             data-index="0"
             :class="{'active': index === curIndex}"
@@ -30,25 +30,25 @@
   </div>
 </template>
 <script>
+
 export default {
-  name: "ranking",
+  name: "Task",
   data() {
     return {
       curIndex: 0,
       show: false,
-      img: require("../assets/images/icon.png"),
-      routes: [
+        img: require("../assets/images/icon.png"),
+      lists: [
         {
-          name: "Theglobal",
-          title: "全球排行"
+          name: "EveryDayTask",
+          title: "新手任务"
         },
         {
-          name: "Sentiment",
-          title: "好友排行"
+          name: "NewTask",
+          title: "每日任务"
         },
         {
-          name: "Friends",
-          title: "人气排行"
+          title: "职业任务"
         }
       ]
     };
@@ -74,7 +74,7 @@ export default {
   align-items: center;
   width: 100%;
   height: 100%;
-
+// margin-bottom: 34px;
   > .content {
     width: 100%;
     height: 466px;
@@ -88,12 +88,13 @@ export default {
     }
     .title {
       margin-top: 20px;
+      margin-bottom: 21px;
       > ul {
         position: relative;
         display: flex;
         justify-content: space-around;
         padding-left: 63px;
-        padding-right: 62px;
+        padding-right: 63px;
         & > li.active {
           font-size: 17px;
           font-family: PingFangSC-Medium, PingFang SC;

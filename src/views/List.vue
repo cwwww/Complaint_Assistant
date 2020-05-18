@@ -9,11 +9,10 @@
       position="bottom"
       :style="{ height: '70%' }"
     >
-      <img :src="img" alt />
       <div class="title" id="title">
         <ul>
           <router-link
-            v-for="(route, index) in routes"
+            v-for="(route, index) in lists"
             :key="index"
             data-index="0"
             :class="{'active': index === curIndex}"
@@ -30,25 +29,21 @@
   </div>
 </template>
 <script>
+
 export default {
-  name: "ranking",
+  name: "List",
   data() {
     return {
       curIndex: 0,
       show: false,
-      img: require("../assets/images/icon.png"),
-      routes: [
+      lists: [
         {
-          name: "Theglobal",
-          title: "全球排行"
+          name: "Friend",
+          title: "好友列表"
         },
         {
-          name: "Sentiment",
-          title: "好友排行"
-        },
-        {
-          name: "Friends",
-          title: "人气排行"
+          name: "Bean",
+          title: "粉丝列表"
         }
       ]
     };
@@ -64,9 +59,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-/deep/ .van-popup {
-  overflow: visible;
-}
 .warp {
   display: flex;
   flex-direction: column;
@@ -74,7 +66,6 @@ export default {
   align-items: center;
   width: 100%;
   height: 100%;
-
   > .content {
     width: 100%;
     height: 466px;
@@ -87,13 +78,14 @@ export default {
       margin-top: -31px;
     }
     .title {
-      margin-top: 20px;
+      margin-top: 37px;
+      margin-bottom: 34px;
       > ul {
         position: relative;
         display: flex;
         justify-content: space-around;
-        padding-left: 63px;
-        padding-right: 62px;
+        padding-left: 108px;
+        padding-right: 108px;
         & > li.active {
           font-size: 17px;
           font-family: PingFangSC-Medium, PingFang SC;
