@@ -25,7 +25,7 @@ axiosService.interceptors.response.use(
   response => {
     const res = response.data;
     // 如果自定义的返回码不等于200, 就返回一个错误
-    if (res.status !== 200 && res.status !== 0) {
+    if (res.code !== 200 && res.code !== 0) {
       return Promise.reject(new Error(res.message || "Error"))
     } else {
       return res;

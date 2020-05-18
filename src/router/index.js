@@ -4,20 +4,56 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import Home from '../views/Home'
+
+
 import Ranking from '../views/Ranking'
+import HomeChat from '../views/HomeChild/HomeChat'
+import FairyShop from '../views/HomeChild/FairyShop'
 import Theglobal from '../components/Ranking/Friends'
 import Friends from '../components/Ranking/Sentiment'
 import Sentiment from '../components/Ranking/Theglobal'
 const routes = [
-
-
     {
-        path: '/',
+        path: '/Home',
         name: 'Home',
         component: Home,
         meta: {
             title: "首页"
-        }
+        },
+        children:[
+            // {
+            //     path: '/Home/HomeChat',
+            //     name: "HomeChat",
+            //     component: HomeChat,
+            //     meta: {
+            //         title:  "聊天记录"
+            //     },
+            // },
+            // {
+            //     path:"/Home/FairyShop",
+            //     name:'FairyShop',
+            //     component: FairyShop,
+            //     meta: {
+            //         title:  "精灵商店"
+            //     },
+            // },
+        ]
+    },
+    {
+        path: '/Home/HomeChat',
+        name: "HomeChat",
+        component: HomeChat,
+        meta: {
+            title:  "聊天记录"
+        },
+    },
+    {
+        path:"/Home/FairyShop",
+        name:'FairyShop',
+        component: FairyShop,
+        meta: {
+            title:  "精灵商店"
+        },
     },
     {
         path: '/Ranking',
@@ -28,7 +64,6 @@ const routes = [
         },
         children: [
             {
-
                 path: "/Ranking/Theglobal",
                 name: 'Theglobal',
                 component: Theglobal,
@@ -44,10 +79,7 @@ const routes = [
                 component: Sentiment
             }
         ]
-    }
-
-   
-
+    },
 ]
 
 const router = new VueRouter({
