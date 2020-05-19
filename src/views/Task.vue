@@ -1,6 +1,6 @@
 <template>
   <div class="warp">
-    <van-cell is-link @click="showPopup">上划</van-cell>
+    <!-- <van-cell is-link @click="showPopup">上划</van-cell> -->
     <van-popup
       class="content"
       v-model="show"
@@ -8,6 +8,7 @@
       round
       position="bottom"
       :style="{ height: '70%' }"
+      @close="close"
     >
       <img :src="img" alt />
       <div class="title" id="title">
@@ -36,7 +37,7 @@ export default {
   data() {
     return {
       curIndex: 0,
-      show: false,
+      show: true,
         img: require("../assets/images/icon.png"),
       lists: [
         {
@@ -57,8 +58,11 @@ export default {
     changeIndex(i) {
       this.curIndex = i;
     },
-    showPopup() {
-      this.show = true;
+    // showPopup() {
+    //   this.show = true;
+    // }
+    close() {
+      this.$router.replace('/')
     }
   }
 };

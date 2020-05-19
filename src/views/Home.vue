@@ -49,7 +49,7 @@
           <img :src=home_discover alt="">
           <div>发现</div>
         </li>
-        <li style="position:relative;">
+        <li @click="Task" style="position:relative;">
           <img :src=home_mytask alt="">
           <div>我的任务</div>
           <img class="new" src="../assets/images/new@2x.png" alt="">
@@ -166,12 +166,18 @@ export default{
       this.$router.replace('/HomeChat')
     },
     
-    WhoLookMe(){
+    WhoLookMe(){   // 谁看过我
       this.$router.replace('/WhoLookMe')
     },
     Ranking(){
       this.$router.replace('/Ranking')
     },
+    Task() {   // 任务
+      this.$router.replace({
+        path
+      })
+
+    }
   },
   mounted(){
     let param = {

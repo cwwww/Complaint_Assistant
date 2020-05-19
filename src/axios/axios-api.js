@@ -58,6 +58,16 @@ export const  reqLookMe  = data => {
   });
 };	
 
+// // 任务
+// export const  reqTask  = data => {  
+//   return axiosService({
+//     url: "https://test-bebot-api.baoxianxia.com.cn/common/myVisitors/", // 每日任务
+//     method: "post",
+//     data
+//   });
+// };	
+
+
 // 下面是GET形式
 // export const userInfo = params => {
 //   return axiosService({
