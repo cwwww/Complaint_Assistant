@@ -154,6 +154,7 @@ const routes = [
     {
         path: '/Task',
         name: 'Task',
+        redirect: '/Task/EveryDayTask',
         component: Task,
         meta: {
             title: "任务"
