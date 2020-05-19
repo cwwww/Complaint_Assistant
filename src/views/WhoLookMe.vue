@@ -49,11 +49,11 @@ export default {
       this.$router.replace('/')
     },
     toACchat(index){
-      alert(this.list[index].name)
       this.$router.push({
         path:'/ACchat',
         query:{
-          titleName:this.list[index].name
+          titleName:this.list[index].name,
+          customer_type:this.list[index].customer_type
         }
       })
     }

@@ -20,6 +20,15 @@
                 </div>
               </div>
             </div>
+            <div class="content-top" v-show="i.speaker == 1">
+              <div class="topTime" v-show="i.create_time != null">{{i.create_time}}</div>
+              <div class="question">
+                <div class="q_content">{{i.content}}</div>
+                <div class="photo">
+                  <img :src=user v-show="right" alt="">
+                </div>
+              </div>
+            </div>
             
             <div class="content-top" v-show="i.speaker == 0">
               <div class="topTime" v-show="i.create_time != null">{{i.create_time}}</div>
@@ -58,7 +67,7 @@
 <script>
 import BScroll from 'better-scroll'
 import { Popup,Toast } from 'vant';
-import { reqRobotDetail, reqRobotHistory, reqChathist } from '../../axios/axios-api'
+import { reqRobotDetail, reqRobotHistory, reqChathist, reqCusayrob  } from '../../axios/axios-api'
 
 export default {
   inject: ['reload'], // 引入页面同步刷新的依赖
@@ -150,6 +159,23 @@ export default {
     console.log(this.$route.query)
     this.scrollToBottom();
     this.getChatList();
+    let param = {
+        "dialog_type": "2",
+        "customer_id": 51,
+        "customer_type": 0,
+        "broker_id": 33,
+        "robot_id": 33,
+        "speaker": "1",
+        "content": "第二版测试",
+        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqV0VhOTpHVjZOd2N0dVVzYmt5UnNkRHFNMkFsZkw2MUE.ZXlKd1lYbHNiMkZrSWpvMU1Td2lhV0YwSWpveE5UZzROelV3TlRBMUxqY3pOREk0TlgwOjFqV0VhOTpIa25FQi1Dc3lONTRDbk1ZcTd3NEtQUGhlQjA.934b2fd1932fa276b566133364ee9d89"
+    }
+    let res =  reqCusayrob (param)
+    res.then(res=>{
+    console.log(res)
+    this.list = res.result
+    }).catch(reslove=>{
+       console.log('error')
+    })
   }
 };
 </script>

@@ -57,7 +57,41 @@ export const  reqLookMe  = data => {
     data
   });
 };	
-
+export const  reqCusayrob  = data => {  
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/cusayrob/", // 访客用户机器人对话接口
+    method: "post",
+    data
+  });
+};	
+export const  reqHistoryAgent  = data => {
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/dialogHistory_agent", // AC聊天记录获取-代理人
+    method: "post",
+    data
+  });
+};
+export const  reqHistoryCustomer  = data => {
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/dialogHistory_customer", // AC聊天记录获取-访客
+    method: "post",
+    data
+  });
+};
+export const  reqCustomerInput  = data => {
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/customerInput", // AC聊天-访客输入接口
+    method: "post",
+    data
+  });
+};
+export const  reqAgentInput  = data => {
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/agentInput", // AC聊天-代理人输入接口
+    method: "post",
+    data
+  });
+};
 // 下面是GET形式
 // export const userInfo = params => {
 //   return axiosService({
