@@ -85,7 +85,7 @@
               <span>精灵商店</span>
               <router-view ></router-view>
           </li>
-          <li>
+          <li @click="WhoLookMe">
               <img :src=home_browse alt="">
               <span>谁看过我</span>
           </li>
@@ -100,7 +100,8 @@
           </li>
       </ul>
       <div class="input-bottom" >
-        <input type="text" placeholder="输入“风险测评”试试" style="width:95%;margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"/>
+        <input type="text" placeholder="输入“风险测评”试试" style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"/>
+        <div class="btn">发送</div>
       </div>
       <!-- <img class="earth" :src=earth alt=""> -->
     </div >
@@ -159,10 +160,14 @@ export default{
   },
   methods: {
     FairyShop(){  //买家精灵商店
-      this.$router.replace('/Home/FairyShop')
+      this.$router.replace('/FairyShop')
     },
     HomeChat(){  // 聊天记录
-      this.$router.replace('/Home/HomeChat')
+      this.$router.replace('/HomeChat')
+    },
+    
+    WhoLookMe(){
+      this.$router.replace('/WhoLookMe')
     },
     Ranking(){
       this.$router.replace('/Ranking')
@@ -196,7 +201,7 @@ export default{
             }).catch(reslove=>{
                console.log('error')
             })
-}
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -220,7 +225,7 @@ export default{
      display: flex;
     //  align-self: flex-start;
      .mes{
-       background-image:url(../assets/images/bg@2x.png);
+       background-image:url(../assets/images/txbg@2x.png);
        width: 198px;
      }
      .topHalfPart{
@@ -474,7 +479,7 @@ export default{
       margin: 0 auto 15px;
       justify-content:space-between;
       input{
-        width: 100%;
+        width: 78.3%;
         font-size:15px;
         font-weight:400;
         color:rgba(122,234,234,1);
@@ -485,6 +490,21 @@ export default{
         overflow:hidden; 
         white-space:nowrap; 
         text-overflow:ellipsis;
+      }
+      .btn{
+        width: 50px;
+        height: 42px;
+        line-height: 42px;
+        color: #2DE2E6;
+        position: fixed;
+        right: 24px;
+        bottom: 15px;
+        text-align: center;
+        font-size:13px;
+        font-family:PingFangSC-Semibold,PingFang SC;
+        font-weight:600;
+        border: 1px solid #2DE2E6;
+        border-radius:0 8px 8px 0;
       }
       input::-webkit-input-placeholder,
       textarea::-webkit-input-placeholder {

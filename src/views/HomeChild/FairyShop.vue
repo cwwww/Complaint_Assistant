@@ -168,7 +168,7 @@ export default {
   methods: {
     close(){
       // this.show = false
-      this.$router.replace('/Home')
+      this.$router.replace('/')
     },
     open() {
       this.show2 = true

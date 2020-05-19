@@ -1,6 +1,5 @@
 <template>
   <div class="warp">
-    <!-- <van-loading /> -->
     <van-popup
       v-model="chat"
       closeable
@@ -8,7 +7,7 @@
       :style="{ height: '77.2%' }"
       @closed=close
     >
-      <div class="title">聊天记录</div>
+      <div class="title">{{this.$route.query.titleName}}</div>
       <div style="background:rgba(245,245,245,1);height:1.2%"></div>
       <div class="wrapper" ref="wrapper">
           <div class="content" v-for="(i,index) in list" :key="index">
@@ -54,15 +53,13 @@
       
       <router-view v-if="$route.path==='/home'"></router-view>
     </van-popup>
-     <!-- <van-loading type="spinner" /> -->
   </div>
 </template>
 <script>
 import BScroll from 'better-scroll'
-import { Popup,Toast,Loading } from 'vant';
+import { Popup,Toast } from 'vant';
 import { reqRobotDetail, reqRobotHistory, reqChathist } from '../../axios/axios-api'
-// import Vue from 'vue';
-// Vue.use(Loading);
+
 export default {
   inject: ['reload'], // 引入页面同步刷新的依赖
   name: "HomeChat",
@@ -150,6 +147,7 @@ export default {
    this.scrollToBottom();
 },
   mounted(){
+    console.log(this.$route.query)
     this.scrollToBottom();
     this.getChatList();
   }

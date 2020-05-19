@@ -8,6 +8,7 @@ import Home from '../views/Home'
 
 import Ranking from '../views/Ranking'
 import HomeChat from '../views/HomeChild/HomeChat'
+import ACchat from '../views/HomeChild/ACchat'
 import FairyShop from '../views/HomeChild/FairyShop'
 import Theglobal from '../components/Ranking/Friends'
 import Friends from '../components/Ranking/Sentiment'
@@ -35,7 +36,7 @@ const routes = [
         }
     },
     {
-        path: '/Home',
+        path: '/',
         name: 'Home',
         component: Home,
         meta: {
@@ -43,7 +44,7 @@ const routes = [
         },
         children:[
             // {
-            //     path: '/Home/HomeChat',
+            //     path: '/HomeChat',
             //     name: "HomeChat",
             //     component: HomeChat,
             //     meta: {
@@ -51,7 +52,7 @@ const routes = [
             //     },
             // },
             // {
-            //     path:"/Home/FairyShop",
+            //     path:"/FairyShop",
             //     name:'FairyShop',
             //     component: FairyShop,
             //     meta: {
@@ -61,7 +62,7 @@ const routes = [
         ]
     },
     {
-        path: '/Home/HomeChat',
+        path: '/HomeChat',
         name: "HomeChat",
         component: HomeChat,
         meta: {
@@ -69,7 +70,15 @@ const routes = [
         },
     },
     {
-        path:"/Home/FairyShop",
+        path: '/ACchat',
+        name: "ACchat",
+        component: ACchat,
+        meta: {
+            title:  "AC对话"
+        },
+    },
+    {
+        path:"/FairyShop",
         name:'FairyShop',
         component: FairyShop,
         meta: {

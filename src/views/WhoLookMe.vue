@@ -1,28 +1,29 @@
 <template>
   <div class="warp">
-    <van-cell is-link @click="showPopup">上划</van-cell>
     <van-popup
       class="content"
       v-model="show"
       closeable
       round
       position="bottom"
-      :style="{ height: '70%' }"
+      :style="{ height: '77.5%' }"
+      @close=close
     >
       <span>谁看过我</span>
       <div class="line"></div>
-      <div class="centerContent">
+      <div class="centerContent" @click="toACchat(index)" v-for="(i, index) in list" :key="index">
         <div class="loginImg">
-          <img :src="img" alt />
+          <img :src="img" alt v-show="i.headimgurl == null" />
+          <img :src=i.headimgurl v-show="i.headimgurl != null" alt="">
         </div>
         <div class="rightContent">
           <div class="leftText">
-            <div class="topTitle">王兰</div>
-            <div class="bottomTime">2020-10-29 08:23</div>
+            <div class="topTitle">{{i.name}}</div>
+            <div class="bottomTime">{{i.visit_time}}</div>
           </div>
           <div class="rightPink">
             <img :src="img" alt />
-            <p>99</p>
+            <p>{{i.intention_score}}</p>
           </div>
           <div class="borderLine"></div>
         </div>
@@ -32,20 +33,49 @@
   </div>
 </template>
 <script>
+import {  reqLookMe  } from '../axios/axios-api'
 export default {
   name: "WhoLookMe",
   data() {
     return {
       curIndex: 0,
-      show: false,
+      show: true,
+      list:[],
       img: require("../assets/images/Group@2x.png")
     };
   },
   methods: {
-    showPopup() {
-      this.show = true;
+    close(){
+      this.$router.replace('/')
+    },
+    toACchat(index){
+      alert(this.list[index].name)
+      this.$router.push({
+        path:'/ACchat',
+        query:{
+          titleName:this.list[index].name
+        }
+      })
     }
+  },
+  mounted(){
+    
+    let param = {
+      "broker_id":33,
+      "robot_id":33,
+      "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+    }
+     console.log(param)
+    let result = reqLookMe(param)
+    result.then(res=>{
+      this.list = res.result
+      console.log(this.list)
+      }).catch(reslove=>{
+        alert(222)
+         console.log('error')
+      })
   }
+
 };
 </script>
 <style lang="scss" scoped>

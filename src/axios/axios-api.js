@@ -42,7 +42,7 @@ export const  reqRobotDetail  = data => {
     method: "post",
     data
   });
-};
+};	
 export const  reqChathist  = data => {
   return axiosService({
     url: "https://test-bebot-api.baoxianxia.com.cn/common/pub2square/chathist_page/", // 聊天记录页发布到问答广场
@@ -50,6 +50,14 @@ export const  reqChathist  = data => {
     data
   });
 };
+export const  reqLookMe  = data => {  
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/myVisitors/", // 谁看过我
+    method: "post",
+    data
+  });
+};	
+
 // 下面是GET形式
 // export const userInfo = params => {
 //   return axiosService({
