@@ -9,11 +9,15 @@ import Home from '../views/Home'
 import Ranking from '../views/Ranking'
 import HomeChat from '../views/HomeChild/HomeChat'
 import ACchat from '../views/HomeChild/ACchat'
+import ACVisitor from '../views/HomeChild/ACVisitor'
 import FairyShop from '../views/HomeChild/FairyShop'
+import sellerShop from '../views/HomeChild/sellerShop'
+
 import Theglobal from '../components/Ranking/Friends'
 import Friends from '../components/Ranking/Sentiment'
 import Sentiment from '../components/Ranking/Theglobal'
 import List from '../views/List'
+import HomeOther from '../views/HomeOther'
 import Friend from '../components/List/Friend'
 import Bean from '../components/List/Bean'
 import FindList from '../components/FindList'
@@ -33,6 +37,14 @@ const routes = [
         component: Login,
         meta: {
             title: "登录页"
+        }
+    },
+    {
+        path: '/HomeOther',
+        name: 'HomeOther',
+        component: HomeOther,
+        meta: {
+            title: "串门"
         }
     },
     {
@@ -74,7 +86,15 @@ const routes = [
         name: "ACchat",
         component: ACchat,
         meta: {
-            title:  "AC对话"
+            title:  "AC代理人对话"
+        },
+    },
+    {
+        path: '/ACVisitor',
+        name: "ACVisitor",
+        component: ACVisitor,
+        meta: {
+            title:  "AC访客对话"
         },
     },
     {
@@ -82,7 +102,15 @@ const routes = [
         name:'FairyShop',
         component: FairyShop,
         meta: {
-            title:  "精灵商店"
+            title:  "精灵商店买家"
+        },
+    },
+    {
+        path:"/sellerShop",
+        name:'sellerShop',
+        component: sellerShop,
+        meta: {
+            title:  "精灵商店卖家"
         },
     },
     {

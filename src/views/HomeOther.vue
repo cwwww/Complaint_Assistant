@@ -42,19 +42,6 @@
     <div class="rightList">
       <ul >
         <li>
-          <img :src=home_medal alt="">
-          <div>勋章</div>
-        </li>
-        <li>
-          <img :src=home_discover alt="">
-          <div>发现</div>
-        </li>
-        <li @click="Task" style="position:relative;">
-          <img :src=home_mytask alt="">
-          <div>我的任务</div>
-          <img class="new" src="../assets/images/new@2x.png" alt="">
-        </li>
-        <li>
           <img :src=home_risktest alt="">
           <div>风险测评</div>
         </li>
@@ -90,40 +77,41 @@
         </div>
       </div>
       <ul class="bottomList">
-          <li> 
-              <img :src=home_zsk alt="">
-              <span>知识库</span>
+          <li @click="toHome"> 
+              <img :src=back alt="">
+              <span>回家</span>
+          </li>
+          <li style="visibility:hidden">
+              <img :src=home_rankinglist alt="">
+              <!-- <span>排行榜</span> -->
+          </li>
+          <li style="visibility:hidden">
+              <img :src=home_browse alt="">
+              <!-- <span>谁看过我</span> -->
           </li>
           <li @click="FairyShop">
               <img :src=home_store alt="">
               <span>精灵商店</span>
               <router-view ></router-view>
           </li>
-          <li @click="WhoLookMe">
-              <img :src=home_browse alt="">
-              <span>谁看过我</span>
-          </li>
           <li @click="HomeChat">
               <img :src=home_chatrecord alt="">
               <span>聊天记录</span>
               <router-view ></router-view>
-          </li>
-          <li @click="Ranking">
-              <img :src=home_rankinglist alt="">
-              <span>排行榜</span>
           </li>
       </ul>
       <div class="input-bottom" >
         <input type="text" ref="input" placeholder="输入“风险测评”试试" style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"/>
         <div class="btn" @click="submit">发送</div>
       </div>
+      <!-- <img class="earth" :src=earth alt=""> -->
     </div >
   </div>
 </template>
 <script>
 import { Popup,Toast } from 'vant';
 import { MessageBox } from 'element-ui';
-import { reqHomeInit, reqCusayrob, reqRobotDetail } from '../axios/axios-api'
+import { reqHomeInit, reqCusayrob, reqRobotDetail } from '../axios/axios-api'
 export default{
   components: {},
   data(){
@@ -146,11 +134,11 @@ export default{
       star:'',
       isStatus:'',
       fairyStatus:'',
-      ezgif: require("../assets/images/ezgif.gif"),
       img: require("../assets/images/icon.png"),
+      ezgif: require("../assets/images/ezgif.gif"),
       shop: require("../assets/images/shop@2x.png"),
       home_zsk:require("../assets/images/home_zsk@2x.png"),
-      product_zsk:require("../assets/images/product_zsk@2x.png"),
+      back:require("../assets/images/back@2x.png"),
       home_store:require("../assets/images/home_store@2x.png"),
       home_browse:require("../assets/images/home_browse@2x.png"),
       home_chatrecord:require("../assets/images/home_chatrecord@2x.png"),
@@ -181,24 +169,13 @@ export default{
   },
   methods: {
     FairyShop(){  //买家精灵商店
-      this.$router.replace('/sellerShop')
+      this.$router.replace('/FairyShop')
     },
     HomeChat(){  // 聊天记录
-      this.$router.replace('/HomeChat')
+      this.$router.replace('/ACVisitor')
     },
-    WhoLookMe(){  // 谁看过我
-      this.$router.replace('/WhoLookMe')
-    },
-    Ranking(){
-      this.$router.replace('/Ranking')
-    },
-    Task() {   // 任务
-      this.$router.push({
-        path:'/Task',
-        query:{
-          TaskStatus:this.homeInit, 
-        }
-      })
+    toHome(){
+      this.$router.replace('/')
     },
     previousPage(){
       talkContent.scrollTop += -138
@@ -213,37 +190,41 @@ export default{
            if(this.$refs.input.value == '') {
           Toast('请输入聊天内容');
         } else {
-          this.getDetail()
+          this.getCusayrob()
         }
     },
-    getDetail(){
-      this.question = this.$refs.input.value
-      let param
-      if(this.flag){
-        param = {
-          "dialog_type": "0",
-          "broker_id": 33,
-          "robot_id": 33,
-          "speaker": "2",
-          "content": '.',
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+    getCusayrob(){
+        this.question = this.$refs.input.value
+        let param
+        if(this.flag){
+          param = {
+            "dialog_type": "0",
+            "customer_type": 0,
+            "customer_id": 51,
+            "broker_id": 33,
+            "robot_id": 33,
+            "speaker": "1",
+            "content": '.',
+            "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqV0VhOTpHVjZOd2N0dVVzYmt5UnNkRHFNMkFsZkw2MUE.ZXlKd1lYbHNiMkZrSWpvMU1Td2lhV0YwSWpveE5UZzROelV3TlRBMUxqY3pOREk0TlgwOjFqV0VhOTpIa25FQi1Dc3lONTRDbk1ZcTd3NEtQUGhlQjA.934b2fd1932fa276b566133364ee9d89"
+          }
+          this.flag = false
+        }else{
+          param = {
+            "dialog_type": "1",
+            "customer_type": 0,
+            "customer_id": 51,
+            "broker_id": 33,
+            "robot_id": 33,
+            "speaker": "1",
+            "content": this.question,
+            "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqV0VhOTpHVjZOd2N0dVVzYmt5UnNkRHFNMkFsZkw2MUE.ZXlKd1lYbHNiMkZrSWpvMU1Td2lhV0YwSWpveE5UZzROelV3TlRBMUxqY3pOREk0TlgwOjFqV0VhOTpIa25FQi1Dc3lONTRDbk1ZcTd3NEtQUGhlQjA.934b2fd1932fa276b566133364ee9d89"
+          }
         }
-        this.flag = false
-      }else{
-        param = {
-          "dialog_type": "1",
-          "broker_id": 33,
-          "robot_id": 33,
-          "speaker": "2",
-          "content": this.question,
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
-        }
-      }
-      console.log(param)
-      let res = reqRobotDetail(param)
+        let res = reqCusayrob(param)
         res.then(res=>{
         console.log(res)
-        this.answer = res.result.content
+        this.answer = res.result.dialog_history.content
+        console.log(this.answer)
         this.list.push(this.question)
         this.list.push(this.answer)
         this.list2 = this.list.slice(-4)
@@ -255,77 +236,39 @@ export default{
            console.log('error')
         })
     },
-    getACchat(){
-      let param
-      if (this.isInput) {
-        param = {
-          "dialog_type": "2",
-          "customer_id": 1,
-          "customer_type": 0,
-          "broker_id": 33,
-          "robot_id": 33,
-          "speaker": "1",
-          "content": '.',
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
-        }
-        this.isInput = false
-      } else {
-        param = {
-          "dialog_type": "2",
-          "customer_id": 1,
-          "customer_type": 2,
-          "broker_id": 33,
-          "robot_id": 33,
-          "speaker": "1",
-          "content": "第二版测试",
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
-        }
-      }
-      console.log(param)
-      let res = reqCusayrob(param)
-      res.then(res=>{
-        console.log(res)
-        this.list = res.result.dialog_history
-        this.$refs.input.value = ''
-      }).catch(reslove=>{
-         console.log('error')
-      })
-  },
 
-    // 初始化页面
     getHomeInit(){
-      let param = {
-        "robot_id": 33,
-        "broker_id":33,
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
-      }
-      let result = reqHomeInit(param)
-      result.then(res=>{
-      this.homeInit = res.result
-      console.log(this.homeInit)
-      if (this.homeInit.title == 1) { //保险等级
-          this.homeLevel = this.levelbx1
-        } else if(this.goodsList.title == 2){
-          this.homeLevel = this.levelbx2
-        } else if(this.goodsList.level == 3){
-          this.homeLevel = this.levelbx3
-        } else if(this.goodsList.level == 4){
-          this.homeLevel = this.levelbx4
-        } else if(this.goodsList.level == 5){
-          this.homeLevel = this.levelbx5
-        } else if(this.goodsList.level == 6){
-          this.homeLevel = this.levelbx6
-        } else if(this.goodsList.level == 7){
-          this.homeLevel = this.levelbx7
+        let param = {
+          "robot_id": 33,
+          "broker_id":33,
+          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
         }
-      }).catch(reslove=>{
-         console.log('error')
-      })
+        let result = reqHomeInit(param)
+        result.then(res=>{
+        this.homeInit = res.result
+        if (this.homeInit.title == 1) { //保险等级
+            this.homeLevel = this.levelbx1
+          } else if(this.goodsList.title == 2){
+            this.homeLevel = this.levelbx2
+          } else if(this.goodsList.level == 3){
+            this.homeLevel = this.levelbx3
+          } else if(this.goodsList.level == 4){
+            this.homeLevel = this.levelbx4
+          } else if(this.goodsList.level == 5){
+            this.homeLevel = this.levelbx5
+          } else if(this.goodsList.level == 6){
+            this.homeLevel = this.levelbx6
+          } else if(this.goodsList.level == 7){
+            this.homeLevel = this.levelbx7
+          }
+        }).catch(reslove=>{
+           console.log('error')
+        })
     }
   },
   mounted(){
     this.getHomeInit()
-    this.getDetail()
+    this.getCusayrob()
   }
 }
 </script>
@@ -522,7 +465,7 @@ export default{
       }
     }
   }
-  .talk{
+ .talk{
     max-height: 28.5%;
     width: 60.6%;
     font-size:14px;
@@ -621,7 +564,7 @@ export default{
       height: 201px;
     }
   }
-  .answer{
+   .answer{
     width: 117px;
     height: 90px;
     position: absolute;

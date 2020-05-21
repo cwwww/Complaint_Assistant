@@ -11,6 +11,7 @@
       <div style="background:rgba(245,245,245,1);height:1.2%"></div>
       <div class="wrapper" ref="wrapper">
           <div class="content" v-for="(i,index) in list" :key="index">
+            <!-- 代理人  -->
             <div class="content-top" v-show="i.speaker == 2">
               <div class="topTime" v-show="i.create_time != null">{{i.create_time}}</div>
               <div class="question">
@@ -20,26 +21,28 @@
                 </div>
               </div>
             </div>
-            <div class="content-top" v-show="i.speaker == 1">
+            <!-- 机器人 --> 
+            <div class="content-top" v-show="i.speaker == 0">   
               <div class="topTime" v-show="i.create_time != null">{{i.create_time}}</div>
               <div class="question">
                 <div class="q_content">{{i.content}}</div>
                 <div class="photo">
-                  <img :src=user v-show="right" alt="">
+                  <img :src=smallBebot v-show="right" alt="">
                 </div>
               </div>
             </div>
-            
-            <div class="content-top" v-show="i.speaker == 0">
+            <!-- 访客 -->
+            <div class="content-top" v-show="i.speaker == 1">
               <div class="topTime" v-show="i.create_time != null">{{i.create_time}}</div>
               <div style="margin-top: 10px;" v-show="i.create_time == null"></div>
               <div class="question2">
                 <div class="photo">
-                  <img :src=smallBebot v-show="left" alt="">
+                  <img :src=fkuser v-show="left" alt="">
                 </div>
                 <div class="q_content">{{i.content}}</div>
               </div>
-              <div class="teach">
+            </div>
+              <!-- <div class="teach">
                 <div>
                   <img style="margin-top:-1px;" :src=edit alt="">
                   <span @click="chathist(index)">发布</span>
@@ -48,8 +51,7 @@
                   <img style="height:16px;" :src=teach alt="">
                   <span>我教你</span>
                 </div>
-              </div>
-            </div>
+              </div> -->
           </div>
       </div>
           <div class="bottomLine"></div>
@@ -67,11 +69,10 @@
 <script>
 import BScroll from 'better-scroll'
 import { Popup,Toast } from 'vant';
-import { reqRobotDetail, reqRobotHistory, reqChathist, reqCusayrob  } from '../../axios/axios-api'
+import { reqRobotDetail, reqRobotHistory, reqChathist, reqCusayrob, reqDialogAgent, reqAgentInput} from '../../axios/axios-api'
 
 export default {
-  inject: ['reload'], // 引入页面同步刷新的依赖
-  name: "HomeChat",
+  name: "ACChat",
   data() {
     return {
       list:[],
@@ -79,8 +80,11 @@ export default {
       left:true,
       right:true,
       question:'',
+      flag:true,
+      lastSentence:'',
       placeholder:"你好啊～我能问什么问题呢？",
       user: require("../../assets/images/头像@2x.png"),
+      fkuser: require("../../assets/images/fkuser.png"),
       edit: require("../../assets/images/edit.png"),
       teach: require("../../assets/images/teach.png"),
       smallBebot: require("../../assets/images/smallBebot.png"),
@@ -88,43 +92,64 @@ export default {
   },
   methods: {
     close(){
-      this.$router.replace('/')
+      this.$router.replace('/WhoLookMe')
     },
-    getChatList(){
-      let param = {
-          "broker_id": 33,
+    getDialogAgent(){  //AC 聊天记录
+    let param
+    if(this.flag){
+        param = {
+          "broker_id":33,
+          "customer_id":1,
+          "customer_type":0,
+          "last_sentence":-1,
           "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
         }
-        let res = reqRobotHistory(param)
-        res.then(res=>{
-        // console.log(res)
-        this.list = res.result
-        }).catch(reslove=>{
-           console.log('error')
-        })
+        this.flag = false
+    }else{
+        param = {
+          "broker_id":33,
+          "customer_id":1,
+          "customer_type":0,
+          "last_sentence":this.lastSentence,
+          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        }
+    }
+      let res = reqDialogAgent(param)
+      res.then(res=>{
+
+      this.list = res.result.dialog_history
+      console.log(this.list)
+      this.lastSentence = res.result.last_sentence
+      }).catch(reslove=>{
+         console.log('error')
+      })
     },
     submit(){  
         if(this.$refs.input.value == '') {
           Toast('请输入聊天内容');
         } else {
           this.question = this.$refs.input.value
-        }
-        let param = {
-          "dialog_type": "1",
-          "broker_id": 33,
-          "robot_id": 33,
-          "speaker": "2",
-          "content": this.question,
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
-        }
-        let res = reqRobotDetail(param)
+          let param = {
+              "broker_id": 33,
+              "customer_id": 1,
+              // "customer_type":this.$route.query.customer_type,
+              "customer_type":0,
+              "speaker": "2",
+              "content": this.question,
+              "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          }
+          console.log(param)
+          let res = reqAgentInput(param)
           res.then(res=>{
-          this.getChatList();
+          console.log(res)
+          console.log(this.list)
+          this.list = res.result.dialog_history
+          this.getDialogAgent();
           this.$refs.input.value = ''
           }).catch(reslove=>{
              console.log('error')
           })
-        
+        }
     },
     chathist(index){
       console.log(this.list[index])
@@ -156,26 +181,11 @@ export default {
    this.scrollToBottom();
 },
   mounted(){
-    console.log(this.$route.query)
-    this.scrollToBottom();
-    this.getChatList();
-    let param = {
-        "dialog_type": "2",
-        "customer_id": 51,
-        "customer_type": 0,
-        "broker_id": 33,
-        "robot_id": 33,
-        "speaker": "1",
-        "content": "第二版测试",
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqV0VhOTpHVjZOd2N0dVVzYmt5UnNkRHFNMkFsZkw2MUE.ZXlKd1lYbHNiMkZrSWpvMU1Td2lhV0YwSWpveE5UZzROelV3TlRBMUxqY3pOREk0TlgwOjFqV0VhOTpIa25FQi1Dc3lONTRDbk1ZcTd3NEtQUGhlQjA.934b2fd1932fa276b566133364ee9d89"
-    }
-    let res =  reqCusayrob (param)
-    res.then(res=>{
-    console.log(res)
-    this.list = res.result
-    }).catch(reslove=>{
-       console.log('error')
-    })
+    this.scrollToBottom()
+    this.getDialogAgent()
+    window.setInterval(() => {
+        setTimeout(this.getDialogAgent(), 0)
+    }, 2000)
   }
 };
 </script>

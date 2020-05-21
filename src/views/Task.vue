@@ -66,8 +66,7 @@ export default {
     }
   },
   mounted(){
-    console.log(this.$route.query.TaskStatus.accum_login_days)
-    
+    console.log(this.$route.query.TaskStatus)
   }
 };
 </script>

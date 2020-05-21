@@ -53,19 +53,19 @@ export default {
         path:'/ACchat',
         query:{
           titleName:this.list[index].name,
-          customer_type:this.list[index].customer_type
+          customer_type:this.list[index].customer_type,
+          customerImg:this.list[index].headimgurl
         }
       })
     }
   },
   mounted(){
-    
     let param = {
       "broker_id":33,
       "robot_id":33,
       "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
     }
-     console.log(param)
+    console.log(param)
     let result = reqLookMe(param)
     result.then(res=>{
       this.list = res.result
