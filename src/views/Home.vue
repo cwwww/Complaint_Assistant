@@ -176,7 +176,7 @@ export default{
       this.$router.push({
         path:'/Task',
         query:{
-          TaskStatus:this.homeInit, 
+          TaskStatus:this.homeInit.np2, 
         }
       })
 

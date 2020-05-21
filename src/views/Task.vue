@@ -1,6 +1,5 @@
 <template>
   <div class="warp">
-    <!-- <van-cell is-link @click="showPopup">上划</van-cell> -->
     <van-popup
       class="content"
       v-model="show"
@@ -58,17 +57,12 @@ export default {
     changeIndex(i) {
       this.curIndex = i;
     },
-    // showPopup() {
-    //   this.show = true;
-    // }
+
     close() {
       this.$router.replace('/')
     }
   },
-  mounted(){
-    console.log(this.$route.query.TaskStatus.accum_login_days)
-    
-  }
+
 };
 </script>
 <style lang="scss" scoped>

@@ -92,6 +92,41 @@ export const  reqAgentInput  = data => {
     data
   });
 };
+
+
+export const RanlingDatas = data => {
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/globalRank/", // 全球排行
+    method: "post",
+    data 
+  });
+};
+
+export const RanlingDatasQi = data => {
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/fansRank/", // 人气排行
+    method: "post",
+    data 
+  });
+};
+
+export const RanlingDatasFriend = data => {
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/friendsRank/", // 好友排行
+    method: "post",
+    data 
+  });
+};
+
+// 每日任务
+export const getTaskList = data => {
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/dailyTaskList", // 好友排行
+    method: "post",
+    data 
+  });
+};
+
 // 下面是GET形式
 // export const userInfo = params => {
 //   return axiosService({

@@ -13,7 +13,10 @@
       <p>10-29 08:23</p>
       <div class="centercontent">
         <div class="question">
-          <img :src="img" alt />
+          <div class="topQ">
+            <img :src="img" alt />
+            <img :src="img5" alt="">
+          </div>
           <div class="texts">
             <p>62岁的老人该如何买保险？是在网上买还是在线下买？</p>
           </div>
@@ -23,8 +26,8 @@
           <div class="text">
 
           </div>
-          <textarea class="text">
-            </textarea>
+          <!-- <textarea class="text">
+            </textarea> -->
         </div>
         <div class="buttons">
           <img :src="img2" alt />
@@ -47,7 +50,8 @@ export default {
       img1: require("../assets/images/A_small_icon@2x.png"),
       img2: require("../assets/images/biajide.png"),
       img3: require("../assets/images/bachkdjfi.png"),
-      img4: require("../assets/images/fabude.png")
+      img4: require("../assets/images/fabude.png"),
+      img5:require("../assets/images/delete@3x.png")
     };
   },
   methods: {
@@ -102,12 +106,22 @@ export default {
       margin: 0 auto;
       margin-top: 18px;
       > .question {
-        > img {
+    > .topQ {
+      display: flex;
+      justify-content: space-between;
+          > img {
           width: 24px;
           height: 24px;
           margin-top: 19px;
           margin-left: 20px;
+          &:last-child {
+            width: 54px;
+            height: 24px;
+            margin-top: 19px;
+          margin-right: 20px;
+          }
         }
+    }
         > .texts {
           width: 295px;
           margin-left: 20px;

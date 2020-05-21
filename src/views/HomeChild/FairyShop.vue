@@ -244,6 +244,7 @@ export default {
           res.then(res=>{
           var that = this
           that.goodsList = res.result.goods_list[0]
+          console.log(that.goodsList)
           if (that.goodsList.level == 1) { //保险等级
               that.levelbx = this.levelbx1
             } else if(that.goodsList.level == 2){
@@ -260,6 +261,7 @@ export default {
               that.levelbx = this.levelbx7
             }
             this.star = that.goodsList.score
+      console.log(this.star,1111111111111111)
             // this.fairyStatus = 1
             }).catch(reslove=>{
                console.log('error')

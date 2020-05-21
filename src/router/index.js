@@ -42,31 +42,13 @@ const routes = [
         meta: {
             title: "首页"
         },
-        children:[
-            // {
-            //     path: '/HomeChat',
-            //     name: "HomeChat",
-            //     component: HomeChat,
-            //     meta: {
-            //         title:  "聊天记录"
-            //     },
-            // },
-            // {
-            //     path:"/FairyShop",
-            //     name:'FairyShop',
-            //     component: FairyShop,
-            //     meta: {
-            //         title:  "精灵商店"
-            //     },
-            // },
-        ]
     },
     {
         path: '/HomeChat',
         name: "HomeChat",
         component: HomeChat,
         meta: {
-            title:  "聊天记录"
+            title: "聊天记录"
         },
     },
     {
@@ -74,20 +56,21 @@ const routes = [
         name: "ACchat",
         component: ACchat,
         meta: {
-            title:  "AC对话"
+            title: "AC对话"
         },
     },
     {
-        path:"/FairyShop",
-        name:'FairyShop',
+        path: "/FairyShop",
+        name: 'FairyShop',
         component: FairyShop,
         meta: {
-            title:  "精灵商店"
+            title: "精灵商店"
         },
     },
     {
         path: '/Ranking',
         name: "Ranking",
+        redirect: '/Ranking/Sentiment',
         component: Ranking,
         meta: {
             title: "排行榜"
