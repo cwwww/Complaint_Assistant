@@ -18,7 +18,6 @@
             <div class="content">
               <div class="topTitle">
                 <span>{{item.name}}</span>
-
                 <div class="lelve">
                   <p>Lv.{{item.level}}</p>
                 </div>

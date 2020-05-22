@@ -121,7 +121,31 @@ export const RanlingDatasFriend = data => {
 // 每日任务
 export const getTaskList = data => {
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/dailyTaskList", // 好友排行
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/dailyTaskList/", // 好友排行
+    method: "post",
+    data 
+  });
+};
+
+export const freandaList = data => { // 好友列表
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/friendsList/", // 好友排行
+    method: "post",
+    data 
+  });
+};
+
+export const BeanList = data => { // 粉丝列表
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/followerList/", // 粉丝排行
+    method: "post",
+    data 
+  });
+};
+
+export const yaoQing = data => { // 邀请好友页面
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/recommendlist/", 
     method: "post",
     data 
   });

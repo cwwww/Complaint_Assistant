@@ -99,13 +99,32 @@
   </div>
 </template>
 <script>
+import { yaoQing } from "../axios/axios-api";
 export default {
   name: "Invite",
   data() {
     return {
+      yaoqList: [],
       img: require("../assets/images/bg.png"),
       img1: require("../assets/images/five@2x.png")
     };
+  },
+    mounted() {
+    let param = {
+      broker_id: 33,
+    };
+    console.log(param);
+    let result = yaoQing(param);
+    result
+      .then(res => {
+        console.log(res, 11111111111111111111111111111111111111)
+        this.yaoqList = res.result;
+        console.log(this.yaoqList, "邀请好友");
+      })
+      .catch(reslove => {
+        alert(66666);
+        console.log("error");
+      });
   }
 };
 </script>
