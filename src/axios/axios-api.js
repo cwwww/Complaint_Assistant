@@ -1,49 +1,123 @@
 import axiosService from "./axios-request"; // 从axios-request.js内引入axiosService
 const BASE = 'https://test-bebot-api.baoxianxia.com.cn'
-// 下面是POST形式
-export const  reqHomeInit  = data => {  
+// 下面是POST形式 
+export const reqlogin = data => {  
+  return axiosService({
+    url: BASE + `/common/msm/login/`, // 登录
+    method: "post",
+    data
+  });
+};
+export const reqsendMsmCode = data => {  
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/sendMsmCode/", // 发送短信
+    method: "post",
+    data
+  });
+};
+export const reqbebotCode = data => {  
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/callback/bebot/code/", // Bebot获取微信用户信息接口
+    method: "post",
+    data
+  });
+};
+export const reqHomeInit = data => {  
   return axiosService({
     url: BASE + `/common/homeInitializer/`, // 主页初始化接口
     method: "post",
     data
   });
 };
-export const  reqFairyShop  = data => {
+
+export const reqMyShop = data => {
+  return axiosService({
+    url: BASE + `/common/show_my_shop/`, // 显示精灵商店信息
+    method: "post",
+    data
+  });
+};
+export const reqPutOnShelves = data => {
+  return axiosService({
+    url: BASE + `/common/put_on_shelves/`, // 商品下架接口
+    method: "post",
+    data
+  });
+};
+export const reqPutOffShelves = data => {
+  return axiosService({
+    url: BASE + `/common/put_off_shelves/`, // 商品下架接口
+    method: "post",
+    data
+  });
+};
+export const reqShowHistory = data => {  
+  return axiosService({
+    url: BASE + `/common/show_sales_history/`, // 显示出售记录接口
+    method: "post",
+    data
+  });
+};
+export const reqShowvipStore = data => {
+  return axiosService({
+    url: BASE + `/common/show_vip_store/`, // 显示会员商店接口
+    method: "post",
+    data
+  });
+};
+export const reqGetvip = data => {  
+  return axiosService({
+    url: BASE + `/common/get_vip/`, //  领取会员接口
+    method: "post",
+    data
+  });
+};
+export const reqBuyvipGoods = data => {  
+  return axiosService({
+    url: BASE + `/common/buy_vip_goods/`, //  会员商店购买商品接口
+    method: "post",
+    data
+  });
+};
+
+
+
+export const reqFairyShop = data => {
   return axiosService({
     url: BASE + `/common/show_his_shelf/`, // 精灵商店买家
     method: "post",
     data
   });
 };
-export const  reqstarRating  = data => {  
+export const reqstarRating = data => {  
   return axiosService({
     url: BASE + `/common/star_rating/`, // 精灵商店买家评价接口
     method: "post",
     data
   });
 };
-export const  reqFairyBuy  = data => {  
+export const reqFairyBuy = data => {  
   return axiosService({
     url: BASE + `/common/buy/`, // 精灵商店买家购买接口
     method: "post",
     data
   });
 };
-export const  reqRobotHistory  = data => { 
+export const reqRobotHistory = data => { 
   return axiosService({
     url: BASE + `/common/ansRobotHistory/`,  // 代理人机器人对话历史接口
     method: "post",
     data
   });
 };
-export const  reqRobotDetail  = data => {  
+export const reqRobotDetail = data => {  
   return axiosService({
     url: BASE + `/common/ansRobotDetail/`, // 代理人机器人对话详情
     method: "post",
     data
   });
 };	
-export const  reqChathist  = data => {
+export const reqChathist = data => {
   return axiosService({
     url: BASE + `/common/pub2square/chathist_page/`, // 聊天记录页发布到问答广场
     method: "post",
@@ -92,6 +166,41 @@ export const reqAgentInput = data => {
     data
   });
 };
+
+
+export const RanlingDatas = data => {
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/globalRank/", // 全球排行
+    method: "post",
+    data 
+  });
+};
+
+export const RanlingDatasQi = data => {
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/fansRank/", // 人气排行
+    method: "post",
+    data 
+  });
+};
+
+export const RanlingDatasFriend = data => {
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/friendsRank/", // 好友排行
+    method: "post",
+    data 
+  });
+};
+
+// 每日任务
+export const getTaskList = data => {
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/dailyTaskList/", // 好友排行
+    method: "post",
+    data 
+  });
+};
+
 // 下面是GET形式
 // export const userInfo = params => {
 //   return axiosService({

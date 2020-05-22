@@ -29,14 +29,29 @@
   </div>
 </template>
 <script>
+import { getTaskList,reqDialogAgent } from "../../../axios/axios-api";
 export default {
   name: "NewTask",
   data() {
     return {
+      EverudayList: [],
       img: require("../../../assets/images/login@2x.png"),
       img1: require("../../../assets/images/jingyan.png"),
       img2: require("../../../assets/images/jignhangs.png")
     };
+  },
+  mounted() {
+    let param = {
+  "robot_id": 33,
+  "broker_id":33,
+  "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+}
+      let res = getTaskList(param)
+      res.then(res=>{
+console.log(res)
+      }).catch(reslove=>{
+         console.log('error')
+      })
   }
 };
 </script>

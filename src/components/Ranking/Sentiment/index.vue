@@ -1,131 +1,105 @@
 <template>
+  <!-- 好友 -->
   <div>
-      
-    <div v-for="(item, idx) in shuju" :key="idx">
-      <div class="wrap">
-        <div class="left">
-          <div class="leftLittleLogon">
-            <img :src="item.img" alt />
-          </div>
-          <div class="leftBigLogon">
-            <!-- <img :src="img" alt /> -->
-          </div>
-          <div class="content">
-            <div class="topTitle">
-              <span>
-                <!-- Walker -->
-                {{item.h}}
-              </span>
-              <div class="lelve">
-                <p>Lv.35</p>
+    <div class="main">
+      <div v-for="(item, idx) in theglobalList" :key="idx">
+        <div class="wrap">
+          <div class="left">
+            <div class="leftLittleLogon">
+              <img v-if="idx == 0" :src="img" alt />
+              <img v-if="idx == 1" :src="img2" alt />
+              <img v-if="idx == 2" :src="img3" alt />
+              <p v-if="idx > 2">{{ idx > 2 ? idx+1 : ''}}</p>
+            </div>
+            <div class="leftBigLogon">
+              <img :src="item.headimgurl === null ? img4 : item.headimgurl" alt="error" />
+            </div>
+            <div class="content">
+              <div class="topTitle">
+                <span>{{item.name}}</span>
+                <div class="lelve">
+                  <p>Lv.{{item.level}}</p>
+                </div>
+                <div class="dengji">
+                  <img v-if="item.level == 0" :src="gradeOne" alt />
+                  <img v-if="item.level == 1" :src="gradeTwo" alt />
+                  <img v-if="item.level == 2" :src="gradeThree" alt />
+                  <img v-if="item.level == 3" :src="gradeFour" alt />
+                  <img v-if="item.level == 4" :src="gradeFive" alt />
+                  <img v-if="item.level == 5" :src="gradeSix" alt />
+                  <img v-if="item.level == 6" :src="gradeSeven" alt />
+                </div>
               </div>
-              <div class="dengji">
-                <img :src="item.img2" alt />
+              <div class="bottom">
+                <div class="biaoqian" v-for="(items, idxs) in item.medals" :key="idxs">
+                  <p>{{items}}</p>
+                </div>
               </div>
             </div>
-            <div class="bottom">
-              <!-- <div class="biaoqian">
-                <p>顶级流量</p>
-              </div>-->
-              <div class="biaoqian">
-                <span>粉丝数：{{item.h}}</span>
-              </div>
-            </div>
+          </div>
+          <div class="rightLogin">
+            <img :src="img1" alt />
           </div>
         </div>
-        <div class="rightLogin">
-          <img :src="item.img1" alt />
-        </div>
+        <div class="bottomLine"></div>
       </div>
-      <div class="bottomLine"></div>
     </div>
   </div>
 </template>
 <script>
+import { RanlingDatasFriend } from "../../../axios/axios-api";
 export default {
-  name: "Sentiment",
+  name: "Friends",
   data() {
     return {
-      //   img: require("../../../assets/images/金牌@2x.png"),
-      //   img1: require("../../../assets/images/next@2x.png"),
-      shuju: [
-        {
-          img: require("../../../assets/images/金牌@2x.png"),
-          img1: require("../../../assets/images/next@2x.png"),
-          img2: require("../../../assets/images/等级-保险配置王@2x.png"),
-          h: "wagma",
-          hah: "239",
-
-          //           h: [
-          //               {
-          //  he: "wagma",
-
-          //               },
-
-          //                {
-          //  he: "wagma",
-
-          //               },
-          //                {
-          //  he: "wagma",
-
-          //               },
-          //           ],
-          hs: "wagma"
-        },
-        {
-          img: require("../../../assets/images/金牌@2x.png"),
-          img1: require("../../../assets/images/next@2x.png"),
-          img2: require("../../../assets/images/等级-保险新手@2x.png"),
-          h: "wagma",
-          hah: "239vdcdcd",
-          h: "wagma",
-          hs: "wagma"
-        }
-        //                  {
-        //  img: require("../../../assets/images/金牌@2x.png"),
-        //  img1: require("../../../assets/images/next@2x.png"),
-        //  h: "wagma",
-        //  hah: "239",
-        //  h: "wagma",
-        //  hs: "wagma",
-        //           },
-        //                  {
-        //  img: require("../../../assets/images/金牌@2x.png"),
-        //  img1: require("../../../assets/images/next@2x.png"),
-        //  h: "wagma",
-        //  hah: "239",
-        //  h: "wagma",
-        //  hs: "wagma",
-        //           },
-        //                  {
-        //  img: require("../../../assets/images/金牌@2x.png"),
-        //  img1: require("../../../assets/images/next@2x.png"),
-        //  h: "wagma",
-        //  hah: "239",
-        //  h: "wagma",
-        //  hs: "wagma",
-        //           },
-        //                  {
-        //  img: require("../../../assets/images/金牌@2x.png"),
-        //  img1: require("../../../assets/images/next@2x.png"),
-        //  h: "wagma",
-        //  hah: "239",
-        //  h: "wagma",
-        //  hs: "wagma",
-        //           },
-      ]
+      theglobalList: [],
+      img: require("../../../assets/images/金牌@2x.png"),
+      img1: require("../../../assets/images/next@2x.png"),
+      img2: require("../../../assets/images/银牌@2x.png"),
+      img3: require("../../../assets/images/铜牌@2x.png"),
+      img4: require("../../../assets/images/默认头像@2x.png"),
+      gradeOne: require("../../../assets/images/等级-保险新手@2x.png"),
+      gradeTwo: require("../../../assets/images/等级-保险复读机@2x.png"),
+      gradeThree: require("../../../assets/images/等级-保险条款王@2x.png"),
+      gradeFour: require("../../../assets/images/等级-保险配置王@2x.png"),
+      gradeFive: require("../../../assets/images/等级-保险百科@2x.png"),
+      gradeSix: require("../../../assets/images/等级-保险大咖@2x.png"),
+      gradeSeven: require("../../../assets/images/等级-保险名人堂@2x.png")
     };
+  },
+  mounted() {
+    let param = {
+      robot_id: 33,
+      broker_id: 33,
+      token:
+        "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+    };
+    console.log(param);
+    let result = RanlingDatasFriend(param);
+    result
+      .then(res => {
+        console.log(res);
+        this.theglobalList = res.result.friends;
+        // console.log(111111111111111)
+        console.log(this.theglobalList, "好有");
+      })
+      .catch(reslove => {
+        alert(66666);
+        console.log("error");
+      });
   }
 };
 </script>
 <style lang="scss" scoped>
+.main {
+  height: 350px;
+  overflow-y: auto;
+  margin-top: 12px;
+}
 .wrap {
   margin-top: 25px;
   display: flex;
   justify-content: space-between;
-  //   border-bottom: 1px solid #cccccc;
-  //   padding-bottom: 15px;
   > .left {
     display: flex;
     margin-left: 20px;
@@ -135,16 +109,25 @@ export default {
         width: 23px;
         height: 27px;
       }
+      > p {
+        width: 23px;
+        height: 27px;
+        font-size: 15px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: rgba(102, 102, 102, 1);
+        text-align: center;
+      }
     }
     > .leftBigLogon {
       margin-left: 10px;
       width: 50px;
       height: 50px;
-      background-color: darkcyan;
       border-radius: 50%;
       > img {
         width: 50px;
         height: 50px;
+        border-radius: 50%;
       }
     }
     > .content {
@@ -193,17 +176,17 @@ export default {
         margin-top: 6px;
         display: flex;
         > .biaoqian {
-          margin-left: 8px;
-        //   background: rgba(236, 247, 255, 1);
-        //   border-radius: 11px;
-         > span {
-             display: block;
-             font-size:12px;
-font-family:PingFangSC-Regular,PingFang SC;
-font-weight:400;
-color:rgba(102,102,102,1);
-line-height:17px;
-         }
+          margin-left: 5px;
+          background: rgba(236, 247, 255, 1);
+          border-radius: 11px;
+          > p {
+            padding: 2px 8px 3px 8px;
+            font-size: 12px;
+            font-family: PingFangSC-Medium, PingFang SC;
+            font-weight: 500;
+            color: rgba(0, 134, 231, 1);
+            line-height: 17px;
+          }
         }
       }
     }

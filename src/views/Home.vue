@@ -196,7 +196,7 @@ export default{
       this.$router.push({
         path:'/Task',
         query:{
-          TaskStatus:this.homeInit, 
+          TaskStatus:this.homeInit.np2, 
         }
       })
     },
@@ -210,7 +210,7 @@ export default{
     },
     submit(numIndex){  
       this.numIndex+=1
-           if(this.$refs.input.value == '') {
+        if(this.$refs.input.value == '') {
           Toast('请输入聊天内容');
         } else {
           this.getDetail()

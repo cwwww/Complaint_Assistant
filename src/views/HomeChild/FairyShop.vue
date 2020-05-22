@@ -119,19 +119,19 @@ export default {
   name: "FairyShop",
   data(){
     return {
-      goodsList:[],
-      homeInit:Object,
-      bxdj:'',
       show1: false,
       show2: false, // 购买弹框
       show3: false, // 购买成功弹框
       show4: false, // 评价弹框
       show5: false, // 金币不足弹框
+      goodsList:[],
+      homeInit:Object,
+      bxdj:'',
       levelbx:'',
       homeLevel:'',
       star:'',
       isStatus:'',
-      value:'',
+      value:0,
       fairyStatus:'',
       img: require("../../assets/images/icon.png"),
       shop: require("../../assets/images/shop@2x.png"),
@@ -168,7 +168,7 @@ export default {
   methods: {
     close(){
       // this.show = false
-      this.$router.replace('/')
+      this.$router.replace('/HomeOther')
     },
     open() {
       this.show2 = true
@@ -218,7 +218,7 @@ export default {
         }
         let res = reqstarRating (param)
         res.then(res=>{
-          this.fairyStatus = 2
+          // this.fairyStatus = 2
           // console.log(res)
         }).catch(reslove=>{
               console.log('error')
@@ -233,37 +233,37 @@ export default {
     }
   },
   mounted(){
-          this.show1 = true;
-          let param = {
-          "seller_id":"33",
-          "buyer_id":"1",
-          "user_id":"1",
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
-          }
-          let res = reqFairyShop(param)
-          res.then(res=>{
-          var that = this
-          that.goodsList = res.result.goods_list[0]
-          if (that.goodsList.level == 1) { //保险等级
-              that.levelbx = this.levelbx1
-            } else if(that.goodsList.level == 2){
-              that.levelbx = this.levelbx2
-            } else if(that.goodsList.level == 3){
-              that.levelbx = this.levelbx3
-            } else if(that.goodsList.level == 4){
-              that.levelbx = this.levelbx4
-            } else if(that.goodsList.level == 5){
-              that.levelbx = this.levelbx5
-            } else if(that.goodsList.level == 6){
-              that.levelbx = this.levelbx6
-            } else if(that.goodsList.level == 7){
-              that.levelbx = this.levelbx7
-            }
-            this.star = that.goodsList.score
-            // this.fairyStatus = 1
-            }).catch(reslove=>{
-               console.log('error')
-            })
+      this.show1 = true;
+      let param = {
+        "seller_id":"33",
+        "buyer_id":"1",
+        "user_id":"33",
+        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+      }
+      let res = reqFairyShop(param)
+      res.then(res=>{
+      var that = this
+      that.goodsList = res.result.goods_list[0]
+      console.log(that.goodsList)
+      if (that.goodsList.level == 1) { //保险等级
+          that.levelbx = this.levelbx1
+        } else if(that.goodsList.level == 2){
+          that.levelbx = this.levelbx2
+        } else if(that.goodsList.level == 3){
+          that.levelbx = this.levelbx3
+        } else if(that.goodsList.level == 4){
+          that.levelbx = this.levelbx4
+        } else if(that.goodsList.level == 5){
+          that.levelbx = this.levelbx5
+        } else if(that.goodsList.level == 6){
+          that.levelbx = this.levelbx6
+        } else if(that.goodsList.level == 7){
+          that.levelbx = this.levelbx7
+        }
+        this.star = that.goodsList.score
+        }).catch(reslove=>{
+           console.log('error')
+        })
   }
 };
 </script>

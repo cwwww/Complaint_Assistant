@@ -16,6 +16,9 @@ import sellerShop from '../views/HomeChild/sellerShop'
 import Theglobal from '../components/Ranking/Friends'
 import Friends from '../components/Ranking/Sentiment'
 import Sentiment from '../components/Ranking/Theglobal'
+import myShop from '../components/sellerShop/myShop'
+import mySeller from '../components/sellerShop/mySeller'
+import vipShop from '../components/sellerShop/vipShop'
 import List from '../views/List'
 import HomeOther from '../views/HomeOther'
 import Friend from '../components/List/Friend'
@@ -54,31 +57,13 @@ const routes = [
         meta: {
             title: "首页"
         },
-        children:[
-            // {
-            //     path: '/HomeChat',
-            //     name: "HomeChat",
-            //     component: HomeChat,
-            //     meta: {
-            //         title:  "聊天记录"
-            //     },
-            // },
-            // {
-            //     path:"/FairyShop",
-            //     name:'FairyShop',
-            //     component: FairyShop,
-            //     meta: {
-            //         title:  "精灵商店"
-            //     },
-            // },
-        ]
     },
     {
         path: '/HomeChat',
         name: "HomeChat",
         component: HomeChat,
         meta: {
-            title:  "聊天记录"
+            title: "聊天记录"
         },
     },
     {
@@ -98,24 +83,43 @@ const routes = [
         },
     },
     {
-        path:"/FairyShop",
-        name:'FairyShop',
+        path: "/FairyShop",
+        name: 'FairyShop',
         component: FairyShop,
         meta: {
             title:  "精灵商店买家"
         },
     },
     {
-        path:"/sellerShop",
-        name:'sellerShop',
+        path: '/sellerShop',
+        name: "sellerShop",
+        redirect: '/sellerShop/myShop',
         component: sellerShop,
         meta: {
-            title:  "精灵商店卖家"
+            title: "精灵商店"
         },
+        children: [
+            {
+                path: "/sellerShop/myShop",
+                name: 'myShop',
+                component: myShop,
+            },
+            {
+                path: "/sellerShop/mySeller",
+                name: 'mySeller',
+                component: mySeller,
+            },
+            {
+                path: "/sellerShop/vipShop",
+                name: "vipShop",
+                component: vipShop,
+            }
+        ]
     },
     {
         path: '/Ranking',
         name: "Ranking",
+        redirect: '/Ranking/Sentiment',
         component: Ranking,
         meta: {
             title: "排行榜"
@@ -138,7 +142,6 @@ const routes = [
             }
         ]
     },
-
     {
         path: '/List',
         name: 'List',

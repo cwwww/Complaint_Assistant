@@ -7,20 +7,20 @@
     </div>
     <span>请登录</span>
     <div class="inputZh">
-      <input type="text" placeholder="请输入手机号" />
+      <input class="input phone" type="text" placeholder="请输入手机号" maxlength="11" ref="phone"/>
       <img :src="img2" alt />
     </div>
     <div class="passWord">
       <div class="leftPassword">
-        <input type="text" placeholder="请输入验证码" />
+        <input class="input code" type="text" placeholder="请输入验证码" ref="code" maxlength="6"/>
         <img :src="img3" alt />
       </div>
-      <div class="rightSend">
-        <p>发送验证码</p>
+      <div class="rightSend" id="box">
+        <p @click="loginCode">发送验证码</p>
       </div>
     </div>
     <div class="bottomText">
-      <div class="checkout"></div>
+      <van-checkbox class="checkout"  v-model="checked">复选框</van-checkbox>
       <div class="text">
         <!-- <p>已阅读并同意</p> -->
         <span>已阅读并同意</span>
@@ -30,23 +30,125 @@
         <p>政策》</p>
       </div>
     </div>
-    <div class="loginButton">
+    <div class="loginButton" @click="login">
       <p>登录</p>
     </div>
   </div>
 </template>
 <script>
+import { reqlogin,reqbebotCode,reqsendMsmCode } from '../axios/axios-api'
+import {test} from '../assets/js/test'
+import {debounce} from '../assets/js/common'
+import { Toast,Checkbox } from 'vant';
 export default {
   name: "Login",
   data() {
-    return {
+    return {　　　　
+      checked: true,
+      phone: '', //输入框中的手机号
+      code: '', //输入框中的验证码
+      codeText: '获取验证码',  //倒计时显示文字
+      timingBoard: 60,  //倒计时数
+      timer: null,  //一个定时器，用来倒数验证码　　
       img: require("../assets/images/loginimg.png"),
       img1: require("../assets/images/lisfjaiwe.png"),
       img2: require("../assets/images/shouji.png"),
       img3: require("../assets/images/suos.png")
     };
+  },
+  methods:{
+    getLogin(){
+        let param = {
+            "PHONE": "13544668944",
+            "OPENID": null,
+            "NICKNAME": null,
+            "HEADIMGURL":  null,
+            "SEX":  null,
+            "PROVINCE":  null,
+            "CITY": null,
+            "COUNTRY": null,
+            "PRIVILEGE":  null,
+            "code": "1256"
+        }
+      let res = reqlogin(param)
+      res.then(res=>{
+        // console.log(res)
+      }).catch(reslove=>{
+            console.log('error')
+      })
+    },	
+    // checkMobile(mobile) {
+		//     var temp = /^1((3[\d])|(4[5,6,7,9])|(5[0-3,5-9])|(6[5-7])|(7[0-8])|(8[\d])|(9[1,8,9]))\d{8}$/;
+		//     return temp.test(mobile)
+    // },
+    checked(){
+      this.checked = false
+    },
+    impower(){
+      // if (condition) {
+        
+      // } else {
+        let param = {"code": "001hhOf527cs6S0daUf52JPNf52hhOfQ"}
+        let res = reqbebotCode (param)
+        res.then(res=>{
+          console.log(res)
+        }).catch(reslove=>{
+          console.log('error')
+        })
+      // }
+    },
+    loginCode(){
+      if (this.$refs.phone.value == '') {
+        Toast('请输入手机号')
+      }else if(!/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value)){
+        Toast('请输入正确的手机号')
+      } else if(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value)) {
+        let param = {"PHONE": this.$refs.phone.value}
+        console.log(param)
+        let res = reqsendMsmCode (param)
+        res.then(res=>{
+          console.log(res)
+        }).catch(reslove=>{
+          console.log('error')
+        })
+      }
+    },
+    login(){
+      if(this.$refs.phone.value == '' || this.$refs.code.value == ''){
+        Toast('请输入手机号和验证码')
+      }else if(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value) && this.$refs.code.value.length < 6){
+        Toast('请输入正确的验证码')
+      }else if(!this.checked){
+        Toast('请勾选协议')
+      }
+    }
+  },
+  // computed: {
+  //   //手机号和验证码都不能为空
+  //   isClick(){
+  //     console.log(this.phone)
+  //      if(!this.phone && !this.code) {
+  //       return true
+  //      } else {
+  //       return false
+  //      }           
+  //   }
+  // },
+  mounted(){
+    console.log(this.phone)
+    this.phone = this.$refs.phone.value
+    this.code = this.$refs.code.value
+    this.impower()
+    this.getLogin()
+    // console.log(this.$refs.input.value)
+    // wxAppId = 'wx026553ce8b4e59a3'
+    // if(utils.GetQueryString('code') == null) {
+    //   var currentUrl = window.location.href;
+    //   window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + wxAppId + '&redirect_uri=' + encodeURIComponent(currentUrl) + '&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
+    // } else {
+    // getOpenId(utils.GetQueryString('code'));
+    }
   }
-};
 </script>
 <style lang="scss" scoped>
 .warp {
@@ -97,7 +199,7 @@ export default {
       height: 46px;
       border: none;
       outline: none;
-      background-color: none;
+      background-color: transparent;
       font-size: 15px;
       font-family: PingFangSC-Regular, PingFang SC;
       font-weight: 400;
@@ -128,7 +230,7 @@ export default {
         height: 46px;
         border: none;
         outline: none;
-        background-color: none;
+        background-color:transparent;
         font-size: 15px;
         font-family: PingFangSC-Regular, PingFang SC;
         font-weight: 400;
@@ -205,11 +307,12 @@ export default {
   > .loginButton {
     width: 315px;
     height: 44px;
-    background: linear-gradient(
-      233deg,
-      rgba(41, 161, 172, 0) 0%,
-      rgba(106, 237, 255, 1) 100%
-    );
+    // background: linear-gradient(
+    //   233deg,
+    //   rgba(41, 161, 172, 0) 0%,
+    //   rgba(106, 237, 255, 1) 100%
+    // );
+    background: rgba(106, 237, 255, 1);
     box-shadow: 0px 2px 6px 0px rgba(142, 236, 255, 0.25);
     border-radius: 4px;
     margin-top: 39px;
