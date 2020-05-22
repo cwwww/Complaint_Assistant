@@ -23,7 +23,7 @@
           <span>+10</span>
         </div>
         <div class="bottomButton">
-          <p>领取</p>
+          <p>{{this.status}}</p>
         </div>
       </div>
     </div>
@@ -144,10 +144,21 @@ export default {
   name: "EveryDayTask",
   data() {
     return {
+      status:'',
+      result:Object,
+      type:'',
       img: require("../../../assets/images/login@2x.png"),
       img1: require("../../../assets/images/jingyan.png"),
       img2: require("../../../assets/images/jignhangs.png")
     };
+  },
+  mounted(){
+    console.log(this.type)
+    console.log(this.$route.query.TaskStatus.np2)
+    this.result = this.$route.query.TaskStatus
+    if(this.result.np2 == 2){
+        this.status = '已领取'
+    }
   }
 };
 </script>

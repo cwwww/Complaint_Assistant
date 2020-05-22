@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import { getTaskList } from "../../../axios/axios-api";
+import { getTaskList,reqDialogAgent } from "../../../axios/axios-api";
 export default {
   name: "NewTask",
   data() {
@@ -48,18 +48,13 @@ export default {
   "robot_id": 33,
   "broker_id":33,
   "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
-};
-    console.log(param);
-    let result = getTaskList(param);
-    result
-      .then(res => {
-        this.EverudayList = res.result;
-        console.log(this.EverudayList, "每日任务");
+}
+      let res = getTaskList(param)
+      res.then(res=>{
+console.log(res)
+      }).catch(reslove=>{
+         console.log('error')
       })
-      .catch(reslove => {
-        alert(66666);
-        console.log("error");
-      });
   }
 };
 </script>

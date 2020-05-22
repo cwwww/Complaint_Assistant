@@ -1,93 +1,167 @@
 import axiosService from "./axios-request"; // 从axios-request.js内引入axiosService
+const BASE = 'https://test-bebot-api.baoxianxia.com.cn'
+// 下面是POST形式 
+export const reqlogin = data => {  
+  return axiosService({
+    url: BASE + `/common/msm/login/`, // 登录
+    method: "post",
+    data
+  });
+};
+export const reqsendMsmCode = data => {  
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/sendMsmCode/", // 发送短信
+    method: "post",
+    data
+  });
+};
+export const reqbebotCode = data => {  
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/callback/bebot/code/", // Bebot获取微信用户信息接口
+    method: "post",
+    data
+  });
+};
+export const reqHomeInit = data => {  
+  return axiosService({
+    url: BASE + `/common/homeInitializer/`, // 主页初始化接口
+    method: "post",
+    data
+  });
+};
 
-// 下面是POST形式
-export const  reqHomeInit  = data => {  
+export const reqMyShop = data => {
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/homeInitializer/", // 主页初始化接口
+    url: BASE + `/common/show_my_shop/`, // 显示精灵商店信息
     method: "post",
     data
   });
 };
-export const  reqFairyShop  = data => {
+export const reqPutOnShelves = data => {
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/show_his_shelf/", // 精灵商店买家
+    url: BASE + `/common/put_on_shelves/`, // 商品下架接口
     method: "post",
     data
   });
 };
-export const  reqstarRating  = data => {  
+export const reqPutOffShelves = data => {
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/star_rating/", // 精灵商店买家评价接口
+    url: BASE + `/common/put_off_shelves/`, // 商品下架接口
     method: "post",
     data
   });
 };
-export const  reqFairyBuy  = data => {  
+export const reqShowHistory = data => {  
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/buy/", // 精灵商店买家购买接口
+    url: BASE + `/common/show_sales_history/`, // 显示出售记录接口
     method: "post",
     data
   });
 };
-export const  reqRobotHistory  = data => { 
+export const reqShowvipStore = data => {
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/ansRobotHistory/",  // 代理人机器人对话历史接口
+    url: BASE + `/common/show_vip_store/`, // 显示会员商店接口
     method: "post",
     data
   });
 };
-export const  reqRobotDetail  = data => {  
+export const reqGetvip = data => {  
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/ansRobotDetail/", // 代理人机器人对话详情
+    url: BASE + `/common/get_vip/`, //  领取会员接口
+    method: "post",
+    data
+  });
+};
+export const reqBuyvipGoods = data => {  
+  return axiosService({
+    url: BASE + `/common/buy_vip_goods/`, //  会员商店购买商品接口
+    method: "post",
+    data
+  });
+};
+
+
+
+export const reqFairyShop = data => {
+  return axiosService({
+    url: BASE + `/common/show_his_shelf/`, // 精灵商店买家
+    method: "post",
+    data
+  });
+};
+export const reqstarRating = data => {  
+  return axiosService({
+    url: BASE + `/common/star_rating/`, // 精灵商店买家评价接口
+    method: "post",
+    data
+  });
+};
+export const reqFairyBuy = data => {  
+  return axiosService({
+    url: BASE + `/common/buy/`, // 精灵商店买家购买接口
+    method: "post",
+    data
+  });
+};
+export const reqRobotHistory = data => { 
+  return axiosService({
+    url: BASE + `/common/ansRobotHistory/`,  // 代理人机器人对话历史接口
+    method: "post",
+    data
+  });
+};
+export const reqRobotDetail = data => {  
+  return axiosService({
+    url: BASE + `/common/ansRobotDetail/`, // 代理人机器人对话详情
     method: "post",
     data
   });
 };	
-export const  reqChathist  = data => {
+export const reqChathist = data => {
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/pub2square/chathist_page/", // 聊天记录页发布到问答广场
+    url: BASE + `/common/pub2square/chathist_page/`, // 聊天记录页发布到问答广场
     method: "post",
     data
   });
 };
-export const  reqLookMe  = data => {  
+export const reqLookMe = data => {  
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/myVisitors/", // 谁看过我
+    url: BASE + `/common/myVisitors/`, // 谁看过我
     method: "post",
     data
   });
 };	
-export const  reqCusayrob  = data => {  
+export const reqCusayrob = data => {  
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/cusayrob/", // 访客用户机器人对话接口
+    url: BASE + `/common/cusayrob/`, // 访客用户机器人对话接口
     method: "post",
     data
   });
 };	
-export const  reqHistoryAgent  = data => {
+export const reqDialogAgent = data => {
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/dialogHistory_agent", // AC聊天记录获取-代理人
+    url: BASE + `/common/dialogHistory_agent/`, // AC聊天记录获取-代理人
     method: "post",
     data
   });
 };
-export const  reqHistoryCustomer  = data => {
+export const reqHistoryCustomer = data => {
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/dialogHistory_customer", // AC聊天记录获取-访客
+    url: BASE + `/common/dialogHistory_customer/`, // AC聊天记录获取-访客
     method: "post",
     data
   });
 };
-export const  reqCustomerInput  = data => {
+export const reqCustomerInput = data => {
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/customerInput", // AC聊天-访客输入接口
+    url: BASE + `/common/customerInput/`, // AC聊天-访客输入接口
     method: "post",
     data
   });
 };
-export const  reqAgentInput  = data => {
+export const reqAgentInput = data => {
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/agentInput", // AC聊天-代理人输入接口
+    url: BASE + `/common/agentInput/`, // AC聊天-代理人输入接口
     method: "post",
     data
   });
