@@ -84,6 +84,7 @@ export default {
     checked(){
       this.checked = false
     },
+    // 
     impower(){
       // if (condition) {
         
@@ -120,6 +121,8 @@ export default {
         Toast('请输入正确的验证码')
       }else if(!this.checked){
         Toast('请勾选协议')
+      }else{
+        this.getLogin()
       }
     }
   },
@@ -139,7 +142,6 @@ export default {
     this.phone = this.$refs.phone.value
     this.code = this.$refs.code.value
     this.impower()
-    this.getLogin()
     // console.log(this.$refs.input.value)
     // wxAppId = 'wx026553ce8b4e59a3'
     // if(utils.GetQueryString('code') == null) {
