@@ -9,7 +9,7 @@
         @close="close"
         >
         <img class="img1" :src=shop alt />
-        <div class="title">Bebot精灵商店<div class="active"></div></div>
+        <div class="title">{{this.$route.query.Othername}}精灵商店<div class="active"></div></div>
         <div class="wrap">
           <div class="left">
             <!-- <div class="leftLittleLogon">
@@ -21,11 +21,11 @@
             <div class="content">
               <div class="topTitle">
                 <span>
-                  {{this.goodsList.name}}
+                  {{goodsList.name}}
                 </span>
                 <div class="dengji">
                   <img :src=levelbx alt />
-                  <div class="dengji2">{{this.goodsList.amount}}条词库</div>
+                  <div class="dengji2">{{goodsList.amount}}条词库</div>
                 </div>
                 <div class="lelve">知识库越多精灵越聪明！</div>
               </div>
@@ -95,8 +95,8 @@
                       style="margin:26px auto 25px ;"
                       @change="onChange"
                     />
-                    <van-button type="info" style="width:265px;height:42px;margin:0 auto;" v-show="this.value != 0" @click="comfirm">提交</van-button>
-                    <van-button type="info" style="width:265px;height:42px;margin:0 auto;background:#eee;color:#111;border:none;" v-show="this.value == 0">提交</van-button>
+                    <van-button type="info" style="width:265px;height:42px;margin:0 auto;" v-show="value != 0" @click="comfirm">提交</van-button>
+                    <van-button type="info" style="width:265px;height:42px;margin:0 auto;background:#eee;color:#111;border:none;" v-show="value == 0">提交</van-button>
                   </div>
               </van-popup>
           <div class="rightLogin2" v-show='this.fairyStatus == 1' @click="toEvaluate">
@@ -113,13 +113,14 @@
     </div>
 </template>
 <script>
-import { Popup,Toast } from 'vant';
+import { Popup,Toast,Button  } from 'vant';
 import { reqHomeInit, reqFairyShop, reqstarRating, reqFairyBuy } from '../../axios/axios-api'
 export default {
   name: "FairyShop",
   data(){
     return {
       show1: false,
+      name:'',
       show2: false, // 购买弹框
       show3: false, // 购买成功弹框
       show4: false, // 评价弹框
@@ -211,11 +212,12 @@ export default {
         this.show4 = false
         let param = {
           "robot_id":"1",
-          "goods_id":20,
+          "goods_id":this.goodsList.id,
           "goods_score":this.value,
           "user_id":"1",
           "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
         }
+        console.log(param)
         let res = reqstarRating (param)
         res.then(res=>{
           this.fairyStatus = 2
@@ -233,6 +235,8 @@ export default {
     }
   },
   mounted(){
+      console.log(this.$route.query.Othername)
+      // this.name = this.$route.query.OtherName
       this.show1 = true;
       let param = {
         "seller_id":"33",
@@ -245,6 +249,7 @@ export default {
       var that = this
       that.goodsList = res.result.goods_list[0]
       console.log(that.goodsList)
+      this.fairyStatus = that.goodsList.status
       if (that.goodsList.level == 1) { //保险等级
           that.levelbx = this.levelbx1
         } else if(that.goodsList.level == 2){

@@ -58,7 +58,7 @@
           <img :src=home_risktest alt="">
           <div>风险测评</div>
         </li>
-        <li>
+        <li @click="toPlan">
           <img :src=home_planbook alt="">
           <div>计划书</div>
         </li>
@@ -203,6 +203,9 @@ export default{
         }
       })
     },
+    toPlan(){
+      window.localtion.href = url('https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16')
+    },
     frang() {// 好友
       this.$router.replace('/List/Friend')
     },
@@ -304,9 +307,9 @@ export default{
     // 初始化页面
     getHomeInit(){
       let param = {
-        "robot_id": 33,
-        "broker_id":33,
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        "robot_id": 1,
+        "broker_id":1,
+        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
       }
       let result = reqHomeInit(param)
       result.then(res=>{

@@ -83,11 +83,9 @@
           </li>
           <li style="visibility:hidden">
               <img :src=home_rankinglist alt="">
-              <!-- <span>排行榜</span> -->
           </li>
           <li style="visibility:hidden">
               <img :src=home_browse alt="">
-              <!-- <span>谁看过我</span> -->
           </li>
           <li @click="FairyShop">
               <img :src=home_store alt="">
@@ -111,7 +109,7 @@
 <script>
 import { Popup,Toast } from 'vant';
 import { MessageBox } from 'element-ui';
-import { reqHomeInit, reqCusayrob, reqRobotDetail } from '../axios/axios-api'
+import { reqHomeInit, reqCusayrob, reqRobotDetail, reqVisitedInit } from '../axios/axios-api'
 export default{
   components: {},
   data(){
@@ -169,7 +167,12 @@ export default{
   },
   methods: {
     FairyShop(){  //买家精灵商店
-      this.$router.replace('/FairyShop')
+      this.$router.push({
+        path:'/FairyShop',
+        query:{
+          Othername:this.homeInit.name, 
+        }
+      })
     },
     HomeChat(){  // 聊天记录
       this.$router.replace('/ACVisitor')
@@ -239,11 +242,22 @@ export default{
 
     getHomeInit(){
         let param = {
+<<<<<<< HEAD
           "robot_id": this.$route.query.robot_id,
           "broker_id":this.$route.query.broker_id,
           "token":this.$route.query.token        }
         let result = reqHomeInit(param)
+=======
+          "customer_id":1,
+          "customer_robot_id":1,
+          "customer_type":1,
+          "visited_robot_id": "33",
+          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+        }
+        let result = reqVisitedInit(param)
+>>>>>>> 19c1ec23fd8e02ca0682ae3706103062a9e40551
         result.then(res=>{
+      console.log(res)
         this.homeInit = res.result
         if (this.homeInit.title == 1) { //保险等级
             this.homeLevel = this.levelbx1
