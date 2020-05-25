@@ -13,7 +13,7 @@
     "core-js": "^3.4.3",
     "element-ui": "^2.13.1",
     "html2canvas": "^1.0.0-rc.5",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.1",
     "lib-flexible": "^0.3.2",
     "node-sass": "^4.13.0",
     "qrcodejs2": "^0.0.2",

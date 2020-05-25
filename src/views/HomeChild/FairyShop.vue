@@ -218,7 +218,7 @@ export default {
         }
         let res = reqstarRating (param)
         res.then(res=>{
-          // this.fairyStatus = 2
+          this.fairyStatus = 2
           // console.log(res)
         }).catch(reslove=>{
               console.log('error')

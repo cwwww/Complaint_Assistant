@@ -12,22 +12,22 @@
     </div>
     <div class="passWord">
       <div class="leftPassword">
-        <input class="input code" type="text" placeholder="请输入验证码" ref="code" maxlength="6"/>
+        <input class="input research" type="text" placeholder="请输入验证码" ref="research" maxlength="6"/>
         <img :src="img3" alt />
       </div>
       <div class="rightSend" id="box">
-        <p @click="loginCode">发送验证码</p>
+        <p @click="loginResearch">发送验证码</p>
       </div>
     </div>
     <div class="bottomText">
-      <van-checkbox class="checkout"  v-model="checked">复选框</van-checkbox>
+      <van-checkbox class="checkout"  v-model="check">复选框</van-checkbox>
       <div class="text">
         <!-- <p>已阅读并同意</p> -->
         <span>已阅读并同意</span>
-        <p>《保险侠服务协议》</p>
+        <a href="https://h5.baoxianxia.com.cn/app/agreement.html">《保险侠服务协议》</a>
         <span>及</span>
-        <p>《保险侠隐私</p>
-        <p>政策》</p>
+        <p>《保险侠隐私</p><a href="https://h5.baoxianxia.com.cn/app/secret.html">《保险侠隐私政策》</a>
+        <p>政策》</p><a href="https://h5.baoxianxia.com.cn/app/secret.html">政策》</a>
       </div>
     </div>
     <div class="loginButton" @click="login">
@@ -36,20 +36,24 @@
   </div>
 </template>
 <script>
-import { reqlogin,reqbebotCode,reqsendMsmCode } from '../axios/axios-api'
-import {test} from '../assets/js/test'
-import {debounce} from '../assets/js/common'
+import { reqlogin,reqbebotCode,reqsendMsmCode,reqwxconfig } from '../axios/axios-api'
+// import {debounce} from '../assets/js/common'
 import { Toast,Checkbox } from 'vant';
 export default {
   name: "Login",
   data() {
     return {　　　　
-      checked: true,
+      check: true,
       phone: '', //输入框中的手机号
-      code: '', //输入框中的验证码
+      research: '', //输入框中的验证码
       codeText: '获取验证码',  //倒计时显示文字
       timingBoard: 60,  //倒计时数
-      timer: null,  //一个定时器，用来倒数验证码　　
+      timer: null,  //一个定时器，用来倒数验证码　
+      wx_link:'',
+      redirect_uri:'',
+      appId:'',
+      callback:'',
+      code:'',
       img: require("../assets/images/loginimg.png"),
       img1: require("../assets/images/lisfjaiwe.png"),
       img2: require("../assets/images/shouji.png"),
@@ -77,28 +81,28 @@ export default {
             console.log('error')
       })
     },	
-    // checkMobile(mobile) {
-		//     var temp = /^1((3[\d])|(4[5,6,7,9])|(5[0-3,5-9])|(6[5-7])|(7[0-8])|(8[\d])|(9[1,8,9]))\d{8}$/;
-		//     return temp.test(mobile)
-    // },
     checked(){
-      this.checked = false
+      this.check = false
     },
     // 
+    GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r != null) return decodeURIComponent(r[2]);
+        return null;
+    },
     impower(){
-      // if (condition) {
-        
-      // } else {
-        let param = {"code": "001hhOf527cs6S0daUf52JPNf52hhOfQ"}
+        let param = {"code":this.code}
         let res = reqbebotCode (param)
         res.then(res=>{
-          console.log(res)
+          // console.log(res)
+          
         }).catch(reslove=>{
           console.log('error')
         })
       // }
     },
-    loginCode(){
+    loginResearch(){
       if (this.$refs.phone.value == '') {
         Toast('请输入手机号')
       }else if(!/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value)){
@@ -115,41 +119,52 @@ export default {
       }
     },
     login(){
-      if(this.$refs.phone.value == '' || this.$refs.code.value == ''){
+      if(this.$refs.phone.value == '' || this.$refs.research.value == ''){
         Toast('请输入手机号和验证码')
-      }else if(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value) && this.$refs.code.value.length < 6){
+      }else if(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value) && this.$refs.research.value.length < 6){
         Toast('请输入正确的验证码')
-      }else if(!this.checked){
+      }else if(!this.check){
         Toast('请勾选协议')
       }else{
-        this.getLogin()
+        this.$router.replace('/')
+        this.impower()
       }
-    }
+    },
+// getCode () { // 非静默授权，第一次有弹框
+//       this.code = ''
+//       // var local = window.location.href // 获取页面url
+//       var local = "https://m.baoxianxia.com.cn/robot/chat.html" // 获取页面url
+//       var appid = 'wx026553ce8b4e59a3'
+//       this.code = this.getUrlCode().code // 截取code
+//       if (this.code == null || this.code === '') { // 如果没有code，则去请求
+//           window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
+//       } else {
+//           // 你自己的业务逻辑
+//       }
+// },
+// getUrlCode() { // 截取url中的code方法
+//       var url = window.location.search
+//       this.winUrl = url
+//       var theRequest = new Object()
+//       if (url.indexOf("?") != -1) {
+//           var str = url.substr(1)
+//           var strs = str.split("&")
+//           for(var i = 0; i < strs.length; i ++) {
+//               theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
+//           }
+//       }
+//       return theRequest
+//   }
   },
-  // computed: {
-  //   //手机号和验证码都不能为空
-  //   isClick(){
-  //     console.log(this.phone)
-  //      if(!this.phone && !this.code) {
-  //       return true
-  //      } else {
-  //       return false
-  //      }           
-  //   }
-  // },
   mounted(){
-    console.log(this.phone)
-    this.phone = this.$refs.phone.value
-    this.code = this.$refs.code.value
-    this.impower()
-    // console.log(this.$refs.input.value)
-    // wxAppId = 'wx026553ce8b4e59a3'
-    // if(utils.GetQueryString('code') == null) {
-    //   var currentUrl = window.location.href;
-    //   window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + wxAppId + '&redirect_uri=' + encodeURIComponent(currentUrl) + '&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
-    // } else {
-    // getOpenId(utils.GetQueryString('code'));
-    }
+      if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
+          this.getCode()
+      } else {
+          // 别的业务逻辑
+      }
+      this.impower()
+      console.log(this.getUrlCode().code)
+    },
   }
 </script>
 <style lang="scss" scoped>

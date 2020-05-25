@@ -1,16 +1,15 @@
 <template>
   <div class="warp">
-    <van-cell is-link @click="showPopup">上划</van-cell>
     <van-popup
       class="content"
       v-model="show"
       closeable
       round
       position="bottom"
-      :style="{ height: '70%' }"
+      :style="{ height: '70%',color:'black'}"
+      @close="close"
     >
-      <img :src="img" alt />
-
+      <img :src=product_zsk alt />
       <div class="bigContent">
         <div class="sonContent">
           <div class="leftBox">
@@ -29,7 +28,6 @@
             <p>保险配置王</p>
           </div>
           <div class="title">
-            <!-- <p>福m母公司发生法</p> -->
           </div>
         </div>
       </div>
@@ -52,7 +50,8 @@
             <p>保险配置王</p>
           </div>
           <div class="title">
-            <p>福m母公司发生法</p>
+            <p>前往TA的事务所</p>
+            <img :src=next alt="">
           </div>
         </div>
       </div>
@@ -62,21 +61,41 @@
   </div>
 </template>
 <script>
+import { reqShowList,  reqHomeInit,reqEnable_kb,reqDisable_kb,reqReceive_official_kb} from '../axios/axios-api'
 export default {
   name: "Repository",
   data() {
     return {
-      show: false,
-      img: require("../assets/images/icon.png")
+      show: true,
+      img: require("../assets/images/icon.png"),
+      product_zsk: require("../assets/images/product_zsk@2x.png"),
+      next: require("../assets/images/next@2x.png")
     };
   },
   methods: {
+    close(){
+      // this.show = false
+      this.$router.replace('/')
+    },
     changeIndex(i) {
       this.curIndex = i;
     },
     showPopup() {
       this.show = true;
     }
+  },
+  mounted(){
+      let param = {
+        "robot_id":"1",
+        "user_id":"1",
+        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"    
+      }
+      let result = reqShowList(param)
+      result.then(res=>{
+      console.log(res)
+      }).catch(reslove=>{
+         console.log('error')
+      })
   }
 };
 </script>

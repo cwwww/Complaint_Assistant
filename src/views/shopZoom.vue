@@ -1,12 +1,12 @@
 <template>
   <div class="warp">
-    <van-cell is-link @click="showPopup">上划</van-cell>
     <van-popup
       class="content"
       v-model="show"
       closeable
       position="bottom"
       :style="{ height: '70%' }"
+      @close="close"
     >
       <span>知识库</span>
       <div class="line"></div>
@@ -18,34 +18,41 @@
             <img :src="img5" alt="">
           </div>
           <div class="texts">
-            <p>62岁的老人该如何买保险？是在网上买还是在线下买？</p>
+            <p>{{this.$route.query.Question}}</p>
           </div>
         </div>
         <div class="assets">
           <img :src="img1" alt />
-          <div class="text">
-
+          <textarea class="text" v-show="this.isShow" id="myText">
+            {{this.$route.query.Answer}}
+            </textarea> 
+          <div class="text2" v-show="!this.isShow">
+            {{this.$route.query.Answer}}
           </div>
           <!-- <textarea class="text">
             </textarea> -->
         </div>
         <div class="buttons">
-          <img :src="img2" alt />
-          <img :src="img3" alt />
+          <img :src="img2" @click="toEdit" alt />
+          <img :src="img3" v-show="this.isShow" @click="toSave" alt />
+          <img :src="img4" v-show="!this.isShow" alt="">
         </div>
+          <div style="height:20px;"></div>
+        
       </div>
-
       <router-view />
     </van-popup>
   </div>
 </template>
 <script>
+
 export default {
   name: "shopZoom",
   data() {
     return {
       curIndex: 0,
-      show: false,
+      show: true,
+      isShow:false,
       img: require("../assets/images/Q_small_icon@2x.png"),
       img1: require("../assets/images/A_small_icon@2x.png"),
       img2: require("../assets/images/biajide.png"),
@@ -55,9 +62,26 @@ export default {
     };
   },
   methods: {
+    close(){
+      this.$router.replace('/HomeChat')
+    },
     showPopup() {
       this.show = true;
+    },
+    toEdit(){
+      this.isShow = true
+    },
+    toSave(){
+      this.isShow = false
+      this.$route.query.Answer = document.getElementById("myText").value
     }
+  },
+  // watch(){
+  //   console.log(document.getElementById("myText").value)
+  
+  // },
+  mounted(){
+    console.log(document.getElementById("myText").value)
   }
 };
 </script>
@@ -100,7 +124,7 @@ export default {
     }
     > .centercontent {
       width: 345px;
-      height: 329px;
+      height: auto;
       background: rgba(241, 246, 251, 1);
       border-radius: 6px;
       margin: 0 auto;
@@ -144,9 +168,14 @@ export default {
         }
         > .text {
           width: 305px;
-          height: 114px;
-          background: rgba(255, 255, 255, 1);
-          border: 1px solid rgba(194, 194, 194, 1);
+          height: auto;
+          height: 100px;
+          margin-left: 20px;
+          margin-top: 6px;
+        }
+        > .text2 {
+          width: 305px;
+          height: auto;
           // margin: 0 auto;
           margin-left: 20px;
           margin-top: 6px;
@@ -154,8 +183,8 @@ export default {
       }
       > .buttons {
           margin-top: 27px;
-        display: flex;
-        justify-content: space-around;
+          display: flex;
+          justify-content: space-around;
         > img {
           width: 126px;
           height: 38px;

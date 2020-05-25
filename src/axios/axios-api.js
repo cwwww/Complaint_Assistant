@@ -15,6 +15,13 @@ export const reqsendMsmCode = data => {
     data
   });
 };
+export const reqwxconfig = data => {  
+  return axiosService({
+    url: "http://api-bebot.baoxianxia.com.cn/api/callback/wxconfig/bebot/", // Bebot微信分享接口
+    method: "post",
+    data
+  });
+};
 export const reqbebotCode = data => {  
   return axiosService({
     url: "https://test-bebot-api.baoxianxia.com.cn/callback/bebot/code/", // Bebot获取微信用户信息接口
@@ -166,8 +173,34 @@ export const reqAgentInput = data => {
     data
   });
 };
-
-
+export const reqShowList = data => {
+  return axiosService({
+    url: BASE + `/common/show_kb_list/`, // 显示知识库列表
+    method: "post",
+    data
+  });
+};
+export const reqEnable_kb = data => {
+  return axiosService({
+    url: BASE + `/common/enable_kb/`, // 启用知识库接口
+    method: "post",
+    data
+  });
+};
+export const reqDisable_kb = data => {
+  return axiosService({
+    url: BASE + `/common/disable_kb/`, // 停用知识库接口
+    method: "post",
+    data
+  });
+};
+export const reqReceive_official_kb = data => {
+  return axiosService({
+    url: BASE + `/common/receive_official_kb/`, // 领取官方知识库接口
+    method: "post",
+    data
+  });
+};
 export const RanlingDatas = data => {
   return axiosService({
     url: "https://test-bebot-api.baoxianxia.com.cn/common/globalRank/", // 全球排行

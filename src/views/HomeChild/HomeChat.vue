@@ -15,7 +15,7 @@
             <div class="content-top" v-show="i.speaker == 2">
               <div class="topTime" v-show="i.create_time != null">{{i.create_time}}</div>
               <div class="question">
-                <div class="q_content">{{i.content}}</div>
+                <div class="q_content" id="q_content">{{i.content}}</div>
                 <div class="photo">
                   <img :src=user v-show="right" alt="">
                 </div>
@@ -29,7 +29,7 @@
                 <div class="photo">
                   <img :src=smallBebot v-show="left" alt="">
                 </div>
-                <div class="q_content">{{i.content}}</div>
+                <div class="q_content" id="q_content2">{{i.content}}</div>
               </div>
               <div class="teach">
                 <div>
@@ -38,7 +38,7 @@
                 </div>
                 <div style="margin-left:20px;">
                   <img style="height:16px;" :src=teach alt="">
-                  <span>我教你</span>
+                  <span @click="teachYou(index)">我教你</span>
                 </div>
               </div>
             </div>
@@ -54,15 +54,12 @@
       
       <router-view v-if="$route.path==='/home'"></router-view>
     </van-popup>
-     <!-- <van-loading type="spinner" /> -->
   </div>
 </template>
 <script>
 import BScroll from 'better-scroll'
 import { Popup,Toast,Loading } from 'vant';
 import { reqRobotDetail, reqRobotHistory, reqChathist } from '../../axios/axios-api'
-// import Vue from 'vue';
-// Vue.use(Loading);
 export default {
   inject: ['reload'], // 引入页面同步刷新的依赖
   name: "HomeChat",
@@ -137,6 +134,16 @@ export default {
         }).catch(reslove=>{
            console.log('error')
         })
+    },
+    teachYou(index){
+      alert(index)
+      this.$router.push({
+        path:'/shopZoom',
+        query:{
+          Answer:this.list[index].content,
+          Question:this.list[index-1].content
+        }
+      })
     },
     //  滚动条置底
     scrollToBottom: function () { 

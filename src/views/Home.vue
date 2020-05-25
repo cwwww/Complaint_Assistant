@@ -91,7 +91,7 @@
       </div>
       <ul class="bottomList">
           <li> 
-              <img :src=home_zsk alt="">
+              <img @click="Repository" :src=home_zsk alt="">
               <span>知识库</span>
           </li>
           <li @click="FairyShop">
@@ -180,6 +180,9 @@ export default{
     };
   },
   methods: {
+    Repository(){
+      this.$router.replace('/Repository')
+    },
     FairyShop(){  //买家精灵商店
       this.$router.replace('/sellerShop')
     },
