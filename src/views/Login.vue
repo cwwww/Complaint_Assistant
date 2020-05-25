@@ -22,12 +22,11 @@
     <div class="bottomText">
       <van-checkbox class="checkout"  v-model="check">复选框</van-checkbox>
       <div class="text">
-        <!-- <p>已阅读并同意</p> -->
         <span>已阅读并同意</span>
-        <a href="https://h5.baoxianxia.com.cn/app/agreement.html">《保险侠服务协议》</a>
+        <router-link to="/bebotAgree">《保险侠服务协议》</router-link>
         <span>及</span>
-        <p>《保险侠隐私</p><a href="https://h5.baoxianxia.com.cn/app/secret.html">《保险侠隐私政策》</a>
-        <p>政策》</p><a href="https://h5.baoxianxia.com.cn/app/secret.html">政策》</a>
+        <a href="https://h5.baoxianxia.com.cn/app/secret.html">《保险侠隐私</a>
+        <a href="https://h5.baoxianxia.com.cn/app/secret.html">政策》</a>
       </div>
     </div>
     <div class="loginButton" @click="login">
@@ -36,7 +35,7 @@
   </div>
 </template>
 <script>
-import { reqlogin,reqbebotCode,reqsendMsmCode,reqwxconfig } from '../axios/axios-api'
+import { reqlogin,reqbebotCode,reqsendMsmCode,reqwxconfig,reqloginMsmCode } from '../axios/axios-api'
 // import {debounce} from '../assets/js/common'
 import { Toast,Checkbox } from 'vant';
 export default {
@@ -96,13 +95,12 @@ export default {
         let res = reqbebotCode (param)
         res.then(res=>{
           // console.log(res)
-          
         }).catch(reslove=>{
           console.log('error')
         })
       // }
     },
-    loginResearch(){
+    loginResearch(){  
       if (this.$refs.phone.value == '') {
         Toast('请输入手机号')
       }else if(!/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value)){
@@ -110,7 +108,7 @@ export default {
       } else if(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value)) {
         let param = {"PHONE": this.$refs.phone.value}
         console.log(param)
-        let res = reqsendMsmCode (param)
+        let res = reqsendMsmCode(param)
         res.then(res=>{
           console.log(res)
         }).catch(reslove=>{
@@ -126,8 +124,17 @@ export default {
       }else if(!this.check){
         Toast('请勾选协议')
       }else{
-        this.$router.replace('/')
-        this.impower()
+        let param = {"PHONE": this.$refs.phone.value,
+        "code":this.$refs.research.value
+        }
+        console.log(param)
+        let res = reqloginMsmCode (param)
+        res.then(res=>{
+          console.log(res)
+          this.$router.replace('/')
+        }).catch(reslove=>{
+          console.log('error')
+        })
       }
     },
 // getCode () { // 非静默授权，第一次有弹框
@@ -310,7 +317,7 @@ export default {
         color: rgba(255, 255, 255, 1);
         line-height: 18px;
       }
-      > p {
+      > a {
         float: left;
         display: block;
         font-size: 13px;

@@ -33,6 +33,9 @@ import NewTask from '../components/Task/NewTask'
 import Login from '../views/Login'
 import WhoLookMe from '../views/WhoLookMe'
 import shopZoom from '../views/shopZoom'
+import bebotAgree from '../views/bebotAgree'
+import bebotSecret from '../views/bebotSecret'
+
 const routes = [
     {
         path: '/Login',
@@ -221,9 +224,24 @@ const routes = [
         meta: {
             title: "知识库改版"
         }
+    },
+
+    {
+        path: '/bebotAgree',
+        name: 'bebotAgree',
+        component: bebotAgree,
+        meta: {
+            title: "《保险侠服务协议》"
+        }
+    },
+    {
+        path: '/bebotSecret',
+        name: 'bebotSecret',
+        component: bebotSecret,
+        meta: {
+            title: "《保险侠服务协议》"
+        }
     }
-
-
 
 
 ]

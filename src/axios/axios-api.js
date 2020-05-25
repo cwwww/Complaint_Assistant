@@ -15,6 +15,13 @@ export const reqsendMsmCode = data => {
     data
   });
 };
+export const reqloginMsmCode = data => {  
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/login/", // 验证短信
+    method: "post",
+    data
+  });
+};
 export const reqwxconfig = data => {  
   return axiosService({
     url: "http://api-bebot.baoxianxia.com.cn/api/callback/wxconfig/bebot/", // Bebot微信分享接口
@@ -36,7 +43,13 @@ export const reqHomeInit = data => {
     data
   });
 };
-
+export const reqVisitedInit = data => {  
+  return axiosService({
+    url: BASE + `/common/showVisitedRobotInfo/`, // 展示访客页被访机器人信息
+    method: "post",
+    data
+  });
+};
 export const reqMyShop = data => {
   return axiosService({
     url: BASE + `/common/show_my_shop/`, // 显示精灵商店信息
