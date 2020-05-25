@@ -3,7 +3,7 @@
     <!-- 人气 -->
     <div class="main">
       <div v-for="(item, idx) in theglobalListe" :key="idx">
-        <div class="wrap">
+        <div class="wrap"  @click="clickThis(item.broker_id,item.robot_id)">
           <div class="left">
             <div class="leftLittleLogon">
               <img v-if="idx == 0" :src="img" alt />
@@ -88,6 +88,19 @@ export default {
         alert(66666);
         console.log("error");
       });
+  },
+  methods:{
+	  clickThis:function(broker_id,robot_id,token){
+		  alert("broker_id:"+broker_id +  "robot_id:" + robot_id+"token:"+token);
+		  this.$router.push({
+		    path:'/HomeOther',
+		    query:{
+		      robot_id: robot_id,
+			  broker_id:broker_id,
+			  token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
+		    }
+		  })
+	  }
   }
 };
 </script>

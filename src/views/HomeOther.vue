@@ -239,9 +239,9 @@ export default{
 
     getHomeInit(){
         let param = {
-          "robot_id": 1,
-          "broker_id":1,
-"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"        }
+          "robot_id": this.$route.query.robot_id,
+          "broker_id":this.$route.query.broker_id,
+          "token":this.$route.query.token        }
         let result = reqHomeInit(param)
         result.then(res=>{
         this.homeInit = res.result

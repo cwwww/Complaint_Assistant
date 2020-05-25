@@ -19,7 +19,7 @@
             data-index="0"
             :class="{'active': index === curIndex}"
             class="bigBox"
-            :to="{name: route.name}"
+            :to="{path: route.name}"
             tag="li"
           >
             <span @click="changeIndex(index)">{{route.title}}</span>
@@ -58,7 +58,7 @@ export default {
     changeIndex(i) {
       this.curIndex = i;
     },
-  close() {
+    close() {
       this.$router.replace('/')
     }
   }

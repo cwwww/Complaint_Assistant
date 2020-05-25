@@ -3,7 +3,7 @@
   <div>
     <div class="main">
       <div v-for="(item, idx) in theglobalList" :key="idx">
-        <div class="wrap">
+        <div class="wrap"  @click="clickThis(item.broker_id,item.robot_id)">
           <div class="left">
             <div class="leftLittleLogon">
               <img v-if="idx == 0" :src="img" alt />
@@ -87,6 +87,19 @@ export default {
         alert(66666);
         console.log("error");
       });
+  },
+  methods:{
+	  clickThis:function(broker_id,robot_id){
+		  alert(this.theglobalList)
+	  		  this.$router.push({
+	  		    path:'/HomeOther',
+	  		    query:{
+	  		      robot_id: robot_id,
+	  			  broker_id:broker_id,
+				  token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+	  		    }
+	  		  })
+	  }
   }
 };
 </script>
