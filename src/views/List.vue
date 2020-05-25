@@ -1,6 +1,6 @@
 <template>
   <div class="warp">
-    <van-cell is-link @click="showPopup">上划</van-cell>
+    <!-- <van-cell is-link @click="showPopup">上划</van-cell> -->
     <van-popup
       class="content"
       v-model="show"
@@ -8,6 +8,7 @@
       round
       position="bottom"
       :style="{ height: '70%' }"
+      @close=close
     >
       <div class="title" id="title">
         <ul>
@@ -35,7 +36,7 @@ export default {
   data() {
     return {
       curIndex: 0,
-      show: false,
+      show: true,
       lists: [
         {
           name: "Friend",
@@ -54,7 +55,10 @@ export default {
     },
     showPopup() {
       this.show = true;
-    }
+    },
+     close(){
+      this.$router.replace('/')
+    },
   }
 };
 </script>

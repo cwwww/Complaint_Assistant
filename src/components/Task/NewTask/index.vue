@@ -1,13 +1,16 @@
 <template>
   <div class="wrap">
-    <div class="content">
+    <div class="content" v-for="(item, idx) in EverudayList" :key="idx">
       <div class="leftBox">
         <div class="leftLogon">
           <img :src="img" alt />
         </div>
         <div class="textContent">
-          <span>每日登陆</span>
-          <p>连续登陆第五天</p>
+          <span>
+            <!-- 每日登陆 -->
+            {{item.task_name}}
+            </span>
+          <p>{{item.task_desc}}</p>
         </div>
       </div>
       <div class="rightBox">
@@ -15,11 +18,11 @@
           <div class="leftImg">
             <img :src="img1" alt />
           </div>
-          <p>+4000</p>
+          <p>+{{item.awarded_bcoin}}</p>
           <div class="rightImg">
             <img :src="img2" alt />
           </div>
-          <span>+10</span>
+          <span>+{{item.awarded_exp}}</span>
         </div>
         <div class="bottomButton">
           <p>领取</p>

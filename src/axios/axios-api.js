@@ -234,6 +234,30 @@ export const getTaskList = data => {
   });
 };
 
+export const freandaList = data => { // 好友列表
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/friendsList/", // 好友排行
+    method: "post",
+    data 
+  });
+};
+
+export const BeanList = data => { // 粉丝列表
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/followerList/", // 粉丝排行
+    method: "post",
+    data 
+  });
+};
+
+export const yaoQing = data => { // 邀请好友页面
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/recommendlist/", 
+    method: "post",
+    data 
+  });
+};
+
 // 下面是GET形式
 // export const userInfo = params => {
 //   return axiosService({

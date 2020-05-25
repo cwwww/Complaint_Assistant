@@ -27,12 +27,12 @@
         </div>
       </div>
       <div class="fansAndFriend">
-        <div class="friend">
+        <div class="friend" @click="frang">
           <span class="num">{{homeInit.fans_num}}</span>
           <img src="../assets/images/friends@2x.png" alt="">
           <span class="design">好友</span>
         </div>
-        <div class="fan">
+        <div class="fan" @click="lists">
           <span class="num">{{homeInit.fans_num}}</span>
           <img src="../assets/images/fans@2x.png" alt="">
           <span class="design">粉丝</span>
@@ -203,6 +203,12 @@ export default{
         }
       })
     },
+    frang() {// 好友
+      this.$router.replace('/List/Friend')
+    },
+    lists() {// 粉丝
+    this.$router.replace('/List/Bean')
+    },
     previousPage(){
       talkContent.scrollTop += -138
       this.isOwn = true
@@ -351,7 +357,6 @@ export default{
      height: 90px;
      margin: 18px 0 0 20px;
      display: flex;
-    //  align-self: flex-start;
      .mes{
        background-image:url(../assets/images/txbg@2x.png);
        width: 198px;
@@ -375,7 +380,6 @@ export default{
          flex-direction: column;
          margin-top: 13px;
          position: relative;
-        //  background-image: url(../assets/images/jindu@2x.png);
          background-repeat: no-repeat;
          background-size: 99px 16px;
          background-position: 61px 37px;
@@ -424,9 +428,7 @@ export default{
     .bottomHalfPart{
         display: flex;
         justify-content: space-between;
-        // align-items: center;
        .leftPart{
-          // padding: 0 5px 0 3px;
           flex-direction: column;
           height: 18px;
           line-height: 18px;
@@ -442,7 +444,6 @@ export default{
           display: inline-block;
         }
         .rightPart{
-          // margin-left:auto;
           flex-direction: column;
           flex: 1;
           text-align: right;
