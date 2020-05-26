@@ -8,7 +8,6 @@ import { Toast,Button } from 'vant';
 import 'vant/lib/index.css';
 import VueClipboard  from 'vue-clipboard2'
 import { DatetimePicker } from 'vant';
-import wx from 'weixin-js-sdk' ;
  import 'lib-flexible'
 // import Router from 'vue-router'
 // const routerPush = Router.prototype.push
@@ -29,7 +28,6 @@ Vue.prototype.$jquery = $;
 Vue.config.productionTip = false
 Vue.use( VueClipboard )
 Vue.use(Toast);
-Vue.use(wx);
 Vue.use(Toast,Button);
 
 new Vue({
