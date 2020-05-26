@@ -13,7 +13,8 @@
       <p>10-29 08:23
         <span class="add" @click="toAdd">添加+</span>
       </p>
-      <div class="centercontent" v-for="(item, index) in list" :key="index">
+      <div class="contain">
+        <div class="centercontent" v-for="(item, index) in list" :key="index">
         <div class="question">
           <div class="topQ">
             <img :src="img" alt />
@@ -45,6 +46,7 @@
         </div>
         <div style="height:20px;"></div>
       </div>
+      </div>
       <router-view />
     </van-popup>
   </div>
@@ -60,6 +62,7 @@ export default {
       curIndex: 0,
       show: true,
       isShow:false,
+      flag:true,
       img: require("../assets/images/Q_small_icon@2x.png"),
       img1: require("../assets/images/A_small_icon@2x.png"),
       img2: require("../assets/images/biajide.png"),
@@ -70,7 +73,7 @@ export default {
   },
   methods: {
     close(){
-      if(this.$route.query.Answer == null){
+      if(this.$route.query.type == 'type'){
         this.$router.push('/Repository')
       }else{
         this.$router.push('/HomeChat')
@@ -94,22 +97,24 @@ export default {
         })
     },
     toAdd(){
-      // if(this.$route.query.Qusetion == ''){
-      //   this.$route.query.Qusetion = ""
-      // }
-      // if(this.$route.query.Qusetion == ''){
-      //   this.$route.query.Qusetion = ""
-      // }
+      if(this.flag){
+        this.Qusetion = this.$route.query.Qusetion
+        this.Answer = this.$route.query.Answer
+        this.flag = false
+      }else{
+        this.Qusetion = ''
+        this.Answer = ''
+      }
       let param = {
         "broker_id":33,
-        "question":this.$route.query.Qusetion,
-        "answer":this.$route.query.Answer,
+        "question":this.Qusetion,
+        "answer":this.Answer,
         "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
       }
       console.log(param)
       let res = reqaddledgeList(param)
         res.then(res=>{
-      this.ShoWList()
+          this.ShoWList()
           console.log(res);
         }).catch(reslove=>{
            console.log('error')
@@ -228,7 +233,8 @@ export default {
       right: 20px;
       font-size: 14px;
     }
-    > .centercontent {
+    .contain{
+      > .centercontent {
       width: 345px;
       height: auto;
       background: rgba(241, 246, 251, 1);
@@ -237,7 +243,7 @@ export default {
       margin-top: 18px;
       position: relative;
       > .question {
-    > .topQ {
+      > .topQ {
       // display: flex;
       // justify-content: space-between;
           > img {
@@ -267,7 +273,7 @@ export default {
           margin-left: 20px;
           margin-top: 6px;
         }
-    }
+      }
         > .texts {
           width: 295px;
           margin-left: 20px;
@@ -319,6 +325,7 @@ export default {
           }
         }
       }
+    }
     }
   }
 }

@@ -59,7 +59,7 @@
 <script>
 import BScroll from 'better-scroll'
 import { Popup,Toast,Loading } from 'vant';
-import { reqRobotDetail, reqRobotHistory, reqChathist } from '../../axios/axios-api'
+import { reqRobotDetail, reqRobotHistory, reqChathist,reqaddledgeList } from '../../axios/axios-api'
 export default {
   inject: ['reload'], // 引入页面同步刷新的依赖
   name: "HomeChat",
@@ -136,6 +136,20 @@ export default {
         })
     },
     teachYou(index){
+      let param = {
+        "broker_id":33,
+        "question":this.list[index-1].content,
+        "answer":this.list[index].content,
+        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+      }
+      console.log(param)
+      let res = reqaddledgeList(param)
+        res.then(res=>{
+        // this.ShoWList()
+          console.log(res);
+        }).catch(reslove=>{
+           console.log('error')
+        })
       this.$router.push({
         path:'/shopZoom',
         query:{
@@ -147,7 +161,7 @@ export default {
     //  滚动条置底
     scrollToBottom: function () { 
      this.$nextTick(() => {
-	      var container = this.$el.querySelector(".wrap");
+	      var container = this.$el.querySelector(".wrapper");
         container.scrollTop = container.scrollHeight;
      })
     }

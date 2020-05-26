@@ -9,6 +9,7 @@ import 'vant/lib/index.css';
 import VueClipboard  from 'vue-clipboard2'
 import { DatetimePicker } from 'vant';
  import 'lib-flexible'
+ import {UrlSearch} from "./assets/js/common/Fun"
 // import Router from 'vue-router'
 // const routerPush = Router.prototype.push
 // Router.prototype.push = function push(location) {
@@ -19,6 +20,8 @@ import { DatetimePicker } from 'vant';
 import 'lib-flexible'
 import VueWechatTitle from 'vue-wechat-title'//动态修改title
 import $ from 'jquery'
+let Request = new UrlSearch
+Vue.prototype.$Request = Request
 Vue.use(VueWechatTitle);
 Vue.use(Vant);
 Vue.use(element);

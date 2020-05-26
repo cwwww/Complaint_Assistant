@@ -39,7 +39,7 @@
               <img :src=imglevel alt />
               <p>{{text}}</p>
             </div>
-            <div class="title" v-if="item.type == 1 && item.status == 1" @click="tovisit">
+            <div class="title" v-if="item.type == 1 && item.status == 1" @click="tovisit(item.broker_id,item.robot_id)">
               <p>前往TA的事务所</p>
               <img :src=next alt="">
             </div>
@@ -133,7 +133,10 @@ export default {
     },
     toShopZoom(index){
       if(this.list[index].type == 0){
-        this.$router.replace('/shopZoom')
+        this.$router.push({
+          path:'/shopZoom',
+          query:{type:'type'}
+        })
       }
     },
     toEvaluate(index){
@@ -229,9 +232,17 @@ export default {
          console.log('error')
       })
     },
-    tovisit(){
-      this.$router.replace('/HomeOther')
-    },
+    tovisit:function(broker_id,robot_id){
+      this.$router.push({
+        path:'/HomeOther',
+        query:{
+          robot_id: 33,
+          broker_id:33,
+          robot_visitId:robot_id,
+          token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        }
+      })
+	  },
     toInvite(){
       this.$router.replace('/Invite')
     },
