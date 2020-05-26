@@ -6,7 +6,7 @@
       closeable
       round
       position="bottom"
-      :style="{ height: '38%',color:'black'}"
+      :style="{ height: '30%',color:'black'}"
       @close="close"
     >
 	  <div class="centerContent">
@@ -23,7 +23,7 @@
 	  </div>
 	  <div class="bottomLine"></div>
 	  <center>
-	  	<div class="cancelFollow"><font color="#333333" >取消</font></div>
+	  	<div class="cancelFollow" @click="close" ><font color="#333333" >取消</font></div>
 	  </center>
 	  <router-view />
     </van-popup>
@@ -31,7 +31,7 @@
 </template>
 <script>
 import { Popup,Toast } from 'vant';
-import { reqShowList,  reqHomeInit,reqEnable_kb,reqDisable_kb,reqReceive_official_kb, reqstarRating } from '../axios/axios-api'
+import { reqShowList,  reqHomeInit,reqEnable_kb,reqDisable_kb,reqReceive_official_kb, reqstarRating,guanZhu } from '../axios/axios-api'
 export default {
   name: "Repository",
   data() {
@@ -48,10 +48,43 @@ export default {
   methods: {
     close(){
       // this.show = false
-      this.$router.replace('/')
+      //this.$router.replace('/')
+	  this.$router.push({
+	    path:'/HomeOther',
+	    query:{
+	      robot_id: this.robot_id,
+	  	broker_id:this.broker_id,
+	  	robot_visitId:this.followed_robot_id,
+	  	token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+	    }
+	  })
     },
 	cancelFollows(){
-		
+		let param = {
+			"robot_id": this.robot_id,
+			"followed_robot_id":this.followed_robot_id,
+			"operation_type":"1",
+			"broker_id":this.broker_id,
+			"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+		}
+		let result = guanZhu(param)
+		result.then(res => {
+			console.log("guanzhu:" + res)
+			let content = res.result.info;
+			if(content == "已取消关注"){
+				this.$router.push({
+				  path:'/HomeOther',
+				  query:{
+				    robot_id: this.robot_id,
+					broker_id:this.broker_id,
+					robot_visitId:this.followed_robot_id,
+					token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+				  }
+				})
+			}
+		}).catch(reslove => {
+			console.log('error')
+		})
 	}
   },
   mounted(){
