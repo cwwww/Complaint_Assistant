@@ -365,6 +365,7 @@ export default{
     }
   },
   mounted(){
+    
     this.getHomeInit()
     this.getDetail();
 	//定时获取粉丝数据

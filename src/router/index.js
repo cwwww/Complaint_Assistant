@@ -58,6 +58,7 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home,
+        // redirect:'login',
         meta: {
             title: "首页"
         },
@@ -231,7 +232,6 @@ const routes = [
             title: "知识库改版"
         }
     },
-
     {
         path: '/bebotAgree',
         name: 'bebotAgree',
