@@ -366,13 +366,13 @@
 
 			.topHalfPart {
 				display: flex;
-				margin-bottom: 6px;
+				margin-bottom: 1px;
 
 				.headPortrait {
 					width: 45px;
 					height: 45px;
 					border-radius: 50%;
-					margin: 15px 5px 0 7px;
+					margin: 10px 5px 0 7px;
 
 					>img {
 						width: 45px;
@@ -445,7 +445,7 @@
 				 display: flex;
 				   align-items: center;
 				   justify-content: center;
-					padding: 0 5px 0 5px;
+					padding: 0 1px 0 1px;
 					flex-direction: column;
 					width: 20%;
 					height: 20px;
@@ -453,7 +453,7 @@
 					// background: rgba(252, 106, 82, 1);
 					background-color: #FC6A52;
 					border-radius: 12px;
-					
+					margin-left: 8px;
 					
 				}
 

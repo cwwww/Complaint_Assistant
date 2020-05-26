@@ -6,7 +6,7 @@
       closeable
       round
       position="bottom"
-      :style="{ height: '30%',color:'black'}"
+      :style="{ height: '28%',color:'black'}"
       @close="close"
     >
 	  <div class="centerContent">
@@ -16,14 +16,14 @@
 	  	</center>
 	  </div>
 	  <div class="line"></div>
-	  <div class="centerContent">
-	  	<center>
-	  		<div class="cancelFollow"   @click="cancelFollows"><font color="#FD2929" >取消关注</font></div>
-	  	</center>
-	  </div>
+		 <div class="centerContentSize">
+	  		<div class="cancelFollowSize"   @click="cancelFollows"><font color="#FD2929" >取消关注</font></div>
+	   </div>
 	  <div class="bottomLine"></div>
 	  <center>
-	  	<div class="cancelFollow" @click="close" ><font color="#333333" >取消</font></div>
+		    <div class="centerContentSize">
+	  	<div class="cancelFollowSize" @click="close" ><font color="#333333" >取消</font></div>
+		  </div>
 	  </center>
 	  <router-view />
     </van-popup>
@@ -111,10 +111,26 @@ export default {
    	  font-size: 12px;
    	  font-family: SFUIText-Regular, SFUIText;
    	  font-weight: 400;
-   	  color: rgba(155, 155, 155, 1);
+   	  // color: rgba(155, 155, 155, 1);
+	   color:#666666;
    	  line-height: 22px;
    	  margin-top: 5px;
    }
+   .centerContentSize{
+	     position: relative;
+   }
+   .cancelFollowSize {
+	   display: flex;
+	   height: 40px;
+	     align-items: center;
+	     justify-content: center;
+    	  font-size: 15px;
+    	  font-family: SFUIText-Regular, SFUIText;
+    	  font-weight: 400;
+    	  color: rgba(155, 155, 155, 1);
+    	  line-height: 22px;
+    	  margin-top: 5px;
+    }
    > .line {
      width: 100%;
      height: 6px;
