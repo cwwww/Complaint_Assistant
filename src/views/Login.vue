@@ -94,7 +94,7 @@ export default {
         let param = {"code":this.code}
         let res = reqbebotCode (param)
         res.then(res=>{
-          // console.log(res)
+          console.log(res)
         }).catch(reslove=>{
           console.log('error')
         })
@@ -140,7 +140,7 @@ export default {
   getCode () { // 非静默授权，第一次有弹框
         this.code = ''
         // var local = window.location.href // 获取页面url
-        var local = "https://m.baoxianxia.com.cn/robot/chat.html" // 获取页面url
+        var local = "https://bebot-web.baoxianxia.com.cn/index.html" // 获取页面url
         var appid = 'wx026553ce8b4e59a3'
         this.code = this.getUrlCode().code // 截取code
         if (this.code == null || this.code === '') { // 如果没有code，则去请求
@@ -148,6 +148,7 @@ export default {
         } else {
             // 你自己的业务逻辑
         }
+        console.log(this.code)
   },
   getUrlCode() { // 截取url中的code方法
         var url = window.location.search

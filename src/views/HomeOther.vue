@@ -115,9 +115,9 @@
 		Popup,
 		Toast
 	} from 'vant';
-	import {
-		MessageBox
-	} from 'element-ui';
+	// import {
+	// 	MessageBox
+	// } from 'element-ui';
 	import {
 		reqHomeInit,
 		reqCusayrob,

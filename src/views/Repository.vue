@@ -133,7 +133,10 @@ export default {
     },
     toShopZoom(index){
       if(this.list[index].type == 0){
-        this.$router.replace('/shopZoom')
+        this.$router.push({
+          path:'/shopZoom',
+          query:{type:'type'}
+        })
       }
     },
     toEvaluate(index){
