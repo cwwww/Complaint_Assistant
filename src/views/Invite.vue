@@ -5,85 +5,93 @@
     <div class="topNav">
       <dl>
         <dt>
-          <span>5</span>
+          <span>{{yaoqList.recommendedlist.length}} </span>
           <p>人</p>
         </dt>
         <dd>已成功邀请</dd>
       </dl>
       <dl>
         <dt>
-          <span>50</span>
+          <span>{{yaoqList.member_days}}</span>
           <p>天</p>
         </dt>
         <dd>已得会员天数</dd>
       </dl>
       <dl>
         <dt>
-          <span>30</span>
+          <span>{{yaoqList.lexicons}}</span>
           <p>万</p>
         </dt>
         <dd>已得词库</dd>
       </dl>
     </div>
     <div class="topNavTwo">
-      <p>每邀请1人即可获得10天会员</p>
-      <span>
-        还差
-        <span class="color">1</span> 人，即可再获得
-        <span class="color">60万词库</span>
-      </span>
+      <p v-if="yaoqList.recommendedlist.length <10">每邀请1人即可获得10天会员</p>
+		  <span v-if="yaoqList.recommendedlist.length <10">
+		    还差
+		    <span class="color">{{yaoqList.lack_num}}</span> 人，即可再获得
+		    <span class="color">{{yaoqList.expect_lexicon}}万词库</span>
+		  </span>
       <div class="boxColor">
-        <div class="jdColor"></div>
+        <div class="jdColor" :style="{paddingLeft:'10px'}"></div>
       </div>
       <div class="checkOut">
         <ul>
           <li>
-            <p>1人</p>
+            <div v-show="img1Show"><p>1人</p></div>
+			<img :src="img1" alt /> 
           </li>
           <li>
-            <p>3人</p>
+            <div v-show="img3Show"><p>3人</p></div>
+			<img :src="img3" alt />
           </li>
           <li>
-            <img :src="img1" alt />
+            <img :src="img5" alt /> 
           </li>
           <li>
-            <p>6人</p>
+            <div v-show="img6Show"><p>6人</p></div>
+			<img :src="img6" alt /> 
           </li>
           <li>
-            <p>10人</p>
+            <div v-show="img10Show"><p>10人</p></div>
+			<img :src="img10" alt /> 
           </li>
         </ul>
       </div>
-      <div class="jumpFriend">去邀请好友</div>
+      <div class="jumpFriend"  @click="shareFriend">去邀请好友</div>
       <div class="footer">活动截止日期 2020/5/20</div>
     </div>
     <div class="threeCentent">
       <span>成功邀请</span>
-      <div class="content">
-        <div class="left">
-          <p>1</p>
-          <div class="loginImg">
-            <img :src="img" alt />
-          </div>
-          <span>Emilee</span>
-        </div>
-        <div class="right">
-          <p>+10万词库</p>
-          <p>+10天会员</p>
-        </div>
-      </div>
-      <div class="content">
-        <div class="left">
-          <p>2</p>
-          <div class="loginImg">
-            <img :src="img" alt />
-          </div>
-          <span>Emilee</span>
-        </div>
-        <div class="right">
-          <p>+10天会员</p>
-        </div>
-      </div>
+	  <div v-for="(recommender,index) in yaoqList.recommendedlist"  :key="recommender.id">
+		  <div class="content">
+		    <div class="left">
+		      <p>{{index+1}}</p>
+		      <div class="loginImg">
+		        <img :src="recommender.broker_head" alt /> 
+		      </div>
+		       <span>{{recommender.broker_name}}</span> 
+		    </div>
+		    <div class="right">
+		      <div v-if="recommender.member_day >0"><p>{{recommender.member_day}}天会员</p></div>
+		      <div v-if="recommender.lexicon >0"><p>{{recommender.lexicon}}万词库</p></div>
+		    </div>
+		  </div> 
+		  
+		  <!-- <div class="content">
+		          <div class="left">
+		            <p>1</p>
+		            <div class="loginImg">
+		              <img :src="img" alt />
+		            </div>
+		            <span>Emilee</span>
+		          </div>
+		          <div class="right">
+		            <p>+10万词库</p>
+		            <p>+10天会员</p>
+		          </div>
+		        </div> -->
+	  </div>
     </div>
     <div class="lastCentent">
       <span>活动规则</span>
@@ -100,13 +108,27 @@
 </template>
 <script>
 import { yaoQing } from "../axios/axios-api";
+
 export default {
   name: "Invite",
   data() {
     return {
-      yaoqList: [],
+      yaoqList: {
+		  lexicon: "",
+		  member_days:"",
+		  recommendedlist:[],
+	  },
+	  paddingLeft:"",
       img: require("../assets/images/bg.png"),
-      img1: require("../assets/images/five@2x.png")
+      img1: "",
+	  img3: "",
+	  img5: "",
+	  img6: "",
+	  img10: "",
+	  img1Show:true,
+	  img3Show:true,
+	  img6Show:true,
+	  img10Show:true,
     };
   },
     mounted() {
@@ -117,15 +139,51 @@ export default {
     let result = yaoQing(param);
     result
       .then(res => {
-        console.log(res, 11111111111111111111111111111111111111)
         this.yaoqList = res.result;
+		let recommenders = this.yaoqList.recommendedlist.length;
+		if(recommenders == 1){
+			this.img1 = require("../assets/images/one@2x.png");
+			this.paddingLeft = 285*10%+"px";
+			this.img1Show = false;
+		}else if(recommenders == 3){
+			this.paddingLeft = 285*30%+"px";
+			this.img3 = require("../assets/images/three@2x.png");
+			this.img3Show = false;
+		}else if (recommenders == 5){
+			this.paddingLeft = 285*50%+"px";
+			this.img5 = require("../assets/images/five@2x.png");
+		}else if(recommenders == 6){
+			this.paddingLeft = 285*80%+"px";
+			this.img6 = require("../assets/images/six@2x.png");
+			this.img6Show = false;
+		}else{
+			this.paddingLeft = 285*100%+"px";
+			this.img10 = require("../assets/images/ten@2x.png");
+			this.img10Show = false;
+		}
         console.log(this.yaoqList, "邀请好友");
       })
       .catch(reslove => {
         alert(66666);
         console.log("error");
       });
-  }
+  },
+  methods:{
+	  shareFriend:function(){
+		 // wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
+		 //   wx.updateAppMessageShareData({ 
+		 //     title: '分享', // 分享标题
+		 //     desc: '分享内容', // 分享描述
+		 //     link: 'http://api-bebot.baoxianxia.com.cn/api/callback/wxconfig/bebot/', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+		 //     imgUrl: '', // 分享图标
+		 //     success: function () {
+		 //       // 设置成功
+		 //     }
+		 //   })
+		 // }); 
+	  }
+	  
+     }
 };
 </script>
 <style lang="scss" scoped>

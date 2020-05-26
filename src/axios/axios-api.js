@@ -298,6 +298,14 @@ export const BeanList = data => { // 粉丝列表
   });
 };
 
+export const guanZhu = data => { // 关注/取消关注
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/followRobot/", 
+    method: "post",
+    data 
+  });
+};
+
 export const yaoQing = data => { // 邀请好友页面
   return axiosService({
     url: "https://test-bebot-api.baoxianxia.com.cn/recommendlist/", 

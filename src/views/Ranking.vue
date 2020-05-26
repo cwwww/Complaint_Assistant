@@ -19,7 +19,7 @@
             data-index="0"
             :class="{'active': index === curIndex}"
             class="bigBox"
-            :to="{name: route.name}"
+            :to="{path: route.name}"
             tag="li"
           >
             <span @click="changeIndex(index)">{{route.title}}</span>
@@ -51,14 +51,20 @@ export default {
           name: "Theglobal",
           title: "人气排行"
         }
-      ]
+      ],
+	  broker_id: 33,
+	  robot_id: 33,
     };
+  },
+  mounted() {
+	 this.broker_id = this.$route.query.broker_id;
+	 this.robot_id = this.$route.query.robot_id;
   },
   methods: {
     changeIndex(i) {
       this.curIndex = i;
     },
-  close() {
+    close() {
       this.$router.replace('/')
     }
   }

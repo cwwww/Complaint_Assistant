@@ -154,11 +154,11 @@ export default {
   },
   mounted(){
     console.log(this.type)
-    console.log(this.$route.query.TaskStatus.np2)
-    this.result = this.$route.query.TaskStatus
-    if(this.result.np2 == 2){
-        this.status = '已领取'
-    }
+    // console.log(this.$route.query.TaskStatus.np2)
+    // this.result = this.$route.query.TaskStatus
+    // if(this.result.np2 == 2){
+    //     this.status = '已领取'
+    // }
   }
 };
 </script>

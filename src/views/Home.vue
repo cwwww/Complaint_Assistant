@@ -194,7 +194,14 @@ export default{
       this.$router.replace('/WhoLookMe')
     },
     Ranking(){
-      this.$router.replace('/Ranking')
+      //this.$router.replace('/Ranking')
+	  this.$router.push({
+	    path:'/Ranking',
+	    query:{
+	      "broker_id": 33,
+	      "robot_id": 33,
+	    }
+	  })
     },
     Task() {   // 任务
       this.$router.push({
