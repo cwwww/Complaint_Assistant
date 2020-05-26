@@ -51,8 +51,14 @@ export default {
           name: "Theglobal",
           title: "人气排行"
         }
-      ]
+      ],
+	  broker_id: 33,
+	  robot_id: 33,
     };
+  },
+  mounted() {
+	 this.broker_id = this.$route.query.broker_id;
+	 this.robot_id = this.$route.query.robot_id;
   },
   methods: {
     changeIndex(i) {
