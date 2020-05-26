@@ -24,7 +24,7 @@ export const reqloginMsmCode = data => {
 };
 export const reqisregistered = data => {  
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/isregistered/", // 验证短信
+    url: "https://test-bebot-api.baoxianxia.com.cn/isregistered/", // 判断用户类型是否注册
     method: "post",
     data
   });
