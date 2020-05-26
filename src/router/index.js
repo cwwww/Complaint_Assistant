@@ -31,6 +31,7 @@ import CancelFollow from '../views/CancelFollow'
 import Task from '../views/Task'
 import EveryDayTask from '../components/Task/EveryDayTask'
 import NewTask from '../components/Task/NewTask'
+import ProfessionTask from '../components/Task/ProfessionTask'
 import Login from '../views/Login'
 import WhoLookMe from '../views/WhoLookMe'
 import shopZoom from '../views/shopZoom'
@@ -212,7 +213,13 @@ const routes = [
                 path: '/Task/NewTask',
                 name: 'NewTask',
                 component: NewTask,
-            }
+            },
+			{
+			    path: '/Task/ProfessionTask',
+			    name: 'ProfessionTask',
+			    component: ProfessionTask,
+			},
+			
         ]
     },
     {

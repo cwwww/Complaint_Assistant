@@ -51,7 +51,9 @@ export default {
 }
       let res = getTaskList(param)
       res.then(res=>{
-console.log(res)
+        console.log(res)
+		this.EverudayList = res.result;
+		
       }).catch(reslove=>{
          console.log('error')
       })

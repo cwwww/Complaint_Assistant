@@ -305,7 +305,6 @@ export const guanZhu = data => { // 关注/取消关注
     data 
   });
 };
-
 export const yaoQing = data => { // 邀请好友页面
   return axiosService({
     url: "https://test-bebot-api.baoxianxia.com.cn/recommendlist/", 
@@ -313,7 +312,6 @@ export const yaoQing = data => { // 邀请好友页面
     data 
   });
 };
-
 // 下面是GET形式
 // export const userInfo = params => {
 //   return axiosService({

@@ -37,7 +37,7 @@ export default {
     return {
       curIndex: 0,
       show: true,
-        img: require("../assets/images/icon.png"),
+      img: require("../assets/images/icon.png"),
       lists: [
         {
           name: "EveryDayTask",
@@ -48,6 +48,7 @@ export default {
           title: "每日任务"
         },
         {
+		  name: "ProfessionTask",
           title: "职业任务"
         }
       ]
