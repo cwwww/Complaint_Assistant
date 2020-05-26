@@ -46,6 +46,7 @@
 			<img :src="img3" alt />
           </li>
           <li>
+			<div v-show="img5Show"><p>5人</p></div>
             <img :src="img5" alt /> 
           </li>
           <li>
@@ -68,30 +69,48 @@
 		    <div class="left">
 		      <p>{{index+1}}</p>
 		      <div class="loginImg">
-		        <img :src="recommender.broker_head" alt /> 
+		        <div v-if="recommender.broker_head !=null"><img :src="recommender.broker_head" alt /></div>
+				<div v-else><img :src="defaultImg" alt /></div>
 		      </div>
-		       <span>{{recommender.broker_name}}</span> 
+		       <div v-if="recommender.broker_name !=null"><span>{{recommender.broker_name}}</span></div>
+			   <div v-else><span>Bebot用户_{{recommender.broker_id}}</span></div>
 		    </div>
 		    <div class="right">
 		      <div v-if="recommender.member_day >0"><p>{{recommender.member_day}}天会员</p></div>
 		      <div v-if="recommender.lexicon >0"><p>{{recommender.lexicon}}万词库</p></div>
 		    </div>
 		  </div> 
-		  
-		  <!-- <div class="content">
-		          <div class="left">
-		            <p>1</p>
-		            <div class="loginImg">
-		              <img :src="img" alt />
-		            </div>
-		            <span>Emilee</span>
-		          </div>
-		          <div class="right">
-		            <p>+10万词库</p>
-		            <p>+10天会员</p>
-		          </div>
-		        </div> -->
 	  </div>
+	  <div class="content">
+	          <div class="left">
+	            <p>1</p>
+	            <div class="loginImg">
+	              <img :src="defaultImg" alt />
+	            </div>
+	            <span>Emilee</span>
+	          </div>
+	          <div class="right">
+				<p>+10天会员</p>
+	            <p>+10万词库</p>
+	          </div>
+	    </div> 
+		
+		
+		<div class="content">
+		  <div class="left">
+		    <p>2</p>
+		    <div class="loginImg">
+		     
+						<img :src="defaultImg" alt />
+		    </div>
+		     
+					   <span>Bebot用户_2</span>
+		  </div>
+		  <div class="right">
+		   <p>10天会员</p>
+		   <p>20万词库</p>
+		  </div>
+		</div> 
     </div>
     <div class="lastCentent">
       <span>活动规则</span>
@@ -120,6 +139,7 @@ export default {
 	  },
 	  paddingLeft:"",
       img: require("../assets/images/bg.png"),
+	  defaultImg: require("../assets/images/默认头像@2x.png"),
       img1: "",
 	  img3: "",
 	  img5: "",
@@ -127,6 +147,7 @@ export default {
 	  img10: "",
 	  img1Show:true,
 	  img3Show:true,
+	  img5Show:true,
 	  img6Show:true,
 	  img10Show:true,
     };
@@ -140,6 +161,7 @@ export default {
     result
       .then(res => {
         this.yaoqList = res.result;
+		console.log(this.yaoqList)
 		let recommenders = this.yaoqList.recommendedlist.length;
 		if(recommenders == 1){
 			this.img1 = require("../assets/images/one@2x.png");
@@ -152,8 +174,9 @@ export default {
 		}else if (recommenders == 5){
 			this.paddingLeft = 285*50%+"px";
 			this.img5 = require("../assets/images/five@2x.png");
+			this.img5Show = false;
 		}else if(recommenders == 6){
-			this.paddingLeft = 285*80%+"px";
+			this.paddingLeft = 285*60%+"px";
 			this.img6 = require("../assets/images/six@2x.png");
 			this.img6Show = false;
 		}else{
