@@ -54,7 +54,7 @@
           <div>我的任务</div>
           <img class="new" src="../assets/images/new@2x.png" alt="">
         </li>
-        <li>
+        <li @click="toFXCP">
           <img :src=home_risktest alt="">
           <div>风险测评</div>
         </li>
@@ -128,6 +128,7 @@ export default{
   components: {},
   data(){
     return {
+  link:'',
       show1: false,
       goodsList:[],
       isOwn:true,
@@ -203,8 +204,11 @@ export default{
         }
       })
     },
+    toFXCP(){
+      window.parent.location.href = 'https://m.baoxianxia.com.cn/risk/index.html'
+    },
     toPlan(){
-      window.localtion.href = url('https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16')
+      window.parent.location.href = 'https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16'
     },
     frang() {// 好友
       this.$router.replace('/List/Friend')
@@ -506,6 +510,29 @@ export default{
     right: 0;
     color: #2DE2E6;
     li{
+      text-align: center;
+      margin-top: 15px;
+      img{
+        width: 40px;
+        height: 40px;
+      }
+      span{
+        height:18px;
+        font-size:13px;
+        font-weight:500;
+        color:rgba(45,226,230,1);
+        line-height:18px;
+        text-shadow:0px 1px 1px rgba(0,0,0,0.5);
+      }
+      .new{
+        width: 12px;
+        height: 12px;
+        position: absolute;
+        right: 0;
+        top: -4px;
+      }
+    }
+    a{
       text-align: center;
       margin-top: 15px;
       img{

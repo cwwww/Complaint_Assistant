@@ -18,7 +18,7 @@
             <span style="margin-left:5px;font-size:13px;color:#999;">899</span>
             <div class="line"></div>
           </div>
-          <div class="rightLogin" type="text">
+          <div @click="toInvite" class="rightLogin" type="text">
             <div>限时领取</div>
           </div>
         </div>
@@ -45,7 +45,11 @@ export default {
       vipShop: require("../../../assets/images/包月会员@2x.png"),
     };
   },
-
+  methods:{
+    toInvite(){
+      this.$router.replace('/Invite')
+    }
+  },
   mounted() {
       let param = {
         "robot_id":"1",

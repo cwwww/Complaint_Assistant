@@ -136,7 +136,6 @@ export default {
         })
     },
     teachYou(index){
-      alert(index)
       this.$router.push({
         path:'/shopZoom',
         query:{
@@ -148,7 +147,7 @@ export default {
     //  滚动条置底
     scrollToBottom: function () { 
      this.$nextTick(() => {
-	      var container = this.$el.querySelector(".wrapper");
+	      var container = this.$el.querySelector(".wrap");
         container.scrollTop = container.scrollHeight;
      })
     }
