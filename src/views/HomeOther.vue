@@ -437,21 +437,26 @@
 			}
 
 			.bottomHalfPart {
-				display: flex;
-				justify-content: space-between;
-
-				// align-items: center;
+				  position: relative;
+				
 				.leftPart {
-					// padding: 0 5px 0 3px;
+				 display: flex;
+				   align-items: center;
+				   justify-content: center;
+					padding: 0 5px 0 5px;
 					flex-direction: column;
+					width: 20%;
 					height: 20px;
 					line-height: 18px;
-					background: rgba(252, 106, 82, 1);
-					border-radius: 6px;
-					margin-left: 6px;
+					// background: rgba(252, 106, 82, 1);
+					background-color: #FC6A52;
+					border-radius: 12px;
+					
+					
 				}
 
 				.guanzhu {
+				
 					color: white;
 				}
 
