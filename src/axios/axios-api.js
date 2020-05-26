@@ -137,13 +137,6 @@ export const reqRobotDetail = data => {
     data
   });
 };	
-export const reqChathist = data => {
-  return axiosService({
-    url: BASE + `/common/pub2square/chathist_page/`, // 聊天记录页发布到问答广场
-    method: "post",
-    data
-  });
-};
 export const reqLookMe = data => {  
   return axiosService({
     url: BASE + `/common/myVisitors/`, // 谁看过我
@@ -186,6 +179,48 @@ export const reqAgentInput = data => {
     data
   });
 };
+export const reqknowledgeList = data => {
+  return axiosService({
+    url: BASE + `/common/show_knowledge_base/`, // 知识库显示接口
+    method: "post",
+    data
+  });
+};
+export const reqeditList = data => {
+  return axiosService({
+    url: BASE + `/common/edit_knowledge_base/`, // 知识库编辑接口
+    method: "post",
+    data
+  });
+};
+export const reqaddledgeList = data => {
+  return axiosService({
+    url: BASE + `/common/add_knowledge_base/`, // “我教你”增加问答到知识库
+    method: "post",
+    data
+  });
+};
+export const reqdeleteList = data => {
+  return axiosService({
+    url: BASE + `/common/delete_knowledge_base/`, // 知识库删除接口
+    method: "post",
+    data
+  });
+};
+export const reqlistPage = data => {
+  return axiosService({
+    url: BASE + `/common/pub2square/list_page/`, // 知识库页发布到问答广场
+    method: "post",
+    data
+  });
+};
+export const reqChathist = data => {
+  return axiosService({
+    url: BASE + `/common/pub2square/chathist_page/`, // 聊天记录页发布到问答广场
+    method: "post",
+    data
+  });
+};
 export const reqShowList = data => {
   return axiosService({
     url: BASE + `/common/show_kb_list/`, // 显示知识库列表
@@ -207,7 +242,7 @@ export const reqDisable_kb = data => {
     data
   });
 };
-export const reqReceive_official_kb = data => {
+export const reqReceive = data => {
   return axiosService({
     url: BASE + `/common/receive_official_kb/`, // 领取官方知识库接口
     method: "post",

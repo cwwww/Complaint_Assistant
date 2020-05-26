@@ -34,6 +34,7 @@ export default {
   name: "sellerShop",
   data() {
     return {
+      // flag:0,
       curIndex: 0,
       show: true,
       img: require("../../assets/images/icon.png"),
@@ -60,6 +61,9 @@ export default {
     close() {
       this.$router.replace('/')
     }
+  },
+  mounted(){
+    // this.curIndex = i
   }
 };
 </script>

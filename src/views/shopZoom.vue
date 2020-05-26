@@ -10,46 +10,53 @@
     >
       <span>知识库</span>
       <div class="line"></div>
-      <p>10-29 08:23</p>
-      <div class="centercontent">
+      <p>10-29 08:23
+        <span class="add" @click="toAdd">添加+</span>
+      </p>
+      <div class="centercontent" v-for="(item, index) in list" :key="index">
         <div class="question">
           <div class="topQ">
             <img :src="img" alt />
-            <img :src="img5" alt="">
+            <textarea class="text" v-show="isShow" id="myText">
+              {{item.question}}
+            </textarea> 
+            <div class="text2" v-show="!isShow">
+              {{item.question}}
+              </div>
+            <img @click="remove(index)" class="delete" :src="img5" alt="">
           </div>
-          <div class="texts">
-            <p>{{this.$route.query.Question}}</p>
-          </div>
+          <!-- <div class="texts">
+            <p>{{$route.query.Question}}</p>
+          </div> -->
         </div>
         <div class="assets">
           <img :src="img1" alt />
-          <textarea class="text" v-show="this.isShow" id="myText">
-            {{this.$route.query.Answer}}
+          <textarea class="text" v-show="isShow" id="myText2">
+            {{item.answer}}
             </textarea> 
-          <div class="text2" v-show="!this.isShow">
-            {{this.$route.query.Answer}}
+          <div class="text2" v-show="!isShow">
+            {{item.answer}}
           </div>
-          <!-- <textarea class="text">
-            </textarea> -->
         </div>
         <div class="buttons">
-          <img :src="img2" @click="toEdit" alt />
-          <img :src="img3" v-show="this.isShow" @click="toSave" alt />
-          <img :src="img4" v-show="!this.isShow" alt="">
+          <img :src="img2" @click="toEdit(index)" alt />
+          <img :src="img3" v-show="isShow" @click="toSave(index)" alt />
+          <img @click="listPage(index)" :src="img4" v-show="!isShow" alt="">
         </div>
-          <div style="height:20px;"></div>
-        
+        <div style="height:20px;"></div>
       </div>
       <router-view />
     </van-popup>
   </div>
 </template>
 <script>
-
+import { Toast } from 'vant';
+import { reqlistPage,reqknowledgeList,reqeditList,reqdeleteList,reqaddledgeList } from '../axios/axios-api'
 export default {
   name: "shopZoom",
   data() {
     return {
+      list:[],
       curIndex: 0,
       show: true,
       isShow:false,
@@ -63,25 +70,117 @@ export default {
   },
   methods: {
     close(){
-      this.$router.replace('/HomeChat')
+      if(this.$route.query.Answer == null){
+        this.$router.push('/Repository')
+      }else{
+        this.$router.push('/HomeChat')
+      }
+    },
+    listPage(index){
+      console.log(this.list[index])
+      let param = {
+        "online_data_id":this.list[index].online_data_id,
+        "broker_id":33,
+        "question":this.$route.query.Qusetion,
+        "answer":this.$route.query.Answer,
+        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+      }
+      console.log(param)
+      let res = reqlistPage(param)
+        res.then(res=>{
+          Toast(res.msg);
+        }).catch(reslove=>{
+           console.log('error')
+        })
+    },
+    toAdd(){
+      // if(this.$route.query.Qusetion == ''){
+      //   this.$route.query.Qusetion = ""
+      // }
+      // if(this.$route.query.Qusetion == ''){
+      //   this.$route.query.Qusetion = ""
+      // }
+      let param = {
+        "broker_id":33,
+        "question":this.$route.query.Qusetion,
+        "answer":this.$route.query.Answer,
+        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+      }
+      console.log(param)
+      let res = reqaddledgeList(param)
+        res.then(res=>{
+      this.ShoWList()
+          console.log(res);
+        }).catch(reslove=>{
+           console.log('error')
+        })
+    },
+    remove(index){
+      let param = {
+        "broker_id":33,
+        "online_data_id":this.list[index].online_data_id,
+        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+      }
+      console.log(param)
+      let res = reqdeleteList (param)
+        res.then(res=>{
+      this.ShoWList()
+          console.log(res);
+        }).catch(reslove=>{
+           console.log('error')
+        })
     },
     showPopup() {
       this.show = true;
     },
-    toEdit(){
+    toEdit(index){
       this.isShow = true
     },
-    toSave(){
+    toSave(index){
       this.isShow = false
-      this.$route.query.Answer = document.getElementById("myText").value
+      this.$route.query.Qusetion = document.getElementById("myText").value
+      this.$route.query.Answer = document.getElementById("myText2").value
+      // if(this.list[index].Qusetion == ''){
+      //   this.Qusetion = ' '
+      // }
+      // if(this.list[index].Answer == ''){
+      //   this.Answer = ' '
+      // }
+      let param = {
+        "modified_data_id":this.list[index].online_data_id,
+        "broker_id":33,
+        "question":this.$route.query.Qusetion,
+        "answer":this.$route.query.Answer,
+        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+      }
+      let res = reqeditList(param)
+        res.then(res=>{
+          console.log(res)
+          this.list = res.result.data
+        }).catch(reslove=>{
+           console.log('error')
+        })
+    },
+    ShoWList(){
+      let param = {
+        "broker_id":33,
+        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+      }
+      console.log(param)
+      let res = reqknowledgeList (param)
+        res.then(res=>{
+          console.log(res)
+          this.list = res.result.data
+        }).catch(reslove=>{
+           console.log('error')
+        })
     }
   },
   // watch(){
   //   console.log(document.getElementById("myText").value)
-  
   // },
   mounted(){
-    console.log(document.getElementById("myText").value)
+    this.ShoWList()
   }
 };
 </script>
@@ -114,6 +213,7 @@ export default {
       line-height: 16px;
       text-align: center;
       margin-top: 10px;
+      position: relative;
     }
     > .line {
       width: 100%;
@@ -122,6 +222,12 @@ export default {
       margin-top: 10px;
       margin-bottom: 16px;
     }
+    .add{
+      background: #f1f6fb;
+      position: absolute;
+      right: 20px;
+      font-size: 14px;
+    }
     > .centercontent {
       width: 345px;
       height: auto;
@@ -129,21 +235,37 @@ export default {
       border-radius: 6px;
       margin: 0 auto;
       margin-top: 18px;
+      position: relative;
       > .question {
     > .topQ {
-      display: flex;
-      justify-content: space-between;
+      // display: flex;
+      // justify-content: space-between;
           > img {
           width: 24px;
           height: 24px;
           margin-top: 19px;
           margin-left: 20px;
-          &:last-child {
+        }
+          .delete{
             width: 54px;
             height: 24px;
-            margin-top: 19px;
-          margin-right: 20px;
+            position: absolute;
+            top: 0;
+            right: 20px;
           }
+        > .text {
+          width: 305px;
+          height: auto;
+          height: 100px;
+          margin-left: 20px;
+          margin-top: 9px;
+        }
+        > .text2 {
+          width: 305px;
+          height: auto;
+          // margin: 0 auto;
+          margin-left: 20px;
+          margin-top: 6px;
         }
     }
         > .texts {
