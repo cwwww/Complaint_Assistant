@@ -137,7 +137,7 @@ export default {
         })
       }
     },
-  getCode () { // 非静默授权，第一次有弹框
+  getCode(){ // 非静默授权，第一次有弹框
         this.code = ''
         // var local = window.location.href // 获取页面url
         var local = "https://bebot-web.baoxianxia.com.cn/#/" // 获取页面url
