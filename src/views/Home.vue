@@ -35,7 +35,7 @@
         <div class="fan" @click="lists">
           <span class="num">{{homeInit.fans_num}}</span>
           <img src="../assets/images/fans@2x.png" alt="">
-          <span class="design">粉丝</span>
+          <span class="design">粉丝<div v-if="showNew">新</div></span>
         </div>
       </div>
     </div>
@@ -123,12 +123,13 @@
 <script>
 import { Popup,Toast } from 'vant';
 import { MessageBox } from 'element-ui';
-import { reqHomeInit, reqCusayrob, reqRobotDetail } from '../axios/axios-api'
+import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList } from '../axios/axios-api'
 export default{
   components: {},
   data(){
     return {
-  link:'',
+	  showNew:false,
+      link:'',
       show1: false,
       goodsList:[],
       isOwn:true,
@@ -231,6 +232,23 @@ export default{
       talkContent.scrollTop += 138
       this.isOwn = false
     },
+	//定时获取粉丝数量
+	getFensi(){
+		let param = {
+		  "robot_id": 33,
+		  "operation_type": 0,
+          "broker_id": 33,
+          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        }
+		let res = BeanList(param)
+		res.then(res=>{
+		        console.log(res)
+		        this.list = res.result.dialog_history
+		        this.$refs.input.value = ''
+		    }).catch(reslove=>{
+		       console.log('error')
+		})
+	},
     submit(numIndex){  
       this.numIndex+=1
         if(this.$refs.input.value == '') {
@@ -348,7 +366,9 @@ export default{
   },
   mounted(){
     this.getHomeInit()
-    this.getDetail()
+    this.getDetail();
+	//定时获取粉丝数据
+	
   }
 }
 </script>
