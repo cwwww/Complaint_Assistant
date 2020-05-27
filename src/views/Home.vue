@@ -7,7 +7,7 @@
             <img :src=homeInit.headimgurl alt="">
           </div>
           <div class="infor">
-            <div class="swsName">{{homeInit.name}}&nbsp;事务所</div>
+            <div class="swsName">{{homeInit.name}}&nbsp;事务所1</div>
             <img class="line" :src=line alt="">
             <img class="experience" :src=experience alt="">
             <div class="ArticleExperience">{{homeInit.exp}}/{{homeInit.level_exp}}</div>
