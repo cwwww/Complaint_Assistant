@@ -456,7 +456,7 @@ export default{
     getCode(){ // 非静默授权，第一次有弹框
         this.code = ''
         // var local = window.location.href // 获取页面url
-        var local = "https://bebot-web.baoxianxia.com.cn/#/" // 获取页面url
+        var local = "https://test-bebot-web.baoxianxia.com.cn/#/" // 获取页面url
         var appid = 'wx026553ce8b4e59a3'
         this.code = this.getUrlCode().code // 截取code
         if (this.code == null || this.code === '') { // 如果没有code，则去请求
@@ -480,9 +480,12 @@ export default{
     }
   },
   created(){
-    console.log(1)
-    console.log(this.$route.query)  
-    console.log(2)
+    var url = window.location.href
+  var start = url.indexOf("=")
+  var end = url.indexOf("&")
+  this.code = url.substring(start+1, end)
+  console.log(this.code)
+  console.log(112)
   },
   mounted(){
     if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
@@ -495,7 +498,7 @@ export default{
   // var end = url.indexOf("&")
   // this.code = url.substring(start+1, end)
   // console.log(this.code)
-  console.log(this.$route.query)
+  // console.log(this.$route.)
 
   this.impower()
     //  wx.config({
