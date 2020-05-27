@@ -145,8 +145,13 @@ export default{
     return {
       showNew:false,
       showIimit:false,
-      link:'',
+      wx_link:'',
+      redirect_uri:'',
+      appId:'',
+      callback:'',
       code:'',
+      count:'',
+      link:'',
       url:'',
       show1: false,
       goodsList:[],
@@ -496,7 +501,7 @@ export default{
   created(){
     this.url = window.location.href
     var start = this.url.indexOf("=")
-    var end = tis.url.indexOf("&")
+    var end = this.url.indexOf("&")
     this.code = this.url.substring(start+1, end)
     console.log(this.code)
     console.log(112)
