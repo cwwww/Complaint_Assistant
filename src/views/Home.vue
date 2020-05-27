@@ -53,7 +53,7 @@
         <li @click="Task" style="position:relative;">
           <img :src=home_mytask alt="">
           <div>我的任务</div>
-          <img class="new" src="../assets/images/new@2x.png" alt="">
+          <img  v-show ="showNewIcon" class="new" src="../assets/images/new@2x.png" alt="">
         </li>
         <li @click="toFXCP">
           <img :src=home_risktest alt="">
@@ -175,6 +175,7 @@ export default{
       fairyStatus:'',
       messages:'',
       shareMessages:'',
+	  showNewIcon:false,
       ezgif: require("../assets/images/ezgif.gif"),
       img: require("../assets/images/icon.png"),
       shop: require("../assets/images/shop@2x.png"),
@@ -211,15 +212,19 @@ export default{
   methods: {
     Repository(){
       this.$router.replace('/Repository')
+	  this.destoryTimer();
     },
     FairyShop(){  //买家精灵商店
       this.$router.replace('/sellerShop')
+	  this.destoryTimer();
     },
     HomeChat(){  // 聊天记录
       this.$router.replace('/HomeChat')
+	  this.destoryTimer();
     },
     WhoLookMe(){  // 谁看过我
       this.$router.replace('/WhoLookMe')
+	  this.destoryTimer();
     },
     Ranking(){
       //this.$router.replace('/Ranking')
@@ -231,6 +236,7 @@ export default{
         "token":this.$route.query.token
 	    }
 	    })
+		this.destoryTimer();
     },
     Task() {   // 任务
       this.$router.push({
@@ -239,18 +245,35 @@ export default{
           TaskStatus:this.homeInit, 
         }
       })
+	  this.destoryTimer();
     },
     toFXCP(){
       window.parent.location.href = 'https://m.baoxianxia.com.cn/risk/index.html'
+	  this.destoryTimer();
     },
     toPlan(){
       window.parent.location.href = 'https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16'
+	  this.destoryTimer();
     },
     frang() {// 好友
-      this.$router.replace('/List/Friend')
+      //this.$router.replace('/List/Friend')
+	  this.$router.push({
+	    path:'/List/Friend',
+	    query:{
+	      name:'friend', 
+	    }
+	  })
+	  this.destoryTimer();
     },
     lists() {// 粉丝
-      this.$router.replace('/List/Bean')
+      //this.$router.replace('/List/Bean')
+	  this.$router.push({
+	    path:'/List/Bean',
+	    query:{
+	      name:'fensi', 
+	    }
+	  })
+	  this.destoryTimer();
     },
     previousPage(){
       talkContent.scrollTop += -138
@@ -340,6 +363,30 @@ export default{
           console.log('error')
         })
     },
+    // 授权
+    impower(){
+        let param = {"code":"this.code"}
+        let res = reqbebotCode (param)
+        res.then(res=>{
+          console.log(res)
+          this.messages = res.result
+          this.customerLogin()
+        }).catch(reslove=>{
+          console.log('error')
+        })
+    },
+    customerLogin(){
+          let param = {
+            "OPENID": this.messages.openid,
+            "NICKNAME": this.messages.nickname,
+            "HEADIMGURL":  this.messages.headimgurl,
+            "SEX":  this.messages.sex,
+            "PROVINCE":  this.messages.province,
+            "CITY": this.messages.city,
+            "COUNTRY": this.messages.country,
+            "PRIVILEGE":  this.messages.privilege,
+          }
+	},
     getFensi(){
       let param = {
         "robot_id": 33,
@@ -364,6 +411,7 @@ export default{
           Toast('请输入聊天内容');
         } else {
           this.getDetail()
+		  this.getReqtaskStatus();
         }
     },
     getDetail(){
@@ -405,6 +453,35 @@ export default{
            console.log('error')
         })
     },
+	//与机器人聊天任务
+	getReqtaskStatus(){
+		let param = {
+			"broker_id": 1,
+			"robot_id": 1,
+			"operation_type":1,
+			"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+		}
+		console.log("任务的param:"+param);
+		
+		let result = reqtaskStatus(param);
+		result
+		  .then(res => {
+		   //更新金币
+		   this.homeInit.bcoin = res.result.bcoin;
+		   //更新等级
+		   this.homeInit.level = res.result.level
+		   //更新“我的”经验
+		   this.homeInit.exp = res.result.exp
+		   //更新总经验
+		   this.homeInit.level_exp = res.result.level_exp
+		   //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
+		   this.showNewIcon = res.result.task_notification;
+		  })
+		  .catch(reslove => {
+		    console.log("error");
+		  });
+	},
+	
     getACchat(){
       let param
       if (this.isInput) {
@@ -478,6 +555,47 @@ export default{
          console.log('error')
       })
     },
+
+	destoryTimer(){
+		clearInterval(this.timer);
+	},
+	
+    // getCode(){ // 非静默授权，第一次有弹框
+    //     this.code = ''
+    //     // var local = window.location.href // 获取页面url
+    //     var local = "https://bebot-web.baoxianxia.com.cn/#/" // 获取页面url
+    //     var appid = 'wx026553ce8b4e59a3'
+    //     this.code = this.getUrlCode().code // 截取code
+    //     if (this.code == null || this.code === '') { // 如果没有code，则去请求
+    //         window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
+    //     } else {
+    //         // 你自己的业务逻辑
+    //     }
+    // },
+    // getUrlCode() { // 截取url中的code方法
+    //     var url = window.location.search
+    //     this.winUrl = url
+    //     var theRequest = new Object()
+    //     if (url.indexOf("?") != -1) {
+    //         var str = url.substr(1)
+    //         var strs = str.split("&")
+    //         for(var i = 0; i < strs.length; i ++) {
+    //             theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
+    //         }
+    //     }
+    //     return theRequest
+    // }
+  },
+  created(){
+    // this.getCode()
+    // this.getUrlCode()
+    this.url = window.location.href.split('#')[0]
+    var start = this.url.indexOf("=")
+    var end = this.url.indexOf("&")
+    this.code = this.url.substring(start+1, end)
+    console.log(this.url)
+    //this.impower()
+    //this.wxconfig()
   },
   created(){
   //   // this.getCode()
@@ -497,7 +615,10 @@ export default{
     // } else {
     //     // 别的业务逻辑
     // }
-    
+    this.getHomeInit()
+    this.getDetail();
+  //定时获取粉丝数据
+	this.timer = setInterval(this.getFensi, 60000);//定时间隔，
     this.getHomeInit()
     this.getDetail();
     //定时获取粉丝数据

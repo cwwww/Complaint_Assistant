@@ -233,6 +233,7 @@ export default {
       })
     },
     tovisit:function(broker_id,robot_id){
+	alert("robot_id: "+robot_id);
       this.$router.push({
         path:'/HomeOther',
         query:{
