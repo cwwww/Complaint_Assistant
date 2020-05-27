@@ -302,7 +302,7 @@ export default{
           });
           //处理验证失败的信息
           wx.error(function (res) {
-            logUtil.printLog('验证失败返回的信息:',res);
+            console.log('验证失败返回的信息:',res);
           });
           //处理验证成功的信息
           wx.ready(function () {
@@ -313,12 +313,12 @@ export default{
               imgUrl: this.homeInit.headimgurl, // 分享图标
               success: function (res) {
                 // 用户确认分享后执行的回调函数
-                logUtil.printLog("分享到朋友圈成功返回的信息为:",res);
-                _this.showMsg("分享成功!")
+                console.log("分享到朋友圈成功返回的信息为:",res);
+                // _this.showMsg("分享成功!")
               },
               cancel: function (res) {
                 // 用户取消分享后执行的回调函数
-                logUtil.printLog("取消分享到朋友圈返回的信息为:",res);
+                console.log("取消分享到朋友圈返回的信息为:",res);
               }
             });
             // 分享给朋友
@@ -331,11 +331,11 @@ export default{
               // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
               success: function (res) {
                 // 用户确认分享后执行的回调函数
-                logUtil.printLog("分享给朋友成功返回的信息为:",res);
+                console.log("分享给朋友成功返回的信息为:",res);
               },
               cancel: function (res) {
                 // 用户取消分享后执行的回调函数
-                logUtil.printLog("取消分享给朋友返回的信息为:",res);
+                console.log("取消分享给朋友返回的信息为:",res);
               }
             })
           });
