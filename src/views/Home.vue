@@ -282,7 +282,7 @@ export default{
     wxconfig(){
       // this.url = this.url.split("?")[0]
       console.log(window.location.href)
-        let param = {"url":window.location.href.split('/#/')[0]}
+        let param = {"url":window.location.href.split('#')[0]}
         let res = reqwxconfig(param)
         res.then(res=>{
           console.log(res)
