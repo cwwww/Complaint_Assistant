@@ -485,11 +485,13 @@ export default{
     } else {
         // 别的业务逻辑
     }
-  var url = window.location.href
-  var start = url.indexOf("=")
-  var end = url.indexOf("&")
-  this.code = url.substring(start+1, end)
-  console.log(this.code)
+  //var url = window.location.href
+  // var start = url.indexOf("=")
+  // var end = url.indexOf("&")
+  // this.code = url.substring(start+1, end)
+  // console.log(this.code)
+  console.log(this.$route.query)
+  
   this.impower()
     //  wx.config({
     //       debug: false,
