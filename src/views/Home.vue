@@ -272,11 +272,11 @@ export default{
       }
       let res = reqHomeName(param)
       res.then(res=>{
-              console.log(res)
-              this.list = res.result.dialog_history
-              this.$refs.input.value = ''
-          }).catch(reslove=>{
-             console.log('error')
+          console.log(res)
+          this.list = res.result.dialog_history
+          this.$refs.input.value = ''
+      }).catch(reslove=>{
+         console.log('error')
       })
     },
     wxconfig(){
@@ -312,7 +312,6 @@ export default{
               success: function (res) {
                 // 用户确认分享后执行的回调函数
                 console.log("分享到朋友圈成功返回的信息为:",res);
-                // _this.showMsg("分享成功!")
               },
               cancel: function (res) {
                 // 用户取消分享后执行的回调函数
@@ -490,7 +489,7 @@ export default{
   //   this.code = this.url.substring(start+1, end)
   //   console.log(this.url)
   //   this.impower()
-    this.wxconfig()
+    // this.wxconfig()
   },
   mounted(){
     // if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
