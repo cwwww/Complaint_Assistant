@@ -273,6 +273,7 @@ export default{
       })
     },
     wxconfig(){
+      alert(111)
         let param = {"url":this.url}
         let res = reqwxconfig(param)
         res.then(res=>{
@@ -510,8 +511,7 @@ export default{
   // this.code = url.substring(start+1, end)
   // console.log(this.code)
   // console.log(this.$route.)
-
-  this.impower()
+    this.wxconfig()
     //  wx.config({
     //       debug: false,
     //       appId: appId, // 和获取Ticke的必须一样------必填，公众号的唯一标识
