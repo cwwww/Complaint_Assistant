@@ -38,7 +38,7 @@ export const reqisregistered = data => {
 };
 export const reqcustomerlogin = data => {  
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/customerlogin", // Bebot微信分享接口
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/customerlogin/", // Bebot微信分享接口
     method: "post",
     data
   });
