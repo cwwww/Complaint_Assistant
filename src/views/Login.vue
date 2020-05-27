@@ -180,7 +180,7 @@ export default {
     getCode(){ // 非静默授权，第一次有弹框
         this.code = ''
         // var local = window.location.href // 获取页面url
-        var local = "https://bebot-web.baoxianxia.com.cn/#/login" // 获取页面url
+        var local = "https://test-bebot-web.baoxianxia.com.cn/#/login" // 获取页面url
         var appid = 'wx026553ce8b4e59a3'
         this.code = this.getUrlCode().code // 截取code
         if (this.code == null || this.code === '') { // 如果没有code，则去请求
