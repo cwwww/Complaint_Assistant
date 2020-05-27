@@ -113,22 +113,37 @@
               <span>排行榜</span>
           </li>
       </ul>
+      <van-popup
+          class="cont3"
+          v-model="showName"
+          click_overlay
+        >
+          <div class="contwrap">
+            <div id="title">给你的精灵起个名字吧！</div>
+            <div id="warn">名字确定后不可更改哦～</div>
+            <input type="text" style="text-align:center" name="name" maxlength="10"/>
+            <div id="line"></div>
+            <div id="limit" v-show="showIimit">名字超过字数限制，请重新输入</div>
+            <van-button type="info" style="width:265px;height:42px;margin:6px auto;" @click="getName">确定</van-button>
+          </div>
+      </van-popup>
       <div class="input-bottom" >
         <input type="text" ref="input" placeholder="输入“风险测评”试试" style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"/>
         <div class="btn" @click="submit">发送</div>
       </div>
-    </div >
+    </div>
   </div>
 </template>
 <script>
 import { Popup,Toast } from 'vant';
 import { MessageBox } from 'element-ui';
-import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList } from '../axios/axios-api'
+import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList,reqHomeName,reqtaskStatus,reqisunlocked } from '../axios/axios-api'
 export default{
   components: {},
   data(){
     return {
-	  showNew:false,
+      showNew:false,
+      showIimit:false,
       link:'',
       show1: false,
       goodsList:[],
@@ -137,6 +152,7 @@ export default{
       homeInit:Object,
       bxdj:'',
       numIndex:0,
+      showName:false,
       isInput:'',
       flag:true,
       question:'',
@@ -199,8 +215,9 @@ export default{
 	  this.$router.push({
 	    path:'/Ranking',
 	    query:{
-	      "broker_id": 33,
-	      "robot_id": 33,
+	      "broker_id": this.$route.query.broker_id,
+        "robot_id": this.$route.query.robotId,
+        "token":this.$route.query.token
 	    }
 	  })
     },
@@ -208,7 +225,7 @@ export default{
       this.$router.push({
         path:'/Task',
         query:{
-          TaskStatus:this.homeInit.np2, 
+          TaskStatus:this.homeInit, 
         }
       })
     },
@@ -232,6 +249,41 @@ export default{
       talkContent.scrollTop += 138
       this.isOwn = false
     },
+    getName(){
+      if(document.getElementsByName("name")[0].value.length >= 7){
+        this.showIimit = true
+      }
+      let param = {
+        "broker_id":this.$route.query.useId,
+        "robot_id":this.$route.query.robotId,
+        "robot_name":document.getElementsByName("name")[0].value,
+        "token":this.$route.query.token
+      }
+      let res = reqHomeName(param)
+      res.then(res=>{
+              console.log(res)
+              this.list = res.result.dialog_history
+              this.$refs.input.value = ''
+          }).catch(reslove=>{
+             console.log('error')
+      })
+    },
+    // isunlocked(){
+    //   let param = {
+    //     "broker_id":this.$route.query.useId,
+    //     "robot_id":this.$route.query.robotId,
+    //     "robot_name":document.getElementsByName("name")[0].value,
+    //     "token":this.$route.query.token
+    //   }
+    //   let res = reqisunlocked(param)
+    //   res.then(res=>{
+    //           console.log(res)
+    //           this.list = res.result.dialog_history
+    //           this.$refs.input.value = ''
+    //       }).catch(reslove=>{
+    //          console.log('error')
+    //   })
+    // },
 	//定时获取粉丝数量
 	getFensi(){
 		let param = {
@@ -336,13 +388,18 @@ export default{
     // 初始化页面
     getHomeInit(){
       let param = {
-        "robot_id": 1,
-        "broker_id":1,
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+        "robot_id": this.$route.query.robotId,
+        "broker_id":this.$route.query.useId,
+        "token":this.$route.query.token
       }
+      console.log(param)
       let result = reqHomeInit(param)
       result.then(res=>{
+      
       this.homeInit = res.result
+      if(this.homeInit.name == ''){
+        this.showName = true
+      }
       console.log(this.homeInit)
       if (this.homeInit.title == 1) { //保险等级
           this.homeLevel = this.levelbx1
@@ -363,7 +420,26 @@ export default{
          console.log('error')
       })
     },
-     getCode(){ // 非静默授权，第一次有弹框
+  //   getStatus(){
+  //     let param = {
+  //       "robot_id": this.$route.query.robotId,
+  //       "broker_id":this.$route.query.useId,
+  //       "token":this.$route.query.token,
+  //       "operation_type":1,
+  //       "visited_robot_id":33,
+  //       "seller_robot_id":33,
+  //       "followed_robot_id":33,
+  //       "task_id":"np1",
+  //     }
+  //     console.log(param)
+  //     let result = reqtaskStatus (param)
+  //     result.then(res=>{
+  //      console.log(res)
+  //     }).catch(reslove=>{
+  //        console.log('error')
+  //     })
+  //   },
+    getCode(){ // 非静默授权，第一次有弹框
         this.code = ''
         // var local = window.location.href // 获取页面url
         var local = "https://bebot-web.baoxianxia.com.cn/#/" // 获取页面url
@@ -374,9 +450,8 @@ export default{
         } else {
             // 你自己的业务逻辑
         }
-        console.log(this.code)
-  },
-  getUrlCode() { // 截取url中的code方法
+    },
+    getUrlCode() { // 截取url中的code方法
         var url = window.location.search
         this.winUrl = url
         var theRequest = new Object()
@@ -389,9 +464,96 @@ export default{
         }
         return theRequest
     }
+    
   },
   mounted(){
-    alert(this.code)
+     wx.config({
+          debug: false,
+          appId: appId, // 和获取Ticke的必须一样------必填，公众号的唯一标识
+          timestamp:timestamp, // 必填，生成签名的时间戳
+          nonceStr: nonceStr, // 必填，生成签名的随机串
+          signature: signature,// 必填，签名，见附录1
+          //需要分享的列表项:发送给朋友，分享到朋友圈，分享到QQ，分享到QQ空间
+          jsApiList: [
+            'onMenuShareAppMessage','onMenuShareTimeline',
+            'onMenuShareQQ','onMenuShareQZone'
+          ]
+        });
+
+
+         //处理验证失败的信息
+        wx.error(function (res) {
+          logUtil.printLog('验证失败返回的信息:',res);
+        });
+        //处理验证成功的信息
+        wx.ready(function () {
+        //              alert(window.location.href.split('#')[0]);
+          //分享到朋友圈
+          wx.onMenuShareTimeline({
+            title: _this.newDetailObj.title, // 分享标题
+            link: window.location.href.split('#')[0], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: _this.newDetailObj.thu_image, // 分享图标
+            success: function (res) {
+              // 用户确认分享后执行的回调函数
+              logUtil.printLog("分享到朋友圈成功返回的信息为:",res);
+              _this.showMsg("分享成功!")
+            },
+            cancel: function (res) {
+              // 用户取消分享后执行的回调函数
+              logUtil.printLog("取消分享到朋友圈返回的信息为:",res);
+            }
+          });
+          //分享给朋友
+          wx.onMenuShareAppMessage({
+            title: _this.newDetailObj.title, // 分享标题
+            desc: _this.desc, // 分享描述
+            link: window.location.href.split('#')[0], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: _this.newDetailObj.thu_image, // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function (res) {
+              // 用户确认分享后执行的回调函数
+              logUtil.printLog("分享给朋友成功返回的信息为:",res);
+            },
+            cancel: function (res) {
+              // 用户取消分享后执行的回调函数
+              logUtil.printLog("取消分享给朋友返回的信息为:",res);
+            }
+          });
+          //分享到QQ
+          wx.onMenuShareQQ({
+            title: _this.newDetailObj.title, // 分享标题
+            desc: _this.desc, // 分享描述
+            link: window.location.href.split('#')[0], // 分享链接
+            imgUrl: _this.newDetailObj.thu_image, // 分享图标
+            success: function (res) {
+              // 用户确认分享后执行的回调函数
+              logUtil.printLog("分享到QQ好友成功返回的信息为:",res);
+            },
+            cancel: function (res) {
+              // 用户取消分享后执行的回调函数
+              logUtil.printLog("取消分享给QQ好友返回的信息为:",res);
+            }
+          });
+
+          //分享到QQ空间
+          wx.onMenuShareQZone({
+            title: _this.newDetailObj.title, // 分享标题
+            desc: _this.desc, // 分享描述
+            link: window.location.href.split('#')[0], // 分享链接
+            imgUrl: _this.newDetailObj.thu_image, // 分享图标
+            success: function (res) {
+              // 用户确认分享后执行的回调函数
+              logUtil.printLog("分享到QQ空间成功返回的信息为:",res);
+            },
+            cancel: function (res) {
+              // 用户取消分享后执行的回调函数
+              logUtil.printLog("取消分享到QQ空间返回的信息为:",res);
+            }
+          });
+        });
+
+    console.log(JSON.stringify(this.$route.query))
     this.getHomeInit()
     this.getDetail();
 	 //定时获取粉丝数据
@@ -809,6 +971,54 @@ export default{
       input::-webkit-input-placeholder,
       textarea::-webkit-input-placeholder {
       color:rgba(122,234,234,1);
+      }
+    }
+    .cont3{
+      width: 305px;
+      height: 224px;
+      background:rgba(255,255,255,1);
+      border-radius:15px;
+      .contwrap{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        font-family:PingFangSC-Regular,PingFang SC;
+        #title{
+          font-size:15px;
+          font-weight:500;
+          color:rgba(51,51,51,1);
+          line-height:21px;
+          margin-top: 30px;
+        }
+        #warn{
+          font-size:13px;
+          font-weight:400;
+          color:rgba(102,102,102,1);
+          line-height:18px;
+          margin-top: 5px;
+        }
+        #line{
+          width:265px;
+          height:1px;
+          background:rgba(239,239,239,1);
+          margin-left: 20px;
+          margin-top: 7px;
+        }
+        input{
+          width: 265px;
+          height: 25px;
+          margin-top: 25px;
+          border: 0;
+          margin-left: 20px;
+        }
+        #limit{
+          font-size:13px;
+          font-family:PingFangSC-Regular,PingFang SC;
+          font-weight:400;
+          color:rgba(253,41,41,1);
+          line-height:18px;
+          margin-top: 6px;
+        }
       }
     }
     .moon{

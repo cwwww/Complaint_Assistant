@@ -15,9 +15,16 @@ export const reqsendMsmCode = data => {
     data
   });
 };
-export const reqloginMsmCode = data => {  
+export const reqloginCode = data => {  
   return axiosService({
     url: "https://test-bebot-api.baoxianxia.com.cn/common/login/", // 验证短信
+    method: "post",
+    data
+  });
+};
+export const reqloginMsmCode = data => {  
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/msm/login/", // 验证短信
     method: "post",
     data
   });
@@ -36,9 +43,30 @@ export const reqwxconfig = data => {
     data
   });
 };
+export const reqisunlocked = data => {  
+  return axiosService({
+    url: BASE + `/isunlocked/`, // 判断是否已经解锁计划书和风险测评
+    method: "post",
+    data
+  });
+};
+export const reqtaskStatus = data => {  
+  return axiosService({
+    url: BASE + `/common/taskStatusUpdate/`, // 展示访客页被访机器人信息
+    method: "post",
+    data
+  });
+};
 export const reqbebotCode = data => {  
   return axiosService({
     url: "https://test-bebot-api.baoxianxia.com.cn/callback/bebot/code/", // Bebot获取微信用户信息接口
+    method: "post",
+    data
+  });
+};
+export const reqHomeName = data => {  
+  return axiosService({
+    url: BASE + `/common/modifyRobotName/`, // 主页初始化接口
     method: "post",
     data
   });
