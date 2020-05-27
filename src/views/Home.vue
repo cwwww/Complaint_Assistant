@@ -132,7 +132,6 @@ export default{
 	  showNew:false,
       link:'',
       show1: false,
-      goodsList:[],
       isOwn:true,
       answerHight:'',
       homeInit:Object,
@@ -349,17 +348,17 @@ export default{
       console.log(this.homeInit)
       if (this.homeInit.title == 1) { //保险等级
           this.homeLevel = this.levelbx1
-        } else if(this.goodsList.title == 2){
+        } else if(this.homeInit.title == 2){
           this.homeLevel = this.levelbx2
-        } else if(this.goodsList.level == 3){
+        } else if(this.homeInit.title == 3){
           this.homeLevel = this.levelbx3
-        } else if(this.goodsList.level == 4){
+        } else if(this.homeInit.title == 4){
           this.homeLevel = this.levelbx4
-        } else if(this.goodsList.level == 5){
+        } else if(this.homeInit.title == 5){
           this.homeLevel = this.levelbx5
-        } else if(this.goodsList.level == 6){
+        } else if(this.homeInit.title == 6){
           this.homeLevel = this.levelbx6
-        } else if(this.goodsList.level == 7){
+        } else if(this.goodsList.title == 7){
           this.homeLevel = this.levelbx7
         }
       }).catch(reslove=>{
