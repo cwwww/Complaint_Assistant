@@ -146,6 +146,7 @@ export default{
       showNew:false,
       showIimit:false,
       link:'',
+      code:'',
       show1: false,
       goodsList:[],
       isOwn:true,
