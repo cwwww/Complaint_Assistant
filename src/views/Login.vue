@@ -133,8 +133,6 @@ export default {
       }else if(!this.check){
         Toast('请勾选协议')
       }else{
-        console.log(111)
-        console.log(this.mes)
         let param = {
           "PHONE": this.$refs.phone.value,
           "code":this.$refs.research.value,
@@ -204,7 +202,6 @@ export default {
     }
   },
   created(){
-    // this.url = window.location.href.split('#')[0]
     this.url = window.location.href.split('#')[0]
     var start = this.url.indexOf("=")
     var end = this.url.indexOf("&")
