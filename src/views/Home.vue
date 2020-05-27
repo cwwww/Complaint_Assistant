@@ -295,10 +295,9 @@ export default{
             timestamp: this.shareMessages.timestamp, // 必填，生成签名的时间戳
             nonceStr: this.shareMessages.nonceStr, // 必填，生成签名的随机串
             signature: this.shareMessages.signature,// 必填，签名，见附录1
-            //需要分享的列表项:发送给朋友，分享到朋友圈，分享到QQ，分享到QQ空间
+            //需要分享的列表项:发送给朋友，分享到朋友圈
             jsApiList: [
-              'onMenuShareAppMessage','onMenuShareTimeline',
-              'onMenuShareQQ','onMenuShareQZone'
+              'onMenuShareAppMessage','onMenuShareTimeline'
             ]
           });
           //处理验证失败的信息
@@ -310,7 +309,7 @@ export default{
             //分享到朋友圈
             wx.onMenuShareTimeline({
               title: _this.newDetailObj.title, // 分享标题
-              link: window.location.href.split('#')[0], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              link: window.location.href.split("?")[0], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
               imgUrl: _this.newDetailObj.thu_image, // 分享图标
               success: function (res) {
                 // 用户确认分享后执行的回调函数
@@ -338,38 +337,7 @@ export default{
                 // 用户取消分享后执行的回调函数
                 logUtil.printLog("取消分享给朋友返回的信息为:",res);
               }
-            });
-            //分享到QQ
-            wx.onMenuShareQQ({
-              title: _this.newDetailObj.title, // 分享标题
-              desc: _this.desc, // 分享描述
-              link: window.location.href.split('#')[0], // 分享链接
-              imgUrl: _this.newDetailObj.thu_image, // 分享图标
-              success: function (res) {
-                // 用户确认分享后执行的回调函数
-                logUtil.printLog("分享到QQ好友成功返回的信息为:",res);
-              },
-              cancel: function (res) {
-                // 用户取消分享后执行的回调函数
-                logUtil.printLog("取消分享给QQ好友返回的信息为:",res);
-              }
-            });
-
-            //分享到QQ空间
-            wx.onMenuShareQZone({
-              title: _this.newDetailObj.title, // 分享标题
-              desc: _this.desc, // 分享描述
-              link: window.location.href.split('#')[0], // 分享链接
-              imgUrl: _this.newDetailObj.thu_image, // 分享图标
-              success: function (res) {
-                // 用户确认分享后执行的回调函数
-                logUtil.printLog("分享到QQ空间成功返回的信息为:",res);
-              },
-              cancel: function (res) {
-                // 用户取消分享后执行的回调函数
-                logUtil.printLog("取消分享到QQ空间返回的信息为:",res);
-              }
-            });
+            })
           });
         }).catch(reslove=>{
           console.log('error')
