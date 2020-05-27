@@ -255,6 +255,7 @@
 				})
 			},
 			guanzhu() {
+        alert(JSON.stringify(this.$route.query))
 				if(this.guanzhuContent=="关注TA"){
 					let param = {
 						"robot_id": 33,
@@ -262,7 +263,8 @@
 						"operation_type":"0",
 						"broker_id":33,
 						"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
-					}
+          }
+          console.log(param)
 					let result = guanZhu(param)
 					result.then(res => {
 						console.log("guanzhu:" + res)
@@ -364,13 +366,13 @@
 
 			.topHalfPart {
 				display: flex;
-				margin-bottom: 6px;
+				margin-bottom: 1px;
 
 				.headPortrait {
 					width: 45px;
 					height: 45px;
 					border-radius: 50%;
-					margin: 15px 5px 0 7px;
+					margin: 10px 5px 0 7px;
 
 					>img {
 						width: 45px;
@@ -443,7 +445,7 @@
 				 display: flex;
 				   align-items: center;
 				   justify-content: center;
-					padding: 0 5px 0 5px;
+					padding: 0 1px 0 1px;
 					flex-direction: column;
 					width: 20%;
 					height: 20px;
@@ -451,7 +453,7 @@
 					// background: rgba(252, 106, 82, 1);
 					background-color: #FC6A52;
 					border-radius: 12px;
-					
+					margin-left: 8px;
 					
 				}
 

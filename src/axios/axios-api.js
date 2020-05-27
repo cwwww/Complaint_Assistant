@@ -22,6 +22,13 @@ export const reqloginMsmCode = data => {
     data
   });
 };
+export const reqisregistered = data => {  
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/isregistered/", // 判断用户类型是否注册
+    method: "post",
+    data
+  });
+};
 export const reqwxconfig = data => {  
   return axiosService({
     url: "http://api-bebot.baoxianxia.com.cn/api/callback/wxconfig/bebot/", // Bebot微信分享接口
