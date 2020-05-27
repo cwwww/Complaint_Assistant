@@ -93,16 +93,7 @@ export default {
         if(r != null) return decodeURIComponent(r[2]);
         return null;
     },
-    impower(){
-        let param = {"code":this.code}
-        let res = reqbebotCode (param)
-        res.then(res=>{
-          console.log(res)
-          this.messages = res.result
-        }).catch(reslove=>{
-          console.log('error')
-        })
-    },
+
     loginResearch(){  
       if (this.$refs.phone.value == '') {
         Toast('请输入手机号')

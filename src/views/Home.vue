@@ -138,7 +138,7 @@
 <script>
 import { Popup,Toast } from 'vant';
 import { MessageBox } from 'element-ui';
-import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList,reqHomeName,reqtaskStatus,reqisunlocked } from '../axios/axios-api'
+import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList,reqHomeName,reqtaskStatus,reqisunlocked,reqbebotCode  } from '../axios/axios-api'
 export default{
   components: {},
   data(){
@@ -268,6 +268,16 @@ export default{
           }).catch(reslove=>{
              console.log('error')
       })
+    },
+    impower(){
+        let param = {"code":this.code}
+        let res = reqbebotCode (param)
+        res.then(res=>{
+          console.log(res)
+          this.messages = res.result
+        }).catch(reslove=>{
+          console.log('error')
+        })
     },
     // isunlocked(){
     //   let param = {
@@ -479,6 +489,7 @@ export default{
   var end = url.indexOf("&")
   this.code = url.substring(start+1, end)
   console.log(this.code)
+  this.impower()
     //  wx.config({
     //       debug: false,
     //       appId: appId, // 和获取Ticke的必须一样------必填，公众号的唯一标识
