@@ -143,6 +143,8 @@ export default{
   components: {},
   data(){
     return {
+      data:'',
+      option:'',
       showNew:false,
       showIimit:false,
       wx_link:'',
@@ -222,14 +224,14 @@ export default{
     },
     Ranking(){
       //this.$router.replace('/Ranking')
-	  this.$router.push({
+	    this.$router.push({
 	    path:'/Ranking',
 	    query:{
 	      "broker_id": this.$route.query.broker_id,
         "robot_id": this.$route.query.robotId,
         "token":this.$route.query.token
 	    }
-	  })
+	    })
     },
     Task() {   // 任务
       this.$router.push({
@@ -249,7 +251,7 @@ export default{
       this.$router.replace('/List/Friend')
     },
     lists() {// 粉丝
-    this.$router.replace('/List/Bean')
+      this.$router.replace('/List/Bean')
     },
     previousPage(){
       talkContent.scrollTop += -138
@@ -299,22 +301,6 @@ export default{
           console.log('error')
         })
     },
-    // isunlocked(){
-    //   let param = {
-    //     "broker_id":this.$route.query.useId,
-    //     "robot_id":this.$route.query.robotId,
-    //     "robot_name":document.getElementsByName("name")[0].value,
-    //     "token":this.$route.query.token
-    //   }
-    //   let res = reqisunlocked(param)
-    //   res.then(res=>{
-    //           console.log(res)
-    //           this.list = res.result.dialog_history
-    //           this.$refs.input.value = ''
-    //       }).catch(reslove=>{
-    //          console.log('error')
-    //   })
-    // },
 	//定时获取粉丝数量
 	getFensi(){
 		let param = {
@@ -487,7 +473,7 @@ export default{
     this.code = this.url.substring(start+1, end)
     console.log(this.code)
     this.impower()
-    wxapi.wxRegister(data,option);//data是微信配置信息，option是分享要配置的内容
+    wxapi.wxRegister(this.data,this.option);//data是微信配置信息，option是分享要配置的内容
   },
   mounted(){
     if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
