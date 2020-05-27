@@ -35,7 +35,8 @@
         <div class="fan" @click="lists">
           <span class="num">{{homeInit.fans_num}}</span>
           <img src="../assets/images/fans@2x.png" alt="">
-          <span class="design">粉丝<div v-if="showNew">新</div></span>
+          <span class="design">粉丝</span>
+		  <div><img class="new" src="../assets/images/new@2x.png" alt=""></div>
         </div>
       </div>
     </div>
@@ -295,8 +296,10 @@ export default{
 		let res = BeanList(param)
 		res.then(res=>{
 		        console.log(res)
-		        this.list = res.result.dialog_history
-		        this.$refs.input.value = ''
+		        let showNotification = res.result.notification
+		        if(showNotification){
+					this.showNew = true;
+				}
 		    }).catch(reslove=>{
 		       console.log('error')
 		})
@@ -556,8 +559,8 @@ export default{
     console.log(JSON.stringify(this.$route.query))
     this.getHomeInit()
     this.getDetail();
-	 //定时获取粉丝数据
-	
+	//定时获取粉丝数据
+	this.timer = setInterval(this.getFensi, 60000);//定时间隔，
   }
 }
 </script>
@@ -691,6 +694,7 @@ export default{
         margin:8px 0 10px 0;
       }
       .fan{
+		position: relative;
         display: flex;
         justify-content: center;
       }
@@ -711,6 +715,21 @@ export default{
         line-height:16px;
         font-weight:400;
       }
+	  .newIcon{
+		  position: absolute;
+		            color: #176C75;
+		            font-size: 3px;
+		            background-color: #FFD87E;
+		            /*height: 24px;改前*/
+		            min-height: 4px;/*改后新增的代码*/
+		  			min-width:4px;/*改后新增的代码*/
+		            right:-25%;
+		            top: -12px;
+		            text-align: center;
+		  			-webkit-border-radius: 4px;
+		            border-radius: 4px;
+		  			padding:2px;
+	  }
 
 
   }
