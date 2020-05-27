@@ -138,7 +138,7 @@
 <script>
 import { Popup,Toast } from 'vant';
 import { MessageBox } from 'element-ui';
-import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList,reqHomeName,reqtaskStatus,reqisunlocked,reqbebotCode  } from '../axios/axios-api'
+import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList,reqHomeName,reqtaskStatus,reqisunlocked,reqbebotCode,reqwxconfig  } from '../axios/axios-api'
 export default{
   components: {},
   data(){
@@ -147,6 +147,7 @@ export default{
       showIimit:false,
       link:'',
       code:'',
+      url:'',
       show1: false,
       goodsList:[],
       isOwn:true,
@@ -167,6 +168,7 @@ export default{
       isStatus:'',
       fairyStatus:'',
       messages:'',
+      shareMessages:'',
       ezgif: require("../assets/images/ezgif.gif"),
       img: require("../assets/images/icon.png"),
       shop: require("../assets/images/shop@2x.png"),
@@ -271,10 +273,19 @@ export default{
              console.log('error')
       })
     },
+    wxconfig(){
+        let param = {"url":this.url}
+        let res = reqwxconfig(param)
+        res.then(res=>{
+          console.log(res)
+          this.shareMessages = res.result
+        }).catch(reslove=>{
+          console.log('error')
+        })
+    },
+    // 授权
     impower(){
-      alert(1)
         let param = {"code":this.code}
-        // alert(param)
         let res = reqbebotCode (param)
         res.then(res=>{
           console.log(res)
@@ -483,10 +494,10 @@ export default{
     }
   },
   created(){
-    var url = window.location.href
+    this.url = window.location.href
   var start = url.indexOf("=")
   var end = url.indexOf("&")
-  this.code = url.substring(start+1, end)
+  this.code = this.url.substring(start+1, end)
   console.log(this.code)
   console.log(112)
   this.impower()
