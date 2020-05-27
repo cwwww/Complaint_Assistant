@@ -36,6 +36,13 @@ export const reqisregistered = data => {
     data
   });
 };
+export const reqcustomerlogin = data => {  
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/customerlogin", // Bebot微信分享接口
+    method: "post",
+    data
+  });
+};
 export const reqwxconfig = data => {  
   return axiosService({
     url: "https://test-bebot-api.baoxianxia.com.cn/api/callback/wxconfig/bebot/", // Bebot微信分享接口

@@ -2,12 +2,12 @@
   <div class="contain">
     <div class="information">
       <div class="mes">
-        <div class="topHalfPart" v-if="messages.headimgurl">
+        <div class="topHalfPart">
           <div class="headPortrait">
             <img :src=messages.headimgurl alt="">
           </div>
           <div class="infor">
-            <div class="swsName">{{homeInit.name}}&nbsp;事务所12</div>
+            <div class="swsName">{{homeInit.name}}&nbsp;事务所</div>
             <img class="line" :src=line alt="">
             <img class="experience" :src=experience alt="">
             <div class="ArticleExperience">{{homeInit.exp}}/{{homeInit.level_exp}}</div>
@@ -67,8 +67,6 @@
     </div>
     <div>
       <div class="talk">
-        <!-- <div v-show="!answer">Hi，有空么，和我 随便聊聊呗</div>
-        {{answer}} -->
         <div class="talkContent" id="talkContent" :class="{active:isOwn}">{{answer}}
         </div>
         <div class="btnTalk">
@@ -139,12 +137,13 @@
 import { Popup,Toast } from 'vant';
 import wxapi from '../assets/js/common/wxapi';
 import wx from 'weixin-js-sdk';
-import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList,reqHomeName,reqtaskStatus,reqisunlocked,reqbebotCode,reqwxconfig  } from '../axios/axios-api'
+import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList,reqHomeName,reqtaskStatus,reqisunlocked,reqbebotCode,reqwxconfig,reqcustomerlogin  } from '../axios/axios-api'
 export default{
   components: {},
   data(){
     return {
       data:'',
+      newData:'',
       option:'',
       showNew:false,
       showIimit:false,
@@ -350,9 +349,29 @@ export default{
         res.then(res=>{
           console.log(res)
           this.messages = res.result
+          this.customerLogin()
         }).catch(reslove=>{
           console.log('error')
         })
+    },
+    customerLogin(){
+          let param = {
+            "OPENID": this.messages.openid,
+            "NICKNAME": this.messages.nickname,
+            "HEADIMGURL":  this.messages.headimgurl,
+            "SEX":  this.messages.sex,
+            "PROVINCE":  this.messages.province,
+            "CITY": this.messages.city,
+            "COUNTRY": this.messages.country,
+            "PRIVILEGE":  this.messages.privilege,
+          }
+          let res = reqcustomerlogin(param)
+          res.then(res=>{
+            console.log(res)
+            this.newData = res.result
+              }).catch(reslove=>{
+                 console.log('error')
+          })
     },
 	//定时获取粉丝数量
 	getFensi(){
@@ -460,9 +479,9 @@ export default{
     // 初始化页面
     getHomeInit(){
       let param = {
-        "robot_id": this.$route.query.robotId,
-        "broker_id":this.$route.query.useId,
-        "token":this.$route.query.token
+        "robot_id":this.newData.robotId,
+        "broker_id":this.newData.useId,
+        "token":this.newData.token
       }
       console.log(param)
       let result = reqHomeInit(param)
@@ -527,7 +546,6 @@ export default{
     console.log(this.url)
     this.impower()
     this.wxconfig()
-    
   },
   mounted(){
     if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
@@ -535,97 +553,6 @@ export default{
     } else {
         // 别的业务逻辑
     }
-  //var url = window.location.href
-  // var start = url.indexOf("=")
-  // var end = url.indexOf("&")
-  // this.code = url.substring(start+1, end)
-  // console.log(this.code)
-  // console.log(this.$route.)
-    //  wx.config({
-    //       debug: false,
-    //       appId: appId, // 和获取Ticke的必须一样------必填，公众号的唯一标识
-    //       timestamp:timestamp, // 必填，生成签名的时间戳
-    //       nonceStr: nonceStr, // 必填，生成签名的随机串
-    //       signature: signature,// 必填，签名，见附录1
-    //       //需要分享的列表项:发送给朋友，分享到朋友圈，分享到QQ，分享到QQ空间
-    //       jsApiList: [
-    //         'onMenuShareAppMessage','onMenuShareTimeline',
-    //         'onMenuShareQQ','onMenuShareQZone'
-    //       ]
-    //     });
-
-
-    //      //处理验证失败的信息
-    //     wx.error(function (res) {
-    //       logUtil.printLog('验证失败返回的信息:',res);
-    //     });
-    //     //处理验证成功的信息
-    //     wx.ready(function () {
-    //     //              alert(window.location.href.split('#')[0]);
-    //       //分享到朋友圈
-    //       wx.onMenuShareTimeline({
-    //         title: _this.newDetailObj.title, // 分享标题
-    //         link: window.location.href.split('#')[0], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-    //         imgUrl: _this.newDetailObj.thu_image, // 分享图标
-    //         success: function (res) {
-    //           // 用户确认分享后执行的回调函数
-    //           logUtil.printLog("分享到朋友圈成功返回的信息为:",res);
-    //           _this.showMsg("分享成功!")
-    //         },
-    //         cancel: function (res) {
-    //           // 用户取消分享后执行的回调函数
-    //           logUtil.printLog("取消分享到朋友圈返回的信息为:",res);
-    //         }
-    //       });
-    //       //分享给朋友
-    //       wx.onMenuShareAppMessage({
-    //         title: _this.newDetailObj.title, // 分享标题
-    //         desc: _this.desc, // 分享描述
-    //         link: window.location.href.split('#')[0], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-    //         imgUrl: _this.newDetailObj.thu_image, // 分享图标
-    //         type: '', // 分享类型,music、video或link，不填默认为link
-    //         dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-    //         success: function (res) {
-    //           // 用户确认分享后执行的回调函数
-    //           logUtil.printLog("分享给朋友成功返回的信息为:",res);
-    //         },
-    //         cancel: function (res) {
-    //           // 用户取消分享后执行的回调函数
-    //           logUtil.printLog("取消分享给朋友返回的信息为:",res);
-    //         }
-    //       });
-    //       //分享到QQ
-    //       wx.onMenuShareQQ({
-    //         title: _this.newDetailObj.title, // 分享标题
-    //         desc: _this.desc, // 分享描述
-    //         link: window.location.href.split('#')[0], // 分享链接
-    //         imgUrl: _this.newDetailObj.thu_image, // 分享图标
-    //         success: function (res) {
-    //           // 用户确认分享后执行的回调函数
-    //           logUtil.printLog("分享到QQ好友成功返回的信息为:",res);
-    //         },
-    //         cancel: function (res) {
-    //           // 用户取消分享后执行的回调函数
-    //           logUtil.printLog("取消分享给QQ好友返回的信息为:",res);
-    //         }
-    //       });
-
-    //       //分享到QQ空间
-    //       wx.onMenuShareQZone({
-    //         title: _this.newDetailObj.title, // 分享标题
-    //         desc: _this.desc, // 分享描述
-    //         link: window.location.href.split('#')[0], // 分享链接
-    //         imgUrl: _this.newDetailObj.thu_image, // 分享图标
-    //         success: function (res) {
-    //           // 用户确认分享后执行的回调函数
-    //           logUtil.printLog("分享到QQ空间成功返回的信息为:",res);
-    //         },
-    //         cancel: function (res) {
-    //           // 用户取消分享后执行的回调函数
-    //           logUtil.printLog("取消分享到QQ空间返回的信息为:",res);
-    //         }
-    //       });
-    //     });
     this.getHomeInit()
     this.getDetail();
   //定时获取粉丝数据
