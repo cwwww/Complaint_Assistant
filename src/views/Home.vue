@@ -282,6 +282,9 @@ export default{
       })
     },
     wxconfig(){
+      console.log(2222)
+      this.url = this.url.split("?")[0]
+      console.log(JSON.stringify(this.url))
         let param = {"url":this.url}
         let res = reqwxconfig(param)
         res.then(res=>{
@@ -468,7 +471,7 @@ export default{
   created(){
     // this.getCode()
     // this.getUrlCode()
-    this.url = window.location.href.split("?")[0]
+    this.url = window.location.href.split('#')[0]
     var start = this.url.indexOf("=")
     var end = this.url.indexOf("&")
     this.code = this.url.substring(start+1, end)
