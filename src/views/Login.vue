@@ -205,8 +205,8 @@ export default {
       //     // 别的业务逻辑
       // }
       alert(hello)
-      var url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
-      // var url = window.location.href
+      // var url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
+      var url = window.location.href
       var start = url.indexOf("=")
       var end = url.indexOf("&")
       this.code = url.substring(start+1, end)
