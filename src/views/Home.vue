@@ -472,7 +472,7 @@ export default{
     var start = this.url.indexOf("=")
     var end = this.url.indexOf("&")
     this.code = this.url.substring(start+1, end)
-    console.log(this.code)
+    console.log(this.url)
     this.impower()
     this.wxconfig()
     wx.config({
