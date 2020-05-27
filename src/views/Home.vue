@@ -555,7 +555,7 @@ export default{
     //         }
     //       });
     //     });
-
+    alert('home')
     console.log(JSON.stringify(this.$route.query))
     this.getHomeInit()
     this.getDetail();
