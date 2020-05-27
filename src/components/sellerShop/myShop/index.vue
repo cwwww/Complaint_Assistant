@@ -44,7 +44,7 @@
   </div>
 </template>
 <script>
-import { reqMyShop, reqPutOnShelves, reqPutOffShelves } from "../../../axios/axios-api";
+import { reqMyShop, reqPutOnShelves, reqPutOffShelves,reqtaskStatus } from "../../../axios/axios-api";
 import { Toast } from 'vant';
 export default {
   name: "myShop",
@@ -96,10 +96,10 @@ export default {
     //上架
     putaway(){
         let param = {
-          "robot_id":"1",
+          "robot_id":"33",
           "goods_id":this.goodsList.id,
-          "user_id":"1",
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+          "user_id":"33",
+          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
         }
         console.log(param)
         let res = reqPutOnShelves (param)
@@ -108,19 +108,50 @@ export default {
             if(res.result.status == 0){
                 Toast('上架成功');
                 this.isStatus = true
+				//上架成功获取经验和金币
+				this.getReqtaskStatus();
             }else if(res.result.status == 1){
                 Toast('知识库条数少于10,不能上架');
             }
           }).catch(reslove=>{console.log('error')
         })
     },
+	
+	//上架商品任务
+	getReqtaskStatus(){
+		let param = {
+			"broker_id": 1,
+			"robot_id": 1,
+			"operation_type":3,
+			"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+		}
+		console.log("任务的param:"+param);
+		let result = reqtaskStatus(param);
+		result
+		  .then(res => {
+		   // //更新金币
+		   // this.homeInit.bcoin = res.result.bcoin;
+		   // //更新等级
+		   // this.homeInit.level = res.result.level
+		   // //更新“我的”经验
+		   // this.homeInit.exp = res.result.exp
+		   // //更新总经验
+		   // this.homeInit.level_exp = res.result.level_exp
+		   // //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
+		   // this.showNewIcon = res.result.task_notification;
+		  })
+		  .catch(reslove => {
+		    console.log("error");
+		  });
+	},
+	
     //下架
     move(){
         let param = {
-          "robot_id":"1",
+          "robot_id":"33",
           "goods_id":this.goodsList.id,
-          "user_id":"1",
-"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"        }
+          "user_id":"33",
+"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"        }
         let res = reqPutOffShelves(param)
         res.then(res=>{
             console.log(res)
@@ -134,9 +165,9 @@ export default {
     },
     initShop(){
       let param = {
-        "robot_id":"1",
-        "user_id":"1",
-"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"      }
+        "robot_id":"33",
+        "user_id":"33",
+"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"      }
       let res = reqMyShop(param)
       res.then(res=>{
       var that = this

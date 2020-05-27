@@ -123,7 +123,8 @@
 		reqCusayrob,
 		reqRobotDetail,
 		reqVisitedInit,
-		guanZhu
+		guanZhu,
+		reqtaskStatus
 	} from '../axios/axios-api'
 	export default {
 		components: {},
@@ -255,7 +256,6 @@
 				})
 			},
 			guanzhu() {
-        alert(JSON.stringify(this.$route.query))
 				if(this.guanzhuContent=="关注TA"){
 					let param = {
 						"robot_id": 33,
@@ -270,6 +270,9 @@
 						console.log("guanzhu:" + res)
 						if(res.result.info=="关注成功"){
 							this.guanzhuContent ="已关注";
+							//更新关注任务状态，领取经验和金币
+							this.guanzhuUpdateTask();
+							
 						}
 					}).catch(reslove => {
 						console.log('error')
@@ -290,6 +293,36 @@
 				
 				
 				
+			},
+			
+			//关注好友
+			guanzhuUpdateTask(){
+				let param = {
+					"broker_id":this.$route.query.broker_id,
+					"robot_id":this.$route.query.robot_id,
+					"operation_type":6,
+					"followed_robot_id":this.$route.query.robot_visitId,
+					"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+				}
+				console.log("任务的param:"+param);
+				
+				let result = reqtaskStatus(param);
+				result
+				  .then(res => {
+				   // //更新金币
+				   // this.homeInit.bcoin = res.result.bcoin;
+				   // //更新等级
+				   // this.homeInit.level = res.result.level
+				   // //更新“我的”经验
+				   // this.homeInit.exp = res.result.exp
+				   // //更新总经验
+				   // this.homeInit.level_exp = res.result.level_exp
+				   // //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
+				   // this.showNewIcon = res.result.task_notification;
+				  })
+				  .catch(reslove => {
+				    console.log("error");
+				  });
 			},
 			getHomeInit() {
 				let param = {
@@ -326,11 +359,42 @@
 				}).catch(reslove => {
 					console.log('error')
 				})
-			}
+			},
+			//串门成功调更新任务接口
+			chuanmen(){
+				let param = {
+					"broker_id": this.$route.query.broker_id,
+					"robot_id": this.$route.query.robot_id,
+					"operation_type":4,
+					"visited_robot_id":this.$route.query.robot_visitId,
+					"token":this.$route.query.token
+				}
+				console.log("任务的param:"+param);
+				let result = reqtaskStatus(param);
+				result
+				  .then(res => {
+				   // //更新金币
+				   // this.homeInit.bcoin = res.result.bcoin;
+				   // //更新等级
+				   // this.homeInit.level = res.result.level
+				   // //更新“我的”经验
+				   // this.homeInit.exp = res.result.exp
+				   // //更新总经验
+				   // this.homeInit.level_exp = res.result.level_exp
+				   // //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
+				   // this.showNewIcon = res.result.task_notification;
+				  })
+				  .catch(reslove => {
+				    console.log("error");
+				  });
+			},
+			
 		},
 		mounted() {
 			this.getHomeInit()
 			this.getCusayrob()
+			//串门成功后，增加金币和经验
+			this.chuanmen();
 		}
 
 	}
