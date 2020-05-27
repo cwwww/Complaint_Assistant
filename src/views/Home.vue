@@ -474,12 +474,13 @@ export default{
     this.code = this.url.substring(start+1, end)
     console.log(this.code)
     this.impower()
+    this.wxconfig()
     wx.config({
           debug: false,
           appId: 'wx026553ce8b4e59a3', // 和获取Ticke的必须一样------必填，公众号的唯一标识
-          timestamp: timestamp, // 必填，生成签名的时间戳
-          nonceStr: nonceStr, // 必填，生成签名的随机串
-          signature: signature,// 必填，签名，见附录1
+          timestamp: this.shareMessages.timestamp, // 必填，生成签名的时间戳
+          nonceStr: this.shareMessages.nonceStr, // 必填，生成签名的随机串
+          signature: this.shareMessages.signature,// 必填，签名，见附录1
           //需要分享的列表项:发送给朋友，分享到朋友圈，分享到QQ，分享到QQ空间
           jsApiList: [
             'onMenuShareAppMessage','onMenuShareTimeline',
@@ -494,7 +495,6 @@ export default{
         });
         //处理验证成功的信息
         wx.ready(function () {
-        //              alert(window.location.href.split('#')[0]);
           //分享到朋友圈
           wx.onMenuShareTimeline({
             title: _this.newDetailObj.title, // 分享标题
