@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="bottomText">
-      <van-checkbox class="checkout"  v-model="check">复选框</van-checkbox>
+      <van-checkbox class="checkout" v-model="check">复选框</van-checkbox>
       <div class="text">
         <span>已阅读并同意</span>
         <router-link to="/bebotAgree">《保险侠服务协议》</router-link>
@@ -136,14 +136,14 @@ export default {
         let param = {
           "PHONE": this.$refs.phone.value,
           "code":this.$refs.research.value,
-          "OPENID": this.messages.openid,
-          "NICKNAME": this.messages.nickname,
-          "HEADIMGURL":  this.messages.headimgurl,
-          "SEX":  this.messages.sex,
-          "PROVINCE":  this.messages.province,
-          "CITY": this.messages.city,
-          "COUNTRY": this.messages.country,
-          "PRIVILEGE":  this.messages.privilege,
+          "OPENID": this.mes.openid,
+          "NICKNAME": this.mes.nickname,
+          "HEADIMGURL":  this.mes.headimgurl,
+          "SEX":  this.mes.sex,
+          "PROVINCE":  this.mes.province,
+          "CITY": this.mes.city,
+          "COUNTRY": this.mes.country,
+          "PRIVILEGE":  this.mes.privilege,
         }
         console.log(param)
         let res = reqlogin(param)
