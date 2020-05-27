@@ -198,22 +198,24 @@ const routes = [
     {
         path: '/Task',
         name: 'Task',
-        redirect: '/Task/EveryDayTask',
+        redirect: '/Task/NewTask',
         component: Task,
         meta: {
             title: "任务"
         },
         children: [
+			{
+			    path: '/Task/NewTask',
+			    name: 'NewTask',
+			    component: NewTask,
+			},
+			
             {
                 path: '/Task/EveryDayTask',
                 name: 'EveryDayTask',
                 component: EveryDayTask,
             },
-            {
-                path: '/Task/NewTask',
-                name: 'NewTask',
-                component: NewTask,
-            },
+           
 			{
 			    path: '/Task/ProfessionTask',
 			    name: 'ProfessionTask',
