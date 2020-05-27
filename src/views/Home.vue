@@ -135,8 +135,8 @@
 </template>
 <script>
 import { Popup,Toast } from 'vant';
-import wxapi from '../assets/js/common/wxapi';
-import wx from 'weixin-js-sdk';
+// import wxapi from '../assets/js/common/wxapi';
+// import wx from 'weixin-js-sdk';
 import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList,reqHomeName,reqtaskStatus,reqisunlocked,reqbebotCode,reqwxconfig,reqcustomerlogin  } from '../axios/axios-api'
 export default{
   components: {},
