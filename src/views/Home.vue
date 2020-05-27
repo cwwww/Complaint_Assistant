@@ -266,7 +266,6 @@ export default{
       }
       let res = reqHomeName(param)
       res.then(res=>{
-              console.log(res)
               this.list = res.result.dialog_history
               this.$refs.input.value = ''
           }).catch(reslove=>{
@@ -416,19 +415,17 @@ export default{
     // 初始化页面
     getHomeInit(){
       let param = {
-        "robot_id": this.$route.query.robotId,
-        "broker_id":this.$route.query.useId,
-        "token":this.$route.query.token
+        "robot_id": this.messages.robotId,
+        "broker_id":this.messages.useId,
+        "token":this.messages.token
       }
       console.log(param)
       let result = reqHomeInit(param)
       result.then(res=>{
-      
       this.homeInit = res.result
       if(this.homeInit.name == ''){
         this.showName = true
       }
-      console.log(this.homeInit)
       if (this.homeInit.title == 1) { //保险等级
           this.homeLevel = this.levelbx1
         } else if(this.goodsList.title == 2){
@@ -499,7 +496,6 @@ export default{
     var end = this.url.indexOf("&")
     this.code = this.url.substring(start+1, end)
     console.log(this.code)
-    console.log(112)
     this.impower()
   },
   mounted(){
@@ -601,7 +597,6 @@ export default{
     //         }
     //       });
     //     });
-    console.log(JSON.stringify(this.$route.query))
     this.getHomeInit()
     this.getDetail();
   //定时获取粉丝数据
