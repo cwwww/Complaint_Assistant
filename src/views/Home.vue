@@ -492,7 +492,7 @@ export default{
   //   this.code = this.url.substring(start+1, end)
   //   console.log(this.url)
   //   this.impower()
-    
+    this.wxconfig()
   },
   mounted(){
     // if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
@@ -500,7 +500,7 @@ export default{
     // } else {
     //     // 别的业务逻辑
     // }
-    this.wxconfig()
+    
     this.getHomeInit()
     this.getDetail();
     //定时获取粉丝数据
