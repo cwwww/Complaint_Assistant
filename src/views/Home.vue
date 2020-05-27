@@ -137,7 +137,7 @@
 </template>
 <script>
 import { Popup,Toast } from 'vant';
-import { MessageBox } from 'element-ui';
+import wxapi from '../assets/js/common/wxapi';
 import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList,reqHomeName,reqtaskStatus,reqisunlocked,reqbebotCode,reqwxconfig  } from '../axios/axios-api'
 export default{
   components: {},
@@ -481,13 +481,13 @@ export default{
   created(){
     // this.getCode()
     // this.getUrlCode()
-    this.url = window.location.href
+    this.url = window.location.href.split('#')[0]
     var start = this.url.indexOf("=")
     var end = this.url.indexOf("&")
     this.code = this.url.substring(start+1, end)
     console.log(this.code)
     this.impower()
-    this.wxconfig()
+    wxapi.wxRegister(data,option);//data是微信配置信息，option是分享要配置的内容
   },
   mounted(){
     if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
