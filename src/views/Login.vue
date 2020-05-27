@@ -1,4 +1,3 @@
-// 登陆页
 <template>
   <div class="warp">
     <img :src="img" alt />
@@ -16,7 +15,8 @@
         <img :src="img3" alt />
       </div>
       <div class="rightSend" id="box">
-        <p @click="loginResearch">发送验证码</p>
+        <p v-show="checkNum" @click="loginResearch">发送验证码</p>
+        <p v-show="!checkNum" class="count">{{count}} s</p>
       </div>
     </div>
     <div class="bottomText">
@@ -41,8 +41,9 @@ import { Toast,Checkbox } from 'vant';
 export default {
   name: "Login",
   data() {
-    return {　　　　
-      check: true,
+    return {　　
+      checkNum:true,　　
+      check: false,
       phone: '', //输入框中的手机号
       research: '', //输入框中的验证码
       codeText: '获取验证码',  //倒计时显示文字
@@ -53,6 +54,8 @@ export default {
       appId:'',
       callback:'',
       code:'',
+      count:'',
+      messages:'',
       img: require("../assets/images/loginimg.png"),
       img1: require("../assets/images/lisfjaiwe.png"),
       img2: require("../assets/images/shouji.png"),
@@ -90,16 +93,7 @@ export default {
         if(r != null) return decodeURIComponent(r[2]);
         return null;
     },
-    impower(){
-        let param = {"code":this.code}
-        let res = reqbebotCode (param)
-        res.then(res=>{
-          console.log(res)
-        }).catch(reslove=>{
-          console.log('error')
-        })
-      // }
-    },
+
     loginResearch(){  
       if (this.$refs.phone.value == '') {
         Toast('请输入手机号')
@@ -110,7 +104,20 @@ export default {
         console.log(param)
         let res = reqsendMsmCode(param)
         res.then(res=>{
-          console.log(res)
+          const TIME_COUNT = 60;
+          if (!this.timer) {
+            this.count = TIME_COUNT;
+            this.checkNum = false;
+            this.timer = setInterval(() => {
+            if (this.count > 0 && this.count <= TIME_COUNT) {
+              this.count--;
+              } else {
+              this.checkNum = true;
+              clearInterval(this.timer);
+              this.timer = null;
+              }
+            }, 1000)
+          }
         }).catch(reslove=>{
           console.log('error')
         })
@@ -124,30 +131,69 @@ export default {
       }else if(!this.check){
         Toast('请勾选协议')
       }else{
-        let param = {"PHONE": this.$refs.phone.value,
-        "code":this.$refs.research.value
+        let param = {
+          "PHONE": this.$refs.phone.value,
+          "code":this.$refs.research.value,
+          "OPENID": this.messages.openid,
+          "NICKNAME": this.messages.nickname,
+          "HEADIMGURL":  this.messages.headimgurl,
+          "SEX":  this.messages.sex,
+          "PROVINCE":  this.messages.province,
+          "CITY": this.messages.city,
+          "COUNTRY": this.messages.country,
+          "PRIVILEGE":  this.messages.privilege,
         }
         console.log(param)
         let res = reqloginMsmCode (param)
         res.then(res=>{
           console.log(res)
-          this.$router.replace('/')
+          this.messages = res.result
+          this.$router.push({
+            path:'/',
+            query:{
+              useId:this.messages.ID,
+              robotId:this.messages.ROBOT_ID,
+              token:this.messages.token
+            }
+          })
         }).catch(reslove=>{
           console.log('error')
         })
       }
     },
-
+    // getCode(){ // 非静默授权，第一次有弹框
+    //         this.code = ''
+    //         // var local = window.location.href // 获取页面url
+    //         var local = "https://bebot-web.baoxianxia.com.cn/#/" // 获取页面url
+    //         var appid = 'wx026553ce8b4e59a3'
+    //         this.code = this.getUrlCode().code // 截取code
+    //         if (this.code == null || this.code === '') { // 如果没有code，则去请求
+    //             window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
+    //         } else {
+    //             // 你自己的业务逻辑
+    //         }
+    //   },
+    //   getUrlCode() { // 截取url中的code方法
+    //         var url = window.location.search
+    //         this.winUrl = url
+    //         var theRequest = new Object()
+    //         if (url.indexOf("?") != -1) {
+    //             var str = url.substr(1)
+    //             var strs = str.split("&")
+    //             for(var i = 0; i < strs.length; i ++) {
+    //                 theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
+    //             }
+    //         }
+    //         return theRequest
+    //     }
   },
   mounted(){
-      if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
-          this.getCode()
-          alert(this.getCode())
-      } else {
-          // 别的业务逻辑
-      }
-      this.impower()
-      console.log(this.getUrlCode().code)
+      // if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
+      //     this.getCode()
+      // } else {
+      //     // 别的业务逻辑
+      // }
+      // var url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
     },
   }
 </script>
