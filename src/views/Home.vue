@@ -562,7 +562,12 @@ export default{
     console.log(JSON.stringify(this.$route.query))
     this.getHomeInit()
     this.getDetail();
-	//定时获取粉丝数据
+  //定时获取粉丝数据
+  var url = window.location.href
+  var start = url.indexOf("=")
+  var end = url.indexOf("&")
+  this.code = url.substring(start+1, end)
+  console.log(this.code) 
 	this.timer = setInterval(this.getFensi, 60000);//定时间隔，
   }
 }
