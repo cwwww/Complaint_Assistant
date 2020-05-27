@@ -266,6 +266,7 @@ export default{
       }
       let res = reqHomeName(param)
       res.then(res=>{
+              console.log(res)
               this.list = res.result.dialog_history
               this.$refs.input.value = ''
           }).catch(reslove=>{
@@ -273,7 +274,6 @@ export default{
       })
     },
     wxconfig(){
-      alert(111)
         let param = {"url":this.url}
         let res = reqwxconfig(param)
         res.then(res=>{
@@ -415,19 +415,20 @@ export default{
 
     // 初始化页面
     getHomeInit(){
-      console.log(JSON.stringify(this.messages))
       let param = {
-        "robot_id": this.messages.robotId,
-        "broker_id":this.messages.useId,
-        "token":this.messages.token
+        "robot_id": this.$route.query.robotId,
+        "broker_id":this.$route.query.useId,
+        "token":this.$route.query.token
       }
       console.log(param)
       let result = reqHomeInit(param)
       result.then(res=>{
+      
       this.homeInit = res.result
       if(this.homeInit.name == ''){
         this.showName = true
       }
+      console.log(this.homeInit)
       if (this.homeInit.title == 1) { //保险等级
           this.homeLevel = this.levelbx1
         } else if(this.goodsList.title == 2){
@@ -495,9 +496,10 @@ export default{
   created(){
     this.url = window.location.href
     var start = this.url.indexOf("=")
-    var end = this.url.indexOf("&")
+    var end = tis.url.indexOf("&")
     this.code = this.url.substring(start+1, end)
     console.log(this.code)
+    console.log(112)
     this.impower()
   },
   mounted(){
@@ -506,14 +508,14 @@ export default{
     } else {
         // 别的业务逻辑
     }
-    console.log(JSON.stringify(this.messages))
   //var url = window.location.href
   // var start = url.indexOf("=")
   // var end = url.indexOf("&")
   // this.code = url.substring(start+1, end)
   // console.log(this.code)
   // console.log(this.$route.)
-    // this.wxconfig()
+
+  this.impower()
     //  wx.config({
     //       debug: false,
     //       appId: appId, // 和获取Ticke的必须一样------必填，公众号的唯一标识
