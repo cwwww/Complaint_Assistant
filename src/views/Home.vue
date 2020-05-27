@@ -415,6 +415,7 @@ export default{
 
     // 初始化页面
     getHomeInit(){
+      console.log(JSON.stringify(this.messages))
       let param = {
         "robot_id": this.messages.robotId,
         "broker_id":this.messages.useId,
@@ -505,13 +506,14 @@ export default{
     } else {
         // 别的业务逻辑
     }
+    console.log(JSON.stringify(this.messages))
   //var url = window.location.href
   // var start = url.indexOf("=")
   // var end = url.indexOf("&")
   // this.code = url.substring(start+1, end)
   // console.log(this.code)
   // console.log(this.$route.)
-    this.wxconfig()
+    // this.wxconfig()
     //  wx.config({
     //       debug: false,
     //       appId: appId, // 和获取Ticke的必须一样------必填，公众号的唯一标识
