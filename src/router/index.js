@@ -61,10 +61,7 @@ const routes = [
         component: Home,
         meta: {
             title: "首页"
-        },
-        children:[
-            
-        ]
+        }
     },
     {
         path: '/HomeChat',
@@ -262,7 +259,6 @@ const routes = [
 
 const router = new VueRouter({
     mode: 'hash',
-    base: process.env.BASE_URL,
     routes
 })
 export default router
