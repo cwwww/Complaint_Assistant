@@ -271,9 +271,10 @@ export default{
       })
     },
     impower(){
+      alert(1)
         let param = {"code":this.code}
+        // alert(param)
         let res = reqbebotCode (param)
-        alert(param)
         res.then(res=>{
           console.log(res)
           this.messages = res.result
@@ -487,6 +488,7 @@ export default{
   this.code = url.substring(start+1, end)
   console.log(this.code)
   console.log(112)
+  this.impower()
   },
   mounted(){
     if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
