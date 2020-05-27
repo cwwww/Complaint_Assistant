@@ -468,7 +468,7 @@ export default{
   created(){
     // this.getCode()
     // this.getUrlCode()
-    this.url = window.location.href.split('#')[0]
+    this.url = window.location.href.split("?")[0]
     var start = this.url.indexOf("=")
     var end = this.url.indexOf("&")
     this.code = this.url.substring(start+1, end)
