@@ -280,7 +280,7 @@ export default{
       })
     },
     wxconfig(){
-      this.url = this.url.split("?")[0]
+      // this.url = this.url.split("?")[0]
         let param = {"url":this.url}
         let res = reqwxconfig(param)
         res.then(res=>{
@@ -341,39 +341,6 @@ export default{
           console.log('error')
         })
     },
-    // 授权
-    impower(){
-        let param = {"code":'081PVqbd0bGlSy111vad05Srbd0PVqbt'}
-        let res = reqbebotCode (param)
-        res.then(res=>{
-          console.log(res)
-          this.messages = res.result
-          this.customerLogin()
-        }).catch(reslove=>{
-          console.log('error')
-        })
-    },
-    // customerLogin(){
-    //   console.log(this.messages)
-    //       let param = {
-    //         "openid":this.messages.openid,
-    //         "nickname":this.messages.nickname,
-    //         "headimgurl":this.messages.headimgurl,
-    //         "sex":this.messages.sex,
-    //         "province":this.messages.province,
-    //         "city":this.messages.city,
-    //         "country":this.messages.country,
-    //         "privilege":this.messages.privilege,
-    //       }
-    //       let res = reqcustomerlogin(param)
-    //       res.then(res=>{
-    //          console.log(res)
-    //          this.newData = res.result
-    //         }).catch(reslove=>{
-    //              console.log('error')
-    //       })
-    // },
-    //定时获取粉丝数量
     getFensi(){
       let param = {
         "robot_id": 33,
@@ -513,18 +480,18 @@ export default{
       })
     },
   },
-  created(){
-    // this.getCode()
-    // this.getUrlCode()
-    // this.url = window.location.href.split('#')[0]
-    this.url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
-    var start = this.url.indexOf("=")
-    var end = this.url.indexOf("&")
-    this.code = this.url.substring(start+1, end)
-    console.log(this.url)
-    this.impower()
-    this.wxconfig()
-  },
+  // created(){
+  //   // this.getCode()
+  //   // this.getUrlCode()
+  //   // this.url = window.location.href.split('#')[0]
+  //   this.url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
+  //   var start = this.url.indexOf("=")
+  //   var end = this.url.indexOf("&")
+  //   this.code = this.url.substring(start+1, end)
+  //   console.log(this.url)
+  //   this.impower()
+  //   this.wxconfig()
+  // },
   mounted(){
     // if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
     //     this.getCode()

@@ -158,7 +158,8 @@ export default {
               visitor_id:this.messages.ID,
               robotId:this.messages.ROBOT_ID,
               token:this.messages.token,
-              headimgurl:this.mes.headimgurl
+              
+              // :this.mes.headimgurl
             }
           })
         }).catch(reslove=>{
