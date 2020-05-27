@@ -272,6 +272,7 @@ export default{
     impower(){
         let param = {"code":this.code}
         let res = reqbebotCode (param)
+        alert(param)
         res.then(res=>{
           console.log(res)
           this.messages = res.result
