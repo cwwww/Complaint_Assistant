@@ -469,11 +469,11 @@ export default{
     }
   },
   mounted(){
-      if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
-          this.getCode()
-      } else {
-          // 别的业务逻辑
-      }
+    if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
+        this.getCode()
+    } else {
+        // 别的业务逻辑
+    }
     //  wx.config({
     //       debug: false,
     //       appId: appId, // 和获取Ticke的必须一样------必填，公众号的唯一标识
