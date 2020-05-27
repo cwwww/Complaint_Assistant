@@ -280,14 +280,12 @@ export default{
       })
     },
     wxconfig(){
-      // this.url = this.url.split("?")[0]
-      console.log(window.location.href)
         let param = {"url":window.location.href.split('#')[0]}
         let res = reqwxconfig(param)
         res.then(res=>{
           console.log(res)
           this.shareMessages = res.result
-          console.log(this.shareMessages)
+          
           var that = this
           wx.config({
             debug: true,
@@ -325,7 +323,7 @@ export default{
             wx.onMenuShareAppMessage({
               title: '额外热舞标题', // 分享标题
               desc: '描述', // 分享描述
-              link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              link: 'https://test-bebot-web.baoxianxia.com.cn/#/HomeOther', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
               imgUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590588171242&di=ac9d15a3d7da1c6e5a8c722c94c914bf&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F35%2F34%2F19300001295750130986345801104.jpg', // 分享图标
               // type: '', // 分享类型,music、video或link，不填默认为link
               // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
