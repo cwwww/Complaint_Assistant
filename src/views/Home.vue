@@ -288,7 +288,7 @@ export default{
           console.log(res)
           this.shareMessages = res.result
           console.log(this.shareMessages)
-          
+          var that = this
           wx.config({
             debug: true,
             appId: 'wx026553ce8b4e59a3', // 和获取Ticke的必须一样------必填，公众号的唯一标识
@@ -310,7 +310,7 @@ export default{
             wx.onMenuShareTimeline({
               title: '额外热舞标题', // 分享标题
               link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: this.homeInit.headimgurl, // 分享图标
+              imgUrl: that.homeInit.headimgurl, // 分享图标
               success: function (res) {
                 // 用户确认分享后执行的回调函数
                 console.log("分享到朋友圈成功返回的信息为:",res);
