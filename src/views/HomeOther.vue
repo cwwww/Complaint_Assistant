@@ -305,7 +305,6 @@
 				}else if(this.isRegister = true){
 					this.customer_type = 1
 				}
-				// this.customer_id =this.customer_id
 				let param = {
 					"customer_id": this.$route.query.broker_id,
 					"customer_robot_id": this.$route.query.robot_id,
@@ -378,6 +377,25 @@
 			}
 		},
 		mounted() {
+			let param = {
+				"openid": this.openid
+			}
+			let result = reqisregistered(param)
+			result.then(res => {
+				console.log('创前：'+ res)
+				this.registers = res.result
+				if(this.registers.visitor_type == '0'){
+					this.isRegister = false
+					this.$router.push('/login')
+					this.$route.query.broker_id = this.registers.visitor_id
+					this.$route.query.robot_id = this.registers.robot_id
+					this.$route.query.token = this.registers.token
+				}else if(this.registers.visitor_type == '1'){
+					this.isRegister = true
+				}
+			}).catch(reslove => {
+				console.log('error')
+			})
 			this.getHomeInit()
 			this.getCusayrob()
 		},
@@ -387,13 +405,15 @@
 			}
 			let result = reqisregistered(param)
 			result.then(res => {
+				console.log('创前：'+ res)
 				this.registers = res.result
+				
 				if(this.registers.visitor_type == '0'){
 					this.isRegister = false
 					this.$router.push('/login')
-					this.$route.query.broker_id = this.registers.visitor_id
-					this.$route.query.robot_id = this.registers.robot_id
-					this.$route.query.token = this.registers.token
+					// this.$route.query.broker_id = this.registers.visitor_id
+					// this.$route.query.robot_id = this.registers.robot_id
+					// this.$route.query.token = this.registers.token
 				}else if(this.registers.visitor_type == '1'){
 					this.isRegister = true
 				}

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
 Vue.use(VueRouter)
 
 import Home from '../views/Home'
@@ -258,7 +257,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-    mode: 'hash',
+    // mode: 'hash',
     routes
 })
 export default router
