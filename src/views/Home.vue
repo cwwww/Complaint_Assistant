@@ -281,7 +281,8 @@ export default{
     },
     wxconfig(){
       // this.url = this.url.split("?")[0]
-        let param = {"url":this.url}
+      console.log(window.location.href)
+        let param = {"url":window.location.href}
         let res = reqwxconfig(param)
         res.then(res=>{
           console.log(res)
@@ -307,7 +308,7 @@ export default{
             //分享到朋友圈
             wx.onMenuShareTimeline({
               title: _this.newDetailObj.title, // 分享标题
-              link: window.location.href.split("?")[0], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
               imgUrl: _this.newDetailObj.thu_image, // 分享图标
               success: function (res) {
                 // 用户确认分享后执行的回调函数
