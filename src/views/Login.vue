@@ -35,13 +35,14 @@
   </div>
 </template>
 <script>
-import { reqlogin,reqbebotCode,reqsendMsmCode,reqwxconfig,reqloginMsmCode } from '../axios/axios-api'
+import { reqlogin,reqbebotCode,reqsendMsmCode,reqwxconfig,reqisregistered } from '../axios/axios-api'
 // import {debounce} from '../assets/js/common'
 import { Toast,Checkbox } from 'vant';
 export default {
   name: "Login",
   data() {
     return {　　
+      loginMeg:'', //查询是否注册返回信息
       checkNum:true,　　
       check: false,
       phone: '', //输入框中的手机号
@@ -55,7 +56,8 @@ export default {
       callback:'',
       code:'',
       count:'',
-      messages:'',
+      mes:'', // 授权返回的信息
+      messages:'', 
       img: require("../assets/images/loginimg.png"),
       img1: require("../assets/images/lisfjaiwe.png"),
       img2: require("../assets/images/shouji.png"),
@@ -144,14 +146,14 @@ export default {
           "PRIVILEGE":  this.messages.privilege,
         }
         console.log(param)
-        let res = reqloginMsmCode (param)
+        let res = reqlogin(param)
         res.then(res=>{
           console.log(res)
           this.messages = res.result
           this.$router.push({
             path:'/',
             query:{
-              useId:this.messages.ID,
+              visitor_id:this.messages.ID,
               robotId:this.messages.ROBOT_ID,
               token:this.messages.token
             }
@@ -162,53 +164,67 @@ export default {
       }
     },
     impower(){
-        let param = {"code":'081PVqbd0bGlSy111vad05Srbd0PVqbt'}
-        let res = reqbebotCode (param)
-        res.then(res=>{
-          console.log(res)
-          this.messages = res.result
-          this.customerLogin()
-        }).catch(reslove=>{
-          console.log('error')
-        })
+      let param = {"code":this.code}
+      let res = reqbebotCode(param)
+      res.then(res=>{
+        console.log(res)
+        this.mes = res.result
+      }).catch(reslove=>{
+        console.log('error')
+      })
     },
     getCode(){ // 非静默授权，第一次有弹框
-          this.code = ''
-          // var local = window.location.href // 获取页面url
-          var local = "https://bebot-web.baoxianxia.com.cn/#/login" // 获取页面url
-          var appid = 'wx026553ce8b4e59a3'
-          this.code = this.getUrlCode().code // 截取code
-          if (this.code == null || this.code === '') { // 如果没有code，则去请求
-              window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
-          } else {
-              // 你自己的业务逻辑
-          }
-      },
-      getUrlCode() { // 截取url中的code方法
-          var url = window.location.search
-          this.winUrl = url
-          var theRequest = new Object()
-          if (url.indexOf("?") != -1) {
-              var str = url.substr(1)
-              var strs = str.split("&")
-              for(var i = 0; i < strs.length; i ++) {
-                  theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
-              }
-          }
-          return theRequest
-      }
+        this.code = ''
+        // var local = window.location.href // 获取页面url
+        var local = "https://bebot-web.baoxianxia.com.cn/#/login" // 获取页面url
+        var appid = 'wx026553ce8b4e59a3'
+        this.code = this.getUrlCode().code // 截取code
+        if (this.code == null || this.code === '') { // 如果没有code，则去请求
+            window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
+        } else {
+            // 你自己的业务逻辑
+        }
+    },
+    getUrlCode() { // 截取url中的code方法
+        var url = window.location.search
+        this.winUrl = url
+        var theRequest = new Object()
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1)
+            var strs = str.split("&")
+            for(var i = 0; i < strs.length; i ++) {
+                theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
+            }
+        }
+        return theRequest
+    }
   },
   created(){
-    // this.getCode()
-    // this.getUrlCode()
     // this.url = window.location.href.split('#')[0]
-    this.url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
+    this.url = window.location.href.split('#')[0]
     var start = this.url.indexOf("=")
     var end = this.url.indexOf("&")
     this.code = this.url.substring(start+1, end)
     console.log(this.url)
     this.impower()
-    this.wxconfig()
+    let param = {"openid":this.mes.openid}
+    let res = reqisregistered(param)
+    res.then(res=>{
+      this.loginMeg = res.result
+      console.log(this.loginMeg)
+      if(this.loginMeg.visitor_type == 1){
+        this.$router.push({
+          path:'/',
+          query:{
+            visitor_id: this.loginMeg.visitor_id,
+            robot_id: this.loginMeg.robot_id,
+            token: this.loginMeg.token
+          }
+        })
+      }
+    }).catch(reslove=>{
+      console.log('error')
+    })
   },
   mounted(){
       if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
@@ -216,6 +232,7 @@ export default {
       } else {
           // 别的业务逻辑
       }
+      // this.wxconfig()
       // var url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
     },
   }

@@ -319,7 +319,7 @@ export default{
                 logUtil.printLog("取消分享到朋友圈返回的信息为:",res);
               }
             });
-            //分享给朋友
+            // 分享给朋友
             wx.onMenuShareAppMessage({
               title: _this.newDetailObj.title, // 分享标题
               desc: _this.desc, // 分享描述
@@ -353,45 +353,45 @@ export default{
           console.log('error')
         })
     },
-    customerLogin(){
-      console.log(this.messages)
-          let param = {
-            "openid":this.messages.openid,
-            "nickname":this.messages.nickname,
-            "headimgurl":this.messages.headimgurl,
-            "sex":this.messages.sex,
-            "province":this.messages.province,
-            "city":this.messages.city,
-            "country":this.messages.country,
-            "privilege":this.messages.privilege,
+    // customerLogin(){
+    //   console.log(this.messages)
+    //       let param = {
+    //         "openid":this.messages.openid,
+    //         "nickname":this.messages.nickname,
+    //         "headimgurl":this.messages.headimgurl,
+    //         "sex":this.messages.sex,
+    //         "province":this.messages.province,
+    //         "city":this.messages.city,
+    //         "country":this.messages.country,
+    //         "privilege":this.messages.privilege,
+    //       }
+    //       let res = reqcustomerlogin(param)
+    //       res.then(res=>{
+    //          console.log(res)
+    //          this.newData = res.result
+    //         }).catch(reslove=>{
+    //              console.log('error')
+    //       })
+    // },
+    //定时获取粉丝数量
+    getFensi(){
+      let param = {
+        "robot_id": 33,
+        "operation_type": 0,
+            "broker_id": 33,
+            "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
           }
-          let res = reqcustomerlogin(param)
-          res.then(res=>{
-             console.log(res)
-             this.newData = res.result
-            }).catch(reslove=>{
-                 console.log('error')
-          })
+      let res = BeanList(param)
+      res.then(res=>{
+              console.log(res)
+              let showNotification = res.result.notification
+              if(showNotification){
+            this.showNew = true;
+          }
+          }).catch(reslove=>{
+             console.log('error')
+      })
     },
-	//定时获取粉丝数量
-	getFensi(){
-		let param = {
-		  "robot_id": 33,
-		  "operation_type": 0,
-          "broker_id": 33,
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
-        }
-		let res = BeanList(param)
-		res.then(res=>{
-		        console.log(res)
-		        let showNotification = res.result.notification
-		        if(showNotification){
-					this.showNew = true;
-				}
-		    }).catch(reslove=>{
-		       console.log('error')
-		})
-	},
     submit(numIndex){  
       this.numIndex+=1
         if(this.$refs.input.value == '') {
@@ -466,8 +466,8 @@ export default{
         }
       }
       console.log(param)
-      let res = reqCusayrob(param)
-      res.then(res=>{
+        let res = reqCusayrob(param)
+        res.then(res=>{
         console.log(res)
         this.list = res.result.dialog_history
         this.$refs.input.value = ''
@@ -478,11 +478,11 @@ export default{
 
     // 初始化页面
     getHomeInit(){
-      alert(this.newData)
+      this.$route.query
       let param = {
-        "robot_id":this.newData.newData,
-        "broker_id":this.newData.newData,
-        "token":this.newData.token
+        "robot_id":this.$route.query.visitor_id,
+        "broker_id":this.$route.query.robotId,
+        "token":this.$route.query.token
       }
       console.log(param)
       let result = reqHomeInit(param)
