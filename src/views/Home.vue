@@ -2,9 +2,9 @@
   <div class="contain">
     <div class="information">
       <div class="mes">
-        <div class="topHalfPart">
+        <div class="topHalfPart" v-if="messages.headimgurl">
           <div class="headPortrait">
-            <img :src=homeInit.headimgurl alt="">
+            <img :src=messages.headimgurl alt="">
           </div>
           <div class="infor">
             <div class="swsName">{{homeInit.name}}&nbsp;事务所1</div>
@@ -166,6 +166,7 @@ export default{
       star:'',
       isStatus:'',
       fairyStatus:'',
+      messages:'',
       ezgif: require("../assets/images/ezgif.gif"),
       img: require("../assets/images/icon.png"),
       shop: require("../assets/images/shop@2x.png"),
