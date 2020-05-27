@@ -480,7 +480,7 @@ export default{
       })
     },
   },
-  // created(){
+  created(){
   //   // this.getCode()
   //   // this.getUrlCode()
   //   // this.url = window.location.href.split('#')[0]
@@ -490,8 +490,8 @@ export default{
   //   this.code = this.url.substring(start+1, end)
   //   console.log(this.url)
   //   this.impower()
-  //   this.wxconfig()
-  // },
+    this.wxconfig()
+  },
   mounted(){
     // if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
     //     this.getCode()
