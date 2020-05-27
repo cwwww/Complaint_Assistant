@@ -428,7 +428,6 @@ export default{
       console.log(param)
       let result = reqHomeInit(param)
       result.then(res=>{
-      
       this.homeInit = res.result
       if(this.homeInit.name == ''){
         this.showName = true
@@ -499,6 +498,8 @@ export default{
     }
   },
   created(){
+    this.getCode()
+    this.getUrlCode()
     this.url = window.location.href
     var start = this.url.indexOf("=")
     var end = this.url.indexOf("&")
@@ -519,8 +520,6 @@ export default{
   // this.code = url.substring(start+1, end)
   // console.log(this.code)
   // console.log(this.$route.)
-
-  this.impower()
     //  wx.config({
     //       debug: false,
     //       appId: appId, // 和获取Ticke的必须一样------必填，公众号的唯一标识
