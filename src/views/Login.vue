@@ -133,6 +133,8 @@ export default {
       }else if(!this.check){
         Toast('请勾选协议')
       }else{
+        console.log(111)
+        console.log(this.mes)
         let param = {
           "PHONE": this.$refs.phone.value,
           "code":this.$refs.research.value,
@@ -155,7 +157,8 @@ export default {
             query:{
               visitor_id:this.messages.ID,
               robotId:this.messages.ROBOT_ID,
-              token:this.messages.token
+              token:this.messages.token,
+              headimgurl:this.mes.headimgurl
             }
           })
         }).catch(reslove=>{

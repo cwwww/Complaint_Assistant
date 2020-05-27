@@ -4,7 +4,7 @@
       <div class="mes">
         <div class="topHalfPart">
           <div class="headPortrait">
-            <img :src=messages.headimgurl alt="">
+            <img :src=homeInit.headimgurl alt="">
           </div>
           <div class="infor">
             <div class="swsName">{{homeInit.name}}&nbsp;事务所</div>
@@ -478,7 +478,7 @@ export default{
 
     // 初始化页面
     getHomeInit(){
-      this.$route.query
+      // this.$route.query
       let param = {
         "robot_id":this.$route.query.visitor_id,
         "broker_id":this.$route.query.robotId,
