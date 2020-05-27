@@ -479,7 +479,7 @@ export default{
     this.impower()
     this.wxconfig()
     wx.config({
-          debug: false,
+          debug: true,
           appId: 'wx026553ce8b4e59a3', // 和获取Ticke的必须一样------必填，公众号的唯一标识
           timestamp: this.shareMessages.timestamp, // 必填，生成签名的时间戳
           nonceStr: this.shareMessages.nonceStr, // 必填，生成签名的随机串
