@@ -309,7 +309,7 @@ export default{
             wx.onMenuShareTimeline({
               title: '分享标题', // 分享标题
               link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: _this.newDetailObj.thu_image, // 分享图标
+              imgUrl: this.homeInit.headimgurl, // 分享图标
               success: function (res) {
                 // 用户确认分享后执行的回调函数
                 logUtil.printLog("分享到朋友圈成功返回的信息为:",res);
@@ -322,10 +322,10 @@ export default{
             });
             // 分享给朋友
             wx.onMenuShareAppMessage({
-              title: _this.newDetailObj.title, // 分享标题
-              desc: _this.desc, // 分享描述
-              link: window.location.href.split('#')[0], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: _this.newDetailObj.thu_image, // 分享图标
+              title: '分享标题', // 分享标题
+              desc: '描述', // 分享描述
+              link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: this.homeInit.headimgurl, // 分享图标
               type: '', // 分享类型,music、video或link，不填默认为link
               dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
               success: function (res) {
