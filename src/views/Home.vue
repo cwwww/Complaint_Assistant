@@ -282,14 +282,13 @@ export default{
       })
     },
     wxconfig(){
-      console.log(2222)
       this.url = this.url.split("?")[0]
-      console.log(JSON.stringify(this.url))
         let param = {"url":this.url}
         let res = reqwxconfig(param)
         res.then(res=>{
           console.log(res)
           this.shareMessages = res.result
+          console.log(this.shareMessages)
           wx.config({
             debug: true,
             appId: 'wx026553ce8b4e59a3', // 和获取Ticke的必须一样------必填，公众号的唯一标识
