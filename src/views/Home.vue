@@ -344,7 +344,7 @@ export default{
     },
     // 授权
     impower(){
-        let param = {"code":this.code}
+        let param = {"code":'081PVqbd0bGlSy111vad05Srbd0PVqbt'}
         let res = reqbebotCode (param)
         res.then(res=>{
           console.log(res)
@@ -355,21 +355,22 @@ export default{
         })
     },
     customerLogin(){
+      console.log(this.messages)
           let param = {
-            "OPENID": this.messages.openid,
-            "NICKNAME": this.messages.nickname,
-            "HEADIMGURL":  this.messages.headimgurl,
-            "SEX":  this.messages.sex,
-            "PROVINCE":  this.messages.province,
-            "CITY": this.messages.city,
-            "COUNTRY": this.messages.country,
-            "PRIVILEGE":  this.messages.privilege,
+            "openid":this.messages.openid,
+            "nickname":this.messages.nickname,
+            "headimgurl":this.messages.headimgurl,
+            "sex":this.messages.sex,
+            "province":this.messages.province,
+            "city":this.messages.city,
+            "country":this.messages.country,
+            "privilege":this.messages.privilege,
           }
           let res = reqcustomerlogin(param)
           res.then(res=>{
-            console.log(res)
-            this.newData = res.result
-              }).catch(reslove=>{
+             console.log(res)
+             this.newData = res.result
+            }).catch(reslove=>{
                  console.log('error')
           })
     },
@@ -478,14 +479,16 @@ export default{
 
     // 初始化页面
     getHomeInit(){
+      alert(this.newData)
       let param = {
-        "robot_id":this.newData.robotId,
-        "broker_id":this.newData.useId,
+        "robot_id":this.newData.newData,
+        "broker_id":this.newData.newData,
         "token":this.newData.token
       }
       console.log(param)
       let result = reqHomeInit(param)
       result.then(res=>{
+      console.log(res)
       this.homeInit = res.result
       if(this.homeInit.name == ''){
         this.showName = true
@@ -510,36 +513,12 @@ export default{
          console.log('error')
       })
     },
-    getCode(){ // 非静默授权，第一次有弹框
-        this.code = ''
-        // var local = window.location.href // 获取页面url
-        var local = "https://bebot-web.baoxianxia.com.cn/#/" // 获取页面url
-        var appid = 'wx026553ce8b4e59a3'
-        this.code = this.getUrlCode().code // 截取code
-        if (this.code == null || this.code === '') { // 如果没有code，则去请求
-            window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
-        } else {
-            // 你自己的业务逻辑
-        }
-    },
-    getUrlCode() { // 截取url中的code方法
-        var url = window.location.search
-        this.winUrl = url
-        var theRequest = new Object()
-        if (url.indexOf("?") != -1) {
-            var str = url.substr(1)
-            var strs = str.split("&")
-            for(var i = 0; i < strs.length; i ++) {
-                theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
-            }
-        }
-        return theRequest
-    }
   },
   created(){
     // this.getCode()
     // this.getUrlCode()
-    this.url = window.location.href.split('#')[0]
+    // this.url = window.location.href.split('#')[0]
+    this.url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
     var start = this.url.indexOf("=")
     var end = this.url.indexOf("&")
     this.code = this.url.substring(start+1, end)
@@ -548,16 +527,15 @@ export default{
     this.wxconfig()
   },
   mounted(){
-    if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
-        this.getCode()
-    } else {
-        // 别的业务逻辑
-    }
+    // if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
+    //     this.getCode()
+    // } else {
+    //     // 别的业务逻辑
+    // }
     this.getHomeInit()
     this.getDetail();
-  //定时获取粉丝数据
- 
-	this.timer = setInterval(this.getFensi, 60000);//定时间隔，
+    //定时获取粉丝数据
+    this.timer = setInterval(this.getFensi, 60000);//定时间隔，
   }
 }
 </script>
