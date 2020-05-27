@@ -45,11 +45,11 @@
 		</div>
 		<div class="rightList">
 			<ul>
-				<li>
+				<li @click="toFXCP">
 					<img :src=home_risktest alt="">
 					<div>风险测评</div>
 				</li>
-				<li>
+				<li @click="toPlan">
 					<img :src=home_planbook alt="">
 					<div>计划书</div>
 				</li>
@@ -81,9 +81,13 @@
 				</div>
 			</div>
 			<ul class="bottomList">
-				<li @click="toHome">
+				<li @click="toHome" v-if="isRegister">>
 					<img :src=back alt="">
 					<span>回家</span>
+				</li>
+				<li @click="register" v-if="!isRegister">
+					<img :src=login alt="">
+					<span>去登陆</span>
 				</li>
 				<li style="visibility:hidden">
 					<img :src=home_rankinglist alt="">
@@ -124,12 +128,17 @@
 		reqRobotDetail,
 		reqVisitedInit,
 		guanZhu,
-		reqtaskStatus
+		reqtaskStatus,
+		reqisregistered,
+		reqbebotCode
 	} from '../axios/axios-api'
 	export default {
 		components: {},
 		data() {
 			return {
+				mes:'',
+				registers:'',
+				isRegister:Boolean,
 				show1: false,
 				goodsList: [],
 				isOwn: true,
@@ -150,6 +159,7 @@
 				isStatus: '',
 				fairyStatus: '',
 				img: require("../assets/images/icon.png"),
+				register: require("../assets/images/register@2x.png"),
 				ezgif: require("../assets/images/ezgif.gif"),
 				shop: require("../assets/images/shop@2x.png"),
 				home_zsk: require("../assets/images/home_zsk@2x.png"),
@@ -183,6 +193,12 @@
 			};
 		},
 		methods: {
+			toFXCP(){
+				window.parent.location.href = 'https://m.baoxianxia.com.cn/risk/index.html'
+			},
+			toPlan(){
+				window.parent.location.href = 'https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16'
+			},
 			FairyShop() { //买家精灵商店
 				this.$router.push({
 					path: '/FairyShop',
@@ -242,13 +258,10 @@
 				}
 				let res = reqCusayrob(param)
 				res.then(res => {
-					console.log(res)
 					this.answer = res.result.dialog_history.content
-					console.log(this.answer)
 					this.list.push(this.question)
 					this.list.push(this.answer)
 					this.list2 = this.list.slice(-4)
-					console.log(this.list2)
 					if (this.list2[0] == '') {}
 					this.$refs.input.value = ''
 				}).catch(reslove => {
@@ -263,8 +276,7 @@
 						"operation_type":"0",
 						"broker_id":33,
 						"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
-          }
-          console.log(param)
+                    }
 					let result = guanZhu(param)
 					result.then(res => {
 						console.log("guanzhu:" + res)
@@ -289,10 +301,7 @@
 						 "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
 					   }
 					 })
-				}
-				
-				
-				
+				}	
 			},
 			
 			//关注好友
@@ -325,10 +334,15 @@
 				  });
 			},
 			getHomeInit() {
+				if(this.isRegister = false){
+					this.customer_type = 0
+				}else if(this.isRegister = true){
+					this.customer_type = 1
+				}
 				let param = {
 					"customer_id": this.$route.query.broker_id,
 					"customer_robot_id": this.$route.query.robot_id,
-					"customer_type": 1,
+					"customer_type": this.customer_type,
 					"visited_robot_id": this.$route.query.robot_visitId,
 					"token": this.$route.query.token
 				}
@@ -343,19 +357,19 @@
 					}
 					if (this.homeInit.title == 1) { //保险等级
 						this.homeLevel = this.levelbx1
-					} else if (this.goodsList.title == 2) {
-						this.homeLevel = this.levelbx2
-					} else if (this.goodsList.level == 3) {
-						this.homeLevel = this.levelbx3
-					} else if (this.goodsList.level == 4) {
-						this.homeLevel = this.levelbx4
-					} else if (this.goodsList.level == 5) {
-						this.homeLevel = this.levelbx5
-					} else if (this.goodsList.level == 6) {
-						this.homeLevel = this.levelbx6
-					} else if (this.goodsList.level == 7) {
-						this.homeLevel = this.levelbx7
-					}
+						} else if (this.homeInit.title == 2) {
+							this.homeLevel = this.levelbx2
+						} else if (this.homeInit.level == 3) {
+							this.homeLevel = this.levelbx3
+						} else if (this.homeInit.level == 4) {
+							this.homeLevel = this.levelbx4
+						} else if (this.homeInit.level == 5) {
+							this.homeLevel = this.levelbx5
+						} else if (this.homeInit.level == 6) {
+							this.homeLevel = this.levelbx6
+						} else if (this.homeInit.level == 7) {
+							this.homeLevel = this.levelbx7
+						}
 				}).catch(reslove => {
 					console.log('error')
 				})
@@ -389,12 +403,89 @@
 				  });
 			},
 			
+			impower(){
+			let param = {"code":this.code}
+		    let res = reqbebotCode(param)
+		    res.then(res=>{
+				console.log(res)
+				this.mes = res.result
+			}).catch(reslove=>{
+			  console.log('error')
+			})
+			},
+			getCode(){ // 非静默授权，第一次有弹框
+				this.code = ''
+				// var local = window.location.href // 获取页面url
+				var local = "https://test-bebot-web.baoxianxia.com.cn/#/login" // 获取页面url
+				var appid = 'wx026553ce8b4e59a3'
+				this.code = this.getUrlCode().code // 截取code
+				if (this.code == null || this.code === '') { // 如果没有code，则去请求
+					window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
+				} else {
+					// 你自己的业务逻辑
+				}
+			},
+			getUrlCode() { // 截取url中的code方法
+				var url = window.location.search
+				this.winUrl = url
+				var theRequest = new Object()
+				if (url.indexOf("?") != -1) {
+					var str = url.substr(1)
+					var strs = str.split("&")
+					for(var i = 0; i < strs.length; i ++) {
+						theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
+					}
+				}
+				return theRequest
+			}
+
 		},
 		mounted() {
+			let param = {
+				"openid": this.openid
+			}
+			let result = reqisregistered(param)
+			result.then(res => {
+				console.log('创前：'+ res)
+				this.registers = res.result
+				if(this.registers.visitor_type == '0'){
+					this.isRegister = false
+					this.$router.push('/login')
+					this.$route.query.broker_id = this.registers.visitor_id
+					this.$route.query.robot_id = this.registers.robot_id
+					this.$route.query.token = this.registers.token
+				}else if(this.registers.visitor_type == '1'){
+					this.isRegister = true
+				}
+			}).catch(reslove => {
+				console.log('error')
+			})
 			this.getHomeInit()
 			this.getCusayrob()
 			//串门成功后，增加金币和经验
 			this.chuanmen();
+		},
+		created(){
+			let param = {
+				"openid": this.openid
+			}
+			let result = reqisregistered(param)
+			result.then(res => {
+				console.log('创前：'+ res)
+				this.registers = res.result
+				
+				if(this.registers.visitor_type == '0'){
+					this.isRegister = false
+					this.$router.push('/login')
+					// this.$route.query.broker_id = this.registers.visitor_id
+					// this.$route.query.robot_id = this.registers.robot_id
+					// this.$route.query.token = this.registers.token
+				}else if(this.registers.visitor_type == '1'){
+					this.isRegister = true
+				}
+			}).catch(reslove => {
+				console.log('error')
+			})
 		}
 
 	}

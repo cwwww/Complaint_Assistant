@@ -4,7 +4,7 @@
       <div class="mes">
         <div class="topHalfPart">
           <div class="headPortrait">
-            <img :src=messages.headimgurl alt="">
+            <img :src=homeInit.headimgurl alt="">
           </div>
           <div class="infor">
             <div class="swsName">{{homeInit.name}}&nbsp;事务所</div>
@@ -135,7 +135,7 @@
 </template>
 <script>
 import { Popup,Toast } from 'vant';
-import wxapi from '../assets/js/common/wxapi';
+// import wxapi from '../assets/js/common/wxapi';
 import wx from 'weixin-js-sdk';
 import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList,reqHomeName,reqtaskStatus,reqisunlocked,reqbebotCode,reqwxconfig,reqcustomerlogin  } from '../axios/axios-api'
 export default{
@@ -303,13 +303,13 @@ export default{
       })
     },
     wxconfig(){
-      this.url = this.url.split("?")[0]
-        let param = {"url":this.url}
+        let param = {"url":window.location.href.split('#')[0]}
         let res = reqwxconfig(param)
         res.then(res=>{
           console.log(res)
           this.shareMessages = res.result
-          console.log(this.shareMessages)
+          alert($route.query.visitor_id)
+          var that = this
           wx.config({
             debug: true,
             appId: 'wx026553ce8b4e59a3', // 和获取Ticke的必须一样------必填，公众号的唯一标识
@@ -318,45 +318,45 @@ export default{
             signature: this.shareMessages.signature,// 必填，签名，见附录1
             //需要分享的列表项:发送给朋友，分享到朋友圈
             jsApiList: [
-              'onMenuShareAppMessage','onMenuShareTimeline'
+              'onMenuShareTimeline','onMenuShareAppMessage'
             ]
           });
           //处理验证失败的信息
           wx.error(function (res) {
-            logUtil.printLog('验证失败返回的信息:',res);
+            console.log('验证失败返回的信息:',res);
           });
           //处理验证成功的信息
           wx.ready(function () {
             //分享到朋友圈
             wx.onMenuShareTimeline({
-              title: _this.newDetailObj.title, // 分享标题
-              link: window.location.href.split("?")[0], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: _this.newDetailObj.thu_image, // 分享图标
+              title: '额外热舞标题', // 分享标题
+              link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: that.homeInit.headimgurl, // 分享图标
               success: function (res) {
                 // 用户确认分享后执行的回调函数
-                logUtil.printLog("分享到朋友圈成功返回的信息为:",res);
-                _this.showMsg("分享成功!")
+                console.log("分享到朋友圈成功返回的信息为:",res);
+                // _this.showMsg("分享成功!")
               },
               cancel: function (res) {
                 // 用户取消分享后执行的回调函数
-                logUtil.printLog("取消分享到朋友圈返回的信息为:",res);
+                console.log("取消分享到朋友圈返回的信息为:",res);
               }
             });
-            //分享给朋友
+            // 分享给朋友
             wx.onMenuShareAppMessage({
-              title: _this.newDetailObj.title, // 分享标题
-              desc: _this.desc, // 分享描述
-              link: window.location.href.split('#')[0], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: _this.newDetailObj.thu_image, // 分享图标
-              type: '', // 分享类型,music、video或link，不填默认为link
-              dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+              title: '额外热舞标题', // 分享标题
+              desc: '描述', // 分享描述
+              link: 'https://test-bebot-web.baoxianxia.com.cn/#/HomeOther?visited_robot_id='+ that.$route.query.visitor_id+'', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590588171242&di=ac9d15a3d7da1c6e5a8c722c94c914bf&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F35%2F34%2F19300001295750130986345801104.jpg', // 分享图标
+              // type: '', // 分享类型,music、video或link，不填默认为link
+              // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
               success: function (res) {
                 // 用户确认分享后执行的回调函数
-                logUtil.printLog("分享给朋友成功返回的信息为:",res);
+                console.log("分享给朋友成功返回的信息为:",res);
               },
               cancel: function (res) {
                 // 用户取消分享后执行的回调函数
-                logUtil.printLog("取消分享给朋友返回的信息为:",res);
+                console.log("取消分享给朋友返回的信息为:",res);
               }
             })
           });
@@ -387,33 +387,25 @@ export default{
             "COUNTRY": this.messages.country,
             "PRIVILEGE":  this.messages.privilege,
           }
-          let res = reqcustomerlogin(param)
-          res.then(res=>{
-            console.log(res)
-            this.newData = res.result
-              }).catch(reslove=>{
-                 console.log('error')
-          })
-    },
-	//定时获取粉丝数量
-	getFensi(){
-		let param = {
-		  "robot_id": 33,
-		  "operation_type": 0,
-          "broker_id": 33,
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
-        }
-		let res = BeanList(param)
-		res.then(res=>{
-		        console.log(res)
-		        let showNotification = res.result.notification
-		        if(showNotification){
-					this.showNew = true;
-				}
-		    }).catch(reslove=>{
-		       console.log('error')
-		})
 	},
+    getFensi(){
+      let param = {
+        "robot_id": 33,
+        "operation_type": 0,
+            "broker_id": 33,
+            "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          }
+      let res = BeanList(param)
+      res.then(res=>{
+              console.log(res)
+              let showNotification = res.result.notification
+              if(showNotification){
+            this.showNew = true;
+          }
+          }).catch(reslove=>{
+             console.log('error')
+      })
+    },
     submit(numIndex){  
       this.numIndex+=1
         if(this.$refs.input.value == '') {
@@ -518,8 +510,8 @@ export default{
         }
       }
       console.log(param)
-      let res = reqCusayrob(param)
-      res.then(res=>{
+        let res = reqCusayrob(param)
+        res.then(res=>{
         console.log(res)
         this.list = res.result.dialog_history
         this.$refs.input.value = ''
@@ -530,14 +522,16 @@ export default{
 
     // 初始化页面
     getHomeInit(){
+      // this.$route.query
       let param = {
-        "robot_id":this.newData.robotId,
-        "broker_id":this.newData.useId,
-        "token":this.newData.token
+        "robot_id":this.$route.query.visitor_id,
+        "broker_id":this.$route.query.robotId,
+        "token":this.$route.query.token
       }
       console.log(param)
       let result = reqHomeInit(param)
       result.then(res=>{
+      console.log(res)
       this.homeInit = res.result
       if(this.homeInit.name == ''){
         this.showName = true
@@ -562,6 +556,7 @@ export default{
          console.log('error')
       })
     },
+
 	destoryTimer(){
 		clearInterval(this.timer);
 	},
@@ -603,6 +598,18 @@ export default{
     //this.impower()
     //this.wxconfig()
   },
+  created(){
+  //   // this.getCode()
+  //   // this.getUrlCode()
+  //   // this.url = window.location.href.split('#')[0]
+  //   this.url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
+  //   var start = this.url.indexOf("=")
+  //   var end = this.url.indexOf("&")
+  //   this.code = this.url.substring(start+1, end)
+  //   console.log(this.url)
+  //   this.impower()
+    this.wxconfig()
+  },
   mounted(){
     // if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
     //     this.getCode()
@@ -613,6 +620,10 @@ export default{
     this.getDetail();
   //定时获取粉丝数据
 	this.timer = setInterval(this.getFensi, 60000);//定时间隔，
+    this.getHomeInit()
+    this.getDetail();
+    //定时获取粉丝数据
+    this.timer = setInterval(this.getFensi, 60000);//定时间隔，
   }
 }
 </script>
