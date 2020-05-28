@@ -121,7 +121,7 @@
     <!-- <div v-if="this.registers.visitor_type == '0'">
 			<img :src=share alt="">
     </div>-->
-	<ACVisitor :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :customer_id='visitList.customer_id' :customer_type='customer_type' :token ='visitList.token' v-if="visitList.customer_id"/>
+	<ACVisitor v-show="showACChat" @closeACchat="closeACchat" :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :customer_id='visitList.customer_id' :customer_type='customer_type' :token ='visitList.token' v-if="visitList.customer_id"/>
   </div>
 </template>
 <script>
@@ -147,6 +147,7 @@ export default {
   },
   data() {
     return {
+	  showACChat:false,
       visitList: "",
       mes: "",
       registers: "",
@@ -229,18 +230,11 @@ export default {
     },
     HomeChat() {
 	  // 聊天记录
-	  
-	//   this.$router.push({
-    //     path: "/ACVisitor",
-    //     query: {
-	// 	  broker_id: this.$route.query.broker_id,
-	// 	  robor_id: this.$route.query.robot_id,
-    //       customer_id: this.visitList.customer_id,
-	// 	  customer_type: this.customer_type,
-    //       token: this.visitList.token
-    //     }
-    //   });
-    },
+	  this.showACChat = true
+	},
+	closeACchat(data){
+	  this.showACChat = false
+	},
     toHome() {
       this.$router.replace("/");
     },

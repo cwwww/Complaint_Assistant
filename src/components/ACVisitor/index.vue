@@ -102,9 +102,10 @@ export default {
   created(){
     alert(this.broker_id);
   },
+  
   methods: {
     close() {
-
+        this.$emit('closeACchat',false)
     },
     getHistoryCustomer() {
       //AC 聊天记录

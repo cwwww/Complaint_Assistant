@@ -252,6 +252,7 @@ export default {
       this.getMarkrebot();
     }
     this.scrollToBottom();
+    this.getHistoryCustomer()
     window.setInterval(() => {
       setTimeout(this.getHistoryCustomer(), 0);
     }, 2000);
