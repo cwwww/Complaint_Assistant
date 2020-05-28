@@ -333,7 +333,6 @@ export default {
     },
     HomeChat() {
       // 聊天记录
-      alert('chat')
       this.homeChat = true
     },
     WhoLookMe() {

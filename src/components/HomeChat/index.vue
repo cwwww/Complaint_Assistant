@@ -108,6 +108,7 @@ export default {
       res
         .then(res => {
           console.log(res);
+          alert(JSON.stringify(res))
           this.list = res.result;
         })
         .catch(reslove => {
