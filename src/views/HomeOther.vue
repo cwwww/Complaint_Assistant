@@ -228,10 +228,12 @@ export default {
 	  alert(this.$route.query.broker_id)
 	  alert(this.customer_type)
 	  alert(this.visitList.customer_id)
+	  alert(this.$route.query.robor_id)
 	  that.$router.push({
         path: "/ACVisitor",
         query: {
 		  broker_id: this.$route.query.broker_id,
+		  robor_id: this.$route.query.robor_id,
           customer_id: this.visitList.customer_id,
 		  customer_type: this.customer_type,
           token: this.visitList.token

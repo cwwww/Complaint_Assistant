@@ -118,7 +118,7 @@ export default {
         param = {
           broker_id: this.$route.query.broker_id,
           customer_id: this.$route.query.customer_id,
-          customer_type: this.customer_type,
+          customer_type: this.$route.query.customer_type,
           last_sentence: -1,
           token: this.visitList.token
         };
@@ -127,7 +127,7 @@ export default {
         param = {
           broker_id: this.$route.query.broker_id,
           customer_id: this.$route.query.customer_id,
-          customer_type: this.customer_type,
+          customer_type: this.$route.query.customer_type,
           last_sentence: this.lastSentence,
           token: this.visitList.token
         };
@@ -189,10 +189,10 @@ export default {
       if (this.isInput) {
         param = {
           dialog_type: "2",
-          customer_id: 1,
-          customer_type: 0,
-          broker_id: 33,
-          robot_id: 33,
+          customer_id: this.$route.query.customer_id,
+          customer_type: this.$route.query.customer_type,
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robor_id,
           speaker: "1",
           content: ".",
           token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
@@ -201,10 +201,10 @@ export default {
       } else {
         param = {
           dialog_type: "2",
-          customer_id: 1,
-          customer_type: 0,
-          broker_id: 33,
-          robot_id: 33,
+          customer_id: this.$route.query.customer_id,
+          customer_type: this.$route.query.customer_type,
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robor_id,
           speaker: "1",
           content: "第二版测试",
           token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
