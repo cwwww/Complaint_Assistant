@@ -78,9 +78,9 @@ export default {
         this.$router.push({
           path:'/Repository',
           query:{
-            "broker_id": this.$route.query.broker_id,
-            "robot_id": this.$route.query.robotId,
-            "token":this.$route.query.token,
+            broker_id: this.$route.query.broker_id,
+            robot_id: this.$route.query.robotId,
+            token:this.$route.query.token,
             type:'type'
           }
         })
@@ -88,9 +88,9 @@ export default {
         this.$router.push({
           path:'/HomeChat',
           query:{
-            "broker_id": this.$route.query.broker_id,
-            "robot_id": this.$route.query.robotId,
-            "token":this.$route.query.token,
+            broker_id: this.$route.query.broker_id,
+            robot_id: this.$route.query.robotId,
+            token:this.$route.query.token,
           }
         })
       }
@@ -235,6 +235,7 @@ export default {
   //   console.log(document.getElementById("myText").value)
   // },
   mounted(){
+    alert(JSON.stringify(this.$route.query))
     this.ShoWList()
   }
 };
