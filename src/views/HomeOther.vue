@@ -371,8 +371,6 @@ export default {
     },
     getHomeInit() {
       var that = this;
-      alert("11" + JSON.stringify(that.registers));
-      alert("22" + JSON.stringify(that.visitList));
       if (that.registers.visitor_type == "0") {
         that.customer_type = 0;
         that.customer_robot_id = "";
@@ -390,11 +388,9 @@ export default {
         visited_robot_id: that.$route.query.broker_id,
         token: that.visitList.token
       };
-      alert("33" + JSON.stringify(param));
       let result = reqVisitedInit(param);
       result
         .then(res => {
-          alert("init" + JSON.stringify(res.result));
           that.homeInit = res.result;
           if (that.homeInit.followed) {
             that.guanzhuContent = "已关注";
@@ -459,7 +455,6 @@ export default {
       var that = this;
       let param = { code: code };
       let res = reqbebotCode(param);
-      alert("param");
       res
         .then(res => {
           console.log("授权回来的" + res);
@@ -477,7 +472,6 @@ export default {
           let result = reqisregistered(param);
           result
             .then(res => {
-              alert("授权" + JSON.stringify(res.result));
               that.registers = res.result;
               if (that.registers.visitor_type == "0") {
 				that.isRegister = false;
