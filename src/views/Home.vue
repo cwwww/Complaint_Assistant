@@ -436,26 +436,14 @@ export default{
           //处理验证成功的信息
           wx.ready(function () {
             //分享到朋友圈
-            wx.onMenuShareTimeline({
-              title: 'bebot朋友圈', // 分享标题
-              desc: '描述朋友圈', // 分享描述
-              link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: that.homeInit.headimgurl, // 分享图标
-              success: function (res) {
-                // 用户确认分享后执行的回调函数
-                console.log("分享到朋友圈成功返回的信息为:",res);
-              },
-              cancel: function (res) {
-                // 用户取消分享后执行的回调函数
-                console.log("取消分享到朋友圈返回的信息为:",res);
-              }
-            });
+            // wx.onMenu
+            
             // 分享给朋友
             wx.onMenuShareAppMessage({
               title: 'bebot朋友', // 分享标题
-              desc: '描述朋友', // 分享描述
-              // link: window.location.href,
-              link: 'https://test-bebot-web.baoxianxia.com.cn/#/HomeOther?broker_id=this.$route.query.broker_id&robot_id=this.$route.query.robot_id&token=this.$route.query.token}', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              desc: '描述yiuy朋友', // 分享描述
+              link: window.location.href,
+              // link: 'https://test-bebot-web.baoxianxia.com.cn/#/HomeOther?broker_id=this.$route.query.broker_id&robot_id=this.$route.query.robot_id&token=this.$route.query.token}', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
               imgUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590588171242&di=ac9d15a3d7da1c6e5a8c722c94c914bf&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F35%2F34%2F19300001295750130986345801104.jpg', // 分享图标
               // type: '', // 分享类型,music、video或link，不填默认为link
               // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
