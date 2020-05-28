@@ -138,11 +138,15 @@
           <span>排行榜</span>
         </li>
       </ul>
+<<<<<<< HEAD
+	  <div class="input-bottom-content" >
+=======
 
 
 	  .
 	  <div class="input-bottom-content" >
 
+>>>>>>> 62e31816f2a9a6f1f1906069de3f4fe3217ddfef
       <van-popup
           class="cont3"
           v-model="showName"
@@ -154,12 +158,17 @@
             <div id="warn">名字确定后不可更改哦～</div>
             <input type="text" style="text-align:center" name="name" maxlength="10" />
             <div id="line"></div>
+<<<<<<< HEAD
+            <div id="limit" v-show="showIimit" style="height: 0.34667rem;">{{warnInfo}}</div>
+            <van-button type="info" style="width:265px;height:42px;margin:6px auto;" @click="getName">确定</van-button>
+=======
             <div id="limit" v-show="showIimit">名字超过字数限制，请重新输入</div>
             <van-button
               type="info"
               style="width:265px;height:42px;margin:6px auto;"
               @click="getName"
             >确定</van-button>
+>>>>>>> 62e31816f2a9a6f1f1906069de3f4fe3217ddfef
           </div>
         </van-popup>
 
@@ -174,6 +183,169 @@
   </div>
 </template>
 <script>
+<<<<<<< HEAD
+import { Popup,Toast } from 'vant';
+// import wxapi from '../assets/js/common/wxapi';
+import wx from 'weixin-js-sdk';
+import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList,reqHomeName,reqtaskStatus,reqisunlocked,reqbebotCode,reqwxconfig,reqcustomerlogin  } from '../axios/axios-api'
+export default{
+  components: {},
+  data(){
+    return {
+	vipExpiryTime:'',
+	vipNotification:false,
+	vipValid:'',
+	  showNew:false,
+      data:'',
+      newData:'',
+      option:'',
+      showNew:false,
+      showIimit:false,
+	  warnInfo:"",
+      wx_link:'',
+      redirect_uri:'',
+      appId:'',
+      callback:'',
+      code:'',
+      count:'',
+      link:'',
+      url:'',
+      show1: false,
+      isOwn:true,
+      answerHight:'',
+      homeInit:{
+		  vip_valid: true
+	  },
+      bxdj:'',
+      numIndex:0,
+      showName:false,
+      isInput:'',
+      flag:true,
+      question:'',
+      list:[],
+      list2:[],
+      answer:'',
+      levelbx:'',
+      homeLevel:'',
+      star:'',
+      isStatus:'',
+      fairyStatus:'',
+      messages:'',
+      shareMessages:'',
+	    showNewIcon:false,
+      ezgif: require("../assets/images/ezgif.gif"),
+      img: require("../assets/images/icon.png"),
+      shop: require("../assets/images/shop@2x.png"),
+      home_zsk:require("../assets/images/home_zsk@2x.png"),
+      product_zsk:require("../assets/images/product_zsk@2x.png"),
+      home_store:require("../assets/images/home_store@2x.png"),
+      home_browse:require("../assets/images/home_browse@2x.png"),
+      home_chatrecord:require("../assets/images/home_chatrecord@2x.png"),
+      home_rankinglist:require("../assets/images/home_rankinglist@2x.png"),
+      home_medal:require("../assets/images/home_medal@2x.png"),
+      home_discover:require("../assets/images/home_discover@2x.png"),
+      home_mytask:require("../assets/images/home_mytask@2x.png"),
+      home_risktest:require("../assets/images/home_risktest@2x.png"),
+      home_planbook:require("../assets/images/home_planbook@2x.png"),
+      moon:require("../assets/images/moon@2x.png"),
+      bebot:require("../assets/images/bebot@2x.png"),
+      earth:require("../assets/images/earth@2x.png"),
+      experience:require("../assets/images/experience@2x.png"),
+      line:require("../assets/images/jindu@2x.png"),
+      famous:require("../assets/images/famous@2x.png"),
+      money:require("../assets/images/money@2x.png"),
+      levelbx1:require("../assets/images/等级-保险新手@2x.png"),
+      levelbx2:require("../assets/images/等级-保险复读机@2x.png"),
+      levelbx3:require("../assets/images/等级-保险条款王@2x.png"),
+      levelbx4:require("../assets/images/等级-保险配置王@2x.png"),
+      levelbx5:require("../assets/images/等级-保险百科@2x.png"),
+      levelbx6:require("../assets/images/等级-保险大咖@2x.png"),
+      levelbx7:require("../assets/images/等级-保险名人堂@2x.png"),
+      nextpage:require("../assets/images/nextpage@2x.png"),
+      nextpage2:require("../assets/images/上一页@2x.png"),
+      success:require("../assets/images/success@2x.png")
+    };
+  },
+  methods: {
+	 open7() {
+		 
+		    this.$router.replace('/LevelUp')
+		 
+	  //       this.$confirm(
+			
+			// '','您的会员将于2020/5/3到期请前往【会员商店】领取', {
+			// 	  center: true,
+	  //         confirmButtonText: '去领取',
+	  //         cancelButtonText: '忽略',
+	        
+	  //       }).then(() => {
+	  //         this.$message({
+	  //           type: 'success',
+	  //           message: '去领取!'
+	  //         });
+	  //       }).catch(() => {
+	  //         this.$message({
+	  //           type: 'info',
+	  //           message: '已忽略'
+	  //         });
+	  //       });
+	   // this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+	   //          confirmButtonText: '确定',
+	   //          cancelButtonText: '取消',
+	   //          type: 'warning',
+	   //          center: true
+	   //        }).then(() => {
+	   //          this.$message({
+	   //            type: 'success',
+	   //            message: '删除成功!'
+	   //          });
+	   //        }).catch(() => {
+	   //          this.$message({
+	   //            type: 'info',
+	   //            message: '已取消删除'
+	   //          });
+	   //        });
+	    },
+	isNo(){   //买家精灵商店取消购买
+	  this.vipNotification = false
+	},
+	isYes(){  //买家精灵商店确定购买
+      this.vipNotification = false
+	  this.$router.push({
+	    path:'/sellerShop/vipShop',
+	    query:{
+	       "broker_id": this.$route.query.visitor_id,
+	       "robot_id": this.$route.query.robot_id,
+	       "token":this.$route.query.token
+	      }
+	    })
+	},
+	Repository(){ // 知识库
+      this.$router.push({
+        path:'/Repository',
+        query:{
+          // "broker_id": this.$route.query.visitor_id,
+          // "robot_id": this.$route.query.robot_id,
+          // "token":this.$route.query.token
+		  
+		  "robot_id":35,
+		  "broker_id":35,
+		  "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
+        }
+	    })
+	  this.destoryTimer();
+    },
+    FairyShop(){  // 买家精灵商店
+      this.$router.push({
+        path:'/sellerShop',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robot_id,
+          "token":this.$route.query.token
+         }
+	    })
+	    this.destoryTimer();
+=======
 import { Popup, Toast } from "vant";
 import wx from "weixin-js-sdk";
 import HomeChat from '../components/HomeChat'
@@ -280,6 +452,7 @@ export default {
     open7() {
       this.$router.replace("/LevelUp");
       //       this.$confirm(
+>>>>>>> 62e31816f2a9a6f1f1906069de3f4fe3217ddfef
     },
     Repository() {
       // 知识库
@@ -318,6 +491,17 @@ export default {
     Ranking() {
       //排行榜
       //this.$router.replace('/Ranking')
+<<<<<<< HEAD
+	    this.$router.push({
+	    path:'/Ranking',
+	    query:{
+	      "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robot_id,
+          "token":this.$route.query.token
+	      }
+	    })
+		this.destoryTimer();
+=======
       this.$router.push({
         path: "/Ranking",
         query: {
@@ -327,6 +511,7 @@ export default {
         }
       });
       this.destoryTimer();
+>>>>>>> 62e31816f2a9a6f1f1906069de3f4fe3217ddfef
     },
     Task() {
       // 任务
@@ -341,6 +526,25 @@ export default {
       });
       this.destoryTimer();
     },
+<<<<<<< HEAD
+    toFXCP(){
+	  if(!this.homeInit.vip_valid){
+		  this.vipNotification = true;
+		  this.vipExpiryTime ="您的会员已到期"
+	  }else{
+		  window.parent.location.href = 'https://m.baoxianxia.com.cn/risk/index.html'
+		  this.destoryTimer();
+	  }
+    },
+    toPlan(){
+	  if(!this.homeInit.vip_valid){
+		  this.vipNotification = true;
+		  this.vipExpiryTime ="您的会员已到期"
+	  }else{
+		  window.parent.location.href = 'https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16'
+		  this.destoryTimer();
+	  }
+=======
     toFXCP() {
       window.parent.location.href =
         "https://m.baoxianxia.com.cn/risk/index.html";
@@ -350,6 +554,7 @@ export default {
       window.parent.location.href =
         "https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16";
       this.destoryTimer();
+>>>>>>> 62e31816f2a9a6f1f1906069de3f4fe3217ddfef
     },
     frang() {
       // 好友
@@ -386,6 +591,43 @@ export default {
       talkContent.scrollTop += 138;
       this.isOwn = false;
     },
+<<<<<<< HEAD
+    getName(){
+	  if(document.getElementsByName("name")[0].value.length == 0){
+		   this.warnInfo = "请输入昵称"
+		   this.showIimit = true
+		   this.showName = true;
+	  }else{
+		 if(document.getElementsByName("name")[0].value.length >= 7){
+		   this.showIimit = true
+		   this.warnInfo = "名字最长不能超过7个字符，请重新输入"
+		   this.showName = true;
+		   return false;
+		 }
+		 this.showIimit = false;
+		 let param = {
+		   "broker_id":this.$route.query.useId,
+		   "robot_id":this.$route.query.robot_id,
+		   "robot_name":document.getElementsByName("name")[0].value,
+		   "token":this.$route.query.token
+		 }
+		 let res = reqHomeName(param)
+		 res.then(res=>{
+		     console.log(res)
+		     //this.list = res.result.dialog_history
+			 if(res.result.robot_name == ''){
+				 this.showIimit = true
+				 this.warnInfo = res.result.info
+				 this.showName = true;
+			 }else{
+				 this.showName = false;
+			 }
+		     //this.$refs.input.value = ''
+		 }).catch(reslove=>{
+		    console.log('error')
+		 }) 
+	  }
+=======
     getName() {
       if (document.getElementsByName("name")[0].value.length >= 7) {
         this.showIimit = true;
@@ -406,6 +648,7 @@ export default {
         .catch(reslove => {
           console.log("error");
         });
+>>>>>>> 62e31816f2a9a6f1f1906069de3f4fe3217ddfef
     },
     wxconfig() {
       let param = { url: window.location.href.split("#")[0] };
@@ -492,6 +735,32 @@ export default {
           console.log("error");
         });
     },
+<<<<<<< HEAD
+    customerLogin(){
+          let param = {
+            "OPENID": this.messages.openid,
+            "NICKNAME": this.messages.nickname,
+            "HEADIMGURL":  this.messages.headimgurl,
+            "SEX":  this.messages.sex,
+            "PROVINCE":  this.messages.province,
+            "CITY": this.messages.city,
+            "COUNTRY": this.messages.country,
+            "PRIVILEGE":  this.messages.privilege,
+          }
+	},
+    getFensi(){
+      let param = {
+            "robot_id": this.$route.query.robot_id,
+            "operation_type": 0,
+            "broker_id": this.$route.query.broker_id,
+            "token":this.$route.query.token
+          }
+      let res = BeanList(param)
+      res.then(res=>{
+              console.log(res)
+              let showNotification = res.result.notification
+              if(showNotification){
+=======
     //   customerLogin(){
     //         let param = {
     //           "OPENID": this.messages.openid,
@@ -518,6 +787,7 @@ export default {
           console.log(res);
           let showNotification = res.result.notification;
           if (showNotification) {
+>>>>>>> 62e31816f2a9a6f1f1906069de3f4fe3217ddfef
             this.showNew = true;
           }
         })
@@ -534,6 +804,30 @@ export default {
         this.getReqtaskStatus();
       }
     },
+<<<<<<< HEAD
+    getDetail(){
+      this.question = this.$refs.input.value
+      let param
+      if(this.flag){
+        param = {
+          "dialog_type": "0",
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robot_id,
+          "speaker": "2",
+          "content": '.',
+          "token":this.$route.query.token
+        }
+        this.flag = false
+      }else{
+        param = {
+          "dialog_type": "1",
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robot_id,
+          "speaker": "2",
+          "content": this.question,
+          "token":this.$route.query.token
+        }
+=======
     getDetail() {
       this.question = this.$refs.input.value;
       let param;
@@ -558,6 +852,7 @@ export default {
           token:
             "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
         };
+>>>>>>> 62e31816f2a9a6f1f1906069de3f4fe3217ddfef
       }
       console.log(param);
       let res = reqRobotDetail(param);
@@ -577,6 +872,51 @@ export default {
           console.log("error");
         });
     },
+<<<<<<< HEAD
+	//与机器人聊天任务
+	getReqtaskStatus(){
+		let param = {
+			"broker_id": this.$route.query.broker_id,
+			"robot_id": this.$route.query.robot_id,
+			"operation_type":1,
+			"token":this.$route.query.token
+		}
+		console.log("任务的param:"+param);
+		
+		let result = reqtaskStatus(param);
+		result
+		  .then(res => {
+		   //更新金币
+		   this.homeInit.bcoin = res.result.bcoin;
+		   //更新等级
+		   this.homeInit.level = res.result.level
+		   //更新“我的”经验
+		   this.homeInit.exp = res.result.exp
+		   //更新总经验
+		   this.homeInit.level_exp = res.result.level_exp
+		   //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
+		   this.showNewIcon = res.result.task_notification;
+		  })
+		  .catch(reslove => {
+		    console.log("error");
+		  });
+	},
+	
+    getACchat(){
+      let param
+      if (this.isInput) {
+        param = {
+          "dialog_type": "2",
+          "customer_id": 1,
+          "customer_type": 0,
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robot_id,
+          "speaker": "1",
+          "content": '.',
+          "token":this.$route.query.token
+        }
+        this.isInput = false
+=======
     //与机器人聊天任务
     getReqtaskStatus() {
       let param = {
@@ -620,6 +960,7 @@ export default {
           token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
         };
         this.isInput = false;
+>>>>>>> 62e31816f2a9a6f1f1906069de3f4fe3217ddfef
       } else {
         param = {
           dialog_type: "2",
@@ -650,6 +991,12 @@ export default {
       if (this.$route.query.broker_id == undefined) {
         this.$route.query.broker_id = this.$route.query.visitor_id;
       }
+<<<<<<< HEAD
+      let param = {
+        "robot_id":this.$route.query.visitor_id,
+        "broker_id":this.$route.query.robotId,
+        "token":this.$route.query.token,
+=======
       let param = {
         // "robot_id":35,
         // "broker_id":35,
@@ -658,6 +1005,7 @@ export default {
         "robot_id":this.$route.query.robot_id,
         "broker_id":this.$route.query.broker_id,
         "token":this.$route.query.token
+>>>>>>> 62e31816f2a9a6f1f1906069de3f4fe3217ddfef
       }
       console.log(param)
       let result = reqHomeInit(param)

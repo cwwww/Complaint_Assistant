@@ -24,7 +24,7 @@
             <div class="text2" v-show="index != showIndex ?true:false">
               {{item.question}}
               </div>
-            <img @click="remove(index)" class="delete" :src="img5" alt="">
+            <img @click="remove(index)" class="delete" :src="img5" alt="" v-if="item.online_data_id!=''">
           </div>
           <!-- <div class="texts">
             <p>{{$route.query.Question}}</p>
@@ -62,7 +62,8 @@ export default {
       curIndex: 0,
       show: true,
       isShow:false,
-	    showIndex:0,
+	  showIndex:0,
+	  isEdit:false,
       flag:true,
       img: require("../assets/images/Q_small_icon@2x.png"),
       img1: require("../assets/images/A_small_icon@2x.png"),
@@ -97,20 +98,24 @@ export default {
     },
     listPage(index){
       console.log(this.list[index])
-      let param = {
-        "online_data_id":this.list[index].online_data_id,
-        "broker_id":this.$route.query.broker_id,
-        "question":this.$route.query.Qusetion,
-        "answer":this.$route.query.Answer,
-        "token":this.$route.query.token
-      }
-      console.log(param)
-      let res = reqlistPage(param)
-        res.then(res=>{
-          Toast(res.msg);
-        }).catch(reslove=>{
-           console.log('error')
-        })
+	  if(this.list[index].online_data_id == ''){
+		   Toast("请编辑保存后再发布！");
+	  }else{
+		 let param = {
+		     "online_data_id":this.list[index].online_data_id,
+		     "broker_id":this.$route.query.broker_id,
+		     "question":this.$route.query.Qusetion,
+		     "answer":this.$route.query.Answer,
+		     "token":this.$route.query.token
+		   }
+		   console.log(param)
+		   let res = reqlistPage(param)
+		     res.then(res=>{
+		       Toast(res.msg);
+		     }).catch(reslove=>{
+		        console.log('error')
+		     }) 
+	  }
     },
     toAdd(){
       if(this.flag){
@@ -128,13 +133,23 @@ export default {
         "token":this.$route.query.token
       }
       console.log(param)
-      let res = reqaddledgeList(param)
-        res.then(res=>{
-          this.ShoWList()
-          console.log(res);
-        }).catch(reslove=>{
-           console.log('error')
-        })
+    //   let res = reqaddledgeList(param)
+    //     res.then(res=>{
+		  // debugger;
+        
+    //       console.log(res);
+    //     }).catch(reslove=>{
+    //        console.log('error')
+    //     })
+	  
+	  this.showListAdd("","");
+	  // this.$set(this.list, this.list.length,{
+	  // question : null,
+	  // answer:null,
+   //    online_data_id:"",
+   //    });
+	
+	  
     },
     remove(index){
       let param = {
@@ -157,10 +172,11 @@ export default {
     toEdit(index){
 	  this.showIndex = index;
       //this.isShow = true
+	  this.isEdit = true;
     },
     toSave(index){
       //this.isShow = false
-	    this.showIndex = -1;
+	  this.showIndex = -1;
       this.$route.query.Qusetion = document.getElementById("myText").value
       this.$route.query.Answer = document.getElementById("myText2").value
       // if(this.list[index].Qusetion == ''){
@@ -169,42 +185,88 @@ export default {
       // if(this.list[index].Answer == ''){
       //   this.Answer = ' '
       // }
-	  if(this.trim(this.$route.query.Qusetion) == ""){
+	  let canSave = true;
+	  if(this.trim(this.$route.query.Qusetion) == ""  || this.trim(this.$route.query.Answer) == "" ){
+		   Toast("内容不能为空");
+		   this.showIndex = index;
+		   canSave = false;
 	  }
-	  if(this.trim(this.$route.query.Answer) == ""){
+	 
+	  if(this.list[index].online_data_id != ''){
+		let param = {
+		    "modified_data_id":this.list[index].online_data_id,
+		    "broker_id":this.$route.query.broker_id,
+		    "question":this.$route.query.Qusetion,
+		    "answer":this.$route.query.Answer,
+		    "token":this.$route.query.token
+		}
+		let res = reqeditList(param)
+		res.then(res=>{
+		      console.log(res)
+		      this.list = res.result.data
+			  this.ShoWList()
+		}).catch(reslove=>{
+		         console.log('error')
+	    })
+	  }else{
+		  if(canSave){
+			 let param2 = {
+			     "broker_id":this.$route.query.broker_id,
+			     "question":this.$route.query.Qusetion,
+			     "answer":this.$route.query.Answer,
+			     "token":this.$route.query.token
+			 }
+			 let res = reqaddledgeList(param2)
+			 res.then(res=>{
+			       console.log(res)
+			       this.list = res.result.data
+			 	  this.ShoWList()
+			 }).catch(reslove=>{
+			          console.log('error')
+			 })  
+			 //增加知识的任务
+			 this.getReqtaskStatus(); 
+		  }
+		
 	  }
-	  
-      let param = {
-        "modified_data_id":this.list[index].online_data_id,
-        "broker_id":this.$route.query.broker_id,
-        "question":this.$route.query.Qusetion,
-        "answer":this.$route.query.Answer,
-        "token":this.$route.query.token
-      }
-      let res = reqeditList(param)
-        res.then(res=>{
-          console.log(res)
-          this.list = res.result.data
-        }).catch(reslove=>{
-           console.log('error')
-        })
-		//增加知识的任务
-		this.getReqtaskStatus();
+      
+		
     },
+	showListAdd(question,answer){
+		this.showIndex = -1;
+		  let param = {
+		    "broker_id":this.$route.query.broker_id,
+		    "token":this.$route.query.token
+		  }
+		  console.log(param)
+		  let res = reqknowledgeList (param)
+		    res.then(res=>{
+		      console.log(res)
+		      this.list = res.result.data
+			  this.list.splice(0,0,{
+			  question : question,
+			  answer:answer,
+			  online_data_id:"",
+			  })
+			  //this.list.push();
+		    }).catch(reslove=>{
+		       console.log('error')
+		    })
+	},
     ShoWList(){
 	  this.showIndex = -1;
-      let param = {
-        "broker_id":this.$route.query.broker_id,
-        "token":this.$route.query.token
-      }
-      console.log(param)
-      let res = reqknowledgeList (param)
-        res.then(res=>{
-          console.log(res)
-          this.list = res.result.data
-        }).catch(reslove=>{
-           console.log('error')
-        })
+	    let param = {
+	      "broker_id":this.$route.query.broker_id,
+	      "token":this.$route.query.token
+	    }
+	    console.log(param)
+	    let res = reqknowledgeList (param)
+	      res.then(res=>{
+	        console.log(res)
+	        this.list = res.result.data
+	      }).catch(reslove=>{
+	         console.log('error')
+	      })
     },
 	trim(data){
 		return data.replace(/(^\s*)|(\s*$)/g, ''); 
@@ -235,8 +297,13 @@ export default {
   //   console.log(document.getElementById("myText").value)
   // },
   mounted(){
-    alert(JSON.stringify(this.$route.query))
-    this.ShoWList()
+    let  question = this.$route.query.Question;
+	let answer =  this.$route.query.Answer;
+	if(question != ''){
+		 this.showListAdd(question,answer)
+	}else{
+		 this.ShoWList()
+	}
   }
 };
 </script>

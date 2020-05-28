@@ -21,7 +21,7 @@
               <div class="money">
                 <img :src=money alt="">
                 <span style="margin: 0 10px 0 5px;">{{goodsList.price}}</span>
-                <p>重新上架可
+                 <p v-if="goodsList.price_change != 0">重新上架可
                   <span>{{goodsList.price_change}}</span>
                 </p>
               </div>
@@ -58,7 +58,6 @@ export default {
       homeLevel:'',
       star:'',
       isStatus:'',
-      value:0,
       fairyStatus:'',
       img: require("../../../assets/images/icon.png"),
       shop: require("../../../assets/images/shop@2x.png"),
@@ -96,10 +95,10 @@ export default {
     //上架
     putaway(){
         let param = {
-          "robot_id":"33",
+          "robot_id": this.$route.query.robot_id,
           "goods_id":this.goodsList.id,
-          "user_id":"33",
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          "user_id":this.$route.query.broker_id,
+          "token":this.$route.query.token
         }
         console.log(param)
         let res = reqPutOnShelves (param)
@@ -120,10 +119,10 @@ export default {
 	//上架商品任务
 	getReqtaskStatus(){
 		let param = {
-			"broker_id": 1,
-			"robot_id": 1,
+			"broker_id": this.$route.query.broker_id,
+			"robot_id": this.$route.query.robot_id,
 			"operation_type":3,
-			"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+			"token":this.$route.query.token
 		}
 		console.log("任务的param:"+param);
 		let result = reqtaskStatus(param);
@@ -148,10 +147,10 @@ export default {
     //下架
     move(){
         let param = {
-          "robot_id":"33",
+          "robot_id":this.$route.query.robot_id,
           "goods_id":this.goodsList.id,
-          "user_id":"33",
-"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"        }
+          "user_id":this.$route.query.broker_id,
+          "token":this.$route.query.token        }
         let res = reqPutOffShelves(param)
         res.then(res=>{
             console.log(res)
@@ -165,38 +164,41 @@ export default {
     },
     initShop(){
       let param = {
-        "robot_id":"33",
-        "user_id":"33",
-"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"      }
+       "robot_id":this.$route.query.robot_id,
+       "user_id":this.$route.query.broker_id,
+        "token":this.$route.query.token   ,
+	  }
       let res = reqMyShop(param)
       res.then(res=>{
-      var that = this
+      let that = this
       that.goodsList = res.result.goods_list[0]
       console.log(that.goodsList)
-      if(that.goodsList.status == 1){
-        that.goodsList.status = '下架'
-        this.isStatus = true
-      }else{
-        that.goodsList.status = '上架'
-        this.isStatus = false
-      }
-      if (that.goodsList.level == 1) { //保险等级
-          that.levelbx = this.levelbx1
-        } else if(that.goodsList.level == 2){
-          that.levelbx = this.levelbx2
-        } else if(that.goodsList.level == 3){
-          that.levelbx = this.levelbx3
-        } else if(that.goodsList.level == 4){
-          that.levelbx = this.levelbx4
-        } else if(that.goodsList.level == 5){
-          that.levelbx = this.levelbx5
-        } else if(that.goodsList.level == 6){
-          that.levelbx = this.levelbx6
-        } else if(that.goodsList.level == 7){
-          that.levelbx = this.levelbx7
-        }
-      
-      this.star = that.goodsList.score
+	  if(that.goodsList.id != 0){
+		  if(that.goodsList.status == 1){
+		        that.goodsList.status = '下架'
+		        this.isStatus = true
+		      }else{
+		        that.goodsList.status = '上架'
+		        this.isStatus = false
+		      }
+		      if (that.goodsList.level == 1) { //保险等级
+		          that.levelbx = this.levelbx1
+		        } else if(that.goodsList.level == 2){
+		          that.levelbx = this.levelbx2
+		        } else if(that.goodsList.level == 3){
+		          that.levelbx = this.levelbx3
+		        } else if(that.goodsList.level == 4){
+		          that.levelbx = this.levelbx4
+		        } else if(that.goodsList.level == 5){
+		          that.levelbx = this.levelbx5
+		        } else if(that.goodsList.level == 6){
+		          that.levelbx = this.levelbx6
+		        } else if(that.goodsList.level == 7){
+		          that.levelbx = this.levelbx7
+		        }
+		      this.star = that.goodsList.score
+	  }
+    
       }).catch(reslove=>{
          console.log('error')
       })

@@ -147,7 +147,7 @@ export default {
             "broker_id": this.$route.query.broker_id,
             "robot_id": this.$route.query.robotId,
             "token":this.$route.query.token,
-            type:'type'
+             type:'type'
           }
         })
       }
