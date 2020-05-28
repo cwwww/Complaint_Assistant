@@ -58,7 +58,7 @@
       <div class="bottomLine"></div>
       <div class="bottom">
         <div class="content-bottom">
-          <input type="text" :placeholder="placeholder" ref="input" />
+          <input type="text" :placeholder="placeholder" v-model="question" />
         </div>
         <div class="btn" @click="submit">
           <span>发送</span>
@@ -154,7 +154,7 @@ export default {
         if (this.$refs.input.value == "") {
           Toast("请输入聊天内容");
         } else {
-          this.question = this.$refs.input.value;
+          // this.question = this.$refs.input.value;
           console.log(this.question);
           let param = {
             broker_id: this.$route.query.broker_id,
@@ -219,7 +219,7 @@ export default {
         .then(res => {
           alert(JSON.stringify(res))
           this.list = res.result.dialog_history;
-          // this.$refs.input.value = "";
+          this.$refs.input.value = "";
         })
         .catch(reslove => {
           console.log("error");
