@@ -27,11 +27,8 @@
           <div class="infor">
             <div class="swsName">{{homeInit.name}}&nbsp;事务所</div>
             <img class="line" :src="line" alt />
-
-            <div class="linebg" :style="{'width': linewidthData}"></div>
-
+            <div class="linebg"></div>
             <img class="experience" :src="experience" alt />
-
             <div class="ArticleExperience">{{homeInit.exp}}/{{homeInit.level_exp}}</div>
             <div class="level">Lv.{{homeInit.level}}</div>
           </div>
@@ -63,9 +60,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="invitation">
-      <img class="invitationicon" src="../assets/images/邀请@2x.png" alt />
     </div>
     <div class="rightList">
       <ul>
@@ -162,30 +156,19 @@
             style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"
           />
           <div class="btn" @click="submit">发送</div>
+          <!-- <div class="btn"  @click="open7">发送</div> -->
         </div>
       </div>
     </div>
-    <HomeChat
-      v-show="homeChat"
-      @showChatC="showChatP"
-      :show_chat="homeChat"
-      :broker_id="$route.query.broker_id"
-      :robot_id="$route.query.robot_id"
-      :token="$route.query.token"
-    />
-    <WhoLookMe
-      v-show="WhoLook"
-      @WhoLookC="WhoLookP"
-      :Who_Look="WhoLook"
-      :broker_id="$route.query.broker_id"
-      :robot_id="$route.query.robot_id"
-      :token="$route.query.token"
-    />
+    <HomeChat v-show="homeChat" @showChatC='showChatP' :show_chat='homeChat' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
+    <WhoLookMe v-show="WhoLook" @WhoLookC='WhoLookP' :Who_Look='WhoLook' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
   </div>
 </template>
 <script>
 import { Popup, Toast } from "vant";
 import wx from "weixin-js-sdk";
+import HomeChat from '../components/HomeChat'
+import WhoLookMe from '../components/WhoLookMe'
 import {
   reqHomeInit,
   reqCusayrob,
@@ -198,8 +181,6 @@ import {
   reqwxconfig,
   reqcustomerlogin
 } from "../axios/axios-api";
-import HomeChat from "../components/HomeChat";
-import WhoLookMe from "../components/WhoLookMe";
 export default {
   components: {
     HomeChat,
@@ -207,8 +188,8 @@ export default {
   },
   data() {
     return {
-      WhoLook: false,
-      homeChat: false,
+      WhoLook:false,
+      homeChat:false,
       vipExpiryTime: "",
       vipNotification: false,
       vipValid: "",
@@ -281,31 +262,56 @@ export default {
     };
   },
   methods: {
+    showChatP(data){
+      this.homeChat = data
+    },
+    WhoLookP(data){
+      this.WhoLook = data
+    },
+    open7() {
+      this.$router.replace("/LevelUp");
+
+      //       this.$confirm(
+
+      // '','您的会员将于2020/5/3到期请前往【会员商店】领取', {
+      // 	  center: true,
+      //         confirmButtonText: '去领取',
+      //         cancelButtonText: '忽略',
+
+      //       }).then(() => {
+      //         this.$message({
+      //           type: 'success',
+      //           message: '去领取!'
+      //         });
+      //       }).catch(() => {
+      //         this.$message({
+      //           type: 'info',
+      //           message: '已忽略'
+      //         });
+      //       });
+      // this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      //          confirmButtonText: '确定',
+      //          cancelButtonText: '取消',
+      //          type: 'warning',
+      //          center: true
+      //        }).then(() => {
+      //          this.$message({
+      //            type: 'success',
+      //            message: '删除成功!'
+      //          });
+      //        }).catch(() => {
+      //          this.$message({
+      //            type: 'info',
+      //            message: '已取消删除'
+      //          });
+      //        });
+    },
     isNo() {
       //买家精灵商店取消购买
       this.vipNotification = false;
     },
     isYes() {
       //买家精灵商店确定购买
-      this.vipNotification = false;
-      this.$router.push({
-        path: "/sellerShop/vipShop",
-        query: {
-          broker_id: this.$route.query.visitor_id,
-          robot_id: this.$route.query.robot_id,
-          token: this.$route.query.token
-        }
-      });
-    },
-    showChatP(data) {
-      this.homeChat = data;
-    },
-    WhoLookP(data) {
-      this.WhoLook = data;
-    },
-    open7() {
-      this.$router.replace("/LevelUp");
-      //       this.$confirm(
     },
     Repository() {
       // 知识库
@@ -333,12 +339,12 @@ export default {
     },
     HomeChat() {
       // 聊天记录
-      this.homeChat = true;
+      this.homeChat = true
       // this.destoryTimer();
     },
     WhoLookMe() {
       // 谁看过我
-      this.WhoLook = true;
+      this.WhoLook = true
       // this.destoryTimer();
     },
     Ranking() {
@@ -553,7 +559,7 @@ export default {
     },
     submit(numIndex) {
       this.numIndex += 1;
-      if (this.input == "") {
+      if (this.$refs.input.value == "") {
         Toast("请输入聊天内容");
       } else {
         this.getDetail();
@@ -566,21 +572,23 @@ export default {
       if (this.flag) {
         param = {
           dialog_type: "0",
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robot_id,
+          broker_id: 33,
+          robot_id: 33,
           speaker: "2",
           content: ".",
-          token: this.$route.query.token
+          token:
+            "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
         };
         this.flag = false;
       } else {
         param = {
           dialog_type: "1",
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robot_id,
+          broker_id: 33,
+          robot_id: 33,
           speaker: "2",
           content: this.question,
-          token: this.$route.query.token
+          token:
+            "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
         };
       }
       console.log(param);
@@ -604,10 +612,10 @@ export default {
     //与机器人聊天任务
     getReqtaskStatus() {
       let param = {
-        broker_id: this.$route.query.broker_id,
-        robot_id: this.$route.query.robot_id,
+        broker_id: 1,
+        robot_id: 1,
         operation_type: 1,
-        token: this.$route.query.token
+        token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
       };
       console.log("任务的param:" + param);
 
@@ -637,11 +645,11 @@ export default {
           dialog_type: "2",
           customer_id: 1,
           customer_type: 0,
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robot_id,
+          broker_id: 33,
+          robot_id: 33,
           speaker: "1",
           content: ".",
-          token: this.$route.query.token
+          token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
         };
         this.isInput = false;
       } else {
@@ -675,8 +683,11 @@ export default {
         this.$route.query.broker_id = this.$route.query.visitor_id;
       }
       let param = {
-        robot_id: this.$route.query.visitor_id,
-        broker_id: this.$route.query.robotId,
+        // "robot_id":35,
+        // "broker_id":35,
+        // "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
+        robot_id: this.$route.query.robot_id,
+        broker_id: this.$route.query.broker_id,
         token: this.$route.query.token
       };
       console.log(param);
@@ -689,26 +700,19 @@ export default {
             this.showName = true;
           }
           console.log(this.homeInit);
-          // if (this.vipNotification == true) {
-          //   // 跳到精灵商店我的页面
-          // } else {
-          //   this.vipNotification = this.homeInit.vip_notification;
-          //   if (this.homeInit.vip_valid == false) {
-          //     this.vipExpiryTime = "您的会员已到期";
-          //     // this.vipExpiryTime ='您的会员将于'+times+'到期'
-          //   } else {
-          //     var time = this.homeInit.vip_expiry_time;
-          //     var d = new Date(time);
-          //     var times =
-          //       d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-          //     this.vipExpiryTime = "您的会员将于" + times + "到期";
-          //   }
-          // }
-          // var expLine = 0;
-          // //99为进度条px值
-          // expLine = (this.homeInit.exp / this.homeInit.level_exp) * 99;
-          // (this.linewidthData = expLine + "px"),
-          //   console.log("this.linewidthData", this.linewidthData);
+          this.vipNotification = this.homeInit.vip_notification;
+          if (this.homeInit.vip_valid == false) {
+            this.vipExpiryTime = "您的会员已到期";
+
+            // this.vipExpiryTime ='您的会员将于'+times+'到期'
+          } else {
+            var time = this.homeInit.vip_expiry_time;
+            var d = new Date(time);
+            var times =
+              d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            this.vipExpiryTime = "您的会员将于" + times + "到期";
+          }
+
           if (this.homeInit.title == 1) {
             //保险等级
             this.homeLevel = this.levelbx1;
@@ -778,6 +782,7 @@ export default {
     // } else {
     //     // 别的业务逻辑
     // }
+
     console.log(JSON.stringify(this.$route.query));
     this.getHomeInit();
     this.getDetail();
@@ -841,40 +846,19 @@ export default {
           margin-bottom: 6px;
         }
         .line {
-          position: absolute;
-          top: 23px;
-          left: 0px;
+          width: 99px;
           height: 16px;
-          z-index: 20;
-          // background: -webkit-gradient(linear, 0% 25%, 75% 100%, from(rgba(45, 226, 230,0.09) ), to( rgba(45, 226, 230,0.46 )));
         }
-        .linebg {
-          z-index: 10;
-          // width: 99px;
-          position: absolute;
-          top: 23px;
-          left: 0px;
+        .line {
+          width: 99px;
           height: 16px;
-
           background: -webkit-gradient(
             linear,
             0% 25%,
             75% 100%,
-            from(rgba(45, 226, 230, 0.09)),
-            to(rgba(45, 226, 230, 0.46))
+            from(rgba(45, 226, 230, 0.46)),
+            to(rgba(45, 226, 230, 0.09))
           );
-        }
-        .invitation {
-          margin-left: 6px;
-          top: 23px;
-          left: 0px;
-          position: absolute;
-          width: 40px;
-          height: 40px;
-        }
-        .invitationicon {
-          width: 40px;
-          height: 40px;
         }
         .ArticleExperience {
           font-size: 10px;
