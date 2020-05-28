@@ -60,12 +60,13 @@ export default {
     }
   },
   mounted(){
+    alert(111)
     let param = {
       "broker_id": this.$route.query.broker_id,
       "robot_id": this.$route.query.robotId,
       "token":this.$route.query.token
     }
-    alert(param)
+    alert(JSON.stringify(param))
     let result = reqLookMe(param)
     result.then(res=>{
       this.list = res.result
