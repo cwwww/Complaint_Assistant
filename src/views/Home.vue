@@ -689,25 +689,26 @@ export default {
             this.showName = true;
           }
           console.log(this.homeInit);
-          if (this.vipNotification == true) {
-          } else {
-            this.vipNotification = this.homeInit.vip_notification;
-            if (this.homeInit.vip_valid == false) {
-              this.vipExpiryTime = "您的会员已到期";
-              // this.vipExpiryTime ='您的会员将于'+times+'到期'
-            } else {
-              var time = this.homeInit.vip_expiry_time;
-              var d = new Date(time);
-              var times =
-                d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-              this.vipExpiryTime = "您的会员将于" + times + "到期";
-            }
-          }
-          var expLine = 0;
-          //99为进度条px值
-          expLine = (this.homeInit.exp / this.homeInit.level_exp) * 99;
-          (this.linewidthData = expLine + "px"),
-            console.log("this.linewidthData", this.linewidthData);
+          // if (this.vipNotification == true) {
+          //   // 跳到精灵商店我的页面
+          // } else {
+          //   this.vipNotification = this.homeInit.vip_notification;
+          //   if (this.homeInit.vip_valid == false) {
+          //     this.vipExpiryTime = "您的会员已到期";
+          //     // this.vipExpiryTime ='您的会员将于'+times+'到期'
+          //   } else {
+          //     var time = this.homeInit.vip_expiry_time;
+          //     var d = new Date(time);
+          //     var times =
+          //       d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+          //     this.vipExpiryTime = "您的会员将于" + times + "到期";
+          //   }
+          // }
+          // var expLine = 0;
+          // //99为进度条px值
+          // expLine = (this.homeInit.exp / this.homeInit.level_exp) * 99;
+          // (this.linewidthData = expLine + "px"),
+          //   console.log("this.linewidthData", this.linewidthData);
           if (this.homeInit.title == 1) {
             //保险等级
             this.homeLevel = this.levelbx1;
@@ -777,7 +778,6 @@ export default {
     // } else {
     //     // 别的业务逻辑
     // }
-
     console.log(JSON.stringify(this.$route.query));
     this.getHomeInit();
     this.getDetail();

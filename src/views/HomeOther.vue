@@ -136,9 +136,6 @@
 </template>
 <script>
 import { Popup, Toast } from "vant";
-// import {
-// 	MessageBox
-// } from 'element-ui';
 import {
   reqHomeInit,
   reqCusayrob,
@@ -518,25 +515,6 @@ export default {
     // } else {
     // 	// 别的业务逻辑
     // }
-    // let param = {
-    // 	"openid": this.openid
-    // }
-    // let result = reqisregistered(param)
-    // result.then(res => {
-    // 	console.log('创前：'+ res)
-    // 	this.registers = res.result
-    // if(this.registers.visitor_type == '0'){
-    // 	this.isRegister = false
-    // 	this.$router.push('/login')
-    // 	this.$route.query.broker_id = this.registers.visitor_id
-    // 	this.$route.query.robot_id = this.registers.robot_id
-    // 	this.$route.query.token = this.registers.token
-    // }else if(this.registers.visitor_type == '1'){
-    // 	this.isRegister = true
-    // }
-    // }).catch(reslove => {
-    // 	console.log('error')
-    // })
     this.getHomeInit();
     this.getCusayrob();
     //串门成功后，增加金币和经验
