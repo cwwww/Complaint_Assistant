@@ -71,14 +71,6 @@ const routes = [
         }
     },
     {
-        path: '/HomeChat',
-        name: "HomeChat",
-        component: HomeChat,
-        meta: {
-            title: "聊天记录"
-        },
-    },
-    {
         path: '/ACchat',
         name: "ACchat",
         component: ACchat,

@@ -333,15 +333,7 @@ export default {
     },
     HomeChat() {
       // 聊天记录
-      this.$router.push({
-        path: "/HomeChat",
-        query: {
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robot_id,
-          token: this.$route.query.token
-        }
-      });
-      this.destoryTimer();
+      this.homeChat = true
     },
     WhoLookMe() {
       // 谁看过我
