@@ -63,7 +63,7 @@ export default {
     alert(111)
     let param = {
       "broker_id": this.$route.query.broker_id,
-      "robot_id": this.$route.query.robotId,
+      "robot_id": this.$route.query.robot_id,
       "token":this.$route.query.token
     }
     alert(JSON.stringify(param))
