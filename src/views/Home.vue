@@ -130,10 +130,7 @@
               <span>排行榜</span>
           </li>
       </ul>
-<<<<<<< HEAD
-	  .
 	  <div class="input-bottom-content" >
-=======
       <van-popup
           class="cont3"
           v-model="showName"
@@ -144,7 +141,7 @@
             <div id="warn">名字确定后不可更改哦～</div>
             <input type="text" style="text-align:center" name="name" maxlength="10"/>
             <div id="line"></div>
-            <div id="limit" v-show="showIimit">名字超过字数限制，请重新输入</div>
+            <div id="limit" v-show="showIimit" style="height: 0.34667rem;">{{warnInfo}}</div>
             <van-button type="info" style="width:265px;height:42px;margin:6px auto;" @click="getName">确定</van-button>
           </div>
       </van-popup>
@@ -179,6 +176,7 @@ export default{
       option:'',
       showNew:false,
       showIimit:false,
+	  warnInfo:"",
       wx_link:'',
       redirect_uri:'',
       appId:'',
@@ -190,7 +188,9 @@ export default{
       show1: false,
       isOwn:true,
       answerHight:'',
-      homeInit:Object,
+      homeInit:{
+		  vip_valid: true
+	  },
       bxdj:'',
       numIndex:0,
       showName:false,
@@ -285,15 +285,27 @@ export default{
 	  this.vipNotification = false
 	},
 	isYes(){  //买家精灵商店确定购买
-
+      this.vipNotification = false
+	  this.$router.push({
+	    path:'/sellerShop/vipShop',
+	    query:{
+	       "broker_id": this.$route.query.visitor_id,
+	       "robot_id": this.$route.query.robot_id,
+	       "token":this.$route.query.token
+	      }
+	    })
 	},
 	Repository(){ // 知识库
       this.$router.push({
         path:'/Repository',
         query:{
-          "broker_id": this.$route.query.visitor_id,
-          "robot_id": this.$route.query.robot_id,
-          "token":this.$route.query.token
+          // "broker_id": this.$route.query.visitor_id,
+          // "robot_id": this.$route.query.robot_id,
+          // "token":this.$route.query.token
+		  
+		  "robot_id":35,
+		  "broker_id":35,
+		  "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
         }
 	    })
 	  this.destoryTimer();
@@ -305,7 +317,7 @@ export default{
           "broker_id": this.$route.query.broker_id,
           "robot_id": this.$route.query.robot_id,
           "token":this.$route.query.token
-        }
+         }
 	    })
 	    this.destoryTimer();
     },
@@ -337,9 +349,9 @@ export default{
 	    path:'/Ranking',
 	    query:{
 	      "broker_id": this.$route.query.broker_id,
-        "robot_id": this.$route.query.robot_id,
-        "token":this.$route.query.token
-	    }
+          "robot_id": this.$route.query.robot_id,
+          "token":this.$route.query.token
+	      }
 	    })
 		this.destoryTimer();
     },
@@ -356,12 +368,22 @@ export default{
 	    this.destoryTimer();
     },
     toFXCP(){
-      window.parent.location.href = 'https://m.baoxianxia.com.cn/risk/index.html'
-	  this.destoryTimer();
+	  if(!this.homeInit.vip_valid){
+		  this.vipNotification = true;
+		  this.vipExpiryTime ="您的会员已到期"
+	  }else{
+		  window.parent.location.href = 'https://m.baoxianxia.com.cn/risk/index.html'
+		  this.destoryTimer();
+	  }
     },
     toPlan(){
-      window.parent.location.href = 'https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16'
-	  this.destoryTimer();
+	  if(!this.homeInit.vip_valid){
+		  this.vipNotification = true;
+		  this.vipExpiryTime ="您的会员已到期"
+	  }else{
+		  window.parent.location.href = 'https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16'
+		  this.destoryTimer();
+	  }
     },
     frang() {// 好友
       this.$router.push({
@@ -397,23 +419,40 @@ export default{
       this.isOwn = false
     },
     getName(){
-      if(document.getElementsByName("name")[0].value.length >= 7){
-        this.showIimit = true
-      }
-      let param = {
-        "broker_id":this.$route.query.useId,
-        "robot_id":this.$route.query.robot_id,
-        "robot_name":document.getElementsByName("name")[0].value,
-        "token":this.$route.query.token
-      }
-      let res = reqHomeName(param)
-      res.then(res=>{
-          console.log(res)
-          this.list = res.result.dialog_history
-          this.$refs.input.value = ''
-      }).catch(reslove=>{
-         console.log('error')
-      })
+	  if(document.getElementsByName("name")[0].value.length == 0){
+		   this.warnInfo = "请输入昵称"
+		   this.showIimit = true
+		   this.showName = true;
+	  }else{
+		 if(document.getElementsByName("name")[0].value.length >= 7){
+		   this.showIimit = true
+		   this.warnInfo = "名字最长不能超过7个字符，请重新输入"
+		   this.showName = true;
+		   return false;
+		 }
+		 this.showIimit = false;
+		 let param = {
+		   "broker_id":this.$route.query.useId,
+		   "robot_id":this.$route.query.robot_id,
+		   "robot_name":document.getElementsByName("name")[0].value,
+		   "token":this.$route.query.token
+		 }
+		 let res = reqHomeName(param)
+		 res.then(res=>{
+		     console.log(res)
+		     //this.list = res.result.dialog_history
+			 if(res.result.robot_name == ''){
+				 this.showIimit = true
+				 this.warnInfo = res.result.info
+				 this.showName = true;
+			 }else{
+				 this.showName = false;
+			 }
+		     //this.$refs.input.value = ''
+		 }).catch(reslove=>{
+		    console.log('error')
+		 }) 
+	  }
     },
     wxconfig(){
         let param = {"url":window.location.href.split('#')[0]}
@@ -502,10 +541,10 @@ export default{
 	},
     getFensi(){
       let param = {
-            "robot_id": 33,
+            "robot_id": this.$route.query.robot_id,
             "operation_type": 0,
-            "broker_id": 33,
-            "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+            "broker_id": this.$route.query.broker_id,
+            "token":this.$route.query.token
           }
       let res = BeanList(param)
       res.then(res=>{
@@ -533,21 +572,21 @@ export default{
       if(this.flag){
         param = {
           "dialog_type": "0",
-          "broker_id": 33,
-          "robot_id": 33,
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robot_id,
           "speaker": "2",
           "content": '.',
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          "token":this.$route.query.token
         }
         this.flag = false
       }else{
         param = {
           "dialog_type": "1",
-          "broker_id": 33,
-          "robot_id": 33,
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robot_id,
           "speaker": "2",
           "content": this.question,
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          "token":this.$route.query.token
         }
       }
       console.log(param)
@@ -569,10 +608,10 @@ export default{
 	//与机器人聊天任务
 	getReqtaskStatus(){
 		let param = {
-			"broker_id": 1,
-			"robot_id": 1,
+			"broker_id": this.$route.query.broker_id,
+			"robot_id": this.$route.query.robot_id,
 			"operation_type":1,
-			"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+			"token":this.$route.query.token
 		}
 		console.log("任务的param:"+param);
 		
@@ -602,11 +641,11 @@ export default{
           "dialog_type": "2",
           "customer_id": 1,
           "customer_type": 0,
-          "broker_id": 33,
-          "robot_id": 33,
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robot_id,
           "speaker": "1",
           "content": '.',
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
+          "token":this.$route.query.token
         }
         this.isInput = false
       } else {
@@ -638,18 +677,9 @@ export default{
         this.$route.query.broker_id = this.$route.query.visitor_id
       }
       let param = {
-        // "robot_id":this.$route.query.visitor_id,
-        // "broker_id":this.$route.query.robotId,
-        // "token":this.$route.query.token,
-		
-		"robot_id":35,
-		"broker_id":35,
-		"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
-
-        // "robot_id":this.$route.query.robot_id,
-        // "broker_id":this.$route.query.broker_id,
-        // "token":this.$route.query.token
-
+        "robot_id":this.$route.query.visitor_id,
+        "broker_id":this.$route.query.robotId,
+        "token":this.$route.query.token,
       }
       console.log(param)
       let result = reqHomeInit(param)

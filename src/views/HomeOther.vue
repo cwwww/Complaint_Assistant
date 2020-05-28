@@ -1,5 +1,22 @@
 <template>
 	<div class="contain">
+		<van-popup
+		    class="cont2"
+		    v-model="vipNotification"
+		>
+		    <div class="contwrap">
+		      <div class="top">
+		        <span>{{vipExpiryTime}}</span>
+		        <!-- <img style="width:16px;height:16px;" :src=money alt=""> -->
+		        <!-- <span>请前往【会员商店】领取</span> -->
+		      </div>
+		      <div style="margin-bottom:25px;">请前往【会员商店】领取</div>
+		      <div class="isOk">
+		        <div class="isNo" @click="isNo"><span style="color:#666;">忽略</span></div>
+		        <div class="isYes" @click="isYes"><span style="color:#FFF;">去领取</span></div>
+		      </div>
+		    </div>
+		</van-popup>
 		<div class="information">
 			<div class="mes">
 				<div class="topHalfPart">
@@ -136,6 +153,8 @@
 		components: {},
 		data() {
 			return {
+				vipExpiryTime:'',
+				vipNotification:false,
 				mes:'',
 				registers:'',
 				isRegister:Boolean,
@@ -200,16 +219,38 @@
 				window.parent.location.href = 'https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16'
 			},
 			FairyShop() { //买家精灵商店
-				this.$router.push({
-					path: '/FairyShop',
-					query: {
-						robot_id:this.$route.query.robot_id,
-						broker_id:this.$route.query.broker_id,
-						robot_visitId:this.$route.query.robot_visitId,
-						Othername: this.homeInit.name,
-						token:this.$route.query.token
+			    //在串门页面，首先判断访问者的会员是否已经到期，
+				//如果没有到期的话，可以访问,如果会员到期，则提示会员到期
+				let param = {
+				      "robot_id":this.$route.query.robot_id,
+				      "broker_id":this.$route.query.broker_id,
+				      "token":this.$route.query.token,
+				}
+				let result = reqHomeInit(param)
+				result.then(res=>{
+				    console.log(res)
+				    this.homeInit = res.result
+				    console.log(this.homeInit)
+					this.vipNotification = this.homeInit.vip_notification
+					if(this.homeInit.vip_valid == false){
+						 this.vipExpiryTime ='您的会员已到期'  
+					}else{
+						this.$router.push({
+							path: '/FairyShop',
+							query: {
+								robot_id:this.$route.query.robot_id,
+								broker_id:this.$route.query.broker_id,
+								robot_visitId:this.$route.query.robot_visitId,
+								Othername: this.homeInit.name,
+								token:this.$route.query.token
+							}
+						})
 					}
-				})
+				    }).catch(reslove=>{
+				       console.log('error')
+				    })
+				
+				
 			},
 			HomeChat() { // 聊天记录
 				this.$router.replace('/ACVisitor')
@@ -440,7 +481,13 @@
 					}
 				}
 				return theRequest
-			}
+			},
+			isNo(){   //买家精灵商店取消购买
+			  this.vipNotification = false
+			},
+			isYes(){  //买家精灵商店确定购买
+			
+			},
 
 		},
 		mounted() {
@@ -1081,54 +1128,49 @@
 				}
 			}
 
-			.cont2 {
-				width: 305px;
-				height: 174px;
-				background: rgba(255, 255, 255, 1);
-				border-radius: 15px;
-
-				.contwrap {
-					font-size: 17px;
-					font-family: PingFangSC-Medium, PingFang SC;
-					font-weight: 500;
-					color: rgba(51, 51, 51, 1);
-					line-height: 24px;
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-					margin-top: 30px;
-
-					.top {
-						margin-bottom: 7px;
-					}
-
-					.isOk {
-						display: flex;
-
-						// align-items: center;
-						// justify-content: center;
-						.isNo {
-							width: 125px;
-							height: 42px;
-							background: rgba(234, 234, 234, 1);
-							border-radius: 4px;
-							text-align: center;
-							line-height: 42px;
-						}
-
-						.isYes {
-							width: 125px;
-							height: 42px;
-							background: rgba(0, 147, 253, 1);
-							border-radius: 4px;
-							text-align: center;
-							line-height: 42px;
-							margin-left: 20px;
-						}
-					}
-				}
-			}
-
+            .cont2{
+              width: 305px;
+              height: 174px;
+              background:rgba(255,255,255,1);
+              border-radius:15px;
+              .contwrap{
+                font-size:17px;
+                font-family:PingFangSC-Medium,PingFang SC;
+                font-weight:500;
+                color:rgba(51,51,51,1);
+                line-height:24px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 30px;
+                .top{
+                  margin-bottom: 7px;
+                }
+                .isOk{
+                  display: flex;
+                  // align-items: center;
+                  // justify-content: center;
+                  .isNo{
+                    width:125px;
+                    height:42px;
+                    background:rgba(234,234,234,1);
+                    border-radius:4px;
+                    text-align: center;
+                    line-height: 42px;
+                  }
+                  .isYes{
+                    width:125px;
+                    height:42px;
+                    background:rgba(0,147,253,1);
+                    border-radius:4px;
+                    text-align: center;
+                    line-height: 42px;
+                    margin-left: 20px;
+                  }
+                }
+              }
+            }
+			
 			.cont3 {
 				width: 170px;
 				height: 170px;
