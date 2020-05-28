@@ -424,7 +424,9 @@
 			getCode(){ // 非静默授权，第一次有弹框
 				this.code = ''
 				// var local = window.location.href // 获取页面url
-				var local = "https://test-bebot-web.baoxianxia.com.cn/#/HomeOther" // 获取页面url
+				alert(this.$route.query.broker_id)
+				alert(JSON.stringify(this.registers))
+				var local = 'https://test-bebot-web.baoxianxia.com.cn/#/'+`HomeOther?broker_id=${this.$route.query.broker_id}&robot_id=${this.$route.query.robot_id}` // 获取页面url
 				var appid = 'wx026553ce8b4e59a3'
 				this.code = this.getUrlCode().code // 截取code
 				if (this.code == null || this.code === '') { // 如果没有code，则去请求
