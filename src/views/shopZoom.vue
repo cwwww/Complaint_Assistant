@@ -75,9 +75,24 @@ export default {
   methods: {
     close(){
       if(this.$route.query.type == 'type'){
-        this.$router.push('/Repository')
+        this.$router.push({
+          path:'/Repository',
+          query:{
+            "broker_id": this.$route.query.broker_id,
+            "robot_id": this.$route.query.robotId,
+            "token":this.$route.query.token,
+            type:'type'
+          }
+        })
       }else{
-        this.$router.push('/HomeChat')
+        this.$router.push({
+          path:'/HomeChat',
+          query:{
+            "broker_id": this.$route.query.broker_id,
+            "robot_id": this.$route.query.robotId,
+            "token":this.$route.query.token,
+          }
+        })
       }
     },
     listPage(index){
