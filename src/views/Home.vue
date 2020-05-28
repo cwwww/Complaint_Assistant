@@ -210,7 +210,10 @@ export default {
       show1: false,
       isOwn: true,
       answerHight: "",
-      homeInit: Object,
+      homeInit:{
+		  vip_valid: true
+	  },
+
       bxdj: "",
       numIndex: 0,
       showName: false,
@@ -373,16 +376,25 @@ export default {
       });
       this.destoryTimer();
     },
-    toFXCP() {
-      window.parent.location.href =
-        "https://m.baoxianxia.com.cn/risk/index.html";
-      this.destoryTimer();
+   toFXCP(){
+	  if(!this.homeInit.vip_valid){
+		  this.vipNotification = true;
+		  this.vipExpiryTime ="您的会员已到期"
+	  }else{
+		  window.parent.location.href = 'https://m.baoxianxia.com.cn/risk/index.html'
+		  this.destoryTimer();
+	  }
     },
-    toPlan() {
-      window.parent.location.href =
-        "https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16";
-      this.destoryTimer();
+    toPlan(){
+	  if(!this.homeInit.vip_valid){
+		  this.vipNotification = true;
+		  this.vipExpiryTime ="您的会员已到期"
+	  }else{
+		  window.parent.location.href = 'https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16'
+		  this.destoryTimer();
+	  }
     },
+
     frang() {
       // 好友
       this.$router.push({
@@ -676,6 +688,20 @@ export default {
           console.log("error");
         });
     },
+isNo(){   //买家精灵商店取消购买
+	  this.vipNotification = false
+	},
+	isYes(){  //买家精灵商店确定购买
+      this.vipNotification = false
+	  this.$router.push({
+	    path:'/sellerShop/vipShop',
+	    query:{
+	       "broker_id": this.$route.query.visitor_id,
+	       "robot_id": this.$route.query.robot_id,
+	       "token":this.$route.query.token
+	      }
+	    })
+	},
 
     // 初始化页面
     getHomeInit() {
