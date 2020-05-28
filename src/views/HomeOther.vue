@@ -411,18 +411,18 @@
 				    console.log("error");
 				  });
 			},
-			impower(){
-			let param = {"code":this.code}
-		    let res = reqbebotCode(param)
-		    res.then(res=>{
-				console.log(res)
-				this.mes = res.result
-			}).catch(reslove=>{
-			  console.log('error')
-			})
-			},
-			impower(){
-				let param = {"code":"this.code"}
+		// 	impower(){
+		// 	let param = {"code":this.code}
+		//     let res = reqbebotCode(param)
+		//     res.then(res=>{
+		// 		console.log(res)
+		// 		this.mes = res.result
+		// 	}).catch(reslove=>{
+		// 	  console.log('error')
+		// 	})
+		// 	},
+			impower(code){
+				let param = {"code":code}
 			    let res = reqbebotCode (param)
 			    res.then(res=>{
 				console.log('授权回来的'+res)
@@ -439,7 +439,7 @@
 				}
 				let result = reqisregistered(param)
 				result.then(res => {
-					console.log('创前：'+ res)
+					alert(JSON.stringify(res.result))
 					this.registers = res.result
 					if(this.registers.visitor_type == '0'){
 						this.isRegister = false
@@ -459,7 +459,6 @@
 				this.code = ''
 				// var local = window.location.href // 获取页面url
 				alert(this.$route.query.broker_id)
-				alert(JSON.stringify(this.registers))
 				var local = 'https://test-bebot-web.baoxianxia.com.cn/#/'+`HomeOther?broker_id=${this.$route.query.broker_id}&robot_id=${this.$route.query.robot_id}` // 获取页面url
 				var appid = 'wx026553ce8b4e59a3'
 				this.code = this.getUrlCode().code // 截取code
@@ -485,11 +484,7 @@
 
 		},
 		mounted() {
-			if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
-				this.getCode()
-			} else {
-				// 别的业务逻辑
-			}
+
 			// let param = {
 			// 	"openid": this.openid
 			// }
@@ -515,7 +510,13 @@
 			this.chuanmen();
 		},
 		created(){
-			this.impower()
+			if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
+				this.getCode()
+			} else {
+				// 别的业务逻辑
+			}
+			alert(this.code)
+			this.impower(this.code)
 
 		}
 
