@@ -1,46 +1,48 @@
 <template>
   <div class="contain">
-	  <van-popup
-	      class="cont2"
-	      v-model="vipNotification"
-	    >
-	      <div class="contwrap">
-	        <div class="top">
-	          <span>{{vipExpiryTime}}</span>
-	          <!-- <img style="width:16px;height:16px;" :src=money alt=""> -->
-	          <!-- <span>请前往【会员商店】领取</span> -->
-	        </div>
-	        <div style="margin-bottom:25px;">请前往【会员商店】领取</div>
-	        <div class="isOk">
-	          <div class="isNo" @click="isNo"><span style="color:#666;">忽略</span></div>
-	          <div class="isYes" @click="isYes"><span style="color:#FFF;">去领取</span></div>
-	        </div>
-	      </div>
-	  </van-popup>
+    <van-popup class="cont2" v-model="vipNotification">
+      <div class="contwrap">
+        <div class="top">
+          <span>{{vipExpiryTime}}</span>
+          <!-- <img style="width:16px;height:16px;" :src=money alt=""> -->
+          <!-- <span>请前往【会员商店】领取</span> -->
+        </div>
+        <div style="margin-bottom:25px;">请前往【会员商店】领取</div>
+        <div class="isOk">
+          <div class="isNo" @click="isNo">
+            <span style="color:#666;">忽略</span>
+          </div>
+          <div class="isYes" @click="isYes">
+            <span style="color:#FFF;">去领取</span>
+          </div>
+        </div>
+      </div>
+    </van-popup>
     <div class="information">
       <div class="mes">
         <div class="topHalfPart">
           <div class="headPortrait">
-            <img :src=homeInit.headimgurl alt="">
+            <img :src="homeInit.headimgurl" alt />
           </div>
           <div class="infor">
             <div class="swsName">{{homeInit.name}}&nbsp;事务所</div>
-            <img class="line" :src=line alt="">
+         <img class="line" :src=line alt="">
 			
 			<div class="linebg"     :style="{'width': linewidthData}"></div>
 			
             <img class="experience" :src=experience alt="">
+
             <div class="ArticleExperience">{{homeInit.exp}}/{{homeInit.level_exp}}</div>
             <div class="level">Lv.{{homeInit.level}}</div>
           </div>
         </div>
-        <div class="bottomHalfPart"> 
+        <div class="bottomHalfPart">
           <div class="leftPart">
-            <img :src=homeLevel style="height:18px;line-height:18px;" alt="">
+            <img :src="homeLevel" style="height:18px;line-height:18px;" alt />
           </div>
           <div class="rightPart">
             <div class="imgs">
-            <img :src=money style="width:16px;height:16px;margin-right:4px;" alt="">
+              <img :src="money" style="width:16px;height:16px;margin-right:4px;" alt />
             </div>
             <div class="res">{{homeInit.bcoin}}</div>
           </div>
@@ -49,14 +51,16 @@
       <div class="fansAndFriend">
         <div class="friend" @click="frang">
           <span class="num">{{homeInit.fans_num}}</span>
-          <img src="../assets/images/friends@2x.png" alt="">
+          <img src="../assets/images/friends@2x.png" alt />
           <span class="design">好友</span>
         </div>
         <div class="fan" @click="lists">
           <span class="num">{{homeInit.fans_num}}</span>
-          <img src="../assets/images/fans@2x.png" alt="">
+          <img src="../assets/images/fans@2x.png" alt />
           <span class="design">粉丝</span>
-		  <div><img class="new" src="../assets/images/new@2x.png" alt=""></div>
+          <div>
+            <img class="new" src="../assets/images/new@2x.png" alt />
+          </div>
         </div>
       </div>
     </div>
@@ -64,46 +68,45 @@
 		<img class="invitationicon" src="../assets/images/邀请@2x.png" alt="">
 		</div>
     <div class="rightList">
-      <ul >
+      <ul>
         <li>
-          <img :src=home_medal alt="">
+          <img :src="home_medal" alt />
           <div>勋章</div>
         </li>
         <li>
-          <img :src=home_discover alt="">
+          <img :src="home_discover" alt />
           <div>发现</div>
         </li>
         <li @click="Task" style="position:relative;">
-          <img :src=home_mytask alt="">
+          <img :src="home_mytask" alt />
           <div>我的任务</div>
-          <img  v-show ="showNewIcon" class="new" src="../assets/images/new@2x.png" alt="">
+          <img v-show="showNewIcon" class="new" src="../assets/images/new@2x.png" alt />
         </li>
         <li @click="toFXCP">
-          <img :src=home_risktest alt="">
+          <img :src="home_risktest" alt />
           <div>风险测评</div>
         </li>
         <li @click="toPlan">
-          <img :src=home_planbook alt="">
+          <img :src="home_planbook" alt />
           <div>计划书</div>
         </li>
       </ul>
     </div>
     <div>
       <div class="talk">
-        <div class="talkContent" id="talkContent" :class="{active:isOwn}">{{answer}}
-        </div>
+        <div class="talkContent" id="talkContent" :class="{active:isOwn}">{{answer}}</div>
         <div class="btnTalk">
-          <img @click="previousPage" class="leftBtn" :src=nextpage2 alt="">
-          <img class="rightBtn" @click="nextPage" :src=nextpage alt="">
+          <img @click="previousPage" class="leftBtn" :src="nextpage2" alt />
+          <img class="rightBtn" @click="nextPage" :src="nextpage" alt />
         </div>
       </div>
       <div class="triangle"></div>
       <div class="triangle2"></div>
     </div>
-    <div class="content">  
-      <img class="moon" :src=moon alt="">
-      <div  class="bebot">
-        <img :src=bebot alt="">
+    <div class="content">
+      <img class="moon" :src="moon" alt />
+      <div class="bebot">
+        <img :src="bebot" alt />
       </div>
       <div class="answer" id="answer">
         <div v-for="(i,index) in list2" :key="index">
@@ -112,29 +115,30 @@
         </div>
       </div>
       <ul class="bottomList">
-          <li> 
-              <img @click="Repository" :src=home_zsk alt="">
-              <span>知识库</span>
-          </li>
-          <li @click="FairyShop">
-              <img :src=home_store alt="">
-              <span>精灵商店</span>
-              <router-view ></router-view>
-          </li>
-          <li @click="WhoLookMe">
-              <img :src=home_browse alt="">
-              <span>谁看过我</span>
-          </li>
-          <li @click="HomeChat">
-              <img :src=home_chatrecord alt="">
-              <span>聊天记录</span>
-              <router-view ></router-view>
-          </li>
-          <li @click="Ranking">
-              <img :src=home_rankinglist alt="">
-              <span>排行榜</span>
-          </li>
+        <li>
+          <img @click="Repository" :src="home_zsk" alt />
+          <span>知识库</span>
+        </li>
+        <li @click="FairyShop">
+          <img :src="home_store" alt />
+          <span>精灵商店</span>
+          <router-view></router-view>
+        </li>
+        <li @click="WhoLookMe">
+          <img :src="home_browse" alt />
+          <span>谁看过我</span>
+        </li>
+        <li @click="HomeChat">
+          <img :src="home_chatrecord" alt />
+          <span>聊天记录</span>
+          <router-view></router-view>
+        </li>
+        <li @click="Ranking">
+          <img :src="home_rankinglist" alt />
+          <span>排行榜</span>
+        </li>
       </ul>
+
 
 	  .
 	  <div class="input-bottom-content" >
@@ -144,15 +148,20 @@
           v-model="showName"
           click_overlay
         >
+
           <div class="contwrap">
             <div id="title">给你的精灵起个名字吧！</div>
             <div id="warn">名字确定后不可更改哦～</div>
-            <input type="text" style="text-align:center" name="name" maxlength="10"/>
+            <input type="text" style="text-align:center" name="name" maxlength="10" />
             <div id="line"></div>
             <div id="limit" v-show="showIimit">名字超过字数限制，请重新输入</div>
-            <van-button type="info" style="width:265px;height:42px;margin:6px auto;" @click="getName">确定</van-button>
+            <van-button
+              type="info"
+              style="width:265px;height:42px;margin:6px auto;"
+              @click="getName"
+            >确定</van-button>
           </div>
-      </van-popup>
+        </van-popup>
 
       <div class="input-bottom" >
         <input type="text" ref="input" placeholder="输入“风险测评”试试" style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"/>
@@ -160,12 +169,12 @@
       </div>
 	   </div>
     </div >
-    </div>
 
+    <HomeChat v-show="homeChat" @showChatC='showChatP' :show_chat='homeChat' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
   </div>
 </template>
 <script>
-import { Popup,Toast } from 'vant';
+import { Popup, Toast } from "vant";
 // import wxapi from '../assets/js/common/wxapi';
 import wx from 'weixin-js-sdk';
 import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList,reqHomeName,reqtaskStatus,reqisunlocked,reqbebotCode,reqwxconfig,reqcustomerlogin  } from '../axios/axios-api'
@@ -252,361 +261,388 @@ export default{
 	},
 	isYes(){  //pop确定状态
 
-	},
-	Repository(){ // 知识库
-      this.$router.push({
-        path:'/Repository',
-        query:{
-          "broker_id": this.$route.query.visitor_id,
-          "robot_id": this.$route.query.robot_id,
-          "token":this.$route.query.token
-        }
-	    })
-	  this.destoryTimer();
+
     },
-    FairyShop(){  // 买家精灵商店
+    Repository() {
+      // 知识库
       this.$router.push({
-        path:'/sellerShop',
-        query:{
-          "broker_id": this.$route.query.broker_id,
-          "robot_id": this.$route.query.robot_id,
-          "token":this.$route.query.token
+        path: "/Repository",
+        query: {
+          broker_id: this.$route.query.visitor_id,
+          robot_id: this.$route.query.robot_id,
+          token: this.$route.query.token
         }
-	    })
-	    this.destoryTimer();
+      });
+      this.destoryTimer();
     },
-    HomeChat(){  // 聊天记录
+    FairyShop() {
+      // 买家精灵商店
       this.$router.push({
-        path:'/HomeChat',
-        query:{
-          "broker_id": this.$route.query.broker_id,
-          "robot_id": this.$route.query.robot_id,
-          "token":this.$route.query.token
+        path: "/sellerShop",
+        query: {
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robot_id,
+          token: this.$route.query.token
         }
-	    })
-	    this.destoryTimer();
+      });
+      this.destoryTimer();
     },
-    WhoLookMe(){  // 谁看过我
+    HomeChat() {
+      // 聊天记录
+      this.homeChat = true
+    },
+    WhoLookMe() {
+      // 谁看过我
       this.$router.push({
-        path:'/WhoLookMe',
-        query:{
-          "broker_id": this.$route.query.broker_id,
-          "robot_id": this.$route.query.robot_id,
-          "token":this.$route.query.token
+        path: "/WhoLookMe",
+        query: {
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robot_id,
+          token: this.$route.query.token
         }
-	    })
-	   this.destoryTimer();
+      });
+      this.destoryTimer();
     },
-    Ranking(){  //排行榜
+    Ranking() {
+      //排行榜
       //this.$router.replace('/Ranking')
-	    this.$router.push({
-	    path:'/Ranking',
-	    query:{
-	      "broker_id": this.$route.query.broker_id,
-        "robot_id": this.$route.query.robot_id,
-        "token":this.$route.query.token
-	    }
-	    })
-		this.destoryTimer();
-    },
-    Task() {   // 任务
       this.$router.push({
-        path:'/Task',
-        query:{
-          "broker_id": this.$route.query.broker_id,
-          "robot_id": this.$route.query.robotId,
-          "token":this.$route.query.token,
-          "TaskStatus":this.homeInit, 
+        path: "/Ranking",
+        query: {
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robot_id,
+          token: this.$route.query.token
         }
-	    })
-	    this.destoryTimer();
+      });
+      this.destoryTimer();
     },
-    toFXCP(){
-      window.parent.location.href = 'https://m.baoxianxia.com.cn/risk/index.html'
-	  this.destoryTimer();
-    },
-    toPlan(){
-      window.parent.location.href = 'https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16'
-	  this.destoryTimer();
-    },
-    frang() {// 好友
+    Task() {
+      // 任务
       this.$router.push({
-        path:'/List/Friend',
-        query:{
-          "broker_id": this.$route.query.broker_id,
-          "robot_id": this.$route.query.robotId,
-          "token":this.$route.query.token,
-          name:'friend',
+        path: "/Task",
+        query: {
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robotId,
+          token: this.$route.query.token,
+          TaskStatus: this.homeInit
         }
-	    })
-	    this.destoryTimer();
+      });
+      this.destoryTimer();
     },
-    lists() {// 粉丝
+    toFXCP() {
+      window.parent.location.href =
+        "https://m.baoxianxia.com.cn/risk/index.html";
+      this.destoryTimer();
+    },
+    toPlan() {
+      window.parent.location.href =
+        "https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16";
+      this.destoryTimer();
+    },
+    frang() {
+      // 好友
+      this.$router.push({
+        path: "/List/Friend",
+        query: {
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robotId,
+          token: this.$route.query.token,
+          name: "friend"
+        }
+      });
+      this.destoryTimer();
+    },
+    lists() {
+      // 粉丝
       //this.$router.replace('/List/Bean')
       this.$router.push({
-        path:'/List/Bean',
-        query:{
-          "broker_id": this.$route.query.broker_id,
-          "robot_id": this.$route.query.robot_id,
-          "token":this.$route.query.token,
-          name:'fensi',
+        path: "/List/Bean",
+        query: {
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robot_id,
+          token: this.$route.query.token,
+          name: "fensi"
         }
-	    })
-	    this.destoryTimer();
+      });
+      this.destoryTimer();
     },
-    previousPage(){
-      talkContent.scrollTop += -138
-      this.isOwn = true
+    previousPage() {
+      talkContent.scrollTop += -138;
+      this.isOwn = true;
     },
-    nextPage(){
-      talkContent.scrollTop += 138
-      this.isOwn = false
+    nextPage() {
+      talkContent.scrollTop += 138;
+      this.isOwn = false;
     },
-    getName(){
-      if(document.getElementsByName("name")[0].value.length >= 7){
-        this.showIimit = true
+    getName() {
+      if (document.getElementsByName("name")[0].value.length >= 7) {
+        this.showIimit = true;
       }
-      let param = {
-        "broker_id":this.$route.query.useId,
-        "robot_id":this.$route.query.robot_id,
-        "robot_name":document.getElementsByName("name")[0].value,
-        "token":this.$route.query.token
-      }
-      let res = reqHomeName(param)
-      res.then(res=>{
-          console.log(res)
-          this.list = res.result.dialog_history
-          this.$refs.input.value = ''
-      }).catch(reslove=>{
-         console.log('error')
-      })
+      let param = {
+        broker_id: this.$route.query.useId,
+        robot_id: this.$route.query.robot_id,
+        robot_name: document.getElementsByName("name")[0].value,
+        token: this.$route.query.token
+      };
+      let res = reqHomeName(param);
+      res
+        .then(res => {
+          console.log(res);
+          this.list = res.result.dialog_history;
+          this.$refs.input.value = "";
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     },
-    wxconfig(){
-        let param = {"url":window.location.href.split('#')[0]}
-        let res = reqwxconfig(param)
-        res.then(res=>{
-          console.log(res)
-          this.shareMessages = res.result
-          alert($route.query.visitor_id)
-          var that = this
+    wxconfig() {
+      let param = { url: window.location.href.split("#")[0] };
+      let res = reqwxconfig(param);
+      res
+        .then(res => {
+          console.log(res);
+          this.shareMessages = res.result;
+          // alert($route.query.visitor_id)
+          var that = this;
           wx.config({
-            debug: true,
-            appId: 'wx026553ce8b4e59a3', // 和获取Ticke的必须一样------必填，公众号的唯一标识
-            timestamp: this.shareMessages.timestamp, // 必填，生成签名的时间戳
-            nonceStr: this.shareMessages.nonceStr, // 必填，生成签名的随机串
-            signature: this.shareMessages.signature,// 必填，签名，见附录1
+            debug: false,
+            appId: "wx026553ce8b4e59a3", // 和获取Ticke的必须一样------必填，公众号的唯一标识
+            timestamp: that.shareMessages.timestamp, // 必填，生成签名的时间戳
+            nonceStr: that.shareMessages.nonceStr, // 必填，生成签名的随机串
+            signature: that.shareMessages.signature, // 必填，签名，见附录1
             //需要分享的列表项:发送给朋友，分享到朋友圈
-            jsApiList: [
-              'onMenuShareTimeline','onMenuShareAppMessage'
-            ]
+            jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
           });
           //处理验证失败的信息
-          wx.error(function (res) {
-            console.log('验证失败返回的信息:',res);
+          wx.error(function(res) {
+            console.log("验证失败返回的信息:", res);
           });
           //处理验证成功的信息
-          wx.ready(function () {
+          wx.ready(function() {
             //分享到朋友圈
+            // wx.onMenu
             wx.onMenuShareTimeline({
-              title: '额外热舞标题', // 分享标题
-              link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: that.homeInit.headimgurl, // 分享图标
-              success: function (res) {
+              title: "朋友圈", // 分享标题
+              desc: "描述yiuy朋友", // 分享描述
+              // link: window.location.href,
+              link:
+                "https://test-bebot-web.baoxianxia.com.cn/#/" +
+                `HomeOther?broker_id=${that.$route.query.broker_id}&robot_id=${that.$route.query.robot_id}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: "https://img.baoxianxia.com.cn/share/spotShare.png", // 分享图标
+              // type: '', // 分享类型,music、video或link，不填默认为link
+              // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+              success: function(res) {
                 // 用户确认分享后执行的回调函数
-                console.log("分享到朋友圈成功返回的信息为:",res);
+                console.log("分享给朋友成功返回的信息为:", res);
               },
-              cancel: function (res) {
+              cancel: function(res) {
                 // 用户取消分享后执行的回调函数
-                console.log("取消分享到朋友圈返回的信息为:",res);
+                console.log("取消分享给朋友返回的信息为:", res);
               }
             });
             // 分享给朋友
             wx.onMenuShareAppMessage({
-              title: '额外热舞标题', // 分享标题
-              desc: '描述', // 分享描述
-              link: 'https://test-bebot-web.baoxianxia.com.cn/#/HomeOther?visited_robot_id='+ that.$route.query.visitor_id+'', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590588171242&di=ac9d15a3d7da1c6e5a8c722c94c914bf&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F35%2F34%2F19300001295750130986345801104.jpg', // 分享图标
+              title: "bebot朋友", // 分享标题
+              desc: "描述yiuy朋友", // 分享描述
+              // link: window.location.href,
+              link:
+                "https://test-bebot-web.baoxianxia.com.cn/#/" +
+                `HomeOther?broker_id=${that.$route.query.broker_id}&robot_id=${that.$route.query.robot_id}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: "https://img.baoxianxia.com.cn/share/spotShare.png", // 分享图标
               // type: '', // 分享类型,music、video或link，不填默认为link
               // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-              success: function (res) {
+              success: function(res) {
                 // 用户确认分享后执行的回调函数
-                console.log("分享给朋友成功返回的信息为:",res);
+                console.log("分享给朋友成功返回的信息为:", res);
               },
-              cancel: function (res) {
+              cancel: function(res) {
                 // 用户取消分享后执行的回调函数
-                console.log("取消分享给朋友返回的信息为:",res);
+                console.log("取消分享给朋友返回的信息为:", res);
               }
-            })
+            });
           });
-        }).catch(reslove=>{
-          console.log('error')
         })
+        .catch(reslove => {
+          console.log("error");
+        });
     },
     // 授权
-    impower(){
-        let param = {"code":"this.code"}
-        let res = reqbebotCode (param)
-        res.then(res=>{
-          console.log(res)
-          this.messages = res.result
-          this.customerLogin()
-        }).catch(reslove=>{
-          console.log('error')
+    impower() {
+      let param = { code: "this.code" };
+      let res = reqbebotCode(param);
+      res
+        .then(res => {
+          console.log(res);
+          this.messages = res.result;
+          this.customerLogin();
         })
+        .catch(reslove => {
+          console.log("error");
+        });
     },
-    customerLogin(){
-          let param = {
-            "OPENID": this.messages.openid,
-            "NICKNAME": this.messages.nickname,
-            "HEADIMGURL":  this.messages.headimgurl,
-            "SEX":  this.messages.sex,
-            "PROVINCE":  this.messages.province,
-            "CITY": this.messages.city,
-            "COUNTRY": this.messages.country,
-            "PRIVILEGE":  this.messages.privilege,
-          }
-	},
-    getFensi(){
-      let param = {
-            "robot_id": 33,
-            "operation_type": 0,
-            "broker_id": 33,
-            "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
-          }
-      let res = BeanList(param)
-      res.then(res=>{
-              console.log(res)
-              let showNotification = res.result.notification
-              if(showNotification){
+    //   customerLogin(){
+    //         let param = {
+    //           "OPENID": this.messages.openid,
+    //           "NICKNAME": this.messages.nickname,
+    //           "HEADIMGURL":  this.messages.headimgurl,
+    //           "SEX":  this.messages.sex,
+    //           "PROVINCE":  this.messages.province,
+    //           "CITY": this.messages.city,
+    //           "COUNTRY": this.messages.country,
+    //           "PRIVILEGE":  this.messages.privilege,
+    //         }
+    // },
+    getFensi() {
+      let param = {
+        robot_id: 33,
+        operation_type: 0,
+        broker_id: 33,
+        token:
+          "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+      };
+      let res = BeanList(param);
+      res
+        .then(res => {
+          console.log(res);
+          let showNotification = res.result.notification;
+          if (showNotification) {
             this.showNew = true;
           }
-          }).catch(reslove=>{
-             console.log('error')
-      })
-    },
-    submit(numIndex){  
-      this.numIndex+=1
-        if(this.$refs.input.value == '') {
-          Toast('请输入聊天内容');
-        } else {
-          this.getDetail()
-		  this.getReqtaskStatus();
-        }
-    },
-    getDetail(){
-      this.question = this.$refs.input.value
-      let param
-      if(this.flag){
-        param = {
-          "dialog_type": "0",
-          "broker_id": 33,
-          "robot_id": 33,
-          "speaker": "2",
-          "content": '.',
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
-        }
-        this.flag = false
-      }else{
-        param = {
-          "dialog_type": "1",
-          "broker_id": 33,
-          "robot_id": 33,
-          "speaker": "2",
-          "content": this.question,
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
-        }
-      }
-      console.log(param)
-      let res = reqRobotDetail(param)
-        res.then(res=>{
-        console.log(res)
-        this.answer = res.result.content
-        this.list.push(this.question)
-        this.list.push(this.answer)
-        this.list2 = this.list.slice(-4)
-        console.log(this.list2)
-        if(this.list2[0] == ''){
-        }
-        this.$refs.input.value = ''
-        }).catch(reslove=>{
-           console.log('error')
         })
+        .catch(reslove => {
+          console.log("error");
+        });
     },
-	//与机器人聊天任务
-	getReqtaskStatus(){
-		let param = {
-			"broker_id": 1,
-			"robot_id": 1,
-			"operation_type":1,
-			"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
-		}
-		console.log("任务的param:"+param);
-		
-		let result = reqtaskStatus(param);
-		result
-		  .then(res => {
-		   //更新金币
-		   this.homeInit.bcoin = res.result.bcoin;
-		   //更新等级
-		   this.homeInit.level = res.result.level
-		   //更新“我的”经验
-		   this.homeInit.exp = res.result.exp
-		   //更新总经验
-		   this.homeInit.level_exp = res.result.level_exp
-		   //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
-		   this.showNewIcon = res.result.task_notification;
-		  })
-		  .catch(reslove => {
-		    console.log("error");
-		  });
-	},
-	
-    getACchat(){
-      let param
-      if (this.isInput) {
-        param = {
-          "dialog_type": "2",
-          "customer_id": 1,
-          "customer_type": 0,
-          "broker_id": 33,
-          "robot_id": 33,
-          "speaker": "1",
-          "content": '.',
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
-        }
-        this.isInput = false
+    submit(numIndex) {
+      this.numIndex += 1;
+      if (this.$refs.input.value == "") {
+        Toast("请输入聊天内容");
       } else {
-        param = {
-          "dialog_type": "2",
-          "customer_id": 1,
-          "customer_type": 2,
-          "broker_id": 33,
-          "robot_id": 33,
-          "speaker": "1",
-          "content": "第二版测试",
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
-        }
+        this.getDetail();
+        this.getReqtaskStatus();
       }
-      console.log(param)
-        let res = reqCusayrob(param)
-        res.then(res=>{
-        console.log(res)
-        this.list = res.result.dialog_history
-        this.$refs.input.value = ''
-      }).catch(reslove=>{
-         console.log('error')
-      })
-  },
+    },
+    getDetail() {
+      this.question = this.$refs.input.value;
+      let param;
+      if (this.flag) {
+        param = {
+          dialog_type: "0",
+          broker_id: 33,
+          robot_id: 33,
+          speaker: "2",
+          content: ".",
+          token:
+            "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        };
+        this.flag = false;
+      } else {
+        param = {
+          dialog_type: "1",
+          broker_id: 33,
+          robot_id: 33,
+          speaker: "2",
+          content: this.question,
+          token:
+            "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        };
+      }
+      console.log(param);
+      let res = reqRobotDetail(param);
+      res
+        .then(res => {
+          console.log(res);
+          this.answer = res.result.content;
+          this.list.push(this.question);
+          this.list.push(this.answer);
+          this.list2 = this.list.slice(-4);
+          console.log(this.list2);
+          if (this.list2[0] == "") {
+          }
+          this.$refs.input.value = "";
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
+    },
+    //与机器人聊天任务
+    getReqtaskStatus() {
+      let param = {
+        broker_id: 1,
+        robot_id: 1,
+        operation_type: 1,
+        token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+      };
+      console.log("任务的param:" + param);
+
+      let result = reqtaskStatus(param);
+      result
+        .then(res => {
+          //更新金币
+          this.homeInit.bcoin = res.result.bcoin;
+          //更新等级
+          this.homeInit.level = res.result.level;
+          //更新“我的”经验
+          this.homeInit.exp = res.result.exp;
+          //更新总经验
+          this.homeInit.level_exp = res.result.level_exp;
+          //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
+          this.showNewIcon = res.result.task_notification;
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
+    },
+
+    getACchat() {
+      let param;
+      if (this.isInput) {
+        param = {
+          dialog_type: "2",
+          customer_id: 1,
+          customer_type: 0,
+          broker_id: 33,
+          robot_id: 33,
+          speaker: "1",
+          content: ".",
+          token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
+        };
+        this.isInput = false;
+      } else {
+        param = {
+          dialog_type: "2",
+          customer_id: 1,
+          customer_type: 2,
+          broker_id: 33,
+          robot_id: 33,
+          speaker: "1",
+          content: "第二版测试",
+          token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
+        };
+      }
+      console.log(param);
+      let res = reqCusayrob(param);
+      res
+        .then(res => {
+          console.log(res);
+          this.list = res.result.dialog_history;
+          this.$refs.input.value = "";
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
+    },
 
     // 初始化页面
-    getHomeInit(){
-      if(this.$route.query.broker_id == undefined){
-        this.$route.query.broker_id = this.$route.query.visitor_id
+    getHomeInit() {
+      if (this.$route.query.broker_id == undefined) {
+        this.$route.query.broker_id = this.$route.query.visitor_id;
       }
-      let param = {
+      let param = {
         // "robot_id":35,
         // "broker_id":35,
         // "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
+
         "robot_id":this.$route.query.robot_id,
         "broker_id":this.$route.query.broker_id,
         "token":this.$route.query.token
@@ -659,10 +695,10 @@ export default{
       })
     },
 
-	destoryTimer(){
-		clearInterval(this.timer);
-	},
-	
+    destoryTimer() {
+      clearInterval(this.timer);
+    }
+
     // getCode(){ // 非静默授权，第一次有弹框
     //     this.code = ''
     //     // var local = window.location.href // 获取页面url
@@ -689,86 +725,86 @@ export default{
     //     return theRequest
     // }
   },
-  created(){
-    alert(JSON.stringify(this.$route.query))
+  created() {
     // this.getCode()
     // this.getUrlCode()
-    this.url = window.location.href.split('#')[0]
-    var start = this.url.indexOf("=")
-    var end = this.url.indexOf("&")
-    this.code = this.url.substring(start+1, end)
-    console.log(this.url)
-    //this.impower()
-    //this.wxconfig()
+    this.url = window.location.href.split("#")[0];
+    var start = this.url.indexOf("=");
+    var end = this.url.indexOf("&");
+    this.code = this.url.substring(start + 1, end);
+    console.log(this.url);
+    this.impower();
+    this.wxconfig();
   },
-  mounted(){
+  mounted() {
     // if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
     //     this.getCode()
     // } else {
     //     // 别的业务逻辑
     // }
 
-    console.log(JSON.stringify(this.$route.query))
-    this.getHomeInit()
+    console.log(JSON.stringify(this.$route.query));
+    this.getHomeInit();
     this.getDetail();
     //定时获取粉丝数据
-    this.timer = setInterval(this.getFensi, 60000);//定时间隔，
+    this.timer = setInterval(this.getFensi, 60000); //定时间隔，
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 @import url("//unpkg.com/element-ui@2.13.1/lib/theme-chalk/index.css");
 /deep/ .van-popup {
   overflow: visible;
 }
- .contain{
-    height: 100vh;
+.contain {
+  height: 100vh;
+  display: flex;
+  background-color: #0b2733;
+  background-image: url(../assets/images/ezgif.gif);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  justify-content: space-between;
+  flex-direction: column;
+  .information {
+    height: 90px;
+    margin: 18px 0 0 20px;
     display: flex;
-    background-color: #0B2733;
-    background-image: url(../assets/images/ezgif.gif);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: 0 100%;
-	  justify-content:space-between; 
-    flex-direction: column;
-  .information{
-     height: 90px;
-     margin: 18px 0 0 20px;
-     display: flex;
-     .mes{
-       background-image:url(../assets/images/txbg@2x.png);
-       width: 198px;
-     }
-     .topHalfPart{
-       display: flex;
-       margin-bottom: 6px;
-       .headPortrait{
-         width: 45px;
-         height: 45px;
-         border-radius: 50%;
-         margin: 15px 5px 0 7px;
-         > img{
+    .mes {
+      background-image: url(../assets/images/txbg@2x.png);
+      width: 198px;
+    }
+    .topHalfPart {
+      display: flex;
+      margin-bottom: 6px;
+      .headPortrait {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        margin: 15px 5px 0 7px;
+        > img {
           width: 45px;
           height: 45px;
           border-radius: 50%;
-         }
-       }
-       .infor{
-         display: flex;
-         flex-direction: column;
-         margin-top: 13px;
-         position: relative;
-         background-repeat: no-repeat;
-         background-size: 99px 16px;
-         background-position: 61px 37px;
-         .swsName{
-          font-size:13px;
-          font-family:PingFangSC-Medium,PingFang SC;
-          font-weight:500;
-          color:rgba(122,234,234,1);
-          line-height:18px;
+        }
+      }
+      .infor {
+        display: flex;
+        flex-direction: column;
+        margin-top: 13px;
+        position: relative;
+        background-repeat: no-repeat;
+        background-size: 99px 16px;
+        background-position: 61px 37px;
+        .swsName {
+          font-size: 13px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: rgba(122, 234, 234, 1);
+          line-height: 18px;
           display: flex;
           margin-bottom: 6px;
+
          }
          .line{
            position: absolute;
@@ -811,135 +847,133 @@ export default{
           position: absolute;
           top: 27px;
           left: 6px;
-         }
-         .experience{
-           width: 16px; 
-           height: 20px;
-           position: absolute;
-           left: -6px;
-           top: 24px;
-         }
-         .level{
-           position: absolute;
-           top: 26px;
-           right:-34px;
-           font-size:11px;
-            font-family:DINAlternate-Bold,DINAlternate;
-            font-weight:bold;
-            color:rgba(122,234,234,1);
-            line-height:12px;
-         }
-       }
-     }
-    .bottomHalfPart{
-        display: flex;
-        justify-content: space-between;
-       .leftPart{
-          flex-direction: column;
-          height: 18px;
-          line-height: 18px;
-          background:rgba(197,146,62,1);
-          border-radius:2px;
-          margin-left: 6px;
         }
-        .imgs{
-          display: inline-block;
-          vertical-align:middle;
+        .experience {
+          width: 16px;
+          height: 20px;
+          position: absolute;
+          left: -6px;
+          top: 24px;
         }
-        .res{
-          display: inline-block;
-        }
-        .rightPart{
-          flex-direction: column;
-          flex: 1;
-          text-align: right;
-          font-size:13px;
-          font-family:DINAlternate-Bold,DINAlternate;
-          font-weight:bold;
-          color:rgba(122,234,234,1);
-          line-height:15px;
-          margin-right:8px;
+        .level {
+          position: absolute;
+          top: 26px;
+          right: -34px;
+          font-size: 11px;
+          font-family: DINAlternate-Bold, DINAlternate;
+          font-weight: bold;
+          color: rgba(122, 234, 234, 1);
+          line-height: 12px;
         }
       }
-    .fansAndFriend{
+    }
+    .bottomHalfPart {
+      display: flex;
+      justify-content: space-between;
+      .leftPart {
+        flex-direction: column;
+        height: 18px;
+        line-height: 18px;
+        background: rgba(197, 146, 62, 1);
+        border-radius: 2px;
+        margin-left: 6px;
+      }
+      .imgs {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .res {
+        display: inline-block;
+      }
+      .rightPart {
+        flex-direction: column;
+        flex: 1;
+        text-align: right;
+        font-size: 13px;
+        font-family: DINAlternate-Bold, DINAlternate;
+        font-weight: bold;
+        color: rgba(122, 234, 234, 1);
+        line-height: 15px;
+        margin-right: 8px;
+      }
+    }
+    .fansAndFriend {
       display: flex;
       flex-direction: column;
       margin-right: 14px;
       flex: 1;
       text-align: right;
       align-items: flex-end;
-      .friend{
+      .friend {
         display: flex;
         justify-content: center;
-        margin:8px 0 10px 0;
+        margin: 8px 0 10px 0;
       }
-      .fan{
-		position: relative;
+      .fan {
+        position: relative;
         display: flex;
         justify-content: center;
       }
-      .num{
-        color:rgba(255,255,255,1);
-        font-size:13px;
+      .num {
+        color: rgba(255, 255, 255, 1);
+        font-size: 13px;
       }
-      img{
+      img {
         width: 20px;
         height: 20px;
-        line-height:15px;
-        font-weight:bold;
+        line-height: 15px;
+        font-weight: bold;
         margin: -4px 2px 0 4px;
       }
-      .design{
-        font-size:11px;
-        color:rgba(82,207,209,1);
-        line-height:16px;
-        font-weight:400;
+      .design {
+        font-size: 11px;
+        color: rgba(82, 207, 209, 1);
+        line-height: 16px;
+        font-weight: 400;
       }
-	  .newIcon{
-		  position: absolute;
-		            color: #176C75;
-		            font-size: 3px;
-		            background-color: #FFD87E;
-		            /*height: 24px;改前*/
-		            min-height: 4px;/*改后新增的代码*/
-		  			min-width:4px;/*改后新增的代码*/
-		            right:-25%;
-		            top: -12px;
-		            text-align: center;
-		  			-webkit-border-radius: 4px;
-		            border-radius: 4px;
-		  			padding:2px;
-	  }
-
-
-  }
+      .newIcon {
+        position: absolute;
+        color: #176c75;
+        font-size: 3px;
+        background-color: #ffd87e;
+        /*height: 24px;改前*/
+        min-height: 4px; /*改后新增的代码*/
+        min-width: 4px; /*改后新增的代码*/
+        right: -25%;
+        top: -12px;
+        text-align: center;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        padding: 2px;
+      }
     }
-  .rightList{
+  }
+  .rightList {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     width: 52px;
     align-self: flex-end;
     margin-right: 14px;
     position: absolute;
     top: 14.2%;
     right: 0;
-    color: #2DE2E6;
-    li{
+    color: #2de2e6;
+    li {
       text-align: center;
       margin-top: 15px;
-      img{
+      img {
         width: 40px;
         height: 40px;
       }
-      span{
-        height:18px;
-        font-size:13px;
-        font-weight:500;
-        color:rgba(45,226,230,1);
-        line-height:18px;
-        text-shadow:0px 1px 1px rgba(0,0,0,0.5);
+      span {
+        height: 18px;
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(45, 226, 230, 1);
+        line-height: 18px;
+        text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
       }
-      .new{
+      .new {
         width: 12px;
         height: 12px;
         position: absolute;
@@ -947,22 +981,22 @@ export default{
         top: -4px;
       }
     }
-    a{
+    a {
       text-align: center;
       margin-top: 15px;
-      img{
+      img {
         width: 40px;
         height: 40px;
       }
-      span{
-        height:18px;
-        font-size:13px;
-        font-weight:500;
-        color:rgba(45,226,230,1);
-        line-height:18px;
-        text-shadow:0px 1px 1px rgba(0,0,0,0.5);
+      span {
+        height: 18px;
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(45, 226, 230, 1);
+        line-height: 18px;
+        text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
       }
-      .new{
+      .new {
         width: 12px;
         height: 12px;
         position: absolute;
@@ -971,34 +1005,34 @@ export default{
       }
     }
   }
-  .talk{
+  .talk {
     max-height: 28.5%;
     width: 60.6%;
-    font-size:14px;
+    font-size: 14px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 10;
     overflow: hidden;
     white-space: wrap;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     position: absolute;
     bottom: 54%;
-    margin-left:18.7% ;
+    margin-left: 18.7%;
     text-align: center;
-    font-weight:400;
-    color:rgba(101,201,201,1);
-    line-height:19px;
-    height:auto;
-    background:rgba(0,0,0,0.4);
-    box-shadow:0px 0px 4px 0px rgba(45,226,230,0.75);
-    border:2px solid rgba(45,226,230,1);
+    font-weight: 400;
+    color: rgba(101, 201, 201, 1);
+    line-height: 19px;
+    height: auto;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 0px 4px 0px rgba(45, 226, 230, 0.75);
+    border: 2px solid rgba(45, 226, 230, 1);
     border-radius: 10px;
     padding: 14px 15px 0 15px;
     box-sizing: border-box;
-    .talkContent{
+    .talkContent {
       overflow: hidden;
       white-space: wrap;
-      text-overflow:ellipsis;
+      text-overflow: ellipsis;
       // max-height: 22.7%;
       // height: auto;
       display: -webkit-box;
@@ -1006,236 +1040,235 @@ export default{
       -webkit-line-clamp: 8;
       /*! autoprefixer: off */
     }
-    .active{
+    .active {
       overflow: hidden;
       white-space: wrap;
-      text-overflow:ellipsis;
+      text-overflow: ellipsis;
       // max-height: 22.7%;
       // height: auto;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 0;
     }
-    .btnTalk{
-      margin-top:4px;
-      .leftBtn{
-        width:24px;
-        height:18px;
+    .btnTalk {
+      margin-top: 4px;
+      .leftBtn {
+        width: 24px;
+        height: 18px;
         display: inline-block;
       }
-      .rightBtn{
-        width:24px;
-        height:18px;
+      .rightBtn {
+        width: 24px;
+        height: 18px;
         display: inline-block;
-        margin-left:92px;
+        margin-left: 92px;
       }
     }
   }
-  .triangle{
+  .triangle {
     width: 0;
     height: 0;
     // border-width: 0 40px 40px;
     border-left: 8px solid transparent;
-    border-right:8px solid transparent;
-    border-top: 10px dashed #2DE2E6;
+    border-right: 8px solid transparent;
+    border-top: 10px dashed #2de2e6;
     position: absolute;
     bottom: 52.8%;
-    left:48%;
+    left: 48%;
     // box-shadow:0px 0px 4px 0px rgba(45,226,230,0.75);
   }
-  .triangle2{
+  .triangle2 {
     width: 0;
     height: 0;
     // border-width: 0 40px 40px;
     border-left: 8px solid transparent;
-    border-right:8px solid transparent;
+    border-right: 8px solid transparent;
     border-top: 10px dashed #000;
     position: absolute;
     bottom: 53.4%;
-    left:48%;
+    left: 48%;
     // box-shadow:0px 0px 4px 0px rgba(45,226,230,0.75);
   }
-  .content{
+  .content {
     overflow: hidden;
     background-image: url(../assets/images/earth@2x.png);
     background-size: 100% 54.7%;
     background-repeat: no-repeat;
     background-position: 0 100%;
-    .bebot{
-    margin: 0 auto;
-    // margin-top: -161px;
-    text-align: center;
-    img{
-      width: 128px;
-      height: 201px;
+    .bebot {
+      margin: 0 auto;
+      // margin-top: -161px;
+      text-align: center;
+      img {
+        width: 128px;
+        height: 201px;
+      }
     }
-  }
-  .answer{
-    width: 117px;
-    height: 90px;
-    position: absolute;
-    left: 25px;
-    bottom: 154px;
-    font-size:13px;
-    font-family:PingFangSC-Regular,PingFang SC;
-    font-weight:400;
-    line-height:18px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp:2;
-    text-overflow:ellipsis;
-    text-align: left;
-    height:auto;
-    .ownerAnswer{
-      color:rgba(45,226,230,1);
-      max-height: 36px;
+    .answer {
+      width: 117px;
+      height: 90px;
+      position: absolute;
+      left: 25px;
+      bottom: 154px;
+      font-size: 13px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      line-height: 18px;
       overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      text-overflow: ellipsis;
+      text-align: left;
+      height: auto;
+      .ownerAnswer {
+        color: rgba(45, 226, 230, 1);
+        max-height: 36px;
+        overflow: hidden;
+      }
+      .rebotAnswer {
+        color: rgba(254, 187, 8, 1);
+        max-height: 36px;
+        overflow: hidden;
+      }
     }
-    .rebotAnswer{
-      color:rgba(254,187,8,1);
-      max-height: 36px;
-      overflow: hidden;
-    }
-  }
-    .bottomList{
+    .bottomList {
       display: flex;
-      flex-direction:row;
+      flex-direction: row;
       z-index: 999;
       padding: 0 25px;
       margin-left: 15px;
       margin-bottom: 10px;
       justify-content: space-around;
 
-      li{
+      li {
         display: flex;
         text-align: center;
         opacity: 1;
         margin-right: 15px;
         flex-direction: column;
         justify-content: space-around;
-        img{
+        img {
           width: 53px;
           height: 53px;
         }
-        span{
-          height:18px;
-          font-size:13px;
-          font-weight:500;
-          color:rgba(255,255,255,1);
-          line-height:18px;
-          text-shadow:0px 1px 1px rgba(0,0,0,0.5);
-          font-family:PingFangSC-Medium,PingFang SC;
+        span {
+          height: 18px;
+          font-size: 13px;
+          font-weight: 500;
+          color: rgba(255, 255, 255, 1);
+          line-height: 18px;
+          text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+          font-family: PingFangSC-Medium, PingFang SC;
         }
       }
     }
-	 
-	.input-bottom-content{
-		display: flex;
-		  align-items: center;
-		  justify-content: center;
-	}
-     .input-bottom{
-	
-      width:86.7%;
-      height:42px;
-      background:rgba(92,191,191,0.25);
-      border-radius:8px;
-      border:1px solid rgba(45,226,230,1);
-      flex:0 0 auto;
+
+    .input-bottom-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .input-bottom {
+      width: 86.7%;
+      height: 42px;
+      background: rgba(92, 191, 191, 0.25);
+      border-radius: 8px;
+      border: 1px solid rgba(45, 226, 230, 1);
+      flex: 0 0 auto;
       z-index: 999;
-      justify-content:space-between;
-      input{
-		  float: left;
+      justify-content: space-between;
+      input {
+        float: left;
         width: 68.3%;
-        font-size:15px;
-        font-weight:400;
-        color:rgba(122,234,234,1);
-        line-height:21px;
-        background:none;  
-        outline:none;  
-        border:none;
-        overflow:hidden; 
-        white-space:nowrap; 
-        text-overflow:ellipsis;
+        font-size: 15px;
+        font-weight: 400;
+        color: rgba(122, 234, 234, 1);
+        line-height: 21px;
+        background: none;
+        outline: none;
+        border: none;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
-      .btn{
-		  float: right;
+      .btn {
+        float: right;
         width: 16.7%;
         height: 42px;
         line-height: 42px;
-        color: #2DE2E6;
+        color: #2de2e6;
         // position: fixed;
         // right: 24px;
         // bottom: 15px;
         text-align: center;
-        font-size:13px;
-        font-family:PingFangSC-Semibold,PingFang SC;
-        font-weight:600;
-        border: 1px solid #2DE2E6;
-        border-radius:0 8px 8px 0;
+        font-size: 13px;
+        font-family: PingFangSC-Semibold, PingFang SC;
+        font-weight: 600;
+        border: 1px solid #2de2e6;
+        border-radius: 0 8px 8px 0;
       }
       input::-webkit-input-placeholder,
       textarea::-webkit-input-placeholder {
-      color:rgba(122,234,234,1);
+        color: rgba(122, 234, 234, 1);
       }
     }
-    .cont3{
+    .cont3 {
       width: 305px;
       height: 224px;
-      background:rgba(255,255,255,1);
-      border-radius:15px;
-      .contwrap{
+      background: rgba(255, 255, 255, 1);
+      border-radius: 15px;
+      .contwrap {
         display: flex;
         flex-direction: column;
         text-align: center;
-        font-family:PingFangSC-Regular,PingFang SC;
-        #title{
-          font-size:15px;
-          font-weight:500;
-          color:rgba(51,51,51,1);
-          line-height:21px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        #title {
+          font-size: 15px;
+          font-weight: 500;
+          color: rgba(51, 51, 51, 1);
+          line-height: 21px;
           margin-top: 30px;
         }
-        #warn{
-          font-size:13px;
-          font-weight:400;
-          color:rgba(102,102,102,1);
-          line-height:18px;
+        #warn {
+          font-size: 13px;
+          font-weight: 400;
+          color: rgba(102, 102, 102, 1);
+          line-height: 18px;
           margin-top: 5px;
         }
-        #line{
-          width:265px;
-          height:1px;
-          background:rgba(239,239,239,1);
+        #line {
+          width: 265px;
+          height: 1px;
+          background: rgba(239, 239, 239, 1);
           margin-left: 20px;
           margin-top: 7px;
         }
-        input{
+        input {
           width: 265px;
           height: 25px;
           margin-top: 25px;
           border: 0;
           margin-left: 20px;
         }
-        #limit{
-          font-size:13px;
-          font-family:PingFangSC-Regular,PingFang SC;
-          font-weight:400;
-          color:rgba(253,41,41,1);
-          line-height:18px;
+        #limit {
+          font-size: 13px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: rgba(253, 41, 41, 1);
+          line-height: 18px;
           margin-top: 6px;
         }
       }
     }
-    .moon{
+    .moon {
       margin-bottom: -16px;
       width: 70px;
       height: 92px;
-      flex-shrink: 0
+      flex-shrink: 0;
     }
   }
-  .earth{
+  .earth {
     opacity: 0.4;
     position: absolute;
     left: 0;
@@ -1243,323 +1276,321 @@ export default{
     width: 100%;
     height: 239px;
   }
-  .img1{
-      display: block;
-      width: 65px;
-      height: 65px;
-      margin: 0 auto;
-      margin-top: -31px;}
-    .title{
-      font-size:17px;
-      font-weight:500;
-      color:rgba(0,147,253,1);
-      line-height:24px;
-      text-align: center;
-      margin-top: 20px;
-      text-decoration:rgba(239, 239, 239, 1);
-      position: relative;
-      .active{
-        width:35px;
-        height:3px;
-        background:rgba(0,147,253,1);
-        border-radius:2px;
-        position: absolute;
-        bottom:-5px;
-        left:50%;
-        margin-left:-17.5px;
-      }}
-  .wrap {
-  margin-top: 25px;
-  display: flex;
-  justify-content: space-between;
-  //   border-bottom: 1px solid #cccccc;
-  //   padding-bottom: 15px;
-  > .left {
-    display: flex;
-    margin-left: 20px;
+  .img1 {
+    display: block;
+    width: 65px;
+    height: 65px;
+    margin: 0 auto;
+    margin-top: -31px;
+  }
+  .title {
+    font-size: 17px;
+    font-weight: 500;
+    color: rgba(0, 147, 253, 1);
+    line-height: 24px;
+    text-align: center;
     margin-top: 20px;
-    > .leftLittleLogon {
-      margin-top: 12px;
-      > img {
-        width: 23px;
-        height: 27px;
-      }
+    text-decoration: rgba(239, 239, 239, 1);
+    position: relative;
+    .active {
+      width: 35px;
+      height: 3px;
+      background: rgba(0, 147, 253, 1);
+      border-radius: 2px;
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      margin-left: -17.5px;
     }
-    > .leftBigLogon {
-      // margin-left: 10px;
-      width: 50px;
-      height: 50px;
-      > img {
+  }
+  .wrap {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    //   border-bottom: 1px solid #cccccc;
+    //   padding-bottom: 15px;
+    > .left {
+      display: flex;
+      margin-left: 20px;
+      margin-top: 20px;
+      > .leftLittleLogon {
+        margin-top: 12px;
+        > img {
+          width: 23px;
+          height: 27px;
+        }
+      }
+      > .leftBigLogon {
+        // margin-left: 10px;
         width: 50px;
         height: 50px;
+        > img {
+          width: 50px;
+          height: 50px;
+        }
+      }
+      > .content {
+        > .topTitle {
+          margin-top: -3px;
+          // display: flex;
+          > span {
+            margin-left: 8px;
+            display: block;
+            font-size: 15px;
+            font-family: PingFangSC-Medium, PingFang SC;
+            font-weight: 500;
+            color: rgba(51, 51, 51, 1);
+            line-height: 21px;
+          }
+          > .lelve {
+            white-space: nowrap;
+            margin-left: 10px;
+          }
+          > .dengji {
+            margin: 3px 0 3px 10px;
+            width: 187px;
+            height: 18px;
+            display: flex;
+            .dengji2 {
+              margin-left: 8px;
+            }
+            > img {
+              width: 80px;
+              height: 18px;
+            }
+          }
+        }
+        > .bottom {
+          margin-top: 3px;
+          margin-left: 10px;
+          display: flex;
+          > div img {
+            width: 15px;
+            height: 15px;
+          }
+        }
       }
     }
-    > .content {
-      > .topTitle {
-        margin-top: -3px;
-        // display: flex;
-        > span {
-          margin-left: 8px;
-          display: block;
+    .cont2 {
+      width: 305px;
+      height: 174px;
+      background: rgba(255, 255, 255, 1);
+      border-radius: 15px;
+      .contwrap {
+        font-size: 17px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: rgba(51, 51, 51, 1);
+        line-height: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+        .top {
+          margin-bottom: 7px;
+        }
+        .isOk {
+          display: flex;
+          // align-items: center;
+          // justify-content: center;
+          .isNo {
+            width: 125px;
+            height: 42px;
+            background: rgba(234, 234, 234, 1);
+            border-radius: 4px;
+            text-align: center;
+            line-height: 42px;
+          }
+          .isYes {
+            width: 125px;
+            height: 42px;
+            background: rgba(0, 147, 253, 1);
+            border-radius: 4px;
+            text-align: center;
+            line-height: 42px;
+            margin-left: 20px;
+          }
+        }
+      }
+    }
+    .cont3 {
+      width: 170px;
+      height: 170px;
+      background: rgba(255, 255, 255, 1);
+      border-radius: 15px;
+      .contwrap {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        > img {
+          width: 55px;
+          height: 55px;
+          margin: 25px auto 0;
+        }
+        > div {
           font-size: 15px;
           font-family: PingFangSC-Medium, PingFang SC;
           font-weight: 500;
           color: rgba(51, 51, 51, 1);
           line-height: 21px;
         }
-        > .lelve {
-          white-space: nowrap;
-          margin-left: 10px;
-        }
-        > .dengji {
-          margin:3px 0 3px 10px;
-          width: 187px;
-          height: 18px;
-          display: flex;
-          .dengji2{
-            margin-left: 8px;
-          }
-          > img {
-            width: 80px;
-            height: 18px;
-          }
-        }
       }
-      > .bottom {
-        margin-top: 3px;
-        margin-left: 10px;
+    }
+    .cont4 {
+      width: 305px;
+      height: 208px;
+      background: rgba(255, 255, 255, 1);
+      border-radius: 15px;
+      .contwrap {
         display: flex;
-        > div img{
-          width: 15px;
-          height: 15px;
+        flex-direction: column;
+        text-align: center;
+        > img {
+          width: 55px;
+          height: 55px;
+          margin: 25px auto 0;
+        }
+        > div {
+          font-size: 15px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: rgba(51, 51, 51, 1);
+          line-height: 21px;
         }
       }
     }
-  }
-  .cont2{
-    width: 305px;
-    height: 174px;
-    background:rgba(255,255,255,1);
-    border-radius:15px;
-    .contwrap{
-      font-size:17px;
-      font-family:PingFangSC-Medium,PingFang SC;
-      font-weight:500;
-      color:rgba(51,51,51,1);
-      line-height:24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 30px;
-      .top{
-        margin-bottom: 7px;
-      }
-      .isOk{
+    .cont5 {
+      width: 305px;
+      height: 173px;
+      background: rgba(255, 255, 255, 1);
+      border-radius: 15px;
+      color: #333;
+      .contwrap {
         display: flex;
-        // align-items: center;
-        // justify-content: center;
-        .isNo{
-          width:125px;
-          height:42px;
-          background:rgba(234,234,234,1);
-          border-radius:4px;
-          text-align: center;
-          line-height: 42px;
+        flex-direction: column;
+        text-align: center;
+        > img {
+          width: 55px;
+          height: 55px;
+          margin: 25px auto 0;
         }
-        .isYes{
-          width:125px;
-          height:42px;
-          background:rgba(0,147,253,1);
-          border-radius:4px;
-          text-align: center;
-          line-height: 42px;
-          margin-left: 20px;
+        > div {
+          font-size: 15px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: rgba(51, 51, 51, 1);
+          line-height: 21px;
         }
       }
     }
-  }
-  .cont3{
-    width: 170px;
-    height: 170px;
-    background:rgba(255,255,255,1);
-    border-radius:15px;
-    .contwrap{
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      > img{
-        width: 55px;
-        height: 55px;
-        margin: 25px auto 0;
-        
-      }
-      > div{
-        font-size:15px;
-        font-family:PingFangSC-Medium,PingFang SC;
-        font-weight:500;
-        color:rgba(51,51,51,1);
-        line-height:21px;
-      }
-    }
-
-  }
-  .cont4{
-    width:305px;
-    height:208px;
-    background:rgba(255,255,255,1);
-    border-radius:15px;
-    .contwrap{
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      > img{
-        width: 55px;
-        height: 55px;
-        margin: 25px auto 0; 
-      }
-      > div{
-        font-size:15px;
-        font-family:PingFangSC-Medium,PingFang SC;
-        font-weight:500;
-        color:rgba(51,51,51,1);
-        line-height:21px;
-      }
-    }
-
-  }
-  .cont5{
-    width:305px;
-    height:173px;
-    background:rgba(255,255,255,1);
-    border-radius:15px;
-    color: #333;
-    .contwrap{
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      > img{
-        width: 55px;
-        height: 55px;
-        margin: 25px auto 0; 
-      }
-      > div{
-        font-size:15px;
-        font-family:PingFangSC-Medium,PingFang SC;
-        font-weight:500;
-        color:rgba(51,51,51,1);
-        line-height:21px;
-      }
-    }
-
-  }
-  > .rightLogin {
-      width:80px;
-      height:32px;
-      background:rgba(0,147,253,1);
-      border-radius:16px;
+    > .rightLogin {
+      width: 80px;
+      height: 32px;
+      background: rgba(0, 147, 253, 1);
+      border-radius: 16px;
       margin: 29px 20px 0 0;
       display: flex;
       justify-content: center;
       align-items: center;
 
-      > img{
+      > img {
         width: 16px;
-        height: 16px;  
+        height: 16px;
       }
-      > div{
-        font-size:15px;
-        font-family:PingFangSC-Medium,PingFang SC;
-        font-weight:500;
-        color:rgba(255,255,255,1);
-        line-height:21px;
+      > div {
+        font-size: 15px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 1);
+        line-height: 21px;
         margin-left: 2px;
       }
-  }
-  .rightLogin2{
-      width:80px;
-      height:32px;
-      background:rgba(236,236,236,1);
-      border-radius:16px;
+    }
+    .rightLogin2 {
+      width: 80px;
+      height: 32px;
+      background: rgba(236, 236, 236, 1);
+      border-radius: 16px;
       margin: 29px 20px 0 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-weight:500;
-      font-family:PingFangSC-Medium,PingFang SC;
-      > div{
-          font-size:15px;
-          font-family:PingFangSC-Medium,PingFang SC;
-          font-weight:500;
-          color:rgba(0,147,253,1);
-          line-height:21px;
+      font-weight: 500;
+      font-family: PingFangSC-Medium, PingFang SC;
+      > div {
+        font-size: 15px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: rgba(0, 147, 253, 1);
+        line-height: 21px;
       }
-  }
-  .rightLogin3{
-      width:80px;
-      height:32px;
-      background:rgba(236,236,236,1);
-      border-radius:16px;
+    }
+    .rightLogin3 {
+      width: 80px;
+      height: 32px;
+      background: rgba(236, 236, 236, 1);
+      border-radius: 16px;
       margin: 29px 20px 0 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      > div{
-        font-size:15px;
-        font-family:PingFangSC-Medium,PingFang SC;
-        font-weight:500;
-        color:rgba(172,172,172,1);
-        line-height:21px;
-      }
-  }
-}
-.bottomLine {
-  width: 335px;
-  height: 1px;
-  background: rgba(239, 239, 239, 1);
-  //   margin-top: 15px;
-  margin: 20px auto 0px auto;
-}
- }
- .cont2{
-    width: 305px;
-    height: 174px;
-    background:rgba(255,255,255,1);
-    border-radius:15px;
-    .contwrap{
-      font-size:17px;
-      font-family:PingFangSC-Medium,PingFang SC;
-      font-weight:500;
-      color:rgba(51,51,51,1);
-      line-height:24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 30px;
-      .top{
-        margin-bottom: 7px;
-      }
-      .isOk{
-        display: flex;
-        // align-items: center;
-        // justify-content: center;
-        .isNo{
-          width:125px;
-          height:42px;
-          background:rgba(234,234,234,1);
-          border-radius:4px;
-          text-align: center;
-          line-height: 42px;
-        }
-        .isYes{
-          width:125px;
-          height:42px;
-          background:rgba(0,147,253,1);
-          border-radius:4px;
-          text-align: center;
-          line-height: 42px;
-          margin-left: 20px;
-        }
+      > div {
+        font-size: 15px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: rgba(172, 172, 172, 1);
+        line-height: 21px;
       }
     }
   }
+  .bottomLine {
+    width: 335px;
+    height: 1px;
+    background: rgba(239, 239, 239, 1);
+    //   margin-top: 15px;
+    margin: 20px auto 0px auto;
+  }
+}
+.cont2 {
+  width: 305px;
+  height: 174px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 15px;
+  .contwrap {
+    font-size: 17px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: rgba(51, 51, 51, 1);
+    line-height: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    .top {
+      margin-bottom: 7px;
+    }
+    .isOk {
+      display: flex;
+      // align-items: center;
+      // justify-content: center;
+      .isNo {
+        width: 125px;
+        height: 42px;
+        background: rgba(234, 234, 234, 1);
+        border-radius: 4px;
+        text-align: center;
+        line-height: 42px;
+      }
+      .isYes {
+        width: 125px;
+        height: 42px;
+        background: rgba(0, 147, 253, 1);
+        border-radius: 4px;
+        text-align: center;
+        line-height: 42px;
+        margin-left: 20px;
+      }
+    }
+  }
+}
 </style>
