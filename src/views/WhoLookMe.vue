@@ -44,16 +44,18 @@ export default {
       img: require("../assets/images/Group@2x.png")
     };
   },
+  created(){
+    this.show = this.WhoLook
+  },
+  watch:{
+    WhoLook(newValue){
+      this.show = newValue
+    }
+  },
+  props:['broker_id','robot_id','token','WhoLook'],
   methods: {
     close() {
-      this.$router.push({
-        path: "/",
-        query: {
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robot_id,
-          token: this.$route.query.token
-        }
-      });
+      this.$emit('WhoLookC',false)
     },
     toACchat(index) {
       this.$router.push({
@@ -63,18 +65,18 @@ export default {
           customer_type: this.list[index].customer_type,
           customerImg: this.list[index].headimgurl,
           customer_id: this.list[index].customer_id,
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robot_id,
-          token: this.$route.query.token
+          broker_id: this.broker_id,
+          robot_id: this.robot_id,
+          token: this.token
         }
       });
     }
   },
   mounted() {
     let param = {
-      broker_id: this.$route.query.broker_id,
-      robot_id: this.$route.query.robot_id,
-      token: this.$route.query.token
+      broker_id: this.broker_id,
+      robot_id: this.robot_id,
+      token: this.token
     };
     let result = reqLookMe(param);
     result

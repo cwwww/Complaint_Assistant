@@ -169,99 +169,117 @@
       </div>
 	   </div>
     </div >
-
     <HomeChat v-show="homeChat" @showChatC='showChatP' :show_chat='homeChat' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
+    <WhoLookMe v-show="WhoLook" @WhoLookC='WhoLookP' :WhoLook='WhoLook' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
   </div>
 </template>
 <script>
 import { Popup, Toast } from "vant";
 // import wxapi from '../assets/js/common/wxapi';
-import wx from 'weixin-js-sdk';
-import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList,reqHomeName,reqtaskStatus,reqisunlocked,reqbebotCode,reqwxconfig,reqcustomerlogin  } from '../axios/axios-api'
-export default{
-  components: {},
-  data(){
-    return {
-	linewidthData:'',
-	vipExpiryTime:'',
-	vipNotification:false,
-	vipValid:'',
-	  showNew:false,
-      data:'',
-      newData:'',
-      option:'',
-      showNew:false,
-      showIimit:false,
-      wx_link:'',
-      redirect_uri:'',
-      appId:'',
-      callback:'',
-      code:'',
-      count:'',
-      link:'',
-      url:'',
-      show1: false,
-      isOwn:true,
-      answerHight:'',
-      homeInit:Object,
-      bxdj:'',
-      numIndex:0,
-      showName:false,
-      isInput:'',
-      flag:true,
-      question:'',
-      list:[],
-      list2:[],
-      answer:'',
-      levelbx:'',
-      homeLevel:'',
-      star:'',
-      isStatus:'',
-      fairyStatus:'',
-      messages:'',
-      shareMessages:'',
-	    showNewIcon:false,
+import wx from "weixin-js-sdk";
+import {HomeChat,WhoLookMe} from '../components/HomeChat'
+import {
+  reqHomeInit,
+  reqCusayrob,
+  reqRobotDetail,
+  BeanList,
+  reqHomeName,
+  reqtaskStatus,
+  reqisunlocked,
+  reqbebotCode,
+  reqwxconfig,
+  reqcustomerlogin
+} from "../axios/axios-api";
+export default {
+  components: {
+    HomeChat,
+    WhoLookMe
+  },
+  data() {
+    return {
+      WhoLook:false,
+      homeChat:false,
+      vipExpiryTime: "",
+      vipNotification: false,
+      vipValid: "",
+      showNew: false,
+      data: "",
+      newData: "",
+      option: "",
+      showNew: false,
+      showIimit: false,
+      wx_link: "",
+      redirect_uri: "",
+      appId: "",
+      callback: "",
+      code: "",
+      count: "",
+      link: "",
+      url: "",
+      show1: false,
+      isOwn: true,
+      answerHight: "",
+      homeInit: Object,
+      bxdj: "",
+      numIndex: 0,
+      showName: false,
+      isInput: "",
+      flag: true,
+      question: "",
+      list: [],
+      list2: [],
+      answer: "",
+      levelbx: "",
+      homeLevel: "",
+      star: "",
+      isStatus: "",
+      fairyStatus: "",
+      messages: "",
+      shareMessages: "",
+      showNewIcon: false,
       ezgif: require("../assets/images/ezgif.gif"),
       img: require("../assets/images/icon.png"),
       shop: require("../assets/images/shop@2x.png"),
-      home_zsk:require("../assets/images/home_zsk@2x.png"),
-      product_zsk:require("../assets/images/product_zsk@2x.png"),
-      home_store:require("../assets/images/home_store@2x.png"),
-      home_browse:require("../assets/images/home_browse@2x.png"),
-      home_chatrecord:require("../assets/images/home_chatrecord@2x.png"),
-      home_rankinglist:require("../assets/images/home_rankinglist@2x.png"),
-      home_medal:require("../assets/images/home_medal@2x.png"),
-      home_discover:require("../assets/images/home_discover@2x.png"),
-      home_mytask:require("../assets/images/home_mytask@2x.png"),
-      home_risktest:require("../assets/images/home_risktest@2x.png"),
-      home_planbook:require("../assets/images/home_planbook@2x.png"),
-      moon:require("../assets/images/moon@2x.png"),
-      bebot:require("../assets/images/bebot@2x.png"),
-      earth:require("../assets/images/earth@2x.png"),
-      experience:require("../assets/images/experience@2x.png"),
-      line:require("../assets/images/jindu@2x.png"),
-      famous:require("../assets/images/famous@2x.png"),
-      money:require("../assets/images/money@2x.png"),
-      levelbx1:require("../assets/images/等级-保险新手@2x.png"),
-      levelbx2:require("../assets/images/等级-保险复读机@2x.png"),
-      levelbx3:require("../assets/images/等级-保险条款王@2x.png"),
-      levelbx4:require("../assets/images/等级-保险配置王@2x.png"),
-      levelbx5:require("../assets/images/等级-保险百科@2x.png"),
-      levelbx6:require("../assets/images/等级-保险大咖@2x.png"),
-      levelbx7:require("../assets/images/等级-保险名人堂@2x.png"),
-      nextpage:require("../assets/images/nextpage@2x.png"),
-      nextpage2:require("../assets/images/上一页@2x.png"),
-      success:require("../assets/images/success@2x.png")
-    };
-  },
-  methods: {
-	
-	isNo(){   //pop取消状态
-	  this.vipNotification = false
-	},
-	isYes(){  //pop确定状态
-
-
+      home_zsk: require("../assets/images/home_zsk@2x.png"),
+      product_zsk: require("../assets/images/product_zsk@2x.png"),
+      home_store: require("../assets/images/home_store@2x.png"),
+      home_browse: require("../assets/images/home_browse@2x.png"),
+      home_chatrecord: require("../assets/images/home_chatrecord@2x.png"),
+      home_rankinglist: require("../assets/images/home_rankinglist@2x.png"),
+      home_medal: require("../assets/images/home_medal@2x.png"),
+      home_discover: require("../assets/images/home_discover@2x.png"),
+      home_mytask: require("../assets/images/home_mytask@2x.png"),
+      home_risktest: require("../assets/images/home_risktest@2x.png"),
+      home_planbook: require("../assets/images/home_planbook@2x.png"),
+      moon: require("../assets/images/moon@2x.png"),
+      bebot: require("../assets/images/bebot@2x.png"),
+      earth: require("../assets/images/earth@2x.png"),
+      experience: require("../assets/images/experience@2x.png"),
+      line: require("../assets/images/jindu@2x.png"),
+      famous: require("../assets/images/famous@2x.png"),
+      money: require("../assets/images/money@2x.png"),
+      levelbx1: require("../assets/images/等级-保险新手@2x.png"),
+      levelbx2: require("../assets/images/等级-保险复读机@2x.png"),
+      levelbx3: require("../assets/images/等级-保险条款王@2x.png"),
+      levelbx4: require("../assets/images/等级-保险配置王@2x.png"),
+      levelbx5: require("../assets/images/等级-保险百科@2x.png"),
+      levelbx6: require("../assets/images/等级-保险大咖@2x.png"),
+      levelbx7: require("../assets/images/等级-保险名人堂@2x.png"),
+      nextpage: require("../assets/images/nextpage@2x.png"),
+      nextpage2: require("../assets/images/上一页@2x.png"),
+      success: require("../assets/images/success@2x.png")
+    };
+  },
+  methods: {
+    showChatP(data){
+      this.homeChat = data
+    },
+    WhoLookP(data){
+      this.WhoLook = data
+    },
+    open7() {
+      this.$router.replace("/LevelUp");
+      //       this.$confirm(
     },
     Repository() {
       // 知识库
@@ -1265,7 +1283,6 @@ export default{
       margin-bottom: -16px;
       width: 70px;
       height: 92px;
-      flex-shrink: 0;
     }
   }
   .earth {

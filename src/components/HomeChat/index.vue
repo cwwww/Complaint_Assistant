@@ -53,7 +53,6 @@
           <span>发送</span>
         </div>
       </div>
-
       <router-view v-if="$route.path==='/home'"></router-view>
     </van-popup>
   </div>
