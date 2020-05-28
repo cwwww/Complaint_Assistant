@@ -1,5 +1,22 @@
 <template>
   <div class="contain">
+	  <van-popup
+	      class="cont2"
+	      v-model="vipNotification"
+	    >
+	      <div class="contwrap">
+	        <div class="top">
+	          <span>{{vipExpiryTime}}</span>
+	          <!-- <img style="width:16px;height:16px;" :src=money alt=""> -->
+	          <!-- <span>请前往【会员商店】领取</span> -->
+	        </div>
+	        <div style="margin-bottom:25px;">请前往【会员商店】领取</div>
+	        <div class="isOk">
+	          <div class="isNo" @click="isNo"><span style="color:#666;">忽略</span></div>
+	          <div class="isYes" @click="isYes"><span style="color:#FFF;">去领取</span></div>
+	        </div>
+	      </div>
+	  </van-popup>
     <div class="information">
       <div class="mes">
         <div class="topHalfPart">
@@ -9,6 +26,7 @@
           <div class="infor">
             <div class="swsName">{{homeInit.name}}&nbsp;事务所</div>
             <img class="line" :src=line alt="">
+			<div class="linebg"></div>
             <img class="experience" :src=experience alt="">
             <div class="ArticleExperience">{{homeInit.exp}}/{{homeInit.level_exp}}</div>
             <div class="level">Lv.{{homeInit.level}}</div>
@@ -113,10 +131,14 @@
               <span>排行榜</span>
           </li>
       </ul>
+	  .
+	  <div class="input-bottom-content" >
       <div class="input-bottom" >
         <input type="text" ref="input" placeholder="输入“风险测评”试试" style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"/>
-        <div class="btn" @click="submit">发送</div>
+        <!-- <div class="btn"  @click="submit">发送</div> -->
+		<div class="btn"  @click="open7">发送</div>
       </div>
+	   </div>
     </div >
   </div>
 </template>
@@ -128,6 +150,10 @@ export default{
   components: {},
   data(){
     return {
+	vipExpiryTime:'',
+	vipNotification:false,
+	vipValid:'',
+	
 	  showNew:false,
       link:'',
       show1: false,
@@ -182,6 +208,51 @@ export default{
     };
   },
   methods: {
+	 open7() {
+		 
+		    this.$router.replace('/LevelUp')
+		 
+	  //       this.$confirm(
+			
+			// '','您的会员将于2020/5/3到期请前往【会员商店】领取', {
+			// 	  center: true,
+	  //         confirmButtonText: '去领取',
+	  //         cancelButtonText: '忽略',
+	        
+	  //       }).then(() => {
+	  //         this.$message({
+	  //           type: 'success',
+	  //           message: '去领取!'
+	  //         });
+	  //       }).catch(() => {
+	  //         this.$message({
+	  //           type: 'info',
+	  //           message: '已忽略'
+	  //         });
+	  //       });
+	   // this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+	   //          confirmButtonText: '确定',
+	   //          cancelButtonText: '取消',
+	   //          type: 'warning',
+	   //          center: true
+	   //        }).then(() => {
+	   //          this.$message({
+	   //            type: 'success',
+	   //            message: '删除成功!'
+	   //          });
+	   //        }).catch(() => {
+	   //          this.$message({
+	   //            type: 'info',
+	   //            message: '已取消删除'
+	   //          });
+	   //        });
+	    },
+	isNo(){   //买家精灵商店取消购买
+	  this.vipNotification = false
+	},
+	isYes(){  //买家精灵商店确定购买
+
+	},
     Repository(){
       this.$router.replace('/Repository')
     },
@@ -344,6 +415,19 @@ export default{
       result.then(res=>{
       this.homeInit = res.result
       console.log(this.homeInit)
+	  this.vipNotification = this.homeInit.vip_notification
+	  if(this.homeInit.vip_valid == false){
+		 this.vipExpiryTime ='您的会员已到期'  
+
+		  // this.vipExpiryTime ='您的会员将于'+times+'到期'
+	  }else{
+		  var time=this.homeInit.vip_expiry_time;
+		  var d = new Date(time);
+		  var times=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+		   this.vipExpiryTime ='您的会员将于'+times+'到期'
+		  
+	  }
+	  
       if (this.homeInit.title == 1) { //保险等级
           this.homeLevel = this.levelbx1
         } else if(this.goodsList.title == 2){
@@ -430,6 +514,12 @@ export default{
            width: 99px;
            height: 16px;
          }
+		.line{
+		  width: 99px;
+		  height: 16px;
+		 background: -webkit-gradient(linear, 0% 25%, 75% 100%, from(rgba(45, 226, 230, 0.46)), to(rgba(45, 226, 230, 0.09)));
+		  
+		}
          .ArticleExperience{
           font-size:10px;
           font-family:DINAlternate-Bold,DINAlternate;
@@ -741,7 +831,14 @@ export default{
         }
       }
     }
-    .input-bottom{
+	 
+	.input-bottom-content{
+		display: flex;
+		  align-items: center;
+		  justify-content: center;
+	}
+     .input-bottom{
+	
       width:86.7%;
       height:42px;
       background:rgba(92,191,191,0.25);
@@ -749,10 +846,10 @@ export default{
       border:1px solid rgba(45,226,230,1);
       flex:0 0 auto;
       z-index: 999;
-      margin: 0 auto 15px;
       justify-content:space-between;
       input{
-        width: 78.3%;
+		  float: left;
+        width: 68.3%;
         font-size:15px;
         font-weight:400;
         color:rgba(122,234,234,1);
@@ -765,13 +862,14 @@ export default{
         text-overflow:ellipsis;
       }
       .btn{
-        width: 50px;
+		  float: right;
+        width: 16.7%;
         height: 42px;
         line-height: 42px;
         color: #2DE2E6;
-        position: fixed;
-        right: 24px;
-        bottom: 15px;
+        // position: fixed;
+        // right: 24px;
+        // bottom: 15px;
         text-align: center;
         font-size:13px;
         font-family:PingFangSC-Semibold,PingFang SC;
@@ -1076,4 +1174,46 @@ export default{
   margin: 20px auto 0px auto;
 }
  }
+ .cont2{
+    width: 305px;
+    height: 174px;
+    background:rgba(255,255,255,1);
+    border-radius:15px;
+    .contwrap{
+      font-size:17px;
+      font-family:PingFangSC-Medium,PingFang SC;
+      font-weight:500;
+      color:rgba(51,51,51,1);
+      line-height:24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+      .top{
+        margin-bottom: 7px;
+      }
+      .isOk{
+        display: flex;
+        // align-items: center;
+        // justify-content: center;
+        .isNo{
+          width:125px;
+          height:42px;
+          background:rgba(234,234,234,1);
+          border-radius:4px;
+          text-align: center;
+          line-height: 42px;
+        }
+        .isYes{
+          width:125px;
+          height:42px;
+          background:rgba(0,147,253,1);
+          border-radius:4px;
+          text-align: center;
+          line-height: 42px;
+          margin-left: 20px;
+        }
+      }
+    }
+  }
 </style>
