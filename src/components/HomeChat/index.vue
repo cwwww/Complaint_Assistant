@@ -2,7 +2,7 @@
   <div class="warp">
     <!-- <van-loading /> -->
     <van-popup
-      v-model="show_chat"
+      v-model="chat"
       closeable
       position="bottom"
       :style="{ height: '77.2%' }"
@@ -85,14 +85,14 @@ export default {
     };
   },
   props:['broker_id','robot_id','token','show_chat'],
-//   created(){
-//       this.chat = this.showChat
-//   },
-//   watch:{
-//     showChat(newValue){
-//         this.chat = newValue
-//     }
-//   },
+  created(){
+      this.chat = this.show_chat
+  },
+  watch:{
+    showChat(newValue){
+        this.chat = newValue
+    }
+  },
   methods: {
     close() {
       this.$router.replace("/");
