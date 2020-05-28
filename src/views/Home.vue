@@ -473,18 +473,18 @@ export default{
           console.log('error')
         })
     },
-    customerLogin(){
-          let param = {
-            "OPENID": this.messages.openid,
-            "NICKNAME": this.messages.nickname,
-            "HEADIMGURL":  this.messages.headimgurl,
-            "SEX":  this.messages.sex,
-            "PROVINCE":  this.messages.province,
-            "CITY": this.messages.city,
-            "COUNTRY": this.messages.country,
-            "PRIVILEGE":  this.messages.privilege,
-          }
-	},
+  //   customerLogin(){
+  //         let param = {
+  //           "OPENID": this.messages.openid,
+  //           "NICKNAME": this.messages.nickname,
+  //           "HEADIMGURL":  this.messages.headimgurl,
+  //           "SEX":  this.messages.sex,
+  //           "PROVINCE":  this.messages.province,
+  //           "CITY": this.messages.city,
+  //           "COUNTRY": this.messages.country,
+  //           "PRIVILEGE":  this.messages.privilege,
+  //         }
+	// },
     getFensi(){
       let param = {
             "robot_id": 33,

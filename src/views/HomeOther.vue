@@ -421,6 +421,40 @@
 			  console.log('error')
 			})
 			},
+			impower(){
+				let param = {"code":"this.code"}
+			    let res = reqbebotCode (param)
+			    res.then(res=>{
+				console.log('授权回来的'+res)
+				this.messages = res.result
+				let param = {
+	            "openid": this.messages.openid,
+		//           "NICKNAME": this.messages.nickname,
+		//           "HEADIMGURL":  this.messages.headimgurl,
+		//           "SEX":  this.messages.sex,
+		//           "PROVINCE":  this.messages.province,
+		//           "CITY": this.messages.city,
+		//           "COUNTRY": this.messages.country,
+		//           "PRIVILEGE":  this.messages.privilege,
+				}
+				let result = reqisregistered(param)
+				result.then(res => {
+					console.log('创前：'+ res)
+					this.registers = res.result
+					if(this.registers.visitor_type == '0'){
+						this.isRegister = false
+						this.$router.push('/login')
+					}else if(this.registers.visitor_type == '1'){
+						this.isRegister = true
+					}
+					
+				}).catch(reslove => {
+					console.log('error')
+				})
+				}).catch(reslove=>{
+				  console.log('error')
+				})
+			},
 			getCode(){ // 非静默授权，第一次有弹框
 				this.code = ''
 				// var local = window.location.href // 获取页面url
@@ -481,23 +515,8 @@
 			this.chuanmen();
 		},
 		created(){
-			let param = {
-				"openid": this.openid
-			}
-			let result = reqisregistered(param)
-			result.then(res => {
-				console.log('创前：'+ res)
-				this.registers = res.result
-				if(this.registers.visitor_type == '0'){
-					this.isRegister = false
-					this.$router.push('/login')
-				}else if(this.registers.visitor_type == '1'){
-					this.isRegister = true
-				}
-				
-			}).catch(reslove => {
-				console.log('error')
-			})
+			this.impower()
+
 		}
 
 	}
