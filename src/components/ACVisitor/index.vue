@@ -98,11 +98,15 @@ export default {
       smallBebot: require("../../assets/images/smallBebot.png")
     };
   },
-  props: ['broker_id','robot_id','customer_id','customer_type','token'],
+  props: ['broker_id','robot_id','customer_id','customer_type','token','showACChat'],
   created(){
-    alert(this.broker_id);
+      this.chat = this.showACChat
   },
-  
+  watch:{
+    showACChat(newValue){
+        this.chat = newValue
+    }
+  },
   methods: {
     close() {
         this.$emit('closeACchat',false)
@@ -243,7 +247,6 @@ export default {
     this.scrollToBottom();
   },
   mounted() {
-    alert(JSON.stringify(this.$route.query))
     if (this.dialogMark == 0) {
       this.getMarkrebot();
     }

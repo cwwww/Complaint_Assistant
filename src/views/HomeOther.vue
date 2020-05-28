@@ -121,7 +121,7 @@
     <!-- <div v-if="this.registers.visitor_type == '0'">
 			<img :src=share alt="">
     </div>-->
-	<ACVisitor v-show="showACChat" @closeACchat="closeACchat" :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :customer_id='visitList.customer_id' :customer_type='customer_type' :token ='visitList.token' v-if="visitList.customer_id"/>
+	<ACVisitor v-show="showACChat" @closeACchat="closeACchat" :showACChat='showACChat' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :customer_id='visitList.customer_id' :customer_type='customer_type' :token ='visitList.token' v-if="visitList.customer_id"/>
   </div>
 </template>
 <script>
