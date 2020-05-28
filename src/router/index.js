@@ -6,7 +6,6 @@ import Home from '../views/Home'
 import Ranking from '../views/Ranking'
 import HomeChat from '../views/HomeChild/HomeChat'
 import ACchat from '../views/HomeChild/ACchat'
-import ACVisitor from '../views/HomeChild/ACVisitor'
 import FairyShop from '../views/HomeChild/FairyShop'
 import sellerShop from '../views/HomeChild/sellerShop'
 
@@ -72,27 +71,11 @@ const routes = [
         }
     },
     {
-        path: '/HomeChat',
-        name: "HomeChat",
-        component: HomeChat,
-        meta: {
-            title: "聊天记录"
-        },
-    },
-    {
         path: '/ACchat',
         name: "ACchat",
         component: ACchat,
         meta: {
             title:  "AC代理人对话"
-        },
-    },
-    {
-        path: '/ACVisitor',
-        name: "ACVisitor",
-        component: ACVisitor,
-        meta: {
-            title:  "AC访客对话"
         },
     },
     {

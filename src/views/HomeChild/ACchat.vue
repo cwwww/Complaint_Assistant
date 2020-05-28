@@ -92,31 +92,39 @@ export default {
   },
   methods: {
     close(){
-      this.$router.replace('/WhoLookMe')
+      this.$router.push({
+        path:'/WhoLookMe',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robot_id,
+          "token": this.$route.query.token
+        }
+      })
     },
     getDialogAgent(){  //AC 聊天记录
     let param
     if(this.flag){
         param = {
-          "broker_id":33,
-          "customer_id":1,
-          "customer_type":0,
+          "customer_type":this.$route.query.customer_type,
           "last_sentence":-1,
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          "customer_id":this.$route.query.customer_id,
+          "broker_id": this.$route.query.broker_id,
+          // "robot_id": this.$route.query.robot_id,
+          "token": this.$route.query.token
         }
         this.flag = false
     }else{
         param = {
-          "broker_id":33,
-          "customer_id":1,
-          "customer_type":0,
+          "customer_type":this.$route.query.customer_type,
           "last_sentence":this.lastSentence,
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
-        }
+          "customer_id":this.$route.query.customer_id,
+          "broker_id": this.$route.query.broker_id,
+          // "robot_id": this.$route.query.robot_id,
+          "token": this.$route.query.token 
+      }
     }
       let res = reqDialogAgent(param)
       res.then(res=>{
-
       this.list = res.result.dialog_history
       console.log(this.list)
       this.lastSentence = res.result.last_sentence
@@ -130,13 +138,12 @@ export default {
         } else {
           this.question = this.$refs.input.value
           let param = {
-              "broker_id": 33,
-              "customer_id": 1,
-              // "customer_type":this.$route.query.customer_type,
-              "customer_type":0,
+              "broker_id": this.$route.query.broker_id,
+              "customer_id": this.$route.query.customer_id,
+              "customer_type":this.$route.query.customer_type,
               "speaker": "2",
               "content": this.question,
-              "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+              "token": this.$route.query.token 
           }
           console.log(param)
           let res = reqAgentInput(param)

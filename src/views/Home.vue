@@ -797,12 +797,11 @@ export default{
 			position: absolute;
 			width: 40px;
 			height: 40px;
-			.invitationicon{
-				width: 40px;
-				height: 40px;
-			}
 		}
-		
+		.invitationicon{
+			width: 40px;
+			height: 40px;
+		}
          .ArticleExperience{
           font-size:10px;
           font-family:DINAlternate-Bold,DINAlternate;

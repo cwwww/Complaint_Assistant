@@ -7,14 +7,14 @@
       round
       position="bottom"
       :style="{ height: '77.5%' }"
-      @close=close
+      @close="close"
     >
       <span>谁看过我</span>
       <div class="line"></div>
       <div class="centerContent" @click="toACchat(index)" v-for="(i, index) in list" :key="index">
         <div class="loginImg">
           <img :src="img" alt v-show="i.headimgurl == null" />
-          <img :src=i.headimgurl v-show="i.headimgurl != null" alt="">
+          <img :src="i.headimgurl" v-show="i.headimgurl != null" alt />
         </div>
         <div class="rightContent">
           <div class="leftText">
@@ -33,55 +33,60 @@
   </div>
 </template>
 <script>
-import {  reqLookMe  } from '../axios/axios-api'
+import { reqLookMe } from "../axios/axios-api";
 export default {
   name: "WhoLookMe",
   data() {
     return {
       curIndex: 0,
       show: true,
-      list:[],
+      list: [],
       img: require("../assets/images/Group@2x.png")
     };
   },
   methods: {
-    close(){
+    close() {
       this.$router.push({
-        path:'/',
-        query:{
-          "broker_id": this.$route.query.broker_id,
-          "robot_id": this.$route.query.robot_id,
-          "token": this.$route.query.token
+        path: "/",
+        query: {
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robot_id,
+          token: this.$route.query.token
         }
-      })
+      });
     },
-    toACchat(index){
+    toACchat(index) {
       this.$router.push({
-        path:'/ACchat',
-        query:{
-          titleName:this.list[index].name,
-          customer_type:this.list[index].customer_type,
-          customerImg:this.list[index].headimgurl
+        path: "/ACchat",
+        query: {
+          titleName: this.list[index].name,
+          customer_type: this.list[index].customer_type,
+          customerImg: this.list[index].headimgurl,
+          customer_id: this.list[index].customer_id,
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robot_id,
+          token: this.$route.query.token
         }
-      })
+      });
     }
   },
-  mounted(){
-    let param = {
-      "broker_id": this.$route.query.broker_id,
-      "robot_id": this.$route.query.robot_id,
-      "token": this.$route.query.token
-    }
-    let result = reqLookMe(param)
-    result.then(res=>{
-      this.list = res.result
-      console.log(this.list)
-      }).catch(reslove=>{
-        alert(222)
-         console.log('error')
-      })
+  mounted() {
+    let param = {
+      broker_id: this.$route.query.broker_id,
+      robot_id: this.$route.query.robot_id,
+      token: this.$route.query.token
+    };
+    let result = reqLookMe(param);
+    result
+      .then(res => {
+        this.list = res.result;
+        console.log(this.list);
+      })
+      .catch(reslove => {
+        alert(222);
+        console.log("error");
+      });
   }
-
 };
 </script>
 <style lang="scss" scoped>

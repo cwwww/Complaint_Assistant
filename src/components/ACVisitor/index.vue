@@ -64,7 +64,6 @@
           <span>发送</span>
         </div>
       </div>
-
       <router-view v-if="$route.path==='/HomeOther'"></router-view>
     </van-popup>
   </div>
@@ -99,37 +98,38 @@ export default {
       smallBebot: require("../../assets/images/smallBebot.png")
     };
   },
+  props: ['broker_id','robot_id','customer_id','customer_type','token','showACChat'],
+  created(){
+      this.chat = this.showACChat
+  },
+  watch:{
+    showACChat(newValue){
+        this.chat = newValue
+    }
+  },
   methods: {
     close() {
-      this.$router.push({
-        path:'/HomeOther',
-        query:{
-          broker_id: this.$route.query.broker_id,
-          customer_id: this.$route.query.customer_id,
-          customer_type: this.customer_type,
-          token: this.visitList.token
-        }
-      });
+        this.$emit('closeACchat',false)
     },
     getHistoryCustomer() {
       //AC 聊天记录
       let param;		  
       if (this.flag) {
         param = {
-          broker_id: this.$route.query.broker_id,
-          customer_id: this.$route.query.customer_id,
-          customer_type: this.$route.query.customer_type,
+          broker_id: this.broker_id,
+          customer_id: this.customer_id,
+          customer_type: this.customer_type,
           last_sentence: -1,
-          token: this.$route.query.token
+          token: this.token
         };
         this.flag = false;
       } else {
         param = {
-          broker_id: this.$route.query.broker_id,
-          customer_id: this.$route.query.customer_id,
-          customer_type: this.$route.query.customer_type,
+          broker_id: this.broker_id,
+          customer_id: this.customer_id,
+          customer_type: this.customer_type,
           last_sentence: this.lastSentence,
-          token: this.$route.query.token
+          token: this.token
         };
       }
       let res = reqHistoryCustomer(param);
@@ -153,12 +153,12 @@ export default {
           Toast("请输入聊天内容");
         } else {
           let param = {
-            broker_id: this.$route.query.broker_id,
-            customer_id: this.$route.query.customer_id,
-            customer_type: this.$route.query.customer_type,
+            broker_id: this.broker_id,
+            customer_id: this.customer_id,
+            customer_type: this.customer_type,
             speaker: "1",
             content: this.question,
-            token: this.$route.query.token
+            token: this.token
           };
           console.log(param);
           let res = reqCustomerInput(param);
@@ -183,25 +183,25 @@ export default {
       if (this.isInput) {
         param = {
           dialog_type: "2",
-          customer_id: this.$route.query.customer_id,
-          customer_type: this.$route.query.customer_type,
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robor_id,
+          customer_id: this.customer_id,
+          customer_type: this.customer_type,
+          broker_id: this.broker_id,
+          robot_id: this.robor_id,
           speaker: "1",
           content: ".",
-          token: this.$route.query.token
+          token: this.token
         };
         this.isInput = false;
       } else {
         param = {
           dialog_type: "2",
-          customer_id: this.$route.query.customer_id,
-          customer_type: this.$route.query.customer_type,
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robor_id,
+          customer_id: this.customer_id,
+          customer_type: this.customer_type,
+          broker_id: this.broker_id,
+          robot_id: this.robor_id,
           speaker: "1",
           content: this.question,
-          token: this.$route.query.token
+          token: this.token
         };
       }
       let res = reqCusayrob(param);
@@ -219,11 +219,11 @@ export default {
     chathist(index) {
       console.log(this.list[index]);
       let param = {
-        broker_id: this.$route.query.broker_id,
+        broker_id: this.broker_id,
         sentence_id: this.list[index].sentence_id,
         question: this.question,
         answer: "",
-        token: this.$route.query.token
+        token: this.token
       };
       console.log(param);
       let res = reqChathist(param);
@@ -247,12 +247,10 @@ export default {
     this.scrollToBottom();
   },
   mounted() {
-    alert(JSON.stringify(this.$route.query))
     if (this.dialogMark == 0) {
       this.getMarkrebot();
     }
     this.scrollToBottom();
-    this.getHistoryCustomer()
     window.setInterval(() => {
       setTimeout(this.getHistoryCustomer(), 0);
     }, 2000);
