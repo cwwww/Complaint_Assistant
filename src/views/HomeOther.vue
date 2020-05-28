@@ -86,7 +86,7 @@
           <img :src="back" alt />
           <span>回家</span>
         </li>
-        <li @click="register" v-if="!isRegister">
+        <li @click="toRegister" v-if="!isRegister">
           <img :src="login" alt />
           <span>去登录</span>
         </li>
@@ -165,7 +165,7 @@ export default {
       homeLevel: "",
       star: "",
       isStatus: "",
-      fairyStatus: "",
+	  fairyStatus: "",
       share: require("../assets/images/share@2x.png"),
       img: require("../assets/images/icon.png"),
       register: require("../assets/images/register@2x.png"),
@@ -224,8 +224,17 @@ export default {
       });
     },
     HomeChat() {
-      // 聊天记录
-      this.$router.replace("/ACVisitor");
+	  // 聊天记录
+	  var that = this
+	  that.$router.push({
+        path: "/ACVisitor",
+        query: {
+		  broker_id: that.$route.query.broker_id,
+          customer_id: that.visitList.customer_id,
+		  customer_type: that.customer_type,
+          token: that.visitList.token
+        }
+      });
     },
     toHome() {
       this.$router.replace("/");
@@ -237,7 +246,10 @@ export default {
     nextPage() {
       talkContent.scrollTop += 138;
       this.isOwn = false;
-    },
+	},
+	toRegister(){
+	   this.$router.push("/login");
+	},
     submit(numIndex) {
       this.numIndex += 1;
       if (this.$refs.input.value == "") {
@@ -404,7 +416,8 @@ export default {
 				that.homeLevel = that.levelbx6;
 			} else if (that.homeInit.level == 7) {
 				that.homeLevel = that.levelbx7;
-          }
+		  }
+		  that.HomeChat()
           that.getCusayrob();
           //串门成功后，增加金币和经验
           that.chuanmen();
@@ -466,14 +479,13 @@ export default {
             .then(res => {
               alert("授权" + JSON.stringify(res.result));
               that.registers = res.result;
-              if (that.registers.visitor_type == "-1") {
+              if (that.registers.visitor_type == "0") {
 				that.isRegister = false;
-				
               } else if (that.registers.visitor_type == "1") {
 				that.isRegister = true;
-				that.getHomeInit();
-              } else if (that.registers.visitor_type == "0") {
-                that.isRegister = false
+              } else if (that.registers.visitor_type == "-1") {
+				that.isRegister = false
+				}
                 let param = {
                   openid: that.messages.openid,
                   nickname: that.messages.nickname,
@@ -494,7 +506,7 @@ export default {
                   .catch(reslove => {
                     console.log("error");
                   });
-              }
+              
             })
             .catch(reslove => {
               console.log("error");

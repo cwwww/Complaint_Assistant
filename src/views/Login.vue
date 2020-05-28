@@ -167,11 +167,9 @@ export default {
             this.$router.push({
               path: "/",
               query: {
-                visitor_id: this.messages.ID,
+                broker_id: this.messages.ID,
                 robot_id: this.messages.ROBOT_ID,
                 token: this.messages.token
-
-                // :this.mes.headimgurl
               }
             });
           })
