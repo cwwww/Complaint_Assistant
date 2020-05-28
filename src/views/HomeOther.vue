@@ -135,7 +135,8 @@
 		guanZhu,
 		reqtaskStatus,
 		reqisregistered,
-		reqbebotCode
+		reqbebotCode,
+		reqcustomerlogin
 	} from '../axios/axios-api'
 	export default {
 		components: {},
@@ -446,8 +447,25 @@
 						this.$router.push('/login')
 					}else if(this.registers.visitor_type == '1'){
 						this.isRegister = true
+					}else if(this.registers.visitor_type == '-1'){
+						this.isRegister = true  
+						let param = {
+							"openid": this.messages.openid,
+							"nickname": this.messages.nickname,
+							"sex": this.messages.sex,
+							"province": this.messages.province,
+							"city": this.messages.city,
+							"country":this.messages.country,
+							"headimgurl":this.messages.headimgurl,
+							"privilege":this.messages.privilege
+						}
+						let result = reqcustomerlogin(param)
+						result.then(res => {
+							alert(JSON.stringify(res.result))
+						}).catch(reslove => {
+							console.log('error')
+						})
 					}
-					
 				}).catch(reslove => {
 					console.log('error')
 				})
