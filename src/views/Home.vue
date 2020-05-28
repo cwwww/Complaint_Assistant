@@ -523,9 +523,13 @@ export default{
     getHomeInit(){
       // this.$route.query
       let param = {
-        "robot_id":this.$route.query.visitor_id,
-        "broker_id":this.$route.query.robotId,
-        "token":this.$route.query.token
+        // "robot_id":this.$route.query.visitor_id,
+        // "broker_id":this.$route.query.robotId,
+        // "token":this.$route.query.token,
+		
+		"robot_id":35,
+		"broker_id":35,
+		"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
       }
       console.log(param)
       let result = reqHomeInit(param)
@@ -615,10 +619,6 @@ export default{
     // } else {
     //     // 别的业务逻辑
     // }
-    this.getHomeInit()
-    this.getDetail();
-  //定时获取粉丝数据
-	this.timer = setInterval(this.getFensi, 60000);//定时间隔，
     this.getHomeInit()
     this.getDetail();
     //定时获取粉丝数据

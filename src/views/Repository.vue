@@ -153,11 +153,11 @@ export default {
         this.show4 = false
         this.show3 = true
         let param = {
-          "robot_id":"1",
+          "robot_id":this.$route.query.robot_id,
           "goods_id":this.type,
           "goods_score":this.value,
-          "user_id":"1",
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+          "user_id":this.$route.query.broker_id,
+          "token":this.$route.query.token
         }
         console.log(param)
         let res = reqstarRating (param)
@@ -171,11 +171,11 @@ export default {
     toget(index){
       this.goods = this.list[index].goods_id
       let param = {
-        "robot_id":"1",
+        "robot_id":this.$route.query.robot_id,
         "goods_id":this.goods,
         "type":2,
-        "user_id":"1",
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"    
+        "user_id":this.$route.query.broker_id,
+        "token":this.$route.query.token   
       }
       console.log(param)
       let result = reqReceive(param)
@@ -194,11 +194,11 @@ export default {
       }
       this.type = this.list[index].goods_id
       let param = {
-        "robot_id":"1",
+        "robot_id":this.$route.query.robot_id,
         "goods_id":this.type,
         "type":this.state,
-        "user_id":"1",
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"    
+        "user_id":this.$route.query.broker_id,
+        "token":this.$route.query.token    
       }
       console.log(param)
       let result = reqEnable_kb(param)
@@ -219,9 +219,9 @@ export default {
       let param = {
         "goods_id":this.goods,
         "type":this.type,
-        "robot_id":"1",
-        "user_id":"1",
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"    
+        "robot_id":this.$route.query.robot_id,
+        "user_id":this.$route.query.broker_id,
+        "token":this.$route.query.token    
       }
       console.log(param)
       let result = reqDisable_kb(param)
@@ -233,14 +233,13 @@ export default {
       })
     },
     tovisit:function(broker_id,robot_id){
-	alert("robot_id: "+robot_id);
       this.$router.push({
         path:'/HomeOther',
         query:{
-          robot_id: 33,
-          broker_id:33,
+          robot_id: this.$route.query.robot_id,
+          broker_id:this.$route.query.broker_id,
           robot_visitId:robot_id,
-          token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          token:this.$route.query.token
         }
       })
 	  },
@@ -248,10 +247,11 @@ export default {
       this.$router.replace('/Invite')
     },
     getInit(){
+	  
       let param = {
-        "robot_id":"1",
-        "user_id":"1",
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"    
+        "robot_id":this.$route.query.robot_id,
+        "user_id":this.$route.query.broker_id,
+        "token":this.$route.query.token    
       }
       let result = reqShowList(param)
       result.then(res=>{

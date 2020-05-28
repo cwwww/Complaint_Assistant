@@ -10,7 +10,7 @@
         >
         <img class="img1" :src=shop alt />
         <div class="title">{{this.$route.query.Othername}}精灵商店<div class="active"></div></div>
-        <div class="wrap">
+        <div class="wrap"  v-if="goodsList.status!=''">
           <div class="left">
             <!-- <div class="leftLittleLogon">
               <img :src=home_mytask alt />
@@ -106,7 +106,8 @@
             <div>交易完成</div>
           </div>
         </div>
-        <div class="bottomLine"></div>
+		<div v-else style="margin-top:40px"><center><font size="3px">商品还没有上架，请稍后再来吧！</font></center></div>
+        <div class="bottomLine"  v-if="goodsList.status !=''"></div>
         <router-view></router-view>
       </van-popup>
       
@@ -125,7 +126,9 @@ export default {
       show3: false, // 购买成功弹框
       show4: false, // 评价弹框
       show5: false, // 金币不足弹框
-      goodsList:[],
+      goodsList:{
+		  status : ""
+	  },
       homeInit:Object,
       bxdj:'',
       levelbx:'',
@@ -168,8 +171,16 @@ export default {
   },
   methods: {
     close(){
-      // this.show = false
-      this.$router.replace('/HomeOther')
+      this.$router.push({
+        path:'/HomeOther',
+        query:{
+          robot_id: this.$route.query.robot_id,
+          broker_id:this.$route.query.broker_id,
+          robot_visitId:this.$route.query.robot_visitId,
+		  token:this.$route.query.token
+          }
+      })
+      
     },
     open() {
       this.show2 = true
@@ -247,25 +258,28 @@ export default {
       let res = reqFairyShop(param)
       res.then(res=>{
       var that = this
-      that.goodsList = res.result.goods_list[0]
-      console.log(that.goodsList)
-      this.fairyStatus = that.goodsList.status
-      if (that.goodsList.level == 1) { //保险等级
-          that.levelbx = this.levelbx1
-        } else if(that.goodsList.level == 2){
-          that.levelbx = this.levelbx2
-        } else if(that.goodsList.level == 3){
-          that.levelbx = this.levelbx3
-        } else if(that.goodsList.level == 4){
-          that.levelbx = this.levelbx4
-        } else if(that.goodsList.level == 5){
-          that.levelbx = this.levelbx5
-        } else if(that.goodsList.level == 6){
-          that.levelbx = this.levelbx6
-        } else if(that.goodsList.level == 7){
-          that.levelbx = this.levelbx7
-        }
-        this.star = that.goodsList.score
+	  let length = res.result.goods_list.length ;
+	  if(length > 0){
+		  that.goodsList = res.result.goods_list[0]
+		      console.log(that.goodsList)
+		      this.fairyStatus = that.goodsList.status
+		      if (that.goodsList.level == 1) { //保险等级
+		          that.levelbx = this.levelbx1
+		        } else if(that.goodsList.level == 2){
+		          that.levelbx = this.levelbx2
+		        } else if(that.goodsList.level == 3){
+		          that.levelbx = this.levelbx3
+		        } else if(that.goodsList.level == 4){
+		          that.levelbx = this.levelbx4
+		        } else if(that.goodsList.level == 5){
+		          that.levelbx = this.levelbx5
+		        } else if(that.goodsList.level == 6){
+		          that.levelbx = this.levelbx6
+		        } else if(that.goodsList.level == 7){
+		          that.levelbx = this.levelbx7
+		        }
+		        this.star = that.goodsList.score
+	    }
         }).catch(reslove=>{
            console.log('error')
         })

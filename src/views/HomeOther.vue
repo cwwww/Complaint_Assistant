@@ -203,7 +203,11 @@
 				this.$router.push({
 					path: '/FairyShop',
 					query: {
+						robot_id:this.$route.query.robot_id,
+						broker_id:this.$route.query.broker_id,
+						robot_visitId:this.$route.query.robot_visitId,
 						Othername: this.homeInit.name,
+						token:this.$route.query.token
 					}
 				})
 			},
@@ -441,11 +445,11 @@
 
 		},
 		mounted() {
-			if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
-				this.getCode()
-			} else {
-				// 别的业务逻辑
-			}
+			// if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
+			// 	this.getCode()
+			// } else {
+			// 	// 别的业务逻辑
+			// }
 			// let param = {
 			// 	"openid": this.openid
 			// }
