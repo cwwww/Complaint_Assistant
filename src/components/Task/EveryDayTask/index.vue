@@ -1,184 +1,88 @@
 <template>
   <div class="wrap">
     <div class="main">
-      <div class="content">
-        <div class="leftBox">
-          <div class="leftLogon">
-            <img :src="img" alt>
-          </div>
-          <div class="textContent">
-            <span>和机器人第一次聊天</span>
-            <p>和机器人说第一句话</p>
-          </div>
-        </div>
-        <div class="rightBox">
-          <div v-if="bxmove" class="topTitle" :class="{ 'movetransition': bxmove?'movetransition':'' }">
-            <div class="leftImg">
-              <img :src="img1" alt>
-            </div>
-            <p v-if="showTitle">+100</p>
-            <!-- <p v-else  style="width:19px"></p> -->
-            <div class="rightImg">
-              <img :src="img2" alt>
-            </div>
-            <span v-if="showTitle">+10</span>
-            <!-- <span v-else style="width:19px"></span> -->
-          </div>
-          <div class="topTitle" :class="{'moveTitle':bxmove?'':'moveTitle'}">
-            <div class="leftImg">
-              <img :src="img1" alt>
-            </div>
-            <p>+100</p>
-            <div class="rightImg">
-              <img :src="img2" alt>
-            </div>
-            <span>+10</span>
-          </div>
-          <!--  <transition name="move">
-		   <div v-show="showFlag" class='food'>
-		     <div class="food-content">
-		       <div class="image-header">
-		         <img :src="img2" alt="">
-		       </div>
-		     </div>
-		   </div>
-          </transition>-->
-          <transition name="move">
-            <div class="rightBox" v-show="boxshow">
-              <div class="topTitle">
-                <div class="leftImg">
-                  <img :src="img1" alt>
-                </div>
-                <p>+100</p>
-                <div class="rightImg">
-                  <img :src="img2" alt>
-                </div>
-                <span>+10</span>
-              </div>
-            </div>
-          </transition>
-          <div class="bottomButton" @click="addcoins">
-            <p>{{this.status}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <div class="leftBox">
-          <div class="leftLogon">
-            <img :src="img" alt>
-          </div>
-          <div class="textContent">
-            <span>教机器人的第一条知识</span>
-            <p>在知识库增加一条对话</p>
-          </div>
-        </div>
-        <div class="rightBox">
-          <div class="topTitle">
-            <div class="leftImg">
-              <img :src="img1" alt>
-            </div>
-            <p>+100</p>
-            <div class="rightImg">
-              <img :src="img2" alt>
-            </div>
-            <span>+10</span>
-          </div>
-          <div class="bottomButton twos">
-            <p>领取</p>
-          </div>
-        </div>
-      </div>
 
-      <div class="content">
-        <div class="leftBox">
-          <div class="leftLogon">
-            <img :src="img" alt>
-          </div>
-          <div class="textContent">
-            <span>在商店里边上架你的知识库吧</span>
-            <p>去精灵商店上架知识库</p>
-          </div>
-        </div>
-        <div class="rightBox">
-          <div class="topTitle">
-            <div class="leftImg">
-              <img :src="img1" alt>
-            </div>
-            <p>+4000</p>
-            <div class="rightImg">
-              <img :src="img2" alt>
-            </div>
-            <span>+10</span>
-          </div>
-          <div class="bottomButton threes">
-            <p>领取</p>
-          </div>
+ <div class="content" v-for="(item, index) in EverudayList" :key="item.index">
+      <div class="leftBox">
+        <div class="leftLogon">
+		 <div v-if= "index == 'daily1'">
+			 <img  src="../../../assets/images/chat@2x.png" alt />
+		 </div>
+		 <div v-if="index == 'daily2'">
+			 <img src="../../../assets/images/baifang@2x.png" alt />
+		 </div>
+		 <div v-if="index == 'daily3'">
+			 <img src="../../../assets/images/login@2x.png" alt />
+		 </div>
+		</div>
+        <div class="textContent">
+          <span>
+            <!-- 每日登陆 -->
+            {{item.task_name}}
+            </span>
+          <p>{{item.task_desc}}</p>
         </div>
       </div>
-
-      <div class="content">
-        <div class="leftBox">
-          <div class="leftLogon">
-            <img :src="img" alt>
+      <div class="rightBox">
+        <div v-if="bxmove"  v-show="itemSelected==item.task_id"class="topTitle" :class="{ 'movetransition': bxmove?'movetransition':'' }">
+          <div class="leftImg">
+            <img :src="img1" alt />
           </div>
-          <div class="textContent">
-            <span>找到第一位好友</span>
-            <p>到“发现好友”找到一位朋友，并关注他</p>
+		  <div class="tanchutext" v-if="showTitle">+{{item.awarded_bcoin}}</div>
+          
+          <div class="rightImg">
+            <img :src="img2" alt />
           </div>
+		  <div class="tanchutext" v-if="showTitle">+{{item.awarded_exp}}</div>
+          
         </div>
-        <div class="rightBox">
-          <div class="topTitle">
-            <div class="leftImg">
-              <img :src="img1" alt>
-            </div>
-            <p>+100</p>
-            <div class="rightImg">
-              <img :src="img2" alt>
-            </div>
-            <span>+10</span>
-          </div>
-          <div class="bottomButton four">
-            <p>领取</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="content">
-        <div class="leftBox">
-          <div class="leftLogon">
-            <img :src="img" alt>
-          </div>
-          <div class="textContent">
-            <span>购买一个知识库，收获别人的智慧</span>
-            <p>拜访一位朋友，并且购买他的知识库</p>
-          </div>
-        </div>
-        <div class="rightBox">
-          <div class="topTitle">
-            <div class="leftImg">
-              <img :src="img1" alt>
-            </div>
-            <p>+100</p>
-            <div class="rightImg">
-              <img :src="img2" alt>
-            </div>
-            <span>+20</span>
-          </div>
-          <div class="bottomButton fives">
-            <p>领取</p>
-          </div>
+		<div class="topTitle" :class="{'moveTitle':itemSelected==item.task_id?'':'moveTitle'}">
+		 <div class="leftImg">
+		   <img :src="img1" alt />
+		 </div>
+		 <p>+{{item.awarded_bcoin}}</p>
+		 
+		 
+		 <div class="rightImg">
+		   <img :src="img2" alt />
+		 </div>
+		 <span>+{{item.awarded_exp}}</span>
+		 
+		</div>
+		
+		  <div class="rightBox" v-show="boxshow">
+		    <div class="topTitle" v-if="itemSelected!=item.task_id">
+		      <div class="leftImg">
+		        <img :src="img1" alt>
+		      </div>
+		      
+			  <div class="tanchutext" v-if="showTitle">+{{item.awarded_bcoin}}</div>
+		      <div class="rightImg">
+		        <img :src="img2" alt>
+		      </div>
+		    
+			  <div class="tanchutext" v-if="showTitle">+{{item.awarded_exp}}</div>
+		    </div>
+		  </div>
+	
+        <div class="bottomButton">
+          <p v-if="item.status == '0'">去完成</p>
+		  <p v-if="item.status == '1'"  @click="getTaskStatus(broker_id,robot_id,item.task_id,token,item.index)" >领取</p>
+		  <p v-if="item.status == '2'" >已完成</p>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </template>
 <script>
+	import { getTaskList,reqDialogAgent,taskStatusUpdate } from "../../../axios/axios-api";
 export default {
   name: "EveryDayTask",
   data() {
     return {
       boxshow: false,
-
+		EverudayList:{},
       status: "",
       result: Object,
       type: "",
@@ -187,24 +91,74 @@ export default {
       img2: require("../../../assets/images/jignhangs.png"),
       bxmove: false,
       showTitle:true,
+		itemSelected:'',
     };
   },
   methods: {
+	    //领取任务完成
+	  	  getTaskStatus(broker_id,robot_id,task_id,token,index){
+
+				console.log("task_id", task_id);
+			  this.bxmove = !this.bxmove;
+			  this.itemSelected=task_id;
+			  setTimeout(() => {
+			    this.bxmove=false;
+			    this.itemSelected='';
+			  }, 1000);
+	  		         let _this = this;
+	  	  			//领取金币，更新金币和经验
+	  	  			let param = {
+	  	  			  "broker_id":broker_id,
+	  	  			  "robot_id":robot_id,
+	  	  			  "operation_type":7,
+	  	  			  "token": token,
+	  	  			  "task_id":task_id
+	  	  			};
+	  	  			let result = taskStatusUpdate(param);
+	  	  			result
+	  	  			  .then(res => {
+	  	  			    console.log(res, "领取任务信息");
+	  	  				let result = res.result[task_id];
+	  	  				if(res.result.level > _this.level){
+	  	  					this.$alert("恭喜你升级了！","提示");
+	  	  				}
+	  					this.queryDailyTask();
+	  	  			  })
+	  	  			  .catch(reslove => {
+	  	  			    console.log("error");
+	  	  			  });
+	  	  		
+	  	  },
+	  	  
+	  	  queryDailyTask(){
+	  		  let param2 = {
+	  		    "robot_id": 33,
+	  		    "broker_id":33,
+	  		    "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+	  		    }     
+	  		      let res2 = getTaskList(param2)
+	  		      res2.then(res=>{
+	  		        console.log("每日工作领取："+res)
+	  		  		this.EverudayList = res.result;
+					console.log("EverudayList", this.EverudayList);
+	  		      }).catch(reslove=>{
+	  		         console.log('error')
+	  		      })
+	  	  },
     addcoins() {
-      this.bxmove = !this.bxmove;
-      setTimeout(() => {
-        this.bxmove=false;
+      // this.bxmove = !this.bxmove;
+      // setTimeout(() => {
+      //   this.bxmove=false;
         
-      }, 1200);
-    }
+      // }, 1200);
+    },
+	
   },
   mounted() {
-    console.log(this.type);
-    // console.log(this.$route.query.TaskStatus.np2)
-    // this.result = this.$route.query.TaskStatus
-    // if(this.result.np2 == 2){
-    //     this.status = '已领取'
-    // }
+ this.robot_id = 33;
+ 	this.broker_id = 33;
+ 	this.token = "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1";
+     this.queryDailyTask();
   }
 };
 </script>
@@ -364,69 +318,47 @@ export default {
     }
   }
 }
-.box {
-  overflow: hidden;
-  transition: all 0.25s ease-in;
-  -moz-transition: all 0.25s ease-in;
-  -webkit-transition: all 0.25s ease-in;
+.tanchutext{
+	font-size: 12px;
+	font-family: PingFangSC-Medium, PingFang SC;
+	font-weight: 500;
+	color: #484848;
+	line-height: 17px;
+	
 }
 .moveTitle{
-        margin-top: 23px;
+        margin-top: 20px;
+		margin-left: 5px;
 
 }
-.box:hover {
-  border: 3px solid #ef8d0e;
-  /*Y轴上表示上升*/
-  transform: translateY(-100px);
-}
-//给过渡的name加样式
-
-// .mybox-leave-active,.mybox-enter-active{
-//  transition: all  .25s  ease-in;
-// }
-// .mybox-leave-active,.mybox-enter{
-//  height:0px !important;
-// }
-// .mybox-leave,.mybox-enter-active{
-//  height: 500px;
-// }
 .movetransition {
-  animation: iconmove .3s linear 4;
- 
+  animation: iconmove 1s linear infinite;
+ animation-iteration-count:1;
 }
 @keyframes iconmove {
-  0% {
-    -webkit-transform: translateY(3.4667px);
-     opacity: 0;
-  }
-  25% {
-    -webkit-transform: translateY(-6.4667px);
+	
+	0% {
+	  -webkit-transform: translateY(3px);
+	 opacity: 1;
+		 
+	}
+	25% {
+	  -webkit-transform: translateY(-10px);
+	opacity: 0.75;
+	}
+	50% {
+	  -webkit-transform: translateY(-20px);
+	  opacity: 0.5;
+	}
+	75% {
+	  -webkit-transform: translateY(-30px);
+	  opacity: 0.25;
+	}
+	100% {
+	  -webkit-transform: translateY(-40px);
+	   
+		  opacity: 0;
+	}
+}
 
-  }
-  // 50% {
-  //   -webkit-transform: translateY(-9.4667px);
-  // }
-  // 75% {
-  //   -webkit-transform: translateY(-12.4667px);
-  // }
-  100% {
-    -webkit-transform: translateY(-15.4667px);
-    //  opacity: 1;
-  }
-}
-.move-enter,
-.move--leave {
-  transform: translate(100%, 0, 0);
-}
-.demo_transform4 {
-  // -webkit-transform: translate(120px, 0);
-  // -moz-transform: translate(120px, 0);
-}
-.menu ul li.translate a:hover {
-  -moz-transform: translate(-10px, -10px);
-  -webkit-transform: translate(-10px, -10px);
-  -o-transform: translate(-10px, -10px);
-  -ms-transform: translate(-10px, -10px);
-  transform: translate(-10px, -10px);
-}
 </style>

@@ -45,8 +45,8 @@ export default {
 	.iconRecive {
 	  height: 100vh;
 	  display: flex;
-	  background-color: #0B2733;
-	  background-image: url(../assets/images/popbg.png);
+	  // background-image: url(../assets/images/popbg.png);
+	  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../assets/images/popbg.png) no-repeat 0% 20%/ cover;
 	  background-size: 100% 100%;
 	  background-repeat: no-repeat;
 	  background-position: 0 100%;
@@ -102,7 +102,7 @@ export default {
 	    display: flex;
 	    flex-direction: column;
 	    align-items: center;
-		animation:div-relative 1s linear infinite;
+		animation:div-relative 1.5s linear infinite;
 		animation-iteration-count:1;
 		.div-relative{
 		position:relative;
@@ -128,13 +128,13 @@ export default {
 			  0%{-webkit-transform:rotate(0deg);
 			  transform-origin:center top;
 			  }
-			  25%{-webkit-transform:rotate(45deg);
+			  25%{-webkit-transform:rotate(30deg);
 			   transform-origin:center top;
 			  }
 			  50%{-webkit-transform:rotate(0deg);
 			   transform-origin:center top;
 			  }
-			  75%{-webkit-transform:rotate(-45deg);
+			  75%{-webkit-transform:rotate(-30deg);
 			   transform-origin:center top;
 			  }
 			  100%{-webkit-transform:rotate(0deg);
@@ -300,7 +300,7 @@ export default {
 	  height:300px;
 	  color: #fff;
 	  font-size: 80px;
-	  
+	  font-weight: 900;
 	  animation:btn 0.8s linear infinite;
 	  animation-iteration-count:1;
 	  }

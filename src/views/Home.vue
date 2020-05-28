@@ -26,7 +26,9 @@
           <div class="infor">
             <div class="swsName">{{homeInit.name}}&nbsp;事务所</div>
             <img class="line" :src=line alt="">
-			<div class="linebg"></div>
+			
+			<div class="linebg"     :style="{'width': linewidthData}"></div>
+			
             <img class="experience" :src=experience alt="">
             <div class="ArticleExperience">{{homeInit.exp}}/{{homeInit.level_exp}}</div>
             <div class="level">Lv.{{homeInit.level}}</div>
@@ -58,6 +60,9 @@
         </div>
       </div>
     </div>
+	<div class="invitation">
+		<img class="invitationicon" src="../assets/images/邀请@2x.png" alt="">
+		</div>
     <div class="rightList">
       <ul >
         <li>
@@ -152,9 +157,7 @@
       <div class="input-bottom" >
         <input type="text" ref="input" placeholder="输入“风险测评”试试" style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"/>
         <div class="btn"  @click="submit">发送</div> 
-		<!-- <div class="btn"  @click="open7">发送</div> -->
       </div>
-
 	   </div>
     </div >
     </div>
@@ -170,6 +173,7 @@ export default{
   components: {},
   data(){
     return {
+	linewidthData:'',
 	vipExpiryTime:'',
 	vipNotification:false,
 	vipValid:'',
@@ -242,14 +246,11 @@ export default{
     };
   },
   methods: {
-	 open7() {
-		 
-		    this.$router.replace('/LevelUp')
-	    },
-	isNo(){   //买家精灵商店取消购买
+	
+	isNo(){   //pop取消状态
 	  this.vipNotification = false
 	},
-	isYes(){  //买家精灵商店确定购买
+	isYes(){  //pop确定状态
 
 	},
 	Repository(){ // 知识库
@@ -619,19 +620,25 @@ export default{
         this.showName = true
       }
       console.log(this.homeInit)
-	  this.vipNotification = this.homeInit.vip_notification
-	  if(this.homeInit.vip_valid == false){
-		 this.vipExpiryTime ='您的会员已到期'  
-
-		  // this.vipExpiryTime ='您的会员将于'+times+'到期'
+	  if(this.vipNotification == true ){
+		 
 	  }else{
-		  var time=this.homeInit.vip_expiry_time;
-		  var d = new Date(time);
-		  var times=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
-		   this.vipExpiryTime ='您的会员将于'+times+'到期'
-		  
+		  this.vipNotification = this.homeInit.vip_notification
+		  if(this.homeInit.vip_valid == false){
+		  		 this.vipExpiryTime ='您的会员已到期'  
+		  		  // this.vipExpiryTime ='您的会员将于'+times+'到期'
+		  }else{
+		  		  var time=this.homeInit.vip_expiry_time;
+		  		  var d = new Date(time);
+		  		  var times=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+		  		   this.vipExpiryTime ='您的会员将于'+times+'到期'	  
+		  }
 	  }
-	  
+	  var expLine =0;
+	  //99为进度条px值 
+	  expLine=this.homeInit.exp/this.homeInit.level_exp *99;
+	  this.linewidthData=expLine+"px", 
+	     console.log('this.linewidthData',this.linewidthData)
       if (this.homeInit.title == 1) { //保险等级
           this.homeLevel = this.levelbx1
         } else if(this.homeInit.title == 2){
@@ -764,20 +771,38 @@ export default{
           margin-bottom: 6px;
          }
          .line{
-           width: 99px;
+           position: absolute;
+           	top: 23px;
+           	left:0px;
            height: 16px;
+		   z-index:20;
+		   // background: -webkit-gradient(linear, 0% 25%, 75% 100%, from(rgba(45, 226, 230,0.09) ), to( rgba(45, 226, 230,0.46 )));
          }
 		.linebg{
+			z-index:10;
+			// width: 99px;
 			position: absolute;
 			top: 23px;
-			right:0px;
-		  width: 99px;
+			left:0px;
 		  height: 16px;
-		  // background:rgba(45, 226, 230, 0.46);
-		 background: -webkit-gradient(linear, 0% 25%, 75% 100%, from(rgba(45, 226, 230, 0.46)), to(rgba(45, 226, 230, 0.09)));
-		 opacity: 0.5;
+		 
+		 background: -webkit-gradient(linear, 0% 25%, 75% 100%, from(rgba(45, 226, 230,0.09) ), to( rgba(45, 226, 230,0.46 )));
+		 
 		  
 		}
+		.invitation{
+			margin-left: 6px;
+			top: 23px;
+			left:0px;
+			position: absolute;
+			width: 40px;
+			height: 40px;
+			.invitationicon{
+				width: 40px;
+				height: 40px;
+			}
+		}
+		
          .ArticleExperience{
           font-size:10px;
           font-family:DINAlternate-Bold,DINAlternate;
