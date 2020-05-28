@@ -142,6 +142,7 @@
 		components: {},
 		data() {
 			return {
+				visitList:'',
 				mes:'',
 				registers:'',
 				isRegister:Boolean,
@@ -344,17 +345,22 @@
 				  });
 			},
 			getHomeInit() {
-				if(this.isRegister = false){
+				if(this.registers.visitor_type == '0'){
 					this.customer_type = 0
-				}else if(this.isRegister = true){
+					this.customer_robot_id = this.visitList.robot_id
+				}else if(this.registers.visitor_type == '1'){
 					this.customer_type = 1
+					this.customer_robot_id = this.visitList.robot_id
+				}else if(this.registers.visitor_type == '-1'){
+					this.customer_type = 0
+					this.customer_robot_id = ''
 				}
 				let param = {
-					"customer_id": this.$route.query.broker_id,
+					"customer_id": this.visitList.visitor_id,
 					"customer_robot_id": this.$route.query.robot_id,
 					"customer_type": this.customer_type,
-					"visited_robot_id": this.$route.query.robot_visitId,
-					"token": this.$route.query.token
+					"visited_robot_id": this.$route.query.broker_id,
+					"token": this.visitList.token
 				}
 				let result = reqVisitedInit(param)
 				result.then(res => {
@@ -448,7 +454,7 @@
 					}else if(this.registers.visitor_type == '1'){
 						this.isRegister = true
 					}else if(this.registers.visitor_type == '-1'){
-						this.isRegister = true  
+						// this.isRegister = true  
 						let param = {
 							"openid": this.messages.openid,
 							"nickname": this.messages.nickname,
@@ -462,6 +468,7 @@
 						let result = reqcustomerlogin(param)
 						result.then(res => {
 							alert(JSON.stringify(res.result))
+							this.visitList = res.result
 						}).catch(reslove => {
 							console.log('error')
 						})
@@ -522,10 +529,8 @@
 			// }).catch(reslove => {
 			// 	console.log('error')
 			// })
-			this.getHomeInit()
-			this.getCusayrob()
-			//串门成功后，增加金币和经验
-			this.chuanmen();
+			
+
 		},
 		created(){
 			if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
@@ -535,7 +540,10 @@
 			}
 			alert(this.code)
 			this.impower(this.code)
-
+			this.getHomeInit()
+			this.getCusayrob()
+			//串门成功后，增加金币和经验
+			this.chuanmen();
 		}
 
 	}
