@@ -1,118 +1,123 @@
 <template>
 	<div class="contain">
-		<div class="information">
-			<div class="mes">
-				<div class="topHalfPart">
-					<div class="headPortrait">
-						<img :src=homeInit.headimgurl alt="">
+		<!-- <div v-if="this.registers.visitor_type == '1'"> -->
+			<div class="information">
+				<div class="mes">
+					<div class="topHalfPart">
+						<div class="headPortrait">
+							<img :src=homeInit.headimgurl alt="">
+						</div>
+						<div class="infor">
+							<div class="swsName">{{homeInit.name}}&nbsp;事务所</div>
+							<!-- <img class="line" :src=line alt=""> -->
+							<!-- <img class="experience" :src=experience alt=""> 
+				<div class="ArticleExperience">{{homeInit.exp}}/{{homeInit.level_exp}}</div> -->
+							<div class="level">Lv.{{homeInit.level}}</div>
+							<!-- <div class="leftPart"> -->
+							<img :src=homeLevel style="height:18px;line-height:18px;margin-left: 40px;" alt="">
+							<!-- </div> -->
+						</div>
 					</div>
-					<div class="infor">
-						<div class="swsName">{{homeInit.name}}&nbsp;事务所</div>
-						<!-- <img class="line" :src=line alt=""> -->
-						<!-- <img class="experience" :src=experience alt=""> 
-            <div class="ArticleExperience">{{homeInit.exp}}/{{homeInit.level_exp}}</div> -->
-						<div class="level">Lv.{{homeInit.level}}</div>
-						<!-- <div class="leftPart"> -->
-						<img :src=homeLevel style="height:18px;line-height:18px;margin-left: 40px;" alt="">
-						<!-- </div> -->
+					<div class="bottomHalfPart">
+						<div class="leftPart">
+							<!-- <img :src=homeLevel style="height:18px;line-height:18px;" alt=""> -->
+							<div class="guanzhu" @click="guanzhu">{{guanzhuContent}}</div>
+						</div>
+						<!-- <div class="rightPart">
+				<div class="imgs">
+				<img :src=money style="width:16px;height:16px;margin-right:4px;" alt="">
+				</div>
+				<div class="res">{{homeInit.bcoin}}</div>
+			</div> -->
 					</div>
 				</div>
-				<div class="bottomHalfPart">
-					<div class="leftPart">
-						<!-- <img :src=homeLevel style="height:18px;line-height:18px;" alt=""> -->
-						<div class="guanzhu" @click="guanzhu">{{guanzhuContent}}</div>
+				<div class="fansAndFriend">
+					<div class="friend">
+						<span class="num">{{homeInit.fans_num}}</span>
+						<img src="../assets/images/friends@2x.png" alt="">
+						<span class="design">好友</span>
 					</div>
-					<!-- <div class="rightPart">
-            <div class="imgs">
-            <img :src=money style="width:16px;height:16px;margin-right:4px;" alt="">
-            </div>
-            <div class="res">{{homeInit.bcoin}}</div>
-          </div> -->
+					<div class="fan">
+						<span class="num">{{homeInit.fans_num}}</span>
+						<img src="../assets/images/fans@2x.png" alt="">
+						<span class="design">粉丝</span>
+					</div>
 				</div>
 			</div>
-			<div class="fansAndFriend">
-				<div class="friend">
-					<span class="num">{{homeInit.fans_num}}</span>
-					<img src="../assets/images/friends@2x.png" alt="">
-					<span class="design">好友</span>
+			<div class="rightList">
+				<ul>
+					<li @click="toFXCP">
+						<img :src=home_risktest alt="">
+						<div>风险测评</div>
+					</li>
+					<li @click="toPlan">
+						<img :src=home_planbook alt="">
+						<div>计划书</div>
+					</li>
+				</ul>
+			</div>
+			<div>
+				<div class="talk">
+					<!-- <div v-show="!answer">Hi，有空么，和我 随便聊聊呗</div>
+			{{answer}} -->
+					<div class="talkContent" id="talkContent" :class="{active:isOwn}">{{answer}}
+					</div>
+					<div class="btnTalk">
+						<img @click="previousPage" class="leftBtn" :src=nextpage2 alt="">
+						<img class="rightBtn" @click="nextPage" :src=nextpage alt="">
+					</div>
 				</div>
-				<div class="fan">
-					<span class="num">{{homeInit.fans_num}}</span>
-					<img src="../assets/images/fans@2x.png" alt="">
-					<span class="design">粉丝</span>
+				<div class="triangle"></div>
+				<div class="triangle2"></div>
+			</div>
+			<div class="content">
+				<img class="moon" :src=moon alt="">
+				<div class="bebot">
+					<img :src=bebot alt="">
+				</div>
+				<div class="answer" id="answer">
+					<div v-for="(i,index) in list2" :key="index">
+						<div class="ownerAnswer" v-show="index%2 == 1">{{i}}</div>
+						<div class="rebotAnswer" v-show="index%2 == 0">{{i}}</div>
+					</div>
+				</div>
+				<ul class="bottomList">
+					<li @click="toHome" v-if="isRegister">>
+						<img :src=back alt="">
+						<span>回家</span>
+					</li>
+					<li @click="register" v-if="!isRegister">
+						<img :src=login alt="">
+						<span>去登陆</span>
+					</li>
+					<li style="visibility:hidden">
+						<img :src=home_rankinglist alt="">
+					</li>
+					<li style="visibility:hidden">
+						<img :src=home_browse alt="">
+					</li>
+					<li @click="FairyShop">
+						<img :src=home_store alt="">
+						<span>精灵商店</span>
+						<router-view></router-view>
+					</li>
+					<li @click="HomeChat">
+						<img :src=home_chatrecord alt="">
+						<span>聊天记录</span>
+						<router-view></router-view>
+					</li>
+				</ul>
+				<div class="input-bottom">
+					<input type="text" ref="input" placeholder="输入“风险测评”试试" style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;" />
+					<div class="btn" @click="submit">发送</div>
 				</div>
 			</div>
-		</div>
-		<div class="rightList">
-			<ul>
-				<li @click="toFXCP">
-					<img :src=home_risktest alt="">
-					<div>风险测评</div>
-				</li>
-				<li @click="toPlan">
-					<img :src=home_planbook alt="">
-					<div>计划书</div>
-				</li>
-			</ul>
-		</div>
-		<div>
-			<div class="talk">
-				<!-- <div v-show="!answer">Hi，有空么，和我 随便聊聊呗</div>
-        {{answer}} -->
-				<div class="talkContent" id="talkContent" :class="{active:isOwn}">{{answer}}
-				</div>
-				<div class="btnTalk">
-					<img @click="previousPage" class="leftBtn" :src=nextpage2 alt="">
-					<img class="rightBtn" @click="nextPage" :src=nextpage alt="">
-				</div>
-			</div>
-			<div class="triangle"></div>
-			<div class="triangle2"></div>
-		</div>
-		<div class="content">
-			<img class="moon" :src=moon alt="">
-			<div class="bebot">
-				<img :src=bebot alt="">
-			</div>
-			<div class="answer" id="answer">
-				<div v-for="(i,index) in list2" :key="index">
-					<div class="ownerAnswer" v-show="index%2 == 1">{{i}}</div>
-					<div class="rebotAnswer" v-show="index%2 == 0">{{i}}</div>
-				</div>
-			</div>
-			<ul class="bottomList">
-				<li @click="toHome" v-if="isRegister">>
-					<img :src=back alt="">
-					<span>回家</span>
-				</li>
-				<li @click="register" v-if="!isRegister">
-					<img :src=login alt="">
-					<span>去登陆</span>
-				</li>
-				<li style="visibility:hidden">
-					<img :src=home_rankinglist alt="">
-				</li>
-				<li style="visibility:hidden">
-					<img :src=home_browse alt="">
-				</li>
-				<li @click="FairyShop">
-					<img :src=home_store alt="">
-					<span>精灵商店</span>
-					<router-view></router-view>
-				</li>
-				<li @click="HomeChat">
-					<img :src=home_chatrecord alt="">
-					<span>聊天记录</span>
-					<router-view></router-view>
-				</li>
-			</ul>
-			<div class="input-bottom">
-				<input type="text" ref="input" placeholder="输入“风险测评”试试" style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;" />
-				<div class="btn" @click="submit">发送</div>
-			</div>
-			<!-- <img class="earth" :src=earth alt=""> -->
-		</div>
+		<!-- </div> -->
+		<!-- <div v-if="this.registers.visitor_type == '0'">
+			<img :src=share alt="">
+		</div> -->
 	</div>
+
 </template>
 <script>
 	import {
@@ -158,6 +163,7 @@
 				star: '',
 				isStatus: '',
 				fairyStatus: '',
+				share: require("../assets/images/share@2x.png"),
 				img: require("../assets/images/icon.png"),
 				register: require("../assets/images/register@2x.png"),
 				ezgif: require("../assets/images/ezgif.gif"),
@@ -405,7 +411,6 @@
 				    console.log("error");
 				  });
 			},
-			
 			impower(){
 			let param = {"code":this.code}
 		    let res = reqbebotCode(param)
@@ -444,11 +449,11 @@
 
 		},
 		mounted() {
-			// if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
-			// 	this.getCode()
-			// } else {
-			// 	// 别的业务逻辑
-			// }
+			if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
+				this.getCode()
+			} else {
+				// 别的业务逻辑
+			}
 			// let param = {
 			// 	"openid": this.openid
 			// }
@@ -481,16 +486,13 @@
 			result.then(res => {
 				console.log('创前：'+ res)
 				this.registers = res.result
-				
 				if(this.registers.visitor_type == '0'){
 					this.isRegister = false
 					this.$router.push('/login')
-					// this.$route.query.broker_id = this.registers.visitor_id
-					// this.$route.query.robot_id = this.registers.robot_id
-					// this.$route.query.token = this.registers.token
 				}else if(this.registers.visitor_type == '1'){
 					this.isRegister = true
 				}
+				
 			}).catch(reslove => {
 				console.log('error')
 			})
