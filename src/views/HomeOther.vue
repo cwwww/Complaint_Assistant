@@ -242,6 +242,7 @@
 				}
 			},
 			getCusayrob() {
+				alert('getCusayrob')
 				this.question = this.$refs.input.value
 				let param
 				if (this.flag) {
@@ -368,7 +369,7 @@
 				alert('33'+JSON.stringify(param))
 				let result = reqVisitedInit(param)
 				result.then(res => {
-					// alert(JSON.stringify(res.result))
+					alert('init'+JSON.stringify(res.result))
 					this.homeInit = res.result
 					if(this.homeInit.followed){
 						this.guanzhuContent ="已关注";
@@ -390,6 +391,9 @@
 						} else if (this.homeInit.level == 7) {
 							this.homeLevel = this.levelbx7
 						}
+				this.getCusayrob()
+					//串门成功后，增加金币和经验
+				// this.chuanmen();
 				}).catch(reslove => {
 					console.log('error')
 				})
@@ -464,9 +468,7 @@
 							this.visitList = res.result
 							alert('授权完成')
 							this.getHomeInit()
-							this.getCusayrob()
-							//串门成功后，增加金币和经验
-							this.chuanmen();
+							
 						}).catch(reslove => {
 							console.log('error')
 						})
