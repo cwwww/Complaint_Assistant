@@ -302,8 +302,7 @@
 					   }
 					 })
 				}	
-			},
-			
+			},		
 			//关注好友
 			guanzhuUpdateTask(){
 				let param = {

@@ -62,7 +62,7 @@ export default {
       curIndex: 0,
       show: true,
       isShow:false,
-	  showIndex:0,
+	    showIndex:0,
       flag:true,
       img: require("../assets/images/Q_small_icon@2x.png"),
       img1: require("../assets/images/A_small_icon@2x.png"),
@@ -84,10 +84,10 @@ export default {
       console.log(this.list[index])
       let param = {
         "online_data_id":this.list[index].online_data_id,
-        "broker_id":33,
+        "broker_id":this.$route.query.broker_id,
         "question":this.$route.query.Qusetion,
         "answer":this.$route.query.Answer,
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        "token":this.$route.query.token
       }
       console.log(param)
       let res = reqlistPage(param)
@@ -107,10 +107,10 @@ export default {
         this.Answer = ''
       }
       let param = {
-        "broker_id":33,
+        "broker_id":this.$route.query.broker_id,
         "question":this.Qusetion,
         "answer":this.Answer,
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        "token":this.$route.query.token
       }
       console.log(param)
       let res = reqaddledgeList(param)
@@ -123,9 +123,9 @@ export default {
     },
     remove(index){
       let param = {
-        "broker_id":33,
+        "broker_id":this.$route.query.broker_id,
         "online_data_id":this.list[index].online_data_id,
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        "token":this.$route.query.token
       }
       console.log(param)
       let res = reqdeleteList (param)
@@ -145,7 +145,7 @@ export default {
     },
     toSave(index){
       //this.isShow = false
-	  this.showIndex = -1;
+	    this.showIndex = -1;
       this.$route.query.Qusetion = document.getElementById("myText").value
       this.$route.query.Answer = document.getElementById("myText2").value
       // if(this.list[index].Qusetion == ''){
@@ -161,10 +161,10 @@ export default {
 	  
       let param = {
         "modified_data_id":this.list[index].online_data_id,
-        "broker_id":33,
+        "broker_id":this.$route.query.broker_id,
         "question":this.$route.query.Qusetion,
         "answer":this.$route.query.Answer,
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        "token":this.$route.query.token
       }
       let res = reqeditList(param)
         res.then(res=>{
@@ -179,8 +179,8 @@ export default {
     ShoWList(){
 	  this.showIndex = -1;
       let param = {
-        "broker_id":33,
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        "broker_id":this.$route.query.broker_id,
+        "token":this.$route.query.token
       }
       console.log(param)
       let res = reqknowledgeList (param)

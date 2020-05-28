@@ -175,7 +175,7 @@ export default{
       fairyStatus:'',
       messages:'',
       shareMessages:'',
-	  showNewIcon:false,
+	    showNewIcon:false,
       ezgif: require("../assets/images/ezgif.gif"),
       img: require("../assets/images/icon.png"),
       shop: require("../assets/images/shop@2x.png"),
@@ -210,23 +210,51 @@ export default{
     };
   },
   methods: {
-    Repository(){
-      this.$router.replace('/Repository')
+    Repository(){ // 知识库
+      this.$router.push({
+        path:'/Repository',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token
+        }
+	    })
 	  this.destoryTimer();
     },
-    FairyShop(){  //买家精灵商店
-      this.$router.replace('/sellerShop')
-	  this.destoryTimer();
+    FairyShop(){  // 买家精灵商店
+      this.$router.push({
+        path:'/sellerShop',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token
+        }
+	    })
+	    this.destoryTimer();
     },
     HomeChat(){  // 聊天记录
-      this.$router.replace('/HomeChat')
-	  this.destoryTimer();
+      this.$router.push({
+        path:'/HomeChat',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token
+        }
+	    })
+	    this.destoryTimer();
     },
     WhoLookMe(){  // 谁看过我
-      this.$router.replace('/WhoLookMe')
-	  this.destoryTimer();
+      this.$router.push({
+        path:'/WhoLookMe',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token
+        }
+	    })
+	   this.destoryTimer();
     },
-    Ranking(){
+    Ranking(){  //排行榜
       //this.$router.replace('/Ranking')
 	    this.$router.push({
 	    path:'/Ranking',
@@ -242,10 +270,13 @@ export default{
       this.$router.push({
         path:'/Task',
         query:{
-          TaskStatus:this.homeInit, 
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token,
+          "TaskStatus":this.homeInit, 
         }
-      })
-	  this.destoryTimer();
+	    })
+	    this.destoryTimer();
     },
     toFXCP(){
       window.parent.location.href = 'https://m.baoxianxia.com.cn/risk/index.html'
@@ -256,24 +287,29 @@ export default{
 	  this.destoryTimer();
     },
     frang() {// 好友
-      //this.$router.replace('/List/Friend')
-	  this.$router.push({
-	    path:'/List/Friend',
-	    query:{
-	      name:'friend', 
-	    }
-	  })
-	  this.destoryTimer();
+      this.$router.push({
+        path:'/List/Friend',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token,
+          name:'friend',
+        }
+	    })
+	    this.destoryTimer();
     },
     lists() {// 粉丝
       //this.$router.replace('/List/Bean')
-	  this.$router.push({
-	    path:'/List/Bean',
-	    query:{
-	      name:'fensi', 
-	    }
-	  })
-	  this.destoryTimer();
+      this.$router.push({
+        path:'/List/Bean',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token,
+          name:'fensi',
+        }
+	    })
+	    this.destoryTimer();
     },
     previousPage(){
       talkContent.scrollTop += -138
@@ -523,8 +559,8 @@ export default{
     getHomeInit(){
       // this.$route.query
       let param = {
-        "robot_id":this.$route.query.visitor_id,
-        "broker_id":this.$route.query.robotId,
+        "robot_id":this.$route.query.robotId,
+        "broker_id":this.$route.query.visitor_id,
         "token":this.$route.query.token
       }
       console.log(param)
@@ -587,6 +623,7 @@ export default{
     // }
   },
   created(){
+    console.log(JSON.stringify(this.$route.query))
     // this.getCode()
     // this.getUrlCode()
     this.url = window.location.href.split('#')[0]
@@ -597,28 +634,13 @@ export default{
     //this.impower()
     //this.wxconfig()
   },
-  created(){
-  //   // this.getCode()
-  //   // this.getUrlCode()
-  //   // this.url = window.location.href.split('#')[0]
-  //   this.url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
-  //   var start = this.url.indexOf("=")
-  //   var end = this.url.indexOf("&")
-  //   this.code = this.url.substring(start+1, end)
-  //   console.log(this.url)
-  //   this.impower()
-    // this.wxconfig()
-  },
   mounted(){
     // if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
     //     this.getCode()
     // } else {
     //     // 别的业务逻辑
     // }
-    this.getHomeInit()
-    this.getDetail();
-  //定时获取粉丝数据
-	this.timer = setInterval(this.getFensi, 60000);//定时间隔，
+    console.log(JSON.stringify(this.$route.query))
     this.getHomeInit()
     this.getDetail();
     //定时获取粉丝数据
