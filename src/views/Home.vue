@@ -161,7 +161,7 @@
       </div>
     </div>
     <HomeChat v-show="homeChat" @showChatC='showChatP' :show_chat='homeChat' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
-    <WhoLookMe v-show="WhoLook" @WhoLookC='WhoLookP' :WhoLook='WhoLook' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
+    <WhoLookMe v-show="WhoLook" @WhoLookC='WhoLookP' :Who_Look='WhoLook' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
   </div>
 </template>
 <script>
