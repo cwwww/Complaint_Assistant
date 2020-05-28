@@ -225,14 +225,16 @@ export default {
     },
     HomeChat() {
 	  // 聊天记录
-	  var that = this
+	  alert(this.$route.query.broker_id)
+	  alert(this.customer_type)
+	  alert(this.visitList.customer_id)
 	  that.$router.push({
         path: "/ACVisitor",
         query: {
-		  broker_id: that.$route.query.broker_id,
-          customer_id: that.visitList.customer_id,
-		  customer_type: that.customer_type,
-          token: that.visitList.token
+		  broker_id: this.$route.query.broker_id,
+          customer_id: this.visitList.customer_id,
+		  customer_type: this.customer_type,
+          token: this.visitList.token
         }
       });
     },
@@ -413,11 +415,9 @@ export default {
 			} else if (that.homeInit.level == 7) {
 				that.homeLevel = that.levelbx7;
 		  }
-		  that.HomeChat()
           that.getCusayrob();
           //串门成功后，增加金币和经验
           that.chuanmen();
-          alert(that.homeLevel);
         })
         .catch(reslove => {
           console.log("error");
@@ -493,7 +493,6 @@ export default {
                 let result = reqcustomerlogin(param);
                 result
                   .then(res => {
-                    alert("customerlogin:" + JSON.stringify(res.result));
                     that.visitList = res.result;
                     that.getHomeInit();
                   })
@@ -514,7 +513,6 @@ export default {
       // 非静默授权，第一次有弹框
       this.code = "";
       // var local = window.location.href // 获取页面url
-      alert(this.$route.query.broker_id);
       var local =
         "https://test-bebot-web.baoxianxia.com.cn/#/" +
         `HomeOther?broker_id=${this.$route.query.broker_id}&robot_id=${this.$route.query.robot_id}`; // 获取页面url
