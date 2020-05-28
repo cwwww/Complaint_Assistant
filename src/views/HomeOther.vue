@@ -345,11 +345,9 @@
 				  });
 			},
 			getHomeInit() {
-				var that = this
-				alert(111)
-				alert(that.registers)
-				alert(that.visitList)
-				alert(222)
+				// var that = this
+				alert('11'+this.registers)
+				alert('22'+this.visitList)
 				if(this.registers.visitor_type == '0'){
 					this.customer_type = 0
 					this.customer_robot_id = this.visitList.robot_id
@@ -367,11 +365,10 @@
 					"visited_robot_id": this.$route.query.broker_id,
 					"token": this.visitList.token
 				}
-				alert(JSON.stringify(param))
+				alert('33'+JSON.stringify(param))
 				let result = reqVisitedInit(param)
 				result.then(res => {
-					alert(JSON.stringify(res.result))
-					alert('初始化')
+					// alert(JSON.stringify(res.result))
 					this.homeInit = res.result
 					if(this.homeInit.followed){
 						this.guanzhuContent ="已关注";
@@ -425,16 +422,6 @@
 				    console.log("error");
 				  });
 			},
-		// 	impower(){
-		// 	let param = {"code":this.code}
-		//     let res = reqbebotCode(param)
-		//     res.then(res=>{
-		// 		console.log(res)
-		// 		this.mes = res.result
-		// 	}).catch(reslove=>{
-		// 	  console.log('error')
-		// 	})
-		// 	},
 			impower(code){
 				let param = {"code":code}
 			    let res = reqbebotCode (param)
@@ -443,13 +430,13 @@
 				this.messages = res.result
 				let param = {
 	            "openid": this.messages.openid,
-		//           "NICKNAME": this.messages.nickname,
-		//           "HEADIMGURL":  this.messages.headimgurl,
-		//           "SEX":  this.messages.sex,
-		//           "PROVINCE":  this.messages.province,
-		//           "CITY": this.messages.city,
-		//           "COUNTRY": this.messages.country,
-		//           "PRIVILEGE":  this.messages.privilege,
+					//           "NICKNAME": this.messages.nickname,
+					//           "HEADIMGURL":  this.messages.headimgurl,
+					//           "SEX":  this.messages.sex,
+					//           "PROVINCE":  this.messages.province,
+					//           "CITY": this.messages.city,
+					//           "COUNTRY": this.messages.country,
+					//           "PRIVILEGE":  this.messages.privilege,
 				}
 				let result = reqisregistered(param)
 				result.then(res => {
@@ -515,28 +502,6 @@
 
 		},
 		mounted() {
-
-			// let param = {
-			// 	"openid": this.openid
-			// }
-			// let result = reqisregistered(param)
-			// result.then(res => {
-			// 	console.log('创前：'+ res)
-			// 	this.registers = res.result
-				// if(this.registers.visitor_type == '0'){
-				// 	this.isRegister = false
-				// 	this.$router.push('/login')
-				// 	this.$route.query.broker_id = this.registers.visitor_id
-				// 	this.$route.query.robot_id = this.registers.robot_id
-				// 	this.$route.query.token = this.registers.token
-				// }else if(this.registers.visitor_type == '1'){
-				// 	this.isRegister = true
-				// }
-			// }).catch(reslove => {
-			// 	console.log('error')
-			// })
-			
-
 		},
 		created(){
 			if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
@@ -544,7 +509,6 @@
 			} else {
 				// 别的业务逻辑
 			}
-			
 			this.impower(this.code)
 			alert('授权完成')
 			this.getHomeInit()

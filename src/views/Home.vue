@@ -437,14 +437,30 @@ export default{
           wx.ready(function () {
             //分享到朋友圈
             // wx.onMenu
-            
+            wx.onMenuShareTimeline({
+              title: '朋友圈', // 分享标题
+              desc: '描述yiuy朋友', // 分享描述
+              // link: window.location.href,
+              link: 'https://test-bebot-web.baoxianxia.com.cn/#/'+`HomeOther?broker_id=${that.$route.query.broker_id}&robot_id=${that.$route.query.robot_id}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: 'https://img.baoxianxia.com.cn/share/spotShare.png', // 分享图标
+              // type: '', // 分享类型,music、video或link，不填默认为link
+              // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+              success: function (res) {
+                // 用户确认分享后执行的回调函数
+                console.log("分享给朋友成功返回的信息为:",res);
+              },
+              cancel: function (res) {
+                // 用户取消分享后执行的回调函数
+                console.log("取消分享给朋友返回的信息为:",res);
+              }
+            })
             // 分享给朋友
             wx.onMenuShareAppMessage({
               title: 'bebot朋友', // 分享标题
               desc: '描述yiuy朋友', // 分享描述
               // link: window.location.href,
               link: 'https://test-bebot-web.baoxianxia.com.cn/#/'+`HomeOther?broker_id=${that.$route.query.broker_id}&robot_id=${that.$route.query.robot_id}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590588171242&di=ac9d15a3d7da1c6e5a8c722c94c914bf&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F35%2F34%2F19300001295750130986345801104.jpg', // 分享图标
+              imgUrl: 'https://img.baoxianxia.com.cn/share/spotShare.png', // 分享图标
               // type: '', // 分享类型,music、video或link，不填默认为link
               // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
               success: function (res) {
