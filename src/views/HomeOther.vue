@@ -346,23 +346,26 @@
 			},
 			getHomeInit() {
 				var that = this
-				if(that.registers.visitor_type == '0'){
-					that.customer_type = 0
-					that.customer_robot_id = that.visitList.robot_id
-				}else if(that.registers.visitor_type == '1'){
-					that.customer_type = 1
-					that.customer_robot_id = that.visitList.robot_id
-				}else if(that.registers.visitor_type == '-1'){
-					that.customer_type = 0
-					that.customer_robot_id = ''
+				alert(111)
+				alert(that.registers)
+				alert(that.visitList)
+				alert(222)
+				if(this.registers.visitor_type == '0'){
+					this.customer_type = 0
+					this.customer_robot_id = this.visitList.robot_id
+				}else if(this.registers.visitor_type == '1'){
+					this.customer_type = 1
+					this.customer_robot_id = this.visitList.robot_id
+				}else if(this.registers.visitor_type == '-1'){
+					this.customer_type = 0
+					this.customer_robot_id = ''
 				}
 				let param = {
-					"customer_id": that.visitList.visitor_id,
-					"customer_robot_id": that.customer_robot_id,
-					"customer_type": that.customer_type,
-
-					"visited_robot_id": that.$route.query.broker_id,
-					"token": that.visitList.token
+					"customer_id": this.visitList.visitor_id,
+					"customer_robot_id": this.customer_robot_id,
+					"customer_type": this.customer_type,
+					"visited_robot_id": this.$route.query.broker_id,
+					"token": this.visitList.token
 				}
 				alert(JSON.stringify(param))
 				let result = reqVisitedInit(param)
