@@ -292,7 +292,7 @@ export default{
         path:'/Repository',
         query:{
           "broker_id": this.$route.query.visitor_id,
-          "robot_id": this.$route.query.robotId,
+          "robot_id": this.$route.query.robot_id,
           "token":this.$route.query.token
         }
 	    })
@@ -303,7 +303,7 @@ export default{
         path:'/sellerShop',
         query:{
           "broker_id": this.$route.query.broker_id,
-          "robot_id": this.$route.query.robotId,
+          "robot_id": this.$route.query.robot_id,
           "token":this.$route.query.token
         }
 	    })
@@ -314,7 +314,7 @@ export default{
         path:'/HomeChat',
         query:{
           "broker_id": this.$route.query.broker_id,
-          "robot_id": this.$route.query.robotId,
+          "robot_id": this.$route.query.robot_id,
           "token":this.$route.query.token
         }
 	    })
@@ -325,7 +325,7 @@ export default{
         path:'/WhoLookMe',
         query:{
           "broker_id": this.$route.query.visitor_id,
-          "robot_id": this.$route.query.robotId,
+          "robot_id": this.$route.query.robot_id,
           "token":this.$route.query.token
         }
 	    })
@@ -337,7 +337,7 @@ export default{
 	    path:'/Ranking',
 	    query:{
 	      "broker_id": this.$route.query.broker_id,
-        "robot_id": this.$route.query.robotId,
+        "robot_id": this.$route.query.robot_id,
         "token":this.$route.query.token
 	    }
 	    })
@@ -381,7 +381,7 @@ export default{
         path:'/List/Bean',
         query:{
           "broker_id": this.$route.query.broker_id,
-          "robot_id": this.$route.query.robotId,
+          "robot_id": this.$route.query.robot_id,
           "token":this.$route.query.token,
           name:'fensi',
         }
@@ -402,7 +402,7 @@ export default{
       }
       let param = {
         "broker_id":this.$route.query.useId,
-        "robot_id":this.$route.query.robotId,
+        "robot_id":this.$route.query.robot_id,
         "robot_name":document.getElementsByName("name")[0].value,
         "token":this.$route.query.token
       }
@@ -638,7 +638,7 @@ export default{
         
       // }
       let param = {
-        "robot_id":this.$route.query.robot_Id,
+        "robot_id":this.$route.query.robot_id,
         "broker_id":this.$route.query.visitor_id,
         "token":this.$route.query.token
       }
