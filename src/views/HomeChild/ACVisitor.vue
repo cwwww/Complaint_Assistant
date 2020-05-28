@@ -188,6 +188,7 @@ export default {
     getMarkrebot() {
       let param;
       if (this.isInput) {
+        alert(11111)
         param = {
           dialog_type: "2",
           customer_id: this.$route.query.customer_id,
@@ -200,6 +201,7 @@ export default {
         };
         this.isInput = false;
       } else {
+        alert(12221)
         param = {
           dialog_type: "2",
           customer_id: this.$route.query.customer_id,
@@ -211,13 +213,13 @@ export default {
           token: this.$route.query.token
         };
       }
+      alert(JSON.stringify(param))
       let res = reqCusayrob(param);
       res
         .then(res => {
-          console.log(res);
-          // this.dialogMark = res.result.dialog_mark
+          alert(JSON.stringify(res))
           this.list = res.result.dialog_history;
-          this.$refs.input.value = "";
+          // this.$refs.input.value = "";
         })
         .catch(reslove => {
           console.log("error");
