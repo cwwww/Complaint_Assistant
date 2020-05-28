@@ -634,10 +634,9 @@ export default{
 
     // 初始化页面
     getHomeInit(){
-      // if(){
-        
-      // }
-      this.$route.query.broker_id = this.$route.query.visitor_id
+      if(this.$route.query.broker_id == ''){
+        this.$route.query.broker_id = this.$route.query.visitor_id
+      }
       let param = {
         // "robot_id":this.$route.query.visitor_id,
         // "broker_id":this.$route.query.robotId,
