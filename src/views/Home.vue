@@ -160,12 +160,14 @@
         </div>
       </div>
     </div>
+    <HomeChat v-show="homeChat" @showChat='showChat' :show_chat='homeChat' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
   </div>
 </template>
 <script>
 import { Popup, Toast } from "vant";
 // import wxapi from '../assets/js/common/wxapi';
 import wx from "weixin-js-sdk";
+import HomeChat from '../components/HomeChat'
 import {
   reqHomeInit,
   reqCusayrob,
@@ -179,9 +181,12 @@ import {
   reqcustomerlogin
 } from "../axios/axios-api";
 export default {
-  components: {},
+  components: {
+    HomeChat
+  },
   data() {
     return {
+      homeChat:false,
       vipExpiryTime: "",
       vipNotification: false,
       vipValid: "",
@@ -254,6 +259,9 @@ export default {
     };
   },
   methods: {
+    showChat(data){
+      this.homeChat = data
+    },
     open7() {
       this.$router.replace("/LevelUp");
 
