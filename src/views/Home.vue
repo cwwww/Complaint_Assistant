@@ -1,5 +1,22 @@
 <template>
   <div class="contain">
+	  <van-popup
+	      class="cont2"
+	      v-model="vipNotification"
+	    >
+	      <div class="contwrap">
+	        <div class="top">
+	          <span>{{vipExpiryTime}}</span>
+	          <!-- <img style="width:16px;height:16px;" :src=money alt=""> -->
+	          <!-- <span>请前往【会员商店】领取</span> -->
+	        </div>
+	        <div style="margin-bottom:25px;">请前往【会员商店】领取</div>
+	        <div class="isOk">
+	          <div class="isNo" @click="isNo"><span style="color:#666;">忽略</span></div>
+	          <div class="isYes" @click="isYes"><span style="color:#FFF;">去领取</span></div>
+	        </div>
+	      </div>
+	  </van-popup>
     <div class="information">
       <div class="mes">
         <div class="topHalfPart">
@@ -9,6 +26,7 @@
           <div class="infor">
             <div class="swsName">{{homeInit.name}}&nbsp;事务所</div>
             <img class="line" :src=line alt="">
+			<div class="linebg"></div>
             <img class="experience" :src=experience alt="">
             <div class="ArticleExperience">{{homeInit.exp}}/{{homeInit.level_exp}}</div>
             <div class="level">Lv.{{homeInit.level}}</div>
@@ -112,6 +130,10 @@
               <span>排行榜</span>
           </li>
       </ul>
+<<<<<<< HEAD
+	  .
+	  <div class="input-bottom-content" >
+=======
       <van-popup
           class="cont3"
           v-model="showName"
@@ -126,11 +148,17 @@
             <van-button type="info" style="width:265px;height:42px;margin:6px auto;" @click="getName">确定</van-button>
           </div>
       </van-popup>
+
       <div class="input-bottom" >
         <input type="text" ref="input" placeholder="输入“风险测评”试试" style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"/>
-        <div class="btn" @click="submit">发送</div>
+        <div class="btn"  @click="submit">发送</div> 
+		<!-- <div class="btn"  @click="open7">发送</div> -->
       </div>
+
+	   </div>
+    </div >
     </div>
+
   </div>
 </template>
 <script>
@@ -142,6 +170,10 @@ export default{
   components: {},
   data(){
     return {
+	vipExpiryTime:'',
+	vipNotification:false,
+	vipValid:'',
+	  showNew:false,
       data:'',
       newData:'',
       option:'',
@@ -175,7 +207,7 @@ export default{
       fairyStatus:'',
       messages:'',
       shareMessages:'',
-	  showNewIcon:false,
+	    showNewIcon:false,
       ezgif: require("../assets/images/ezgif.gif"),
       img: require("../assets/images/icon.png"),
       shop: require("../assets/images/shop@2x.png"),
@@ -210,29 +242,102 @@ export default{
     };
   },
   methods: {
-    Repository(){
-      this.$router.replace('/Repository')
+	 open7() {
+		 
+		    this.$router.replace('/LevelUp')
+		 
+	  //       this.$confirm(
+			
+			// '','您的会员将于2020/5/3到期请前往【会员商店】领取', {
+			// 	  center: true,
+	  //         confirmButtonText: '去领取',
+	  //         cancelButtonText: '忽略',
+	        
+	  //       }).then(() => {
+	  //         this.$message({
+	  //           type: 'success',
+	  //           message: '去领取!'
+	  //         });
+	  //       }).catch(() => {
+	  //         this.$message({
+	  //           type: 'info',
+	  //           message: '已忽略'
+	  //         });
+	  //       });
+	   // this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+	   //          confirmButtonText: '确定',
+	   //          cancelButtonText: '取消',
+	   //          type: 'warning',
+	   //          center: true
+	   //        }).then(() => {
+	   //          this.$message({
+	   //            type: 'success',
+	   //            message: '删除成功!'
+	   //          });
+	   //        }).catch(() => {
+	   //          this.$message({
+	   //            type: 'info',
+	   //            message: '已取消删除'
+	   //          });
+	   //        });
+	    },
+	isNo(){   //买家精灵商店取消购买
+	  this.vipNotification = false
+	},
+	isYes(){  //买家精灵商店确定购买
+
+	},
+	Repository(){ // 知识库
+      this.$router.push({
+        path:'/Repository',
+        query:{
+          "broker_id": this.$route.query.visitor_id,
+          "robot_id": this.$route.query.robot_id,
+          "token":this.$route.query.token
+        }
+	    })
 	  this.destoryTimer();
     },
-    FairyShop(){  //买家精灵商店
-      this.$router.replace('/sellerShop')
-	  this.destoryTimer();
+    FairyShop(){  // 买家精灵商店
+      this.$router.push({
+        path:'/sellerShop',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robot_id,
+          "token":this.$route.query.token
+        }
+	    })
+	    this.destoryTimer();
     },
     HomeChat(){  // 聊天记录
-      this.$router.replace('/HomeChat')
-	  this.destoryTimer();
+      this.$router.push({
+        path:'/HomeChat',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robot_id,
+          "token":this.$route.query.token
+        }
+	    })
+	    this.destoryTimer();
     },
     WhoLookMe(){  // 谁看过我
-      this.$router.replace('/WhoLookMe')
-	  this.destoryTimer();
+      this.$router.push({
+        path:'/WhoLookMe',
+        query:{
+          "broker_id": this.$route.query.visitor_id,
+          "robot_id": this.$route.query.robot_id,
+          "token":this.$route.query.token
+        }
+	    })
+	   this.destoryTimer();
     },
-    Ranking(){
+    Ranking(){  //排行榜
       //this.$router.replace('/Ranking')
 	    this.$router.push({
 	    path:'/Ranking',
 	    query:{
 	      "broker_id": this.$route.query.broker_id,
-        "robot_id": this.$route.query.robotId,
+        "robot_id": this.$route.query.robot_id,
         "token":this.$route.query.token
 	    }
 	    })
@@ -242,10 +347,13 @@ export default{
       this.$router.push({
         path:'/Task',
         query:{
-          TaskStatus:this.homeInit, 
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token,
+          "TaskStatus":this.homeInit, 
         }
-      })
-	  this.destoryTimer();
+	    })
+	    this.destoryTimer();
     },
     toFXCP(){
       window.parent.location.href = 'https://m.baoxianxia.com.cn/risk/index.html'
@@ -256,24 +364,29 @@ export default{
 	  this.destoryTimer();
     },
     frang() {// 好友
-      //this.$router.replace('/List/Friend')
-	  this.$router.push({
-	    path:'/List/Friend',
-	    query:{
-	      name:'friend', 
-	    }
-	  })
-	  this.destoryTimer();
+      this.$router.push({
+        path:'/List/Friend',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token,
+          name:'friend',
+        }
+	    })
+	    this.destoryTimer();
     },
     lists() {// 粉丝
       //this.$router.replace('/List/Bean')
-	  this.$router.push({
-	    path:'/List/Bean',
-	    query:{
-	      name:'fensi', 
-	    }
-	  })
-	  this.destoryTimer();
+      this.$router.push({
+        path:'/List/Bean',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robot_id,
+          "token":this.$route.query.token,
+          name:'fensi',
+        }
+	    })
+	    this.destoryTimer();
     },
     previousPage(){
       talkContent.scrollTop += -138
@@ -289,7 +402,7 @@ export default{
       }
       let param = {
         "broker_id":this.$route.query.useId,
-        "robot_id":this.$route.query.robotId,
+        "robot_id":this.$route.query.robot_id,
         "robot_name":document.getElementsByName("name")[0].value,
         "token":this.$route.query.token
       }
@@ -389,8 +502,8 @@ export default{
 	},
     getFensi(){
       let param = {
-        "robot_id": 33,
-        "operation_type": 0,
+            "robot_id": 33,
+            "operation_type": 0,
             "broker_id": 33,
             "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
           }
@@ -521,7 +634,10 @@ export default{
 
     // 初始化页面
     getHomeInit(){
-      // this.$route.query
+      // if(){
+        
+      // }
+      this.$route.query.broker_id = this.$route.query.visitor_id
       let param = {
         // "robot_id":this.$route.query.visitor_id,
         // "broker_id":this.$route.query.robotId,
@@ -530,6 +646,11 @@ export default{
 		"robot_id":35,
 		"broker_id":35,
 		"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
+
+        // "robot_id":this.$route.query.robot_id,
+        // "broker_id":this.$route.query.broker_id,
+        // "token":this.$route.query.token
+
       }
       console.log(param)
       let result = reqHomeInit(param)
@@ -540,6 +661,19 @@ export default{
         this.showName = true
       }
       console.log(this.homeInit)
+	  this.vipNotification = this.homeInit.vip_notification
+	  if(this.homeInit.vip_valid == false){
+		 this.vipExpiryTime ='您的会员已到期'  
+
+		  // this.vipExpiryTime ='您的会员将于'+times+'到期'
+	  }else{
+		  var time=this.homeInit.vip_expiry_time;
+		  var d = new Date(time);
+		  var times=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+		   this.vipExpiryTime ='您的会员将于'+times+'到期'
+		  
+	  }
+	  
       if (this.homeInit.title == 1) { //保险等级
           this.homeLevel = this.levelbx1
         } else if(this.homeInit.title == 2){
@@ -591,6 +725,7 @@ export default{
     // }
   },
   created(){
+    alert(JSON.stringify(this.$route.query))
     // this.getCode()
     // this.getUrlCode()
     this.url = window.location.href.split('#')[0]
@@ -601,24 +736,14 @@ export default{
     //this.impower()
     //this.wxconfig()
   },
-  created(){
-  //   // this.getCode()
-  //   // this.getUrlCode()
-  //   // this.url = window.location.href.split('#')[0]
-  //   this.url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
-  //   var start = this.url.indexOf("=")
-  //   var end = this.url.indexOf("&")
-  //   this.code = this.url.substring(start+1, end)
-  //   console.log(this.url)
-  //   this.impower()
-    // this.wxconfig()
-  },
   mounted(){
     // if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
     //     this.getCode()
     // } else {
     //     // 别的业务逻辑
     // }
+
+    console.log(JSON.stringify(this.$route.query))
     this.getHomeInit()
     this.getDetail();
     //定时获取粉丝数据
@@ -684,6 +809,12 @@ export default{
            width: 99px;
            height: 16px;
          }
+		.line{
+		  width: 99px;
+		  height: 16px;
+		 background: -webkit-gradient(linear, 0% 25%, 75% 100%, from(rgba(45, 226, 230, 0.46)), to(rgba(45, 226, 230, 0.09)));
+		  
+		}
          .ArticleExperience{
           font-size:10px;
           font-family:DINAlternate-Bold,DINAlternate;
@@ -1011,7 +1142,14 @@ export default{
         }
       }
     }
-    .input-bottom{
+	 
+	.input-bottom-content{
+		display: flex;
+		  align-items: center;
+		  justify-content: center;
+	}
+     .input-bottom{
+	
       width:86.7%;
       height:42px;
       background:rgba(92,191,191,0.25);
@@ -1019,10 +1157,10 @@ export default{
       border:1px solid rgba(45,226,230,1);
       flex:0 0 auto;
       z-index: 999;
-      margin: 0 auto 15px;
       justify-content:space-between;
       input{
-        width: 78.3%;
+		  float: left;
+        width: 68.3%;
         font-size:15px;
         font-weight:400;
         color:rgba(122,234,234,1);
@@ -1035,13 +1173,14 @@ export default{
         text-overflow:ellipsis;
       }
       .btn{
-        width: 50px;
+		  float: right;
+        width: 16.7%;
         height: 42px;
         line-height: 42px;
         color: #2DE2E6;
-        position: fixed;
-        right: 24px;
-        bottom: 15px;
+        // position: fixed;
+        // right: 24px;
+        // bottom: 15px;
         text-align: center;
         font-size:13px;
         font-family:PingFangSC-Semibold,PingFang SC;
@@ -1394,4 +1533,46 @@ export default{
   margin: 20px auto 0px auto;
 }
  }
+ .cont2{
+    width: 305px;
+    height: 174px;
+    background:rgba(255,255,255,1);
+    border-radius:15px;
+    .contwrap{
+      font-size:17px;
+      font-family:PingFangSC-Medium,PingFang SC;
+      font-weight:500;
+      color:rgba(51,51,51,1);
+      line-height:24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+      .top{
+        margin-bottom: 7px;
+      }
+      .isOk{
+        display: flex;
+        // align-items: center;
+        // justify-content: center;
+        .isNo{
+          width:125px;
+          height:42px;
+          background:rgba(234,234,234,1);
+          border-radius:4px;
+          text-align: center;
+          line-height: 42px;
+        }
+        .isYes{
+          width:125px;
+          height:42px;
+          background:rgba(0,147,253,1);
+          border-radius:4px;
+          text-align: center;
+          line-height: 42px;
+          margin-left: 20px;
+        }
+      }
+    }
+  }
 </style>

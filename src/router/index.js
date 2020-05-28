@@ -3,8 +3,6 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import Home from '../views/Home'
-
-
 import Ranking from '../views/Ranking'
 import HomeChat from '../views/HomeChild/HomeChat'
 import ACchat from '../views/HomeChild/ACchat'
@@ -36,7 +34,8 @@ import WhoLookMe from '../views/WhoLookMe'
 import shopZoom from '../views/shopZoom'
 import bebotAgree from '../views/bebotAgree'
 import bebotSecret from '../views/bebotSecret'
-
+import LevelUp from '../views/LevelUp'
+import GetMedal from '../views/GetMedal'
 const routes = [
     {
         path: '/Login',
@@ -46,6 +45,16 @@ const routes = [
             title: "登录页"
         }
     },
+	{
+	    path: '/LevelUp',
+	    name: 'LevelUp',
+	    component: LevelUp,
+	},
+	{
+	    path: '/GetMedal',
+	    name: 'GetMedal',
+	    component: GetMedal,
+	},
     {
         path: '/HomeOther',
         name: 'HomeOther',

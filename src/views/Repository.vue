@@ -129,13 +129,26 @@ export default {
   methods: {
     close(){
       // this.show = false
-      this.$router.replace('/')
+      this.$router.push({
+          path:'/',
+          query:{
+            "broker_id": this.$route.query.broker_id,
+            "robot_id": this.$route.query.robotId,
+            "token":this.$route.query.token,
+          }
+        })
     },
     toShopZoom(index){
+      console.log("shop"+this.$route.query)
       if(this.list[index].type == 0){
         this.$router.push({
           path:'/shopZoom',
-          query:{type:'type'}
+          query:{
+            "broker_id": this.$route.query.broker_id,
+            "robot_id": this.$route.query.robotId,
+            "token":this.$route.query.token,
+            type:'type'
+          }
         })
       }
     },
@@ -302,7 +315,7 @@ export default {
   //  this.scrollToBottom();
 // },
   mounted(){
-    // this.scrollToBottom();
+    alert(this.$route.query.token)
     this.getInit()
   }
 };
