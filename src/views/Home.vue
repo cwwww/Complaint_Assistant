@@ -61,6 +61,9 @@
         </div>
       </div>
     </div>
+    <div class="invitation">
+		  <img class="invitationicon" src="../assets/images/邀请@2x.png" alt="">
+		</div>
     <div class="rightList">
       <ul>
         <li>
@@ -886,6 +889,19 @@ isNo(){   //买家精灵商店取消购买
             to(rgba(45, 226, 230, 0.09))
           );
         }
+        		.invitation{
+			margin-left: 6px;
+			top: 23px;
+			left:0px;
+			position: absolute;
+			width: 40px;
+			height: 40px;
+		}
+		.invitationicon{
+			width: 40px;
+			height: 40px;
+		}
+
         .ArticleExperience {
           font-size: 10px;
           font-family: DINAlternate-Bold, DINAlternate;
