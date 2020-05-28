@@ -59,9 +59,13 @@ export default {
       this.$router.push({
         path:'/ACchat',
         query:{
-          titleName:this.list[index].name,
-          customer_type:this.list[index].customer_type,
-          customerImg:this.list[index].headimgurl
+          "titleName":this.list[index].name,
+          "customer_type":this.list[index].customer_type,
+          "customerImg":this.list[index].headimgurl,
+          "customer_id":this.list[index].customer_id,
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robot_id,
+          "token": this.$route.query.token
         }
       })
     }
