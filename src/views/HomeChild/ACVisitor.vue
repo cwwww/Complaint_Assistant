@@ -101,7 +101,15 @@ export default {
   },
   methods: {
     close() {
-      this.$router.replace("/HomeOther");
+      this.$router.push({
+        path:'/HomeOther',
+        query:{
+          broker_id: this.$route.query.broker_id,
+          customer_id: this.$route.query.customer_id,
+          customer_type: this.customer_type,
+          token: this.visitList.token
+        }
+      });
     },
     getHistoryCustomer() {
       //AC 聊天记录
@@ -249,6 +257,7 @@ export default {
     this.scrollToBottom();
   },
   mounted() {
+    alert(JSON.stringify(this.$route.query))
     if (this.dialogMark == 0) {
       this.getMarkrebot();
     }
