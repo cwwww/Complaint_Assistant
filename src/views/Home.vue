@@ -130,10 +130,7 @@
               <span>排行榜</span>
           </li>
       </ul>
-<<<<<<< HEAD
-	  .
 	  <div class="input-bottom-content" >
-=======
       <van-popup
           class="cont3"
           v-model="showName"
@@ -154,12 +151,10 @@
         <div class="btn"  @click="submit">发送</div> 
 		<!-- <div class="btn"  @click="open7">发送</div> -->
       </div>
-
-	   </div>
+	  </div>
     </div >
-    </div>
-
   </div>
+
 </template>
 <script>
 import { Popup,Toast } from 'vant';
@@ -442,7 +437,7 @@ export default{
           wx.ready(function () {
             //分享到朋友圈
             wx.onMenuShareTimeline({
-              title: '额外热舞标题', // 分享标题
+              title: 'bebot', // 分享标题
               link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
               imgUrl: that.homeInit.headimgurl, // 分享图标
               success: function (res) {
@@ -456,9 +451,9 @@ export default{
             });
             // 分享给朋友
             wx.onMenuShareAppMessage({
-              title: '额外热舞标题', // 分享标题
+              title: 'bebot', // 分享标题
               desc: '描述', // 分享描述
-              link: 'https://test-bebot-web.baoxianxia.com.cn/#/HomeOther?visited_robot_id='+ that.$route.query.visitor_id+'', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              link: 'https://test-bebot-web.baoxianxia.com.cn/#/HomeOther?broker_id=this.$route.query.broker_id&robot_id=this.$route.query.robot_id&token=this.$route.query.token}', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
               imgUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590588171242&di=ac9d15a3d7da1c6e5a8c722c94c914bf&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F35%2F34%2F19300001295750130986345801104.jpg', // 分享图标
               // type: '', // 分享类型,music、video或link，不填默认为link
               // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
