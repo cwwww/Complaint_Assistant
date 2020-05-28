@@ -120,7 +120,7 @@ export default {
           customer_id: this.$route.query.customer_id,
           customer_type: this.$route.query.customer_type,
           last_sentence: -1,
-          token: this.visitList.token
+          token: this.$route.query.token
         };
         this.flag = false;
       } else {
@@ -129,7 +129,7 @@ export default {
           customer_id: this.$route.query.customer_id,
           customer_type: this.$route.query.customer_type,
           last_sentence: this.lastSentence,
-          token: this.visitList.token
+          token: this.$route.query.token
         };
       }
       let res = reqHistoryCustomer(param);
@@ -195,7 +195,7 @@ export default {
           robot_id: this.$route.query.robor_id,
           speaker: "1",
           content: ".",
-          token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
+          token: this.$route.query.token
         };
         this.isInput = false;
       } else {
@@ -206,11 +206,10 @@ export default {
           broker_id: this.$route.query.broker_id,
           robot_id: this.$route.query.robor_id,
           speaker: "1",
-          content: "第二版测试",
-          token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
+          content: this.question,
+          token: this.$route.query.token
         };
       }
-      // console.log(param)
       let res = reqCusayrob(param);
       res
         .then(res => {
@@ -228,12 +227,11 @@ export default {
     chathist(index) {
       console.log(this.list[index]);
       let param = {
-        broker_id: 33,
+        broker_id: this.$route.query.broker_id,
         sentence_id: this.list[index].sentence_id,
         question: this.question,
         answer: "",
-        token:
-          "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        token: this.$route.query.token
       };
       console.log(param);
       let res = reqChathist(param);
