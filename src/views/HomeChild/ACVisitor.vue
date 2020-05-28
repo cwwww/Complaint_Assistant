@@ -148,14 +148,10 @@ export default {
         });
     },
     submit() {
-      alert(this.dialogMark)
       if (this.dialogMark == "1") {
-        // alert(this.dialogMark)
-        if (this.$refs.input.value == "") {
+        if (this.question == "") {
           Toast("请输入聊天内容");
         } else {
-          // this.question = this.$refs.input.value;
-          console.log(this.question);
           let param = {
             broker_id: this.$route.query.broker_id,
             customer_id: this.$route.query.customer_id,
@@ -168,19 +164,16 @@ export default {
           let res = reqCustomerInput(param);
           res
             .then(res => {
-              console.log(this.dialogMark);
               if (this.dialogMark == 1) {
-                alert(111111);
                 this.getHistoryCustomer();
               }
-              this.$refs.input.value = "";
+              this.question = "";
             })
             .catch(reslove => {
               console.log("error");
             });
         }
       } else {
-        // alert(this.dialogMark)
         this.getMarkrebot();
       }
     },
@@ -188,7 +181,6 @@ export default {
     getMarkrebot() {
       let param;
       if (this.isInput) {
-        alert(11111)
         param = {
           dialog_type: "2",
           customer_id: this.$route.query.customer_id,
@@ -201,7 +193,6 @@ export default {
         };
         this.isInput = false;
       } else {
-        alert(12221)
         param = {
           dialog_type: "2",
           customer_id: this.$route.query.customer_id,
@@ -213,13 +204,11 @@ export default {
           token: this.$route.query.token
         };
       }
-      alert(JSON.stringify(param))
       let res = reqCusayrob(param);
       res
         .then(res => {
-          alert(JSON.stringify(res))
           this.list = res.result.dialog_history;
-          this.$refs.input.value = "";
+          this.question = "";
         })
         .catch(reslove => {
           console.log("error");
