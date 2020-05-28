@@ -242,7 +242,6 @@
 				}
 			},
 			getCusayrob() {
-				alert('getCusayrob')
 				this.question = this.$refs.input.value
 				let param
 				if (this.flag) {
@@ -346,54 +345,52 @@
 				  });
 			},
 			getHomeInit() {
-				// var that = this
-				alert('11'+this.registers)
-				alert('22'+this.visitList)
-				if(this.registers.visitor_type == '0'){
-					this.customer_type = 0
-					this.customer_robot_id = this.visitList.robot_id
-				}else if(this.registers.visitor_type == '1'){
-					this.customer_type = 1
-					this.customer_robot_id = this.visitList.robot_id
-				}else if(this.registers.visitor_type == '-1'){
-					this.customer_type = 0
-					this.customer_robot_id = ''
+				var that = this
+				alert('11'+JSON.stringify(that.registers))
+				alert('22'+JSON.stringify(that.visitList))
+				if(that.registers.visitor_type == '0'){
+					that.customer_type = 0
+					that.customer_robot_id = that.visitList.robot_id
+				}else if(that.registers.visitor_type == '1'){
+					that.customer_type = 1
+					that.customer_robot_Nid = that.visitList.robot_id
+				}else if(that.registers.visitor_type == '-1'){
+					that.customer_type = 0
+					that.customer_robot_id = ''
 				}
 				let param = {
-					"customer_id": this.visitList.visitor_id,
-					"customer_robot_id": this.customer_robot_id,
-					"customer_type": this.customer_type,
-					"visited_robot_id": this.$route.query.broker_id,
-					"token": this.visitList.token
+					"customer_id": that.visitList.visitor_id,
+					"customer_robot_id": that.customer_robot_id,
+					"customer_type": that.customer_type,
+					"visited_robot_id": that.$route.query.broker_id,
+					"token": that.visitList.token
 				}
 				alert('33'+JSON.stringify(param))
 				let result = reqVisitedInit(param)
 				result.then(res => {
 					alert('init'+JSON.stringify(res.result))
-					this.homeInit = res.result
-					if(this.homeInit.followed){
-						this.guanzhuContent ="已关注";
+					that.homeInit = res.result
+					if(that.homeInit.followed){
+						that.guanzhuContent ="已关注";
 					}else{
-						this.guanzhuContent ="关注TA";
+						that.guanzhuContent ="关注TA";
 					}
-					if (this.homeInit.title == 1) { //保险等级
-						this.homeLevel = this.levelbx1
-						} else if (this.homeInit.title == 2) {
-							this.homeLevel = this.levelbx2
-						} else if (this.homeInit.level == 3) {
-							this.homeLevel = this.levelbx3
-						} else if (this.homeInit.level == 4) {
-							this.homeLevel = this.levelbx4
-						} else if (this.homeInit.level == 5) {
-							this.homeLevel = this.levelbx5
-						} else if (this.homeInit.level == 6) {
-							this.homeLevel = this.levelbx6
-						} else if (this.homeInit.level == 7) {
-							this.homeLevel = this.levelbx7
+					if (that.homeInit.title == 1) { //保险等级
+						that.homeLevel = that.levelbx1
+						} else if (that.homeInit.title == 2) {
+							that.homeLevel = that.levelbx2
+						} else if (that.homeInit.level == 3) {
+							that.homeLevel = that.levelbx3
+						} else if (that.homeInit.level == 4) {
+							that.homeLevel = that.levelbx4
+						} else if (that.homeInit.level == 5) {
+							that.homeLevel = that.levelbx5
+						} else if (that.homeInit.level == 6) {
+							that.homeLevel = that.levelbx6
+						} else if (that.homeInit.level == 7) {
+							that.homeLevel = that.levelbx7
 						}
-				this.getCusayrob()
-					//串门成功后，增加金币和经验
-				// this.chuanmen();
+						alert(that.homeLevel)
 				}).catch(reslove => {
 					console.log('error')
 				})
@@ -468,7 +465,9 @@
 							this.visitList = res.result
 							alert('授权完成')
 							this.getHomeInit()
-							
+							this.getCusayrob()
+							//串门成功后，增加金币和经验
+							this.chuanmen();
 						}).catch(reslove => {
 							console.log('error')
 						})
