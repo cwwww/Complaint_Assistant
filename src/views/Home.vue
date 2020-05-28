@@ -160,7 +160,7 @@
         </div>
       </div>
     </div>
-    <HomeChat v-show="homeChat" @showChat='showChat' :show_chat='homeChat' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
+    <HomeChat v-show="homeChat" @showChatC='showChatP' :show_chat='homeChat' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
   </div>
 </template>
 <script>
@@ -259,7 +259,7 @@ export default {
     };
   },
   methods: {
-    showChat(data){
+    showChatP(data){
       this.homeChat = data
     },
     open7() {
@@ -333,6 +333,7 @@ export default {
     },
     HomeChat() {
       // 聊天记录
+      alert('chat')
       this.homeChat = true
     },
     WhoLookMe() {

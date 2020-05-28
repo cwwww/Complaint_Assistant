@@ -89,13 +89,13 @@ export default {
       this.chat = this.show_chat
   },
   watch:{
-    showChat(newValue){
+    show_chat(newValue){
         this.chat = newValue
     }
   },
   methods: {
     close() {
-      this.$router.replace("/");
+      this.$emit('showChatC',false)
     },
     getChatList() {
       let param = {
@@ -193,11 +193,11 @@ export default {
       });
     }
   },
-  updated: function() {
-    this.scrollToBottom();
-  },
+//   updated: function() {
+//     this.scrollToBottom();
+//   },
   mounted() {
-    this.scrollToBottom();
+    // this.scrollToBottom();
     this.getChatList();
   }
 };
