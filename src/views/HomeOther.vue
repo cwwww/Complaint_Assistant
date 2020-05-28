@@ -121,10 +121,12 @@
     <!-- <div v-if="this.registers.visitor_type == '0'">
 			<img :src=share alt="">
     </div>-->
+	<ACVisitor :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :customer_id='visitList.customer_id' :customer_type='customer_type' :token ='visitList.token' v-if="visitList.customer_id"/>
   </div>
 </template>
 <script>
 import { Popup, Toast } from "vant";
+import ACVisitor from '../components/ACVisitor.vue'
 // import {
 // 	MessageBox
 // } from 'element-ui';
@@ -140,7 +142,9 @@ import {
   reqcustomerlogin
 } from "../axios/axios-api";
 export default {
-  components: {},
+  components: {
+	  ACVisitor
+  },
   data() {
     return {
       visitList: "",
@@ -225,16 +229,17 @@ export default {
     },
     HomeChat() {
 	  // 聊天记录
-	  this.$router.push({
-        path: "/ACVisitor",
-        query: {
-		  broker_id: this.$route.query.broker_id,
-		  robor_id: this.$route.query.robot_id,
-          customer_id: this.visitList.customer_id,
-		  customer_type: this.customer_type,
-          token: this.visitList.token
-        }
-      });
+	  
+	//   this.$router.push({
+    //     path: "/ACVisitor",
+    //     query: {
+	// 	  broker_id: this.$route.query.broker_id,
+	// 	  robor_id: this.$route.query.robot_id,
+    //       customer_id: this.visitList.customer_id,
+	// 	  customer_type: this.customer_type,
+    //       token: this.visitList.token
+    //     }
+    //   });
     },
     toHome() {
       this.$router.replace("/");
