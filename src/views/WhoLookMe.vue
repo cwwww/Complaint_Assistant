@@ -46,7 +46,14 @@ export default {
   },
   methods: {
     close(){
-      this.$router.replace('/')
+      this.$router.push({
+        path:'/',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robot_id,
+          "token": this.$route.query.token
+        }
+      })
     },
     toACchat(index){
       this.$router.push({
@@ -61,11 +68,10 @@ export default {
   },
   mounted(){
     let param = {
-      "broker_id":33,
-      "robot_id":33,
-      "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+      "broker_id": this.$route.query.broker_id,
+      "robot_id": this.$route.query.robot_id,
+      "token": this.$route.query.token
     }
-    console.log(param)
     let result = reqLookMe(param)
     result.then(res=>{
       this.list = res.result
