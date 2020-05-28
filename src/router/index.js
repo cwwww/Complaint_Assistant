@@ -4,7 +4,6 @@ Vue.use(VueRouter)
 
 import Home from '../views/Home'
 import Ranking from '../views/Ranking'
-import HomeChat from '../views/HomeChild/HomeChat'
 import ACchat from '../views/HomeChild/ACchat'
 import FairyShop from '../views/HomeChild/FairyShop'
 import sellerShop from '../views/HomeChild/sellerShop'
@@ -29,7 +28,6 @@ import EveryDayTask from '../components/Task/EveryDayTask'
 import NewTask from '../components/Task/NewTask'
 import ProfessionTask from '../components/Task/ProfessionTask'
 import Login from '../views/Login'
-import WhoLookMe from '../views/WhoLookMe'
 import shopZoom from '../views/shopZoom'
 import bebotAgree from '../views/bebotAgree'
 import bebotSecret from '../views/bebotSecret'
@@ -211,14 +209,6 @@ const routes = [
 			},
 			
         ]
-    },
-    {
-        path: '/WhoLookMe',
-        name: 'WhoLookMe',
-        component: WhoLookMe,
-        meta: {
-            title: "谁看过我"
-        }
     },
     {
         path: '/shopZoom',

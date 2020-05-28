@@ -161,13 +161,14 @@
       </div>
     </div>
     <HomeChat v-show="homeChat" @showChatC='showChatP' :show_chat='homeChat' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
+    <WhoLookMe v-show="WhoLook" @WhoLookC='WhoLookP' :WhoLook='WhoLook' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
   </div>
 </template>
 <script>
 import { Popup, Toast } from "vant";
 // import wxapi from '../assets/js/common/wxapi';
 import wx from "weixin-js-sdk";
-import HomeChat from '../components/HomeChat'
+import {HomeChat,WhoLookMe} from '../components/HomeChat'
 import {
   reqHomeInit,
   reqCusayrob,
@@ -182,10 +183,12 @@ import {
 } from "../axios/axios-api";
 export default {
   components: {
-    HomeChat
+    HomeChat,
+    WhoLookMe
   },
   data() {
     return {
+      WhoLook:false,
       homeChat:false,
       vipExpiryTime: "",
       vipNotification: false,
@@ -261,6 +264,9 @@ export default {
   methods: {
     showChatP(data){
       this.homeChat = data
+    },
+    WhoLookP(data){
+      this.WhoLook = data
     },
     open7() {
       this.$router.replace("/LevelUp");
@@ -1287,7 +1293,6 @@ export default {
       margin-bottom: -16px;
       width: 70px;
       height: 92px;
-      flex-shrink: 0;
     }
   }
   .earth {
