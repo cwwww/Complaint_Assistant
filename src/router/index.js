@@ -42,16 +42,16 @@ const routes = [
             title: "登录页"
         }
     },
-	{
-	    path: '/LevelUp',
-	    name: 'LevelUp',
-	    component: LevelUp,
-	},
-	{
-	    path: '/GetMedal',
-	    name: 'GetMedal',
-	    component: GetMedal,
-	},
+    {
+        path: '/LevelUp',
+        name: 'LevelUp',
+        component: LevelUp,
+    },
+    {
+        path: '/GetMedal',
+        name: 'GetMedal',
+        component: GetMedal,
+    },
     {
         path: '/HomeOther',
         name: 'HomeOther',
@@ -73,7 +73,7 @@ const routes = [
         name: "ACchat",
         component: ACchat,
         meta: {
-            title:  "AC代理人对话"
+            title: "AC代理人对话"
         },
     },
     {
@@ -81,7 +81,7 @@ const routes = [
         name: 'FairyShop',
         component: FairyShop,
         meta: {
-            title:  "精灵商店买家"
+            title: "精灵商店买家"
         },
     },
     {
@@ -176,11 +176,11 @@ const routes = [
         name: 'Repository',
         component: Repository
     },
-	{
-	    path: '/CancelFollow',
-	    name: 'CancelFollow',
-	    component: CancelFollow
-	},
+    {
+        path: '/CancelFollow',
+        name: 'CancelFollow',
+        component: CancelFollow
+    },
     {
         path: '/Task',
         name: 'Task',
@@ -190,24 +190,24 @@ const routes = [
             title: "任务"
         },
         children: [
-			{
-			    path: '/Task/NewTask',
-			    name: 'NewTask',
-			    component: NewTask,
-			},
-			
+            {
+                path: '/Task/NewTask',
+                name: 'NewTask',
+                component: NewTask,
+            },
+
             {
                 path: '/Task/EveryDayTask',
                 name: 'EveryDayTask',
                 component: EveryDayTask,
             },
-           
-			{
-			    path: '/Task/ProfessionTask',
-			    name: 'ProfessionTask',
-			    component: ProfessionTask,
-			},
-			
+
+            {
+                path: '/Task/ProfessionTask',
+                name: 'ProfessionTask',
+                component: ProfessionTask,
+            },
+
         ]
     },
     {
