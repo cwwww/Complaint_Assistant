@@ -46,7 +46,14 @@ export default {
   },
   methods: {
     close(){
-      this.$router.replace('/')
+      this.$router.push({
+        path:'/',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robot_id,
+          "token": this.$route.query.token
+        }
+      })
     },
     toACchat(index){
       this.$router.push({
@@ -60,13 +67,11 @@ export default {
     }
   },
   mounted(){
-    alert(111)
     let param = {
       "broker_id": this.$route.query.broker_id,
       "robot_id": this.$route.query.robot_id,
-      "token":this.$route.query.token
+      "token": this.$route.query.token
     }
-    alert(JSON.stringify(param))
     let result = reqLookMe(param)
     result.then(res=>{
       this.list = res.result
