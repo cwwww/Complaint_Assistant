@@ -245,41 +245,6 @@ export default{
 	 open7() {
 		 
 		    this.$router.replace('/LevelUp')
-		 
-	  //       this.$confirm(
-			
-			// '','您的会员将于2020/5/3到期请前往【会员商店】领取', {
-			// 	  center: true,
-	  //         confirmButtonText: '去领取',
-	  //         cancelButtonText: '忽略',
-	        
-	  //       }).then(() => {
-	  //         this.$message({
-	  //           type: 'success',
-	  //           message: '去领取!'
-	  //         });
-	  //       }).catch(() => {
-	  //         this.$message({
-	  //           type: 'info',
-	  //           message: '已忽略'
-	  //         });
-	  //       });
-	   // this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-	   //          confirmButtonText: '确定',
-	   //          cancelButtonText: '取消',
-	   //          type: 'warning',
-	   //          center: true
-	   //        }).then(() => {
-	   //          this.$message({
-	   //            type: 'success',
-	   //            message: '删除成功!'
-	   //          });
-	   //        }).catch(() => {
-	   //          this.$message({
-	   //            type: 'info',
-	   //            message: '已取消删除'
-	   //          });
-	   //        });
 	    },
 	isNo(){   //买家精灵商店取消购买
 	  this.vipNotification = false
@@ -796,10 +761,11 @@ export default{
            width: 99px;
            height: 16px;
          }
-		.line{
+		.linebg{
 		  width: 99px;
 		  height: 16px;
 		 background: -webkit-gradient(linear, 0% 25%, 75% 100%, from(rgba(45, 226, 230, 0.46)), to(rgba(45, 226, 230, 0.09)));
+		 opacity: 0.5;
 		  
 		}
          .ArticleExperience{
