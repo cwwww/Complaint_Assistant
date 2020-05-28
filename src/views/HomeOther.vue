@@ -446,11 +446,11 @@
 					alert('授权'+JSON.stringify(res.result))
 					
 					that.registers = res.result
-					if(that.registers.visitor_type == '0'){
+					if(that.registers.visitor_type == '-1'){
 						that.isRegister = false
 					}else if(that.registers.visitor_type == '1'){
 						that.isRegister = true
-					}else if(that.registers.visitor_type == '-1'){
+					}else if(that.registers.visitor_type == '0'){
 						// this.isRegister = true  
 						let param = {
 							"openid": that.messages.openid,
