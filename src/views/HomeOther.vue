@@ -364,7 +364,7 @@
 					"visited_robot_id": that.$route.query.broker_id,
 					"token": that.visitList.token
 				}
-				alert(JSON.stringify('!!'+param))
+				alert(JSON.stringify(param))
 				let result = reqVisitedInit(param)
 				result.then(res => {
 					alert(JSON.stringify(res.result))
