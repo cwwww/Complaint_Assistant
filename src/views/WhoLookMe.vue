@@ -61,7 +61,7 @@ export default {
   },
   mounted(){
     let param = {
-       "broker_id": this.$route.query.broker_id,
+      "broker_id": this.$route.query.visitor_id,
       "robot_id": this.$route.query.robotId,
       "token":this.$route.query.token
     }
