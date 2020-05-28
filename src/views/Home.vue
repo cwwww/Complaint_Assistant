@@ -308,17 +308,11 @@ export default {
     HomeChat() {
       // 聊天记录
       this.homeChat = true
+      this.destoryTimer();
     },
     WhoLookMe() {
       // 谁看过我
-      this.$router.push({
-        path: "/WhoLookMe",
-        query: {
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robot_id,
-          token: this.$route.query.token
-        }
-      });
+      this.WhoLook = true
       this.destoryTimer();
     },
     Ranking() {
