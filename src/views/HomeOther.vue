@@ -424,13 +424,15 @@
 				  });
 			},
 			impower(code){
+				var that = this
 				let param = {"code":code}
 			    let res = reqbebotCode (param)
+			    alert('param')
 			    res.then(res=>{
 				console.log('授权回来的'+res)
-				this.messages = res.result
+				that.messages = res.result
 				let param = {
-	            "openid": this.messages.openid,
+	            "openid": that.messages.openid,
 					//           "NICKNAME": this.messages.nickname,
 					//           "HEADIMGURL":  this.messages.headimgurl,
 					//           "SEX":  this.messages.sex,
@@ -442,32 +444,33 @@
 				let result = reqisregistered(param)
 				result.then(res => {
 					alert('授权'+JSON.stringify(res.result))
-					this.registers = res.result
-					if(this.registers.visitor_type == '0'){
-						this.isRegister = false
-					}else if(this.registers.visitor_type == '1'){
-						this.isRegister = true
-					}else if(this.registers.visitor_type == '-1'){
+					
+					that.registers = res.result
+					if(that.registers.visitor_type == '0'){
+						that.isRegister = false
+					}else if(that.registers.visitor_type == '1'){
+						that.isRegister = true
+					}else if(that.registers.visitor_type == '-1'){
 						// this.isRegister = true  
 						let param = {
-							"openid": this.messages.openid,
-							"nickname": this.messages.nickname,
-							"sex": this.messages.sex,
-							"province": this.messages.province,
-							"city": this.messages.city,
-							"country":this.messages.country,
-							"headimgurl":this.messages.headimgurl,
-							"privilege":this.messages.privilege
+							"openid": that.messages.openid,
+							"nickname": that.messages.nickname,
+							"sex": that.messages.sex,
+							"province": that.messages.province,
+							"city": that.messages.city,
+							"country":that.messages.country,
+							"headimgurl":that.messages.headimgurl,
+							"privilege":that.messages.privilege
 						}
 						let result = reqcustomerlogin(param)
 						result.then(res => {
 							alert('customerlogin:'+JSON.stringify(res.result))
-							this.visitList = res.result
+							that.visitList = res.result
 							alert('授权完成')
-							this.getHomeInit()
-							this.getCusayrob()
+							that.getHomeInit()
+							that.getCusayrob()
 							//串门成功后，增加金币和经验
-							this.chuanmen();
+							that.chuanmen();
 						}).catch(reslove => {
 							console.log('error')
 						})
