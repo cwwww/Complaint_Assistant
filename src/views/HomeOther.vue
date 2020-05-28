@@ -446,9 +446,9 @@
 					alert('授权'+JSON.stringify(res.result))
 					
 					that.registers = res.result
-					if(that.registers.visitor_type == '-1'){
+					if(that.registers.visitor_type == '0'){
 						that.isRegister = false
-					}else if(that.registers.visitor_type == '1'){
+					}else if(that.registers.visitor_type == '0'){
 						that.isRegister = true
 					}else if(that.registers.visitor_type == '0'){
 						// this.isRegister = true  
