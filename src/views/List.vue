@@ -49,6 +49,15 @@ export default {
       ]
     };
   },
+  mounted(){
+	  let name = this.$route.query.name;
+	  if(name == "fensi"){
+		  this.curIndex = 1;
+	  }else{
+		  this.curIndex = 0; 
+	  }
+  },
+  
   methods: {
     changeIndex(i) {
       this.curIndex = i;

@@ -53,7 +53,8 @@
         <div class="fan" @click="lists">
           <span class="num">{{homeInit.fans_num}}</span>
           <img src="../assets/images/fans@2x.png" alt="">
-          <span class="design">粉丝<div v-if="showNew">新</div></span>
+          <span class="design">粉丝</span>
+		  <div><img class="new" src="../assets/images/new@2x.png" alt=""></div>
         </div>
       </div>
     </div>
@@ -70,7 +71,7 @@
         <li @click="Task" style="position:relative;">
           <img :src=home_mytask alt="">
           <div>我的任务</div>
-          <img class="new" src="../assets/images/new@2x.png" alt="">
+          <img  v-show ="showNewIcon" class="new" src="../assets/images/new@2x.png" alt="">
         </li>
         <li @click="toFXCP">
           <img :src=home_risktest alt="">
@@ -84,8 +85,6 @@
     </div>
     <div>
       <div class="talk">
-        <!-- <div v-show="!answer">Hi，有空么，和我 随便聊聊呗</div>
-        {{answer}} -->
         <div class="talkContent" id="talkContent" :class="{active:isOwn}">{{answer}}
         </div>
         <div class="btnTalk">
@@ -131,21 +130,42 @@
               <span>排行榜</span>
           </li>
       </ul>
+<<<<<<< HEAD
 	  .
 	  <div class="input-bottom-content" >
+=======
+      <van-popup
+          class="cont3"
+          v-model="showName"
+          click_overlay
+        >
+          <div class="contwrap">
+            <div id="title">给你的精灵起个名字吧！</div>
+            <div id="warn">名字确定后不可更改哦～</div>
+            <input type="text" style="text-align:center" name="name" maxlength="10"/>
+            <div id="line"></div>
+            <div id="limit" v-show="showIimit">名字超过字数限制，请重新输入</div>
+            <van-button type="info" style="width:265px;height:42px;margin:6px auto;" @click="getName">确定</van-button>
+          </div>
+      </van-popup>
+
       <div class="input-bottom" >
         <input type="text" ref="input" placeholder="输入“风险测评”试试" style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"/>
-        <!-- <div class="btn"  @click="submit">发送</div> -->
-		<div class="btn"  @click="open7">发送</div>
+        <div class="btn"  @click="submit">发送</div> 
+		<!-- <div class="btn"  @click="open7">发送</div> -->
       </div>
+
 	   </div>
     </div >
+    </div>
+
   </div>
 </template>
 <script>
 import { Popup,Toast } from 'vant';
-import { MessageBox } from 'element-ui';
-import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList } from '../axios/axios-api'
+// import wxapi from '../assets/js/common/wxapi';
+import wx from 'weixin-js-sdk';
+import { reqHomeInit, reqCusayrob, reqRobotDetail,BeanList,reqHomeName,reqtaskStatus,reqisunlocked,reqbebotCode,reqwxconfig,reqcustomerlogin  } from '../axios/axios-api'
 export default{
   components: {},
   data(){
@@ -153,16 +173,27 @@ export default{
 	vipExpiryTime:'',
 	vipNotification:false,
 	vipValid:'',
-	
 	  showNew:false,
+      data:'',
+      newData:'',
+      option:'',
+      showNew:false,
+      showIimit:false,
+      wx_link:'',
+      redirect_uri:'',
+      appId:'',
+      callback:'',
+      code:'',
+      count:'',
       link:'',
+      url:'',
       show1: false,
-      goodsList:[],
       isOwn:true,
       answerHight:'',
       homeInit:Object,
       bxdj:'',
       numIndex:0,
+      showName:false,
       isInput:'',
       flag:true,
       question:'',
@@ -174,6 +205,9 @@ export default{
       star:'',
       isStatus:'',
       fairyStatus:'',
+      messages:'',
+      shareMessages:'',
+	    showNewIcon:false,
       ezgif: require("../assets/images/ezgif.gif"),
       img: require("../assets/images/icon.png"),
       shop: require("../assets/images/shop@2x.png"),
@@ -253,47 +287,106 @@ export default{
 	isYes(){  //买家精灵商店确定购买
 
 	},
-    Repository(){
-      this.$router.replace('/Repository')
+	Repository(){ // 知识库
+      this.$router.push({
+        path:'/Repository',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token
+        }
+	    })
+	  this.destoryTimer();
     },
-    FairyShop(){  //买家精灵商店
-      this.$router.replace('/sellerShop')
+    FairyShop(){  // 买家精灵商店
+      this.$router.push({
+        path:'/sellerShop',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token
+        }
+	    })
+	    this.destoryTimer();
     },
     HomeChat(){  // 聊天记录
-      this.$router.replace('/HomeChat')
+      this.$router.push({
+        path:'/HomeChat',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token
+        }
+	    })
+	    this.destoryTimer();
     },
     WhoLookMe(){  // 谁看过我
-      this.$router.replace('/WhoLookMe')
+      this.$router.push({
+        path:'/WhoLookMe',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token
+        }
+	    })
+	   this.destoryTimer();
     },
-    Ranking(){
+    Ranking(){  //排行榜
       //this.$router.replace('/Ranking')
-	  this.$router.push({
+	    this.$router.push({
 	    path:'/Ranking',
 	    query:{
-	      "broker_id": 33,
-	      "robot_id": 33,
+	      "broker_id": this.$route.query.broker_id,
+        "robot_id": this.$route.query.robotId,
+        "token":this.$route.query.token
 	    }
-	  })
+	    })
+		this.destoryTimer();
     },
     Task() {   // 任务
       this.$router.push({
         path:'/Task',
         query:{
-          TaskStatus:this.homeInit.np2, 
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token,
+          "TaskStatus":this.homeInit, 
         }
-      })
+	    })
+	    this.destoryTimer();
     },
     toFXCP(){
       window.parent.location.href = 'https://m.baoxianxia.com.cn/risk/index.html'
+	  this.destoryTimer();
     },
     toPlan(){
       window.parent.location.href = 'https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16'
+	  this.destoryTimer();
     },
     frang() {// 好友
-      this.$router.replace('/List/Friend')
+      this.$router.push({
+        path:'/List/Friend',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token,
+          name:'friend',
+        }
+	    })
+	    this.destoryTimer();
     },
     lists() {// 粉丝
-    this.$router.replace('/List/Bean')
+      //this.$router.replace('/List/Bean')
+      this.$router.push({
+        path:'/List/Bean',
+        query:{
+          "broker_id": this.$route.query.broker_id,
+          "robot_id": this.$route.query.robotId,
+          "token":this.$route.query.token,
+          name:'fensi',
+        }
+	    })
+	    this.destoryTimer();
     },
     previousPage(){
       talkContent.scrollTop += -138
@@ -303,29 +396,135 @@ export default{
       talkContent.scrollTop += 138
       this.isOwn = false
     },
-	//定时获取粉丝数量
-	getFensi(){
-		let param = {
-		  "robot_id": 33,
-		  "operation_type": 0,
-          "broker_id": 33,
-          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
-        }
-		let res = BeanList(param)
-		res.then(res=>{
-		        console.log(res)
-		        this.list = res.result.dialog_history
-		        this.$refs.input.value = ''
-		    }).catch(reslove=>{
-		       console.log('error')
-		})
+    getName(){
+      if(document.getElementsByName("name")[0].value.length >= 7){
+        this.showIimit = true
+      }
+      let param = {
+        "broker_id":this.$route.query.useId,
+        "robot_id":this.$route.query.robotId,
+        "robot_name":document.getElementsByName("name")[0].value,
+        "token":this.$route.query.token
+      }
+      let res = reqHomeName(param)
+      res.then(res=>{
+          console.log(res)
+          this.list = res.result.dialog_history
+          this.$refs.input.value = ''
+      }).catch(reslove=>{
+         console.log('error')
+      })
+    },
+    wxconfig(){
+        let param = {"url":window.location.href.split('#')[0]}
+        let res = reqwxconfig(param)
+        res.then(res=>{
+          console.log(res)
+          this.shareMessages = res.result
+          alert($route.query.visitor_id)
+          var that = this
+          wx.config({
+            debug: true,
+            appId: 'wx026553ce8b4e59a3', // 和获取Ticke的必须一样------必填，公众号的唯一标识
+            timestamp: this.shareMessages.timestamp, // 必填，生成签名的时间戳
+            nonceStr: this.shareMessages.nonceStr, // 必填，生成签名的随机串
+            signature: this.shareMessages.signature,// 必填，签名，见附录1
+            //需要分享的列表项:发送给朋友，分享到朋友圈
+            jsApiList: [
+              'onMenuShareTimeline','onMenuShareAppMessage'
+            ]
+          });
+          //处理验证失败的信息
+          wx.error(function (res) {
+            console.log('验证失败返回的信息:',res);
+          });
+          //处理验证成功的信息
+          wx.ready(function () {
+            //分享到朋友圈
+            wx.onMenuShareTimeline({
+              title: '额外热舞标题', // 分享标题
+              link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: that.homeInit.headimgurl, // 分享图标
+              success: function (res) {
+                // 用户确认分享后执行的回调函数
+                console.log("分享到朋友圈成功返回的信息为:",res);
+              },
+              cancel: function (res) {
+                // 用户取消分享后执行的回调函数
+                console.log("取消分享到朋友圈返回的信息为:",res);
+              }
+            });
+            // 分享给朋友
+            wx.onMenuShareAppMessage({
+              title: '额外热舞标题', // 分享标题
+              desc: '描述', // 分享描述
+              link: 'https://test-bebot-web.baoxianxia.com.cn/#/HomeOther?visited_robot_id='+ that.$route.query.visitor_id+'', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590588171242&di=ac9d15a3d7da1c6e5a8c722c94c914bf&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F35%2F34%2F19300001295750130986345801104.jpg', // 分享图标
+              // type: '', // 分享类型,music、video或link，不填默认为link
+              // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+              success: function (res) {
+                // 用户确认分享后执行的回调函数
+                console.log("分享给朋友成功返回的信息为:",res);
+              },
+              cancel: function (res) {
+                // 用户取消分享后执行的回调函数
+                console.log("取消分享给朋友返回的信息为:",res);
+              }
+            })
+          });
+        }).catch(reslove=>{
+          console.log('error')
+        })
+    },
+    // 授权
+    impower(){
+        let param = {"code":"this.code"}
+        let res = reqbebotCode (param)
+        res.then(res=>{
+          console.log(res)
+          this.messages = res.result
+          this.customerLogin()
+        }).catch(reslove=>{
+          console.log('error')
+        })
+    },
+    customerLogin(){
+          let param = {
+            "OPENID": this.messages.openid,
+            "NICKNAME": this.messages.nickname,
+            "HEADIMGURL":  this.messages.headimgurl,
+            "SEX":  this.messages.sex,
+            "PROVINCE":  this.messages.province,
+            "CITY": this.messages.city,
+            "COUNTRY": this.messages.country,
+            "PRIVILEGE":  this.messages.privilege,
+          }
 	},
+    getFensi(){
+      let param = {
+        "robot_id": 33,
+        "operation_type": 0,
+            "broker_id": 33,
+            "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          }
+      let res = BeanList(param)
+      res.then(res=>{
+              console.log(res)
+              let showNotification = res.result.notification
+              if(showNotification){
+            this.showNew = true;
+          }
+          }).catch(reslove=>{
+             console.log('error')
+      })
+    },
     submit(numIndex){  
       this.numIndex+=1
         if(this.$refs.input.value == '') {
           Toast('请输入聊天内容');
         } else {
           this.getDetail()
+		  this.getReqtaskStatus();
         }
     },
     getDetail(){
@@ -367,6 +566,35 @@ export default{
            console.log('error')
         })
     },
+	//与机器人聊天任务
+	getReqtaskStatus(){
+		let param = {
+			"broker_id": 1,
+			"robot_id": 1,
+			"operation_type":1,
+			"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+		}
+		console.log("任务的param:"+param);
+		
+		let result = reqtaskStatus(param);
+		result
+		  .then(res => {
+		   //更新金币
+		   this.homeInit.bcoin = res.result.bcoin;
+		   //更新等级
+		   this.homeInit.level = res.result.level
+		   //更新“我的”经验
+		   this.homeInit.exp = res.result.exp
+		   //更新总经验
+		   this.homeInit.level_exp = res.result.level_exp
+		   //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
+		   this.showNewIcon = res.result.task_notification;
+		  })
+		  .catch(reslove => {
+		    console.log("error");
+		  });
+	},
+	
     getACchat(){
       let param
       if (this.isInput) {
@@ -394,8 +622,8 @@ export default{
         }
       }
       console.log(param)
-      let res = reqCusayrob(param)
-      res.then(res=>{
+        let res = reqCusayrob(param)
+        res.then(res=>{
         console.log(res)
         this.list = res.result.dialog_history
         this.$refs.input.value = ''
@@ -406,14 +634,20 @@ export default{
 
     // 初始化页面
     getHomeInit(){
+      // this.$route.query
       let param = {
-        "robot_id": 1,
-        "broker_id":1,
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+        "robot_id":this.$route.query.robotId,
+        "broker_id":this.$route.query.visitor_id,
+        "token":this.$route.query.token
       }
+      console.log(param)
       let result = reqHomeInit(param)
       result.then(res=>{
+      console.log(res)
       this.homeInit = res.result
+      if(this.homeInit.name == ''){
+        this.showName = true
+      }
       console.log(this.homeInit)
 	  this.vipNotification = this.homeInit.vip_notification
 	  if(this.homeInit.vip_valid == false){
@@ -430,29 +664,77 @@ export default{
 	  
       if (this.homeInit.title == 1) { //保险等级
           this.homeLevel = this.levelbx1
-        } else if(this.goodsList.title == 2){
+        } else if(this.homeInit.title == 2){
           this.homeLevel = this.levelbx2
-        } else if(this.goodsList.level == 3){
+        } else if(this.homeInit.title == 3){
           this.homeLevel = this.levelbx3
-        } else if(this.goodsList.level == 4){
+        } else if(this.homeInit.title == 4){
           this.homeLevel = this.levelbx4
-        } else if(this.goodsList.level == 5){
+        } else if(this.homeInit.title == 5){
           this.homeLevel = this.levelbx5
-        } else if(this.goodsList.level == 6){
+        } else if(this.homeInit.title == 6){
           this.homeLevel = this.levelbx6
-        } else if(this.goodsList.level == 7){
+        } else if(this.goodsList.title == 7){
           this.homeLevel = this.levelbx7
         }
       }).catch(reslove=>{
          console.log('error')
       })
-    }
+    },
+
+	destoryTimer(){
+		clearInterval(this.timer);
+	},
+	
+    // getCode(){ // 非静默授权，第一次有弹框
+    //     this.code = ''
+    //     // var local = window.location.href // 获取页面url
+    //     var local = "https://bebot-web.baoxianxia.com.cn/#/" // 获取页面url
+    //     var appid = 'wx026553ce8b4e59a3'
+    //     this.code = this.getUrlCode().code // 截取code
+    //     if (this.code == null || this.code === '') { // 如果没有code，则去请求
+    //         window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
+    //     } else {
+    //         // 你自己的业务逻辑
+    //     }
+    // },
+    // getUrlCode() { // 截取url中的code方法
+    //     var url = window.location.search
+    //     this.winUrl = url
+    //     var theRequest = new Object()
+    //     if (url.indexOf("?") != -1) {
+    //         var str = url.substr(1)
+    //         var strs = str.split("&")
+    //         for(var i = 0; i < strs.length; i ++) {
+    //             theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
+    //         }
+    //     }
+    //     return theRequest
+    // }
+  },
+  created(){
+    console.log(JSON.stringify(this.$route.query))
+    // this.getCode()
+    // this.getUrlCode()
+    this.url = window.location.href.split('#')[0]
+    var start = this.url.indexOf("=")
+    var end = this.url.indexOf("&")
+    this.code = this.url.substring(start+1, end)
+    console.log(this.url)
+    //this.impower()
+    //this.wxconfig()
   },
   mounted(){
+    // if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
+    //     this.getCode()
+    // } else {
+    //     // 别的业务逻辑
+    // }
+    console.log(JSON.stringify(this.$route.query))
     this.getHomeInit()
     this.getDetail();
-	//定时获取粉丝数据
-	
+    //定时获取粉丝数据
+    this.timer = setInterval(this.getFensi, 60000);//定时间隔，
   }
 }
 </script>
@@ -592,6 +874,7 @@ export default{
         margin:8px 0 10px 0;
       }
       .fan{
+		position: relative;
         display: flex;
         justify-content: center;
       }
@@ -612,6 +895,21 @@ export default{
         line-height:16px;
         font-weight:400;
       }
+	  .newIcon{
+		  position: absolute;
+		            color: #176C75;
+		            font-size: 3px;
+		            background-color: #FFD87E;
+		            /*height: 24px;改前*/
+		            min-height: 4px;/*改后新增的代码*/
+		  			min-width:4px;/*改后新增的代码*/
+		            right:-25%;
+		            top: -12px;
+		            text-align: center;
+		  			-webkit-border-radius: 4px;
+		            border-radius: 4px;
+		  			padding:2px;
+	  }
 
 
   }
@@ -880,6 +1178,54 @@ export default{
       input::-webkit-input-placeholder,
       textarea::-webkit-input-placeholder {
       color:rgba(122,234,234,1);
+      }
+    }
+    .cont3{
+      width: 305px;
+      height: 224px;
+      background:rgba(255,255,255,1);
+      border-radius:15px;
+      .contwrap{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        font-family:PingFangSC-Regular,PingFang SC;
+        #title{
+          font-size:15px;
+          font-weight:500;
+          color:rgba(51,51,51,1);
+          line-height:21px;
+          margin-top: 30px;
+        }
+        #warn{
+          font-size:13px;
+          font-weight:400;
+          color:rgba(102,102,102,1);
+          line-height:18px;
+          margin-top: 5px;
+        }
+        #line{
+          width:265px;
+          height:1px;
+          background:rgba(239,239,239,1);
+          margin-left: 20px;
+          margin-top: 7px;
+        }
+        input{
+          width: 265px;
+          height: 25px;
+          margin-top: 25px;
+          border: 0;
+          margin-left: 20px;
+        }
+        #limit{
+          font-size:13px;
+          font-family:PingFangSC-Regular,PingFang SC;
+          font-weight:400;
+          color:rgba(253,41,41,1);
+          line-height:18px;
+          margin-top: 6px;
+        }
       }
     }
     .moon{

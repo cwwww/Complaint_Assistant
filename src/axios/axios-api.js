@@ -15,16 +15,44 @@ export const reqsendMsmCode = data => {
     data
   });
 };
-export const reqloginMsmCode = data => {  
+// export const reqloginMsmCode = data => {  
+//   return axiosService({
+//     url: "https://test-bebot-api.baoxianxia.com.cn/common/msm/login/", // 验证短信
+//     method: "post",
+//     data
+//   });
+// };
+export const reqisregistered = data => {  
   return axiosService({
-    url: "https://test-bebot-api.baoxianxia.com.cn/common/login/", // 验证短信
+    url: "https://test-bebot-api.baoxianxia.com.cn/isregistered/", // 判断用户类型是否注册
+    method: "post",
+    data
+  });
+};
+export const reqcustomerlogin = data => {  
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/customerlogin/", // C端用户微信登录接口
     method: "post",
     data
   });
 };
 export const reqwxconfig = data => {  
   return axiosService({
-    url: "http://api-bebot.baoxianxia.com.cn/api/callback/wxconfig/bebot/", // Bebot微信分享接口
+    url: "https://test-bebot-api.baoxianxia.com.cn/api/callback/wxconfig/bebot/", // Bebot微信分享接口
+    method: "post",
+    data
+  });
+};
+export const reqisunlocked = data => {  
+  return axiosService({
+    url: BASE + `/isunlocked/`, // 判断是否已经解锁计划书和风险测评
+    method: "post",
+    data
+  });
+};
+export const reqtaskStatus = data => {  
+  return axiosService({
+    url: BASE + `/common/taskStatusUpdate/`, // 展示访客页被访机器人信息
     method: "post",
     data
   });
@@ -32,6 +60,13 @@ export const reqwxconfig = data => {
 export const reqbebotCode = data => {  
   return axiosService({
     url: "https://test-bebot-api.baoxianxia.com.cn/callback/bebot/code/", // Bebot获取微信用户信息接口
+    method: "post",
+    data
+  });
+};
+export const reqHomeName = data => {  
+  return axiosService({
+    url: BASE + `/common/modifyRobotName/`, // 主页初始化接口
     method: "post",
     data
   });
@@ -305,7 +340,6 @@ export const guanZhu = data => { // 关注/取消关注
     data 
   });
 };
-
 export const yaoQing = data => { // 邀请好友页面
   return axiosService({
     url: "https://test-bebot-api.baoxianxia.com.cn/recommendlist/", 
@@ -313,6 +347,15 @@ export const yaoQing = data => { // 邀请好友页面
     data 
   });
 };
+
+export const taskStatusUpdate = data => { // 机器人状态更新接口
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/common/taskStatusUpdate/", 
+    method: "post",
+    data 
+  });
+};
+
 
 // 下面是GET形式
 // export const userInfo = params => {

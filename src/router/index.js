@@ -1,11 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
 Vue.use(VueRouter)
 
 import Home from '../views/Home'
-
-
 import Ranking from '../views/Ranking'
 import HomeChat from '../views/HomeChild/HomeChat'
 import ACchat from '../views/HomeChild/ACchat'
@@ -31,6 +28,7 @@ import CancelFollow from '../views/CancelFollow'
 import Task from '../views/Task'
 import EveryDayTask from '../components/Task/EveryDayTask'
 import NewTask from '../components/Task/NewTask'
+import ProfessionTask from '../components/Task/ProfessionTask'
 import Login from '../views/Login'
 import WhoLookMe from '../views/WhoLookMe'
 import shopZoom from '../views/shopZoom'
@@ -71,10 +69,7 @@ const routes = [
         component: Home,
         meta: {
             title: "首页"
-        },
-        children:[
-            
-        ]
+        }
     },
     {
         path: '/HomeChat',
@@ -208,22 +203,30 @@ const routes = [
     {
         path: '/Task',
         name: 'Task',
-        redirect: '/Task/EveryDayTask',
+        redirect: '/Task/NewTask',
         component: Task,
         meta: {
             title: "任务"
         },
         children: [
+			{
+			    path: '/Task/NewTask',
+			    name: 'NewTask',
+			    component: NewTask,
+			},
+			
             {
                 path: '/Task/EveryDayTask',
                 name: 'EveryDayTask',
                 component: EveryDayTask,
             },
-            {
-                path: '/Task/NewTask',
-                name: 'NewTask',
-                component: NewTask,
-            }
+           
+			{
+			    path: '/Task/ProfessionTask',
+			    name: 'ProfessionTask',
+			    component: ProfessionTask,
+			},
+			
         ]
     },
     {
@@ -242,7 +245,6 @@ const routes = [
             title: "知识库改版"
         }
     },
-
     {
         path: '/bebotAgree',
         name: 'bebotAgree',
@@ -264,8 +266,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-    mode: 'hash',
-    base: process.env.BASE_URL,
+    // mode: 'hash',
     routes
 })
 export default router

@@ -18,10 +18,10 @@
         <div class="question">
           <div class="topQ">
             <img :src="img" alt />
-            <textarea class="text" v-show="isShow" id="myText">
+            <textarea class="text" v-show="index == showIndex ?true:false" id="myText">
               {{item.question}}
             </textarea> 
-            <div class="text2" v-show="!isShow">
+            <div class="text2" v-show="index != showIndex ?true:false">
               {{item.question}}
               </div>
             <img @click="remove(index)" class="delete" :src="img5" alt="">
@@ -32,17 +32,17 @@
         </div>
         <div class="assets">
           <img :src="img1" alt />
-          <textarea class="text" v-show="isShow" id="myText2">
+          <textarea class="text" v-show="index == showIndex ?true:false" id="myText2" >
             {{item.answer}}
             </textarea> 
-          <div class="text2" v-show="!isShow">
+          <div class="text2" v-show="index != showIndex ?true:false">
             {{item.answer}}
           </div>
         </div>
         <div class="buttons">
           <img :src="img2" @click="toEdit(index)" alt />
-          <img :src="img3" v-show="isShow" @click="toSave(index)" alt />
-          <img @click="listPage(index)" :src="img4" v-show="!isShow" alt="">
+          <img :src="img3" v-show="index == showIndex ?true:false" @click="toSave(index)" alt />
+          <img @click="listPage(index)" :src="img4" v-show="index != showIndex ?true:false" alt="">
         </div>
         <div style="height:20px;"></div>
       </div>
@@ -53,7 +53,7 @@
 </template>
 <script>
 import { Toast } from 'vant';
-import { reqlistPage,reqknowledgeList,reqeditList,reqdeleteList,reqaddledgeList } from '../axios/axios-api'
+import { reqlistPage,reqknowledgeList,reqeditList,reqdeleteList,reqaddledgeList,reqtaskStatus } from '../axios/axios-api'
 export default {
   name: "shopZoom",
   data() {
@@ -62,6 +62,7 @@ export default {
       curIndex: 0,
       show: true,
       isShow:false,
+	    showIndex:0,
       flag:true,
       img: require("../assets/images/Q_small_icon@2x.png"),
       img1: require("../assets/images/A_small_icon@2x.png"),
@@ -74,19 +75,34 @@ export default {
   methods: {
     close(){
       if(this.$route.query.type == 'type'){
-        this.$router.push('/Repository')
+        this.$router.push({
+          path:'/Repository',
+          query:{
+            "broker_id": this.$route.query.broker_id,
+            "robot_id": this.$route.query.robotId,
+            "token":this.$route.query.token,
+            type:'type'
+          }
+        })
       }else{
-        this.$router.push('/HomeChat')
+        this.$router.push({
+          path:'/HomeChat',
+          query:{
+            "broker_id": this.$route.query.broker_id,
+            "robot_id": this.$route.query.robotId,
+            "token":this.$route.query.token,
+          }
+        })
       }
     },
     listPage(index){
       console.log(this.list[index])
       let param = {
         "online_data_id":this.list[index].online_data_id,
-        "broker_id":33,
+        "broker_id":this.$route.query.broker_id,
         "question":this.$route.query.Qusetion,
         "answer":this.$route.query.Answer,
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        "token":this.$route.query.token
       }
       console.log(param)
       let res = reqlistPage(param)
@@ -106,10 +122,10 @@ export default {
         this.Answer = ''
       }
       let param = {
-        "broker_id":33,
+        "broker_id":this.$route.query.broker_id,
         "question":this.Qusetion,
         "answer":this.Answer,
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        "token":this.$route.query.token
       }
       console.log(param)
       let res = reqaddledgeList(param)
@@ -122,9 +138,9 @@ export default {
     },
     remove(index){
       let param = {
-        "broker_id":33,
+        "broker_id":this.$route.query.broker_id,
         "online_data_id":this.list[index].online_data_id,
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        "token":this.$route.query.token
       }
       console.log(param)
       let res = reqdeleteList (param)
@@ -139,10 +155,12 @@ export default {
       this.show = true;
     },
     toEdit(index){
-      this.isShow = true
+	  this.showIndex = index;
+      //this.isShow = true
     },
     toSave(index){
-      this.isShow = false
+      //this.isShow = false
+	    this.showIndex = -1;
       this.$route.query.Qusetion = document.getElementById("myText").value
       this.$route.query.Answer = document.getElementById("myText2").value
       // if(this.list[index].Qusetion == ''){
@@ -151,12 +169,17 @@ export default {
       // if(this.list[index].Answer == ''){
       //   this.Answer = ' '
       // }
+	  if(this.trim(this.$route.query.Qusetion) == ""){
+	  }
+	  if(this.trim(this.$route.query.Answer) == ""){
+	  }
+	  
       let param = {
         "modified_data_id":this.list[index].online_data_id,
-        "broker_id":33,
+        "broker_id":this.$route.query.broker_id,
         "question":this.$route.query.Qusetion,
         "answer":this.$route.query.Answer,
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        "token":this.$route.query.token
       }
       let res = reqeditList(param)
         res.then(res=>{
@@ -165,11 +188,14 @@ export default {
         }).catch(reslove=>{
            console.log('error')
         })
+		//增加知识的任务
+		this.getReqtaskStatus();
     },
     ShoWList(){
+	  this.showIndex = -1;
       let param = {
-        "broker_id":33,
-        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        "broker_id":this.$route.query.broker_id,
+        "token":this.$route.query.token
       }
       console.log(param)
       let res = reqknowledgeList (param)
@@ -179,7 +205,31 @@ export default {
         }).catch(reslove=>{
            console.log('error')
         })
-    }
+    },
+	trim(data){
+		return data.replace(/(^\s*)|(\s*$)/g, ''); 
+	},
+	
+	//与机器人聊天任务
+	getReqtaskStatus(){
+		let param = {
+			"broker_id": 1,
+			"robot_id": 1,
+			"operation_type":2,
+			"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+		}
+		console.log("任务的param:"+param);
+		
+		let result = reqtaskStatus(param);
+		result
+		  .then(res => {
+			  
+		  })
+		  .catch(reslove => {
+		    console.log("error");
+		  });
+	},
+	
   },
   // watch(){
   //   console.log(document.getElementById("myText").value)

@@ -1,6 +1,7 @@
 <template>
   <div class="main">
-    <div class="warp" v-for="(item, idx) in baenstList" :key="idx">
+    <div  v-for="(item, idx) in baenstList" :key="idx"  >
+	 <div class="warp" @click="clickThis(item.robot_id)">
       <div class="left">
         <div class="littleLeft">
           <img :src="item.headimgurl === null ? img4 : item.headimgurl" alt="error" />
@@ -32,8 +33,9 @@
         <span>关注</span>
       </div>
       <div v-if="item.followed == true" class="rightNo">
-        <span>未关注</span>
+        <span>已关注</span>
       </div>
+	 </div>
     </div>
   </div>
 </template>
@@ -75,6 +77,20 @@ export default {
         alert(66666);
         console.log("error");
       });
+  },
+  
+  methods:{
+  	 clickThis:function(robot_id){
+  	 		  this.$router.push({
+  	 		    path:'/HomeOther',
+  	 		    query:{
+  	 		      robot_id: 33,
+  	 			  broker_id:33,
+  				  robot_visitId:robot_id,
+  	 			  token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+  	 		    }
+  	 		  })
+  	 }
   }
 };
 </script>

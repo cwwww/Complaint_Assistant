@@ -30,27 +30,33 @@
   </div>
 </template>
 <script>
-
+import { taskStatusUpdate } from "../axios/axios-api";
 export default {
   name: "Task",
   data() {
     return {
       curIndex: 0,
       show: true,
-        img: require("../assets/images/icon.png"),
+      img: require("../assets/images/icon.png"),
       lists: [
         {
-          name: "EveryDayTask",
+		  name: "NewTask",
           title: "新手任务"
         },
         {
-          name: "NewTask",
+          name: "EveryDayTask",
           title: "每日任务"
         },
         {
+		  name: "ProfessionTask",
           title: "职业任务"
         }
-      ]
+      ],
+	  np1:"",
+	  np2:"",
+	  np3:"",
+	  np4:"",
+	  np5:"",
     };
   },
   methods: {
@@ -64,6 +70,27 @@ export default {
   },
   mounted(){
     console.log(this.$route.query.TaskStatus)
+	//获取任务所有的状态
+	let param = {
+	  "broker_id":1,
+	  "robot_id":1,
+	  "operation_type":99,
+	  "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+	};
+	let result = taskStatusUpdate(param);
+	result
+	  .then(res => {
+	    console.log(res, "任务列表");
+		this.np1 = res.result.np1;
+		this.np2 = res.result.np2;
+		this.np3 = res.result.np3;
+		this.np4 = res.result.np4;
+		this.np5 = res.result.np5;
+	  })
+	  .catch(reslove => {
+	    alert(66666);
+	    console.log("error");
+	  });
   }
 };
 </script>
