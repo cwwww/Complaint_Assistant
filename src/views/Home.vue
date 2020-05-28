@@ -638,17 +638,13 @@ export default{
         this.$route.query.broker_id = this.$route.query.visitor_id
       }
       let param = {
-        // "robot_id":this.$route.query.visitor_id,
-        // "broker_id":this.$route.query.robotId,
-        // "token":this.$route.query.token,
-		
-		"robot_id":35,
-		"broker_id":35,
-		"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
+        // "robot_id":35,
+        // "broker_id":35,
+        // "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
 
-        // "robot_id":this.$route.query.robot_id,
-        // "broker_id":this.$route.query.broker_id,
-        // "token":this.$route.query.token
+        "robot_id":this.$route.query.robot_id,
+        "broker_id":this.$route.query.broker_id,
+        "token":this.$route.query.token
 
       }
       console.log(param)
