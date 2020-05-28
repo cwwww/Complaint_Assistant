@@ -26,9 +26,12 @@
           </div>
           <div class="infor">
             <div class="swsName">{{homeInit.name}}&nbsp;事务所</div>
-            <img class="line" :src="line" alt />
-            <div class="linebg"></div>
-            <img class="experience" :src="experience" alt />
+         <img class="line" :src=line alt="">
+			
+			<div class="linebg"     :style="{'width': linewidthData}"></div>
+			
+            <img class="experience" :src=experience alt="">
+
             <div class="ArticleExperience">{{homeInit.exp}}/{{homeInit.level_exp}}</div>
             <div class="level">Lv.{{homeInit.level}}</div>
           </div>
@@ -61,6 +64,9 @@
         </div>
       </div>
     </div>
+	<div class="invitation">
+		<img class="invitationicon" src="../assets/images/邀请@2x.png" alt="">
+		</div>
     <div class="rightList">
       <ul>
         <li>
@@ -132,8 +138,17 @@
           <span>排行榜</span>
         </li>
       </ul>
-      <div class="input-bottom-content">
-        <van-popup class="cont3" v-model="showName" click_overlay>
+
+
+	  .
+	  <div class="input-bottom-content" >
+
+      <van-popup
+          class="cont3"
+          v-model="showName"
+          click_overlay
+        >
+
           <div class="contwrap">
             <div id="title">给你的精灵起个名字吧！</div>
             <div id="warn">名字确定后不可更改哦～</div>
@@ -148,18 +163,12 @@
           </div>
         </van-popup>
 
-        <div class="input-bottom">
-          <input
-            type="text"
-            ref="input"
-            placeholder="输入“风险测评”试试"
-            style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"
-          />
-          <div class="btn" @click="submit">发送</div>
-          <!-- <div class="btn"  @click="open7">发送</div> -->
-        </div>
+      <div class="input-bottom" >
+        <input type="text" ref="input" placeholder="输入“风险测评”试试" style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"/>
+        <div class="btn"  @click="submit">发送</div> 
       </div>
-    </div>
+	   </div>
+    </div >
     <HomeChat v-show="homeChat" @showChatC='showChatP' :show_chat='homeChat' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
     <WhoLookMe v-show="WhoLook" @WhoLookC='WhoLookP' :Who_Look='WhoLook' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
   </div>
@@ -270,48 +279,7 @@ export default {
     },
     open7() {
       this.$router.replace("/LevelUp");
-
       //       this.$confirm(
-
-      // '','您的会员将于2020/5/3到期请前往【会员商店】领取', {
-      // 	  center: true,
-      //         confirmButtonText: '去领取',
-      //         cancelButtonText: '忽略',
-
-      //       }).then(() => {
-      //         this.$message({
-      //           type: 'success',
-      //           message: '去领取!'
-      //         });
-      //       }).catch(() => {
-      //         this.$message({
-      //           type: 'info',
-      //           message: '已忽略'
-      //         });
-      //       });
-      // this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-      //          confirmButtonText: '确定',
-      //          cancelButtonText: '取消',
-      //          type: 'warning',
-      //          center: true
-      //        }).then(() => {
-      //          this.$message({
-      //            type: 'success',
-      //            message: '删除成功!'
-      //          });
-      //        }).catch(() => {
-      //          this.$message({
-      //            type: 'info',
-      //            message: '已取消删除'
-      //          });
-      //        });
-    },
-    isNo() {
-      //买家精灵商店取消购买
-      this.vipNotification = false;
-    },
-    isYes() {
-      //买家精灵商店确定购买
     },
     Repository() {
       // 知识库
@@ -686,53 +654,57 @@ export default {
         // "robot_id":35,
         // "broker_id":35,
         // "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
-        robot_id: this.$route.query.robot_id,
-        broker_id: this.$route.query.broker_id,
-        token: this.$route.query.token
-      };
-      console.log(param);
-      let result = reqHomeInit(param);
-      result
-        .then(res => {
-          console.log(res);
-          this.homeInit = res.result;
-          if (this.homeInit.name == "") {
-            this.showName = true;
-          }
-          console.log(this.homeInit);
-          this.vipNotification = this.homeInit.vip_notification;
-          if (this.homeInit.vip_valid == false) {
-            this.vipExpiryTime = "您的会员已到期";
 
-            // this.vipExpiryTime ='您的会员将于'+times+'到期'
-          } else {
-            var time = this.homeInit.vip_expiry_time;
-            var d = new Date(time);
-            var times =
-              d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-            this.vipExpiryTime = "您的会员将于" + times + "到期";
-          }
-
-          if (this.homeInit.title == 1) {
-            //保险等级
-            this.homeLevel = this.levelbx1;
-          } else if (this.homeInit.title == 2) {
-            this.homeLevel = this.levelbx2;
-          } else if (this.homeInit.title == 3) {
-            this.homeLevel = this.levelbx3;
-          } else if (this.homeInit.title == 4) {
-            this.homeLevel = this.levelbx4;
-          } else if (this.homeInit.title == 5) {
-            this.homeLevel = this.levelbx5;
-          } else if (this.homeInit.title == 6) {
-            this.homeLevel = this.levelbx6;
-          } else if (this.goodsList.title == 7) {
-            this.homeLevel = this.levelbx7;
-          }
-        })
-        .catch(reslove => {
-          console.log("error");
-        });
+        "robot_id":this.$route.query.robot_id,
+        "broker_id":this.$route.query.broker_id,
+        "token":this.$route.query.token
+      }
+      console.log(param)
+      let result = reqHomeInit(param)
+      result.then(res=>{
+      console.log(res)
+      this.homeInit = res.result
+      if(this.homeInit.name == ''){
+        this.showName = true
+      }
+      console.log(this.homeInit)
+	  if(this.vipNotification == true ){
+		 
+	  }else{
+		  this.vipNotification = this.homeInit.vip_notification
+		  if(this.homeInit.vip_valid == false){
+		  		 this.vipExpiryTime ='您的会员已到期'  
+		  		  // this.vipExpiryTime ='您的会员将于'+times+'到期'
+		  }else{
+		  		  var time=this.homeInit.vip_expiry_time;
+		  		  var d = new Date(time);
+		  		  var times=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+		  		   this.vipExpiryTime ='您的会员将于'+times+'到期'	  
+		  }
+	  }
+	  var expLine =0;
+	  //99为进度条px值 
+	  expLine=this.homeInit.exp/this.homeInit.level_exp *99;
+	  this.linewidthData=expLine+"px", 
+	     console.log('this.linewidthData',this.linewidthData)
+      if (this.homeInit.title == 1) { //保险等级
+          this.homeLevel = this.levelbx1
+        } else if(this.homeInit.title == 2){
+          this.homeLevel = this.levelbx2
+        } else if(this.homeInit.title == 3){
+          this.homeLevel = this.levelbx3
+        } else if(this.homeInit.title == 4){
+          this.homeLevel = this.levelbx4
+        } else if(this.homeInit.title == 5){
+          this.homeLevel = this.levelbx5
+        } else if(this.homeInit.title == 6){
+          this.homeLevel = this.levelbx6
+        } else if(this.goodsList.title == 7){
+          this.homeLevel = this.levelbx7
+        }
+      }).catch(reslove=>{
+         console.log('error')
+      })
     },
 
     destoryTimer() {
@@ -844,28 +816,46 @@ export default {
           line-height: 18px;
           display: flex;
           margin-bottom: 6px;
-        }
-        .line {
-          width: 99px;
-          height: 16px;
-        }
-        .line {
-          width: 99px;
-          height: 16px;
-          background: -webkit-gradient(
-            linear,
-            0% 25%,
-            75% 100%,
-            from(rgba(45, 226, 230, 0.46)),
-            to(rgba(45, 226, 230, 0.09))
-          );
-        }
-        .ArticleExperience {
-          font-size: 10px;
-          font-family: DINAlternate-Bold, DINAlternate;
-          font-weight: bold;
-          color: rgba(122, 234, 234, 1);
-          line-height: 11px;
+
+         }
+         .line{
+           position: absolute;
+           	top: 23px;
+           	left:0px;
+           height: 16px;
+		   z-index:20;
+		   // background: -webkit-gradient(linear, 0% 25%, 75% 100%, from(rgba(45, 226, 230,0.09) ), to( rgba(45, 226, 230,0.46 )));
+         }
+		.linebg{
+			z-index:10;
+			// width: 99px;
+			position: absolute;
+			top: 23px;
+			left:0px;
+		  height: 16px;
+		 
+		 background: -webkit-gradient(linear, 0% 25%, 75% 100%, from(rgba(45, 226, 230,0.09) ), to( rgba(45, 226, 230,0.46 )));
+		 
+		  
+		}
+		.invitation{
+			margin-left: 6px;
+			top: 23px;
+			left:0px;
+			position: absolute;
+			width: 40px;
+			height: 40px;
+		}
+		.invitationicon{
+			width: 40px;
+			height: 40px;
+		}
+         .ArticleExperience{
+          font-size:10px;
+          font-family:DINAlternate-Bold,DINAlternate;
+          font-weight:bold;
+          color:rgba(122,234,234,1);
+          line-height:11px;
           position: absolute;
           top: 27px;
           left: 6px;
