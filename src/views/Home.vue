@@ -637,9 +637,10 @@ export default{
       // if(){
         
       // }
+      this.$route.query.broker_id = this.$route.query.visitor_id
       let param = {
         "robot_id":this.$route.query.robot_id,
-        "broker_id":this.$route.query.visitor_id,
+        "broker_id":this.$route.query.broker_id,
         "token":this.$route.query.token
       }
       console.log(param)
