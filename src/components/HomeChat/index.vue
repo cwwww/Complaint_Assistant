@@ -47,7 +47,7 @@
       <div class="bottomLine"></div>
       <div class="bottom">
         <div class="content-bottom">
-          <input type="text" :placeholder="placeholder" ref="input" />
+          <input type="text" :placeholder="placeholder" v-model="input" />
         </div>
         <div class="btn" @click="submit">
           <span>发送</span>
@@ -77,6 +77,7 @@ export default {
       left: true,
       right: true,
       question: "",
+      input:'',
       placeholder: "有什么可以帮您？尽快发来问题吧",
       user: require("../../assets/images/头像@2x.png"),
       edit: require("../../assets/images/edit.png"),
@@ -115,24 +116,23 @@ export default {
         });
     },
     submit() {
-      if (this.$refs.input.value == "") {
+      if (this.input == "") {
         Toast("请输入聊天内容");
       } else {
-        this.question = this.$refs.input.value;
+        this.question = thisinput;
         let param = {
           dialog_type: "1",
-          broker_id: 33,
-          robot_id: 33,
+          broker_id: this.broker_id,
+          robot_id: this.robot_id,
           speaker: "2",
           content: this.question,
-          token:
-            "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          token: this.token
         };
         let res = reqRobotDetail(param);
         res
           .then(res => {
             this.getChatList();
-            this.$refs.input.value = "";
+            this.input = "";
           })
           .catch(reslove => {
             console.log("error");
@@ -142,12 +142,11 @@ export default {
     chathist(index) {
       console.log(this.list[index]);
       let param = {
-        broker_id: 33,
+        broker_id: this.broker_id,
         sentence_id: this.list[index].sentence_id,
         question: this.question,
         answer: "",
-        token:
-          "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        token: this.token
       };
       console.log(param);
       let res = reqChathist(param);
@@ -161,11 +160,10 @@ export default {
     },
     teachYou(index) {
       let param = {
-        broker_id: 33,
+        broker_id: this.broker_id,
         question: this.list[index - 1].content,
         answer: this.list[index].content,
-        token:
-          "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        token: this.token
       };
       console.log(param);
       let res = reqaddledgeList(param);
