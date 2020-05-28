@@ -440,7 +440,7 @@
 				}
 				let result = reqisregistered(param)
 				result.then(res => {
-					alert(JSON.stringify(res.result))
+					alert('授权'+JSON.stringify(res.result))
 					this.registers = res.result
 					if(this.registers.visitor_type == '0'){
 						this.isRegister = false
@@ -460,8 +460,13 @@
 						}
 						let result = reqcustomerlogin(param)
 						result.then(res => {
-							alert(JSON.stringify(res.result))
+							alert('customerlogin:'+JSON.stringify(res.result))
 							this.visitList = res.result
+							alert('授权完成')
+							this.getHomeInit()
+							this.getCusayrob()
+							//串门成功后，增加金币和经验
+							this.chuanmen();
 						}).catch(reslove => {
 							console.log('error')
 						})
@@ -499,7 +504,6 @@
 				}
 				return theRequest
 			}
-
 		},
 		mounted() {
 		},
@@ -510,11 +514,7 @@
 				// 别的业务逻辑
 			}
 			this.impower(this.code)
-			alert('授权完成')
-			this.getHomeInit()
-			this.getCusayrob()
-			//串门成功后，增加金币和经验
-			this.chuanmen();
+
 		}
 
 	}
