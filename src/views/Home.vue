@@ -423,12 +423,12 @@ export default{
             "PRIVILEGE":  this.messages.privilege,
           }
 	},
-    getFensi(){ 
+    getFensi(){
       let param = {
-            "robot_id": this.$route.query.robotId,
+            "robot_id": 33,
             "operation_type": 0,
-            "broker_id": this.$route.query.broker_id,
-            "token":this.$route.query.token
+            "broker_id": 33,
+            "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
           }
       let res = BeanList(param)
       res.then(res=>{
@@ -456,21 +456,21 @@ export default{
       if(this.flag){
         param = {
           "dialog_type": "0",
+          "broker_id": 33,
+          "robot_id": 33,
           "speaker": "2",
           "content": '.',
-          "robot_id": this.$route.query.robotId,
-          "broker_id": this.$route.query.broker_id,
-          "token":this.$route.query.token     
+          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
         }
         this.flag = false
       }else{
         param = {
           "dialog_type": "1",
+          "broker_id": 33,
+          "robot_id": 33,
           "speaker": "2",
           "content": this.question,
-          "robot_id": this.$route.query.robotId,
-          "broker_id": this.$route.query.broker_id,
-          "token":this.$route.query.token     
+          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
         }
       }
       console.log(param)
@@ -492,10 +492,10 @@ export default{
 	//与机器人聊天任务
 	getReqtaskStatus(){
 		let param = {
+			"broker_id": 1,
+			"robot_id": 1,
 			"operation_type":1,
-      "robot_id": this.$route.query.robotId,
-      "broker_id": this.$route.query.broker_id,
-      "token":this.$route.query.token
+			"token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
 		}
 		console.log("任务的param:"+param);
 		
@@ -525,11 +525,11 @@ export default{
           "dialog_type": "2",
           "customer_id": 1,
           "customer_type": 0,
+          "broker_id": 33,
+          "robot_id": 33,
           "speaker": "1",
           "content": '.',
-          "robot_id": this.$route.query.robotId,
-          "broker_id": this.$route.query.broker_id,
-          "token":this.$route.query.token
+          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
         }
         this.isInput = false
       } else {
@@ -537,11 +537,11 @@ export default{
           "dialog_type": "2",
           "customer_id": 1,
           "customer_type": 2,
+          "broker_id": 33,
+          "robot_id": 33,
           "speaker": "1",
           "content": "第二版测试",
-          "robot_id": this.$route.query.robotId,
-          "broker_id": this.$route.query.broker_id,
-          "token":this.$route.query.token
+          "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
         }
       }
       console.log(param)
