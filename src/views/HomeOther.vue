@@ -362,9 +362,11 @@
 					"visited_robot_id": this.$route.query.broker_id,
 					"token": this.visitList.token
 				}
+				alert(JSON.stringify(param))
 				let result = reqVisitedInit(param)
 				result.then(res => {
-					console.log("daying:" + res)
+					alert(JSON.stringify(res.result))
+					alert('初始化')
 					this.homeInit = res.result
 					if(this.homeInit.followed){
 						this.guanzhuContent ="已关注";
@@ -450,7 +452,6 @@
 					this.registers = res.result
 					if(this.registers.visitor_type == '0'){
 						this.isRegister = false
-						this.$router.push('/login')
 					}else if(this.registers.visitor_type == '1'){
 						this.isRegister = true
 					}else if(this.registers.visitor_type == '-1'){
@@ -538,8 +539,9 @@
 			} else {
 				// 别的业务逻辑
 			}
-			alert(this.code)
+			
 			this.impower(this.code)
+			alert('授权完成')
 			this.getHomeInit()
 			this.getCusayrob()
 			//串门成功后，增加金币和经验
