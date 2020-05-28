@@ -156,12 +156,12 @@ export default {
           this.question = this.$refs.input.value;
           console.log(this.question);
           let param = {
-            broker_id: 33,
-            customer_id: 1,
-            customer_type: 0,
+            broker_id: this.$route.query.broker_id,
+            customer_id: this.$route.query.customer_id,
+            customer_type: this.$route.query.customer_type,
             speaker: "1",
             content: this.question,
-            token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
+            token: this.$route.query.token
           };
           console.log(param);
           let res = reqCustomerInput(param);
@@ -169,7 +169,7 @@ export default {
             .then(res => {
               console.log(this.dialogMark);
               if (this.dialogMark == 1) {
-                console.log(111111);
+                alert(111111);
                 this.getHistoryCustomer();
               }
               this.$refs.input.value = "";
