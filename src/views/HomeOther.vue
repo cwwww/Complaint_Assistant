@@ -350,7 +350,7 @@
 				alert('22'+JSON.stringify(that.visitList))
 				if(that.registers.visitor_type == '0'){
 					that.customer_type = 0
-					that.customer_robot_id = that.visitList.robot_id
+					that.customer_robot_id = ''
 				}else if(that.registers.visitor_type == '1'){
 					that.customer_type = 1
 					that.customer_robot_Nid = that.visitList.robot_id
@@ -359,7 +359,7 @@
 					that.customer_robot_id = ''
 				}
 				let param = {
-					"customer_id": that.visitList.visitor_id,
+					"customer_id": that.visitList.customer_id,
 					"customer_robot_id": that.customer_robot_id,
 					"customer_type": that.customer_type,
 					"visited_robot_id": that.$route.query.broker_id,
