@@ -126,7 +126,7 @@
 </template>
 <script>
 import { Popup, Toast } from "vant";
-import ACVisitor from '../components/ACVisitor.vue'
+import ACVisitor from '../components/ACVisitor'
 // import {
 // 	MessageBox
 // } from 'element-ui';

@@ -64,7 +64,6 @@
           <span>发送</span>
         </div>
       </div>
-
       <router-view v-if="$route.path==='/HomeOther'"></router-view>
     </van-popup>
   </div>
@@ -76,7 +75,7 @@ import {
   reqCusayrob,
   reqHistoryCustomer,
   reqCustomerInput
-} from "../axios/axios-api";
+} from "../../axios/axios-api";
 
 export default {
   name: "ACVisitor",
@@ -92,11 +91,11 @@ export default {
       isInput: true,
       lastSentence: "",
       placeholder: "你试试输入“风险测评”",
-      user: require("../assets/images/头像@2x.png"),
-      fkuser: require("../assets/images/fkuser.png"),
-      edit: require("../assets/images/edit.png"),
-      teach: require("../assets/images/teach.png"),
-      smallBebot: require("../assets/images/smallBebot.png")
+      user: require("../../assets/images/头像@2x.png"),
+      fkuser: require("../../assets/images/fkuser.png"),
+      edit: require("../../assets/images/edit.png"),
+      teach: require("../../assets/images/teach.png"),
+      smallBebot: require("../../assets/images/smallBebot.png")
     };
   },
   props: ['broker_id','robot_id','customer_id','customer_type','token'],
