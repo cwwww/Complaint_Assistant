@@ -119,7 +119,7 @@ export default {
       if (this.input == "") {
         Toast("请输入聊天内容");
       } else {
-        this.question = thisinput;
+        this.question = this.input;
         let param = {
           dialog_type: "1",
           broker_id: this.broker_id,
