@@ -62,7 +62,6 @@
           </div>
         </div>
       </div>
-
       <div class="content">
         <div class="leftBox">
           <div class="leftLogon">

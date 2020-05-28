@@ -130,10 +130,10 @@
               <span>排行榜</span>
           </li>
       </ul>
-<<<<<<< HEAD
+
 	  .
 	  <div class="input-bottom-content" >
-=======
+
       <van-popup
           class="cont3"
           v-model="showName"
@@ -764,8 +764,12 @@ export default{
            height: 16px;
          }
 		.linebg{
+			position: absolute;
+			top: 23px;
+			right:0px;
 		  width: 99px;
 		  height: 16px;
+		  // background:rgba(45, 226, 230, 0.46);
 		 background: -webkit-gradient(linear, 0% 25%, 75% 100%, from(rgba(45, 226, 230, 0.46)), to(rgba(45, 226, 230, 0.09)));
 		 opacity: 0.5;
 		  
