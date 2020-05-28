@@ -165,7 +165,7 @@
 
       <div class="input-bottom" >
         <input type="text" ref="input" placeholder="输入“风险测评”试试" style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"/>
-        <div class="btn"  @click="submit">发送</div> 
+        <div class="btn" @click="submit">发送</div> 
       </div>
 	   </div>
     </div >
@@ -527,7 +527,7 @@ export default {
     },
     submit(numIndex) {
       this.numIndex += 1;
-      if (this.$refs.input.value == "") {
+      if (this.input == "") {
         Toast("请输入聊天内容");
       } else {
         this.getDetail();
@@ -668,9 +668,9 @@ export default {
         this.showName = true
       }
       console.log(this.homeInit)
-	  if(this.vipNotification == true ){
-		 
-	  }else{
+      if(this.vipNotification == true ){
+      
+      }else{
 		  this.vipNotification = this.homeInit.vip_notification
 		  if(this.homeInit.vip_valid == false){
 		  		 this.vipExpiryTime ='您的会员已到期'  
