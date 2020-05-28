@@ -148,6 +148,7 @@ export default {
         });
     },
     submit() {
+      alert(this.dialogMark)
       if (this.dialogMark == "1") {
         // alert(this.dialogMark)
         if (this.$refs.input.value == "") {

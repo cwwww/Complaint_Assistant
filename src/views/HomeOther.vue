@@ -225,10 +225,6 @@ export default {
     },
     HomeChat() {
 	  // 聊天记录
-	  alert(this.$route.query.broker_id)
-	  alert(this.customer_type)
-	  alert(this.visitList.customer_id)
-	  alert(this.$route.query.robot_id)
 	  this.$router.push({
         path: "/ACVisitor",
         query: {

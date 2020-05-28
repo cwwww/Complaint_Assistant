@@ -449,7 +449,7 @@ export default {
           // alert($route.query.visitor_id)
           var that = this;
           wx.config({
-            debug: true,
+            debug: false,
             appId: "wx026553ce8b4e59a3", // 和获取Ticke的必须一样------必填，公众号的唯一标识
             timestamp: that.shareMessages.timestamp, // 必填，生成签名的时间戳
             nonceStr: that.shareMessages.nonceStr, // 必填，生成签名的随机串
