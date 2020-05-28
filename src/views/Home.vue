@@ -166,9 +166,9 @@
 </template>
 <script>
 import { Popup, Toast } from "vant";
-// import wxapi from '../assets/js/common/wxapi';
 import wx from "weixin-js-sdk";
-import {HomeChat,WhoLookMe} from '../components/HomeChat'
+import HomeChat from '../components/HomeChat'
+import WhoLookMe from '../components/WhoLookMe'
 import {
   reqHomeInit,
   reqCusayrob,
@@ -340,12 +340,12 @@ export default {
     HomeChat() {
       // 聊天记录
       this.homeChat = true
-      this.destoryTimer();
+      // this.destoryTimer();
     },
     WhoLookMe() {
       // 谁看过我
       this.WhoLook = true
-      this.destoryTimer();
+      // this.destoryTimer();
     },
     Ranking() {
       //排行榜
