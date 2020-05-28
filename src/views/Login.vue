@@ -154,7 +154,7 @@ export default {
             path:'/',
             query:{
               visitor_id:this.messages.ID,
-              robot_Id:this.messages.ROBOT_ID,
+              robot_id:this.messages.ROBOT_ID,
               token:this.messages.token,
               
               // :this.mes.headimgurl
