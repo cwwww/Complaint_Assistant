@@ -88,7 +88,7 @@
         </li>
         <li @click="register" v-if="!isRegister">
           <img :src="login" alt />
-          <span>去登陆</span>
+          <span>去登录</span>
         </li>
         <li style="visibility:hidden">
           <img :src="home_rankinglist" alt />
