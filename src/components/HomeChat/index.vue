@@ -1,5 +1,6 @@
 <template>
   <div class="warp">
+    <!-- <van-loading /> -->
     <van-popup
       v-model="chat"
       closeable
@@ -11,17 +12,16 @@
       <div style="background:rgba(245,245,245,1);height:1.2%"></div>
       <div class="wrapper" ref="wrapper">
         <div class="content" v-for="(i,index) in list" :key="index">
-          <!-- 访客 -->
-          <div class="content-top" v-show="i.speaker == 1">
+          <div class="content-top" v-show="i.speaker == 2">
             <div class="topTime" v-show="i.create_time != null">{{i.create_time}}</div>
             <div class="question">
-              <div class="q_content">{{i.content}}</div>
+              <div class="q_content" id="q_content">{{i.content}}</div>
               <div class="photo">
-                <img :src="fkuser" v-show="right" alt />
+                <img :src="user" v-show="right" alt />
               </div>
             </div>
           </div>
-          <!-- 机器人 -->
+
           <div class="content-top" v-show="i.speaker == 0">
             <div class="topTime" v-show="i.create_time != null">{{i.create_time}}</div>
             <div style="margin-top: 10px;" v-show="i.create_time == null"></div>
@@ -29,57 +29,46 @@
               <div class="photo">
                 <img :src="smallBebot" v-show="left" alt />
               </div>
-              <div class="q_content">{{i.content}}</div>
+              <div class="q_content" id="q_content2">{{i.content}}</div>
             </div>
-          </div>
-          <!-- 代理人 -->
-          <div class="content-top" v-show="i.speaker == 2">
-            <div class="topTime" v-show="i.create_time != null">{{i.create_time}}</div>
-            <div style="margin-top: 10px;" v-show="i.create_time == null"></div>
-            <div class="question2">
-              <div class="photo">
-                <img :src="user" v-show="left" alt />
+            <div class="teach">
+              <div>
+                <img style="margin-top:-1px;" :src="edit" alt />
+                <span @click="chathist(index)">发布</span>
               </div>
-              <div class="q_content">{{i.content}}</div>
+              <div style="margin-left:20px;">
+                <img style="height:16px;" :src="teach" alt />
+                <span @click="teachYou(index)">我教你</span>
+              </div>
             </div>
           </div>
-          <!-- <div class="teach">
-                <div>
-                  <img style="margin-top:-1px;" :src=edit alt="">
-                  <span @click="chathist(index)">发布</span>
-                </div>
-                <div style="margin-left:20px;">
-                  <img style="height:16px;" :src=teach alt="">
-                  <span>我教你</span>
-                </div>
-          </div>-->
         </div>
       </div>
       <div class="bottomLine"></div>
       <div class="bottom">
         <div class="content-bottom">
-          <input type="text" :placeholder="placeholder" v-model="question" />
+          <input type="text" :placeholder="placeholder" v-model="input" />
         </div>
         <div class="btn" @click="submit">
           <span>发送</span>
         </div>
       </div>
-
-      <router-view v-if="$route.path==='/HomeOther'"></router-view>
+      <router-view v-if="$route.path==='/home'"></router-view>
     </van-popup>
   </div>
 </template>
 <script>
 import BScroll from "better-scroll";
-import { Popup, Toast } from "vant";
+import { Popup, Toast, Loading } from "vant";
 import {
-  reqCusayrob,
-  reqHistoryCustomer,
-  reqCustomerInput
+  reqRobotDetail,
+  reqRobotHistory,
+  reqChathist,
+  reqaddledgeList
 } from "../../axios/axios-api";
-
 export default {
-  name: "ACVisitor",
+  inject: ["reload"], // 引入页面同步刷新的依赖
+  name: "HomeChat",
   data() {
     return {
       list: [],
@@ -87,143 +76,76 @@ export default {
       left: true,
       right: true,
       question: "",
-      flag: true,
-      dialogMark: "",
-      isInput: true,
-      lastSentence: "",
-      placeholder: "你试试输入“风险测评”",
+      input:'',
+      placeholder: "有什么可以帮您？尽快发来问题吧",
       user: require("../../assets/images/头像@2x.png"),
-      fkuser: require("../../assets/images/fkuser.png"),
       edit: require("../../assets/images/edit.png"),
       teach: require("../../assets/images/teach.png"),
       smallBebot: require("../../assets/images/smallBebot.png")
     };
   },
+  props:['broker_id','robot_id','token','show_chat'],
+  created(){
+      this.chat = this.show_chat
+  },
+  watch:{
+    show_chat(newValue){
+        this.chat = newValue
+    }
+  },
   methods: {
     close() {
-      this.$router.push({
-        path:'/HomeOther',
-        query:{
-          broker_id: this.$route.query.broker_id,
-          customer_id: this.$route.query.customer_id,
-          customer_type: this.customer_type,
-          token: this.visitList.token
-        }
-      });
+      this.$emit('showChatC',false)
     },
-    getHistoryCustomer() {
-      //AC 聊天记录
-      let param;		  
-      if (this.flag) {
-        param = {
-          broker_id: this.$route.query.broker_id,
-          customer_id: this.$route.query.customer_id,
-          customer_type: this.$route.query.customer_type,
-          last_sentence: -1,
-          token: this.$route.query.token
-        };
-        this.flag = false;
-      } else {
-        param = {
-          broker_id: this.$route.query.broker_id,
-          customer_id: this.$route.query.customer_id,
-          customer_type: this.$route.query.customer_type,
-          last_sentence: this.lastSentence,
-          token: this.$route.query.token
-        };
-      }
-      let res = reqHistoryCustomer(param);
+    getChatList() {
+      let param = {
+        broker_id: this.broker_id,
+        token: this.token
+      };
+      console.log(param);
+      let res = reqRobotHistory(param);
       res
         .then(res => {
           console.log(res);
-          // if(this.dialogMark == 1){
-          this.dialogMark = res.result.dialog_mark;
-          this.list = res.result.dialog_history;
-          // this.getHistoryCustomer()
-          // }
-          this.lastSentence = res.result.last_sentence;
+          alert(JSON.stringify(res))
+          this.list = res.result;
         })
         .catch(reslove => {
           console.log("error");
         });
     },
     submit() {
-      if (this.dialogMark == "1") {
-        if (this.question == "") {
-          Toast("请输入聊天内容");
-        } else {
-          let param = {
-            broker_id: this.$route.query.broker_id,
-            customer_id: this.$route.query.customer_id,
-            customer_type: this.$route.query.customer_type,
-            speaker: "1",
-            content: this.question,
-            token: this.$route.query.token
-          };
-          console.log(param);
-          let res = reqCustomerInput(param);
-          res
-            .then(res => {
-              if (this.dialogMark == 1) {
-                this.getHistoryCustomer();
-              }
-              this.question = "";
-            })
-            .catch(reslove => {
-              console.log("error");
-            });
-        }
+      if (this.input == "") {
+        Toast("请输入聊天内容");
       } else {
-        this.getMarkrebot();
-      }
-    },
-    // mark为0机器人出现
-    getMarkrebot() {
-      let param;
-      if (this.isInput) {
-        param = {
-          dialog_type: "2",
-          customer_id: this.$route.query.customer_id,
-          customer_type: this.$route.query.customer_type,
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robor_id,
-          speaker: "1",
-          content: ".",
-          token: this.$route.query.token
-        };
-        this.isInput = false;
-      } else {
-        param = {
-          dialog_type: "2",
-          customer_id: this.$route.query.customer_id,
-          customer_type: this.$route.query.customer_type,
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robor_id,
-          speaker: "1",
+        this.question = this.input;
+        let param = {
+          dialog_type: "1",
+          broker_id: this.broker_id,
+          robot_id: this.robot_id,
+          speaker: "2",
           content: this.question,
-          token: this.$route.query.token
+          token: this.token
         };
+        let res = reqRobotDetail(param);
+        res
+          .then(res => {
+            this.getChatList();
+            this.input = "";
+          })
+          .catch(reslove => {
+            console.log("error");
+          });
       }
-      let res = reqCusayrob(param);
-      res
-        .then(res => {
-          this.list = res.result.dialog_history;
-          this.question = "";
-        })
-        .catch(reslove => {
-          console.log("error");
-        });
     },
-
-    // 发布
     chathist(index) {
       console.log(this.list[index]);
       let param = {
-        broker_id: this.$route.query.broker_id,
+        broker_id: this.broker_id,
         sentence_id: this.list[index].sentence_id,
         question: this.question,
         answer: "",
-        token: this.$route.query.token
+        token: this.token
       };
       console.log(param);
       let res = reqChathist(param);
@@ -235,6 +157,31 @@ export default {
           console.log("error");
         });
     },
+    teachYou(index) {
+      let param = {
+        broker_id: this.broker_id,
+        question: this.list[index - 1].content,
+        answer: this.list[index].content,
+        token: this.token
+      };
+      console.log(param);
+      let res = reqaddledgeList(param);
+      res
+        .then(res => {
+          // this.ShoWList()
+          console.log(res);
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
+      this.$router.push({
+        path: "/shopZoom",
+        query: {
+          Answer: this.list[index].content,
+          Question: this.list[index - 1].content
+        }
+      });
+    },
     //  滚动条置底
     scrollToBottom: function() {
       this.$nextTick(() => {
@@ -243,19 +190,12 @@ export default {
       });
     }
   },
-  updated: function() {
-    this.scrollToBottom();
-  },
+//   updated: function() {
+//     this.scrollToBottom();
+//   },
   mounted() {
-    alert(JSON.stringify(this.$route.query))
-    if (this.dialogMark == 0) {
-      this.getMarkrebot();
-    }
-    this.scrollToBottom();
-    this.getHistoryCustomer()
-    window.setInterval(() => {
-      setTimeout(this.getHistoryCustomer(), 0);
-    }, 2000);
+    // this.scrollToBottom();
+    this.getChatList();
   }
 };
 </script>

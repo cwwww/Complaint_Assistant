@@ -6,12 +6,12 @@
     </div>
     <span>请登录</span>
     <div class="inputZh">
-      <input class="input phone" type="text" placeholder="请输入手机号" maxlength="11" ref="phone"/>
+      <input class="input phone" type="text" placeholder="请输入手机号" maxlength="11" ref="phone" />
       <img :src="img2" alt />
     </div>
     <div class="passWord">
       <div class="leftPassword">
-        <input class="input research" type="text" placeholder="请输入验证码" ref="research" maxlength="6"/>
+        <input class="input research" type="text" placeholder="请输入验证码" ref="research" maxlength="6" />
         <img :src="img3" alt />
       </div>
       <div class="rightSend" id="box">
@@ -35,208 +35,231 @@
   </div>
 </template>
 <script>
-import { reqlogin,reqbebotCode,reqsendMsmCode,reqwxconfig,reqisregistered } from '../axios/axios-api'
+import {
+  reqlogin,
+  reqbebotCode,
+  reqsendMsmCode,
+  reqwxconfig,
+  reqisregistered
+} from "../axios/axios-api";
 // import {debounce} from '../assets/js/common'
-import { Toast,Checkbox } from 'vant';
+import { Toast, Checkbox } from "vant";
 export default {
   name: "Login",
   data() {
-    return {　　
-      loginMeg:'', //查询是否注册返回信息
-      checkNum:true,　　
+    return {
+      loginMeg: "", //查询是否注册返回信息
+      checkNum: true,
       check: false,
-      phone: '', //输入框中的手机号
-      research: '', //输入框中的验证码
-      codeText: '获取验证码',  //倒计时显示文字
-      timingBoard: 60,  //倒计时数
-      timer: null,  //一个定时器，用来倒数验证码　
-      wx_link:'',
-      redirect_uri:'',
-      appId:'',
-      callback:'',
-      code:'',
-      count:'',
-      mes:'', // 授权返回的信息
-      messages:'', 
+      phone: "", //输入框中的手机号
+      research: "", //输入框中的验证码
+      codeText: "获取验证码", //倒计时显示文字
+      timingBoard: 60, //倒计时数
+      timer: null, //一个定时器，用来倒数验证码
+      wx_link: "",
+      redirect_uri: "",
+      appId: "",
+      callback: "",
+      code: "",
+      count: "",
+      mes: "", // 授权返回的信息
+      messages: "",
       img: require("../assets/images/loginimg.png"),
       img1: require("../assets/images/lisfjaiwe.png"),
       img2: require("../assets/images/shouji.png"),
       img3: require("../assets/images/suos.png")
     };
   },
-  methods:{
-    getLogin(){
-        let param = {
-            "PHONE": "13544668944",
-            "OPENID": null,
-            "NICKNAME": null,
-            "HEADIMGURL":  null,
-            "SEX":  null,
-            "PROVINCE":  null,
-            "CITY": null,
-            "COUNTRY": null,
-            "PRIVILEGE":  null,
-            "code": "1256"
-        }
-      let res = reqlogin(param)
-      res.then(res=>{
-        // console.log(res)
-      }).catch(reslove=>{
-           console.log('error')
-      })
-    },	
-    checked(){
-      this.check = false
+  methods: {
+    getLogin() {
+      let param = {
+        PHONE: "13544668944",
+        OPENID: null,
+        NICKNAME: null,
+        HEADIMGURL: null,
+        SEX: null,
+        PROVINCE: null,
+        CITY: null,
+        COUNTRY: null,
+        PRIVILEGE: null,
+        code: "1256"
+      };
+      let res = reqlogin(param);
+      res
+        .then(res => {
+          // console.log(res)
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     },
-    // 
+    checked() {
+      this.check = false;
+    },
+    //
     GetQueryString(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if(r != null) return decodeURIComponent(r[2]);
-        return null;
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return decodeURIComponent(r[2]);
+      return null;
     },
 
-    loginResearch(){  
-      if (this.$refs.phone.value == '') {
-        Toast('请输入手机号')
-      }else if(!/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value)){
-        Toast('请输入正确的手机号')
-      } else if(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value)) {
-        let param = {"PHONE": this.$refs.phone.value}
-        console.log(param)
-        let res = reqsendMsmCode(param)
-        res.then(res=>{
-          const TIME_COUNT = 60;
-          if (!this.timer) {
-            this.count = TIME_COUNT;
-            this.checkNum = false;
-            this.timer = setInterval(() => {
-            if (this.count > 0 && this.count <= TIME_COUNT) {
-              this.count--;
-              } else {
-              this.checkNum = true;
-              clearInterval(this.timer);
-              this.timer = null;
-              }
-            }, 1000)
-          }
-        }).catch(reslove=>{
-          console.log('error')
-        })
-      }
-    },
-    login(){
-      if(this.$refs.phone.value == '' || this.$refs.research.value == ''){
-        Toast('请输入手机号和验证码')
-      }else if(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value) && this.$refs.research.value.length < 6){
-        Toast('请输入正确的验证码')
-      }else if(!this.check){
-        Toast('请勾选协议')
-      }else{
-        let param = {
-          "PHONE": this.$refs.phone.value,
-          "code":this.$refs.research.value,
-          "OPENID": this.mes.openid,
-          "NICKNAME": this.mes.nickname,
-          "HEADIMGURL":  this.mes.headimgurl,
-          "SEX":  this.mes.sex,
-          "PROVINCE":  this.mes.province,
-          "CITY": this.mes.city,
-          "COUNTRY": this.mes.country,
-          "PRIVILEGE":  this.mes.privilege,
-        }
-        console.log(param)
-        let res = reqlogin(param)
-        res.then(res=>{
-          console.log(res)
-          this.messages = res.result
-          this.$router.push({
-            path:'/',
-            query:{
-              visitor_id:this.messages.ID,
-              robot_id:this.messages.ROBOT_ID,
-              token:this.messages.token,
-              
-              // :this.mes.headimgurl
+    loginResearch() {
+      if (this.$refs.phone.value == "") {
+        Toast("请输入手机号");
+      } else if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value)) {
+        Toast("请输入正确的手机号");
+      } else if (/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value)) {
+        let param = { PHONE: this.$refs.phone.value };
+        console.log(param);
+        let res = reqsendMsmCode(param);
+        res
+          .then(res => {
+            const TIME_COUNT = 60;
+            if (!this.timer) {
+              this.count = TIME_COUNT;
+              this.checkNum = false;
+              this.timer = setInterval(() => {
+                if (this.count > 0 && this.count <= TIME_COUNT) {
+                  this.count--;
+                } else {
+                  this.checkNum = true;
+                  clearInterval(this.timer);
+                  this.timer = null;
+                }
+              }, 1000);
             }
           })
-        }).catch(reslove=>{
-          console.log('error')
-        })
+          .catch(reslove => {
+            console.log("error");
+          });
       }
     },
-    impower(){
-      let param = {"code":this.code}
-      let res = reqbebotCode(param)
-      res.then(res=>{
-        console.log(res)
-        this.mes = res.result
-      }).catch(reslove=>{
-        console.log('error')
-      })
+    login() {
+      if (this.$refs.phone.value == "" || this.$refs.research.value == "") {
+        Toast("请输入手机号和验证码");
+      } else if (
+        /^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value) &&
+        this.$refs.research.value.length < 6
+      ) {
+        Toast("请输入正确的验证码");
+      } else if (!this.check) {
+        Toast("请勾选协议");
+      } else {
+        let param = {
+          PHONE: this.$refs.phone.value,
+          code: this.$refs.research.value,
+          OPENID: this.mes.openid,
+          NICKNAME: this.mes.nickname,
+          HEADIMGURL: this.mes.headimgurl,
+          SEX: this.mes.sex,
+          PROVINCE: this.mes.province,
+          CITY: this.mes.city,
+          COUNTRY: this.mes.country,
+          PRIVILEGE: this.mes.privilege
+        };
+        console.log(param);
+        let res = reqlogin(param);
+        res
+          .then(res => {
+            console.log(res);
+            this.messages = res.result;
+            this.$router.push({
+              path: "/",
+              query: {
+                broker_id: this.messages.ID,
+                robot_id: this.messages.ROBOT_ID,
+                token: this.messages.token
+              }
+            });
+          })
+          .catch(reslove => {
+            console.log("error");
+          });
+      }
     },
-    getCode(){ // 非静默授权，第一次有弹框
-        this.code = ''
-        // var local = window.location.href // 获取页面url
-        var local = "https://test-bebot-web.baoxianxia.com.cn/#/login" // 获取页面url
-        var appid = 'wx026553ce8b4e59a3'
-        this.code = this.getUrlCode().code // 截取code
-        if (this.code == null || this.code === '') { // 如果没有code，则去请求
-            window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
-        } else {
-            // 你自己的业务逻辑
-        }
+    impower() {
+      let param = { code: this.code };
+      let res = reqbebotCode(param);
+      res
+        .then(res => {
+          console.log(res);
+          this.mes = res.result;
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     },
-    getUrlCode() { // 截取url中的code方法
-        var url = window.location.search
-        this.winUrl = url
-        var theRequest = new Object()
-        if (url.indexOf("?") != -1) {
-            var str = url.substr(1)
-            var strs = str.split("&")
-            for(var i = 0; i < strs.length; i ++) {
-                theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
-            }
+    getCode() {
+      // 非静默授权，第一次有弹框
+      this.code = "";
+      // var local = window.location.href // 获取页面url
+      var local = "https://test-bebot-web.baoxianxia.com.cn/#/login"; // 获取页面url
+      var appid = "wx026553ce8b4e59a3";
+      this.code = this.getUrlCode().code; // 截取code
+      if (this.code == null || this.code === "") {
+        // 如果没有code，则去请求
+        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(
+          local
+        )}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`;
+      } else {
+        // 你自己的业务逻辑
+      }
+    },
+    getUrlCode() {
+      // 截取url中的code方法
+      var url = window.location.search;
+      this.winUrl = url;
+      var theRequest = new Object();
+      if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        var strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+          theRequest[strs[i].split("=")[0]] = strs[i].split("=")[1];
         }
-        return theRequest
+      }
+      return theRequest;
     }
   },
-  created(){
-    this.url = window.location.href.split('#')[0]
-    var start = this.url.indexOf("=")
-    var end = this.url.indexOf("&")
-    this.code = this.url.substring(start+1, end)
-    console.log(this.url)
-    this.impower()
-    let param = {"openid":this.mes.openid}
-    let res = reqisregistered(param)
-    res.then(res=>{
-      this.loginMeg = res.result
-      console.log(this.loginMeg)
-      if(this.loginMeg.visitor_type == 1){
-        this.$router.push({
-          path:'/',
-          query:{
-            visitor_id: this.loginMeg.visitor_id,
-            robot_id: this.loginMeg.robot_id,
-            token: this.loginMeg.token
-          }
-        })
-      }
-    }).catch(reslove=>{
-      console.log('error')
-    })
+  created() {
+    this.url = window.location.href.split("#")[0];
+    var start = this.url.indexOf("=");
+    var end = this.url.indexOf("&");
+    this.code = this.url.substring(start + 1, end);
+    console.log(this.url);
+    this.impower();
+    let param = { openid: this.mes.openid };
+    let res = reqisregistered(param);
+    res
+      .then(res => {
+        this.loginMeg = res.result;
+        console.log(this.loginMeg);
+        if (this.loginMeg.visitor_type == 1) {
+          this.$router.push({
+            path: "/",
+            query: {
+              visitor_id: this.loginMeg.visitor_id,
+              robot_id: this.loginMeg.robot_id,
+              token: this.loginMeg.token
+            }
+          });
+        }
+      })
+      .catch(reslove => {
+        console.log("error");
+      });
   },
-  mounted(){
-      if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
-          this.getCode()
-      } else {
-          // 别的业务逻辑
-      }
-      // this.wxconfig()
-      // var url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
-    },
+  mounted() {
+    if (!window.localStorage.getItem("openId")) {
+      // 如果缓存localStorage中没有微信openId，则需用code去后台获取
+      this.getCode();
+    } else {
+      // 别的业务逻辑
+    }
+    // this.wxconfig()
+    // var url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
   }
+};
 </script>
 <style lang="scss" scoped>
 .warp {
@@ -318,7 +341,7 @@ export default {
         height: 46px;
         border: none;
         outline: none;
-        background-color:transparent;
+        background-color: transparent;
         font-size: 15px;
         font-family: PingFangSC-Regular, PingFang SC;
         font-weight: 400;

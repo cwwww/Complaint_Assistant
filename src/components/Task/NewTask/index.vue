@@ -11,17 +11,30 @@
           <p>和机器人说第一句话</p>
         </div>
       </div>
-      <div class="rightBox">
-        <div class="topTitle">
-          <div class="leftImg">
-            <img :src="img1" alt />
-          </div>
-          <p>+100</p>
-          <div class="rightImg">
-            <img :src="img2" alt />
-          </div>
-          <span>+10</span>
-        </div>
+    
+		<div class="rightBox">
+			     <div v-if="bxmove"  v-show="itemSelected==='np1'"class="topTitle" :class="{ 'movetransition': bxmove?'movetransition':'' }">
+			       <div class="leftImg">
+			         <img :src="img1" alt />
+			       </div>
+			   		  <p class="tanchutext" v-if="showTitle">+100</p>
+			       
+			       <div class="rightImg">
+			         <img :src="img2" alt />
+			       </div>
+			   		  <span class="tanchutext" v-if="showTitle">+10</span>
+			     </div>
+			   		<div class="topTitle" :class="{'moveTitle':itemSelected==='np1' ?'':'moveTitle'}">
+			   		 <div class="leftImg">
+			   		   <img :src="img1" alt />
+			   		 </div>
+			   		 <p>+100</p>
+			   		 <div class="rightImg">
+			   		   <img :src="img2" alt />
+			   		 </div>
+			   		 <span>+10</span>
+			   		 
+			   		</div>
         <div class="bottomButton">
           <p  @click="getTaskStatus(broker_id,robot_id,status,'np1',token)">{{status}}</p>
         </div>
@@ -39,16 +52,28 @@
         </div>
       </div>
       <div class="rightBox">
-        <div class="topTitle">
-          <div class="leftImg">
-            <img :src="img1" alt />
-          </div>
-          <p>+100</p>
-          <div class="rightImg">
-            <img :src="img2" alt />
-          </div>
-          <span>+10</span>
-        </div>
+      	     <div v-if="bxmove"  v-show="itemSelected==='np2'"class="topTitle" :class="{ 'movetransition': bxmove?'movetransition':'' }">
+      	       <div class="leftImg">
+      	         <img :src="img1" alt />
+      	       </div>
+      	   		  <p class="tanchutext" v-if="showTitle">+100</p>
+      	       
+      	       <div class="rightImg">
+      	         <img :src="img2" alt />
+      	       </div>
+      	   		  <span class="tanchutext" v-if="showTitle">+10</span>
+      	     </div>
+      	   		<div class="topTitle" :class="{'moveTitle':itemSelected==='np2' ?'':'moveTitle'}">
+      	   		 <div class="leftImg">
+      	   		   <img :src="img1" alt />
+      	   		 </div>
+      	   		 <p>+100</p>
+      	   		 <div class="rightImg">
+      	   		   <img :src="img2" alt />
+      	   		 </div>
+      	   		 <span>+10</span>
+      	   		 
+      	   		</div>
         <div class="bottomButton twos">
           <p @click="getTaskStatus(broker_id,robot_id,status2,'np2',token)">{{status2}}</p>
         </div>
@@ -65,17 +90,31 @@
           <p>去精灵商店上架知识库</p>
         </div>
       </div>
-      <div class="rightBox">
-        <div class="topTitle">
-          <div class="leftImg">
-            <img :src="img1" alt />
-          </div>
-          <p>+4000</p>
-          <div class="rightImg">
-            <img :src="img2" alt />
-          </div>
-          <span>+10</span>
-        </div>
+		<div class="rightBox">
+			     <div v-if="bxmove"  v-show="itemSelected==='np3'"class="topTitle" :class="{ 'movetransition': bxmove?'movetransition':'' }">
+			       <div class="leftImg">
+			         <img :src="img1" alt />
+			       </div>
+			   		  <p class="tanchutext" v-if="showTitle">+4000</p>
+			       
+			       <div class="rightImg">
+			         <img :src="img2" alt />
+			       </div>
+			   		  <span class="tanchutext" v-if="showTitle">+10</span>
+			     </div>
+			   		<div class="topTitle" :class="{'moveTitle':itemSelected==='np3' ?'':'moveTitle'}">
+			   		 <div class="leftImg">
+			   		   <img :src="img1" alt />
+			   		 </div>
+			   		 <p>+4000</p>
+			   		 <div class="rightImg">
+			   		   <img :src="img2" alt />
+			   		 </div>
+			   		 <span>+10</span>
+			   		 
+			   		</div>
+		
+		
         <div class="bottomButton threes">
          <p  @click="getTaskStatus(broker_id,robot_id,status3,'np3',token)">{{status3}}</p>
         </div>
@@ -92,17 +131,29 @@
           <p>到“发现好友”找到一位朋友，并关注他</p>
         </div>
       </div>
-      <div class="rightBox">
-        <div class="topTitle">
-          <div class="leftImg">
-            <img :src="img1" alt />
-          </div>
-          <p>+100</p>
-          <div class="rightImg">
-            <img :src="img2" alt />
-          </div>
-          <span>+10</span>
-        </div>
+	  <div class="rightBox">
+	  	     <div v-if="bxmove"  v-show="itemSelected==='np4'"class="topTitle" :class="{ 'movetransition': bxmove?'movetransition':'' }">
+	  	       <div class="leftImg">
+	  	         <img :src="img1" alt />
+	  	       </div>
+	  	   		  <p class="tanchutext" v-if="showTitle">+100</p>
+	  	       
+	  	       <div class="rightImg">
+	  	         <img :src="img2" alt />
+	  	       </div>
+	  	   		  <span class="tanchutext" v-if="showTitle">+10</span>
+	  	     </div>
+	  	   		<div class="topTitle" :class="{'moveTitle':itemSelected==='np4' ?'':'moveTitle'}">
+	  	   		 <div class="leftImg">
+	  	   		   <img :src="img1" alt />
+	  	   		 </div>
+	  	   		 <p>+100</p>
+	  	   		 <div class="rightImg">
+	  	   		   <img :src="img2" alt />
+	  	   		 </div>
+	  	   		 <span>+10</span>
+	  	   		 
+	  	   		</div>
         <div class="bottomButton four">
           <p @click="getTaskStatus(broker_id,robot_id,status4,'np4',token)">{{status4}}</p>
         </div>
@@ -119,17 +170,30 @@
           <p>拜访一位朋友，并且购买他的知识库</p>
         </div>
       </div>
-      <div class="rightBox">
-        <div class="topTitle">
-          <div class="leftImg">
-            <img :src="img1" alt />
-          </div>
-          <p>+100</p>
-          <div class="rightImg">
-            <img :src="img2" alt />
-          </div>
-          <span>+20</span>
-        </div>
+	  
+	  <div class="rightBox">
+	  	     <div v-if="bxmove"  v-show="itemSelected==='np5'"class="topTitle" :class="{ 'movetransition': bxmove?'movetransition':'' }">
+	  	       <div class="leftImg">
+	  	         <img :src="img1" alt />
+	  	       </div>
+	  	   		  <p class="tanchutext" v-if="showTitle">+100</p>
+	  	       
+	  	       <div class="rightImg">
+	  	         <img :src="img2" alt />
+	  	       </div>
+	  	   		  <span class="tanchutext" v-if="showTitle">+20</span>
+	  	     </div>
+	  	   		<div class="topTitle" :class="{'moveTitle':itemSelected==='np5' ?'':'moveTitle'}">
+	  	   		 <div class="leftImg">
+	  	   		   <img :src="img1" alt />
+	  	   		 </div>
+	  	   		 <p>+100</p>
+	  	   		 <div class="rightImg">
+	  	   		   <img :src="img2" alt />
+	  	   		 </div>
+	  	   		 <span>+20</span>
+	  	   		 
+	  	   		</div>
         <div class="bottomButton fives">
           <p @click="getTaskStatus(broker_id,robot_id,status5,'np5',token)">{{status5}}</p>
         </div>
@@ -159,6 +223,9 @@ export default {
       img2: require("../../../assets/images/jignhangs.png"),
 	  token:'',
 	  level:'',
+	  bxmove: false,
+	  showTitle:true,
+	  		itemSelected:'',
     };
   },
   mounted(){
@@ -230,14 +297,23 @@ export default {
   },
   methods:{
 	  getTaskStatus(broker_id,robot_id,status,task_id,token){
+	
 		if(status == "领取"){
+			//动画状态
+		this.bxmove = !this.bxmove;
+		this.itemSelected=task_id;
+		setTimeout(() => {
+			//延时关闭UI状态
+		  this.bxmove=false;
+		  this.itemSelected='';
+		}, 1000);
 			//领取金币，更新金币和经验
 			let param = {
 			  "broker_id":broker_id,
 			  "robot_id":robot_id,
 			  "operation_type":7,
 			  "token": token,
-			  "task_id":task_id
+			  "task_id":task_id,
 			};
 			let result = taskStatusUpdate(param);
 			result
@@ -342,7 +418,7 @@ export default {
 
       > .topTitle {
         display: flex;
-        margin-top: 23px;
+        // margin-top: 23px;
         > .leftImg {
           width: 18px;
 
@@ -428,4 +504,47 @@ export default {
     }
   }
 }
+.tanchutext{
+	font-size: 12px;
+	font-family: PingFangSC-Medium, PingFang SC;
+	font-weight: 500;
+	color: #484848;
+	line-height: 17px;
+	
+}
+.moveTitle{
+        margin-top: 20px;
+		margin-left: 5px;
+
+}
+.movetransition {
+  animation: iconmove 1s linear infinite;
+ animation-iteration-count:1;
+}
+@keyframes iconmove {
+	
+	0% {
+	  -webkit-transform: translateY(3px);
+	 opacity: 1;
+		 
+	}
+	25% {
+	  -webkit-transform: translateY(-10px);
+	opacity: 0.75;
+	}
+	50% {
+	  -webkit-transform: translateY(-20px);
+	  opacity: 0.5;
+	}
+	75% {
+	  -webkit-transform: translateY(-30px);
+	  opacity: 0.25;
+	}
+	100% {
+	  -webkit-transform: translateY(-40px);
+	   
+		  opacity: 0;
+	}
+}
+
 </style>
