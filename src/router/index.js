@@ -14,10 +14,7 @@ import Sentiment from '../components/Ranking/Theglobal'
 import myShop from '../components/sellerShop/myShop'
 import mySeller from '../components/sellerShop/mySeller'
 import vipShop from '../components/sellerShop/vipShop'
-import List from '../views/List'
 import HomeOther from '../views/HomeOther'
-import Friend from '../components/List/Friend'
-import Bean from '../components/List/Bean'
 import FindList from '../components/FindList'
 import Strategy from '../views/Strategy'
 import Invite from '../views/Invite'
@@ -134,26 +131,26 @@ const routes = [
             }
         ]
     },
-    {
-        path: '/List',
-        name: 'List',
-        component: List,
-        meta: {
-            title: "列表"
-        },
-        children: [
-            {
-                path: "/List/Friend",
-                name: "Friend",
-                component: Friend
-            },
-            {
-                path: "/List/Bean",
-                name: "Bean",
-                component: Bean
-            }
-        ]
-    },
+    // {
+    //     path: '/List',
+    //     name: 'List',
+    //     component: List,
+    //     meta: {
+    //         title: "列表"
+    //     },
+    //     children: [
+    //         {
+    //             path: "/List/Friend",
+    //             name: "Friend",
+    //             component: Friend
+    //         },
+    //         {
+    //             path: "/List/Bean",
+    //             name: "Bean",
+    //             component: Bean
+    //         }
+    //     ]
+    // },
     {
         path: '/FindList',
         name: "FindList",

@@ -83,7 +83,6 @@ export default {
         console.log(this.baenstList, "粉丝");
       })
       .catch(reslove => {
-        alert(66666);
         console.log("error");
       });
   },

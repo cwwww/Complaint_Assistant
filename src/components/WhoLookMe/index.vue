@@ -85,7 +85,6 @@ export default {
         console.log(this.list);
       })
       .catch(reslove => {
-        alert(222);
         console.log("error");
       });
   }

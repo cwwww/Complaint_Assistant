@@ -39,6 +39,7 @@ module.exports = {
 
     devServer: {// 环境配置
         // host: 'localhost',
+        // host: '192.168.1.122',
         host: '0.0.0.0',
         port: 8888,
         disableHostCheck: true,

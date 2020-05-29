@@ -184,7 +184,7 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
     />
-    <ShopZoom v-show="isShopZoom" @ShopZoomC="ShopZoomP" :Shop_Zoom="isShopZoom" :broker_id="broker_id" :robot_id="robot_id" :token="token" :type="type"/>
+    <!-- <ShopZoom v-show="isShopZoom" @ShopZoomC="ShopZoomP" :Shop_Zoom="isShopZoom" :broker_id="broker_id" :robot_id="robot_id" :token="token" :type="type"/> -->
     <Bean
       v-show="isBean"
       @BeanC="BeanP"
@@ -203,6 +203,14 @@
       :token="$route.query.token"
       :name="friend"
     />
+    <List
+      v-show="isList"
+      @ListC="ListP"
+      :List_show="isList"
+      :broker_id="$route.query.broker_id"
+      :robot_id="$route.query.robot_id"
+      :token="$route.query.token"
+    />
   </div>
 </template>
 <script>
@@ -211,8 +219,9 @@ import wx from "weixin-js-sdk";
 import HomeChat from "../components/HomeChat";
 import WhoLookMe from "../components/WhoLookMe";
 import Repository from "../components/Repository";
-import Bean from "../components/Repository";
-import Friend from "../components/Repository";
+import Bean from "../components/List/Bean";
+import Friend from "../components/List/Friend";
+import List from "../components/List";
 // import ShopZoom from "../components/ShopZoom";
 import {
   reqHomeInit,
@@ -231,12 +240,14 @@ export default {
     HomeChat,
     WhoLookMe,
     Repository,
-    ShopZoom,
+    // ShopZoom,
     Bean,
-    Friend
+    Friend,
+    List
   },
   data() {
     return {
+      isList:false,
       isRep:false,
       WhoLook: false,
       homeChat: false,
@@ -312,6 +323,9 @@ export default {
     };
   },
   methods: {
+    ListP(data){
+      this.isList = data
+    },
     showChatP(data) {
       this.homeChat = data;
     },
@@ -322,10 +336,10 @@ export default {
       // 知识库
       this.isRep = data;
     },
-    BeanP(){
+    BeanP(){ //粉丝
       this.isBean = data;
     },
-    FriendP(){
+    FriendP(){ //好友
       this.isFriend = data;
     },
     open7() {
@@ -437,31 +451,15 @@ export default {
     },
     frang() {
       // 好友
-      this.isFriend = true;
-      this.$router.push({
-        path: "/List/Friend",
-        query: {
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robotId,
-          token: this.$route.query.token,
-          name: "friend"
-        }
-      });
-      this.destoryTimer();
+      this.isList = true;
+      // this.isFriend = true;
+      // this.destoryTimer();
     },
     lists() {
       // 粉丝
-      this.isRep = true;
-      this.$router.push({
-        path: "/List/Bean",
-        query: {
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robot_id,
-          token: this.$route.query.token,
-          name: "fensi"
-        }
-      });
-      this.destoryTimer();
+      this.isList = true;
+      // this.isRep = true;
+      // this.destoryTimer();
     },
     previousPage() {
       talkContent.scrollTop += -138;
@@ -499,7 +497,6 @@ export default {
         .then(res => {
           console.log(res);
           this.shareMessages = res.result;
-          // alert($route.query.visitor_id)
           var that = this;
           wx.config({
             debug: false,
@@ -591,11 +588,10 @@ export default {
     // },
     getFensi() {
       let param = {
-        robot_id: 33,
+        robot_id: this.robot_id,
         operation_type: 0,
-        broker_id: 33,
-        token:
-          "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        broker_id: this.robot_id,
+        token:this.token
       };
       let res = BeanList(param);
       res
