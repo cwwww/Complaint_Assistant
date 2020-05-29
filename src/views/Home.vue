@@ -365,6 +365,9 @@ export default {
       this.WhoLook = true;
       // this.destoryTimer();
     },
+    Repository(){
+      this.isRep = true;
+    },
     Ranking() {
       //排行榜
       //this.$router.replace('/Ranking')
