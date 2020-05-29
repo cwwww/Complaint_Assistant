@@ -374,7 +374,6 @@ export default {
   //  this.scrollToBottom();
   // },
   mounted() {
-    alert(this.$route.query.token);
     this.getInit();
   }
 };

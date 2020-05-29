@@ -448,7 +448,6 @@ export default {
         .then(res => {
           console.log(res);
           this.shareMessages = res.result;
-          // alert($route.query.visitor_id)
           var that = this;
           wx.config({
             debug: false,
@@ -514,7 +513,7 @@ export default {
     },
     // 授权
     impower() {
-      let param = { code: "this.code" };
+      let param = { code: this.code };
       let res = reqbebotCode(param);
       res
         .then(res => {
