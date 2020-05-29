@@ -184,6 +184,8 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
     />
+    <ShopZoom v-show="isShopZoom" @ShopZoomC="ShopZoomP" :Shop_Zoom="isShopZoom" :broker_id="broker_id" :robot_id="robot_id" :token="token" :type="type"/>
+
   </div>
 </template>
 <script>
@@ -192,6 +194,7 @@ import wx from "weixin-js-sdk";
 import HomeChat from "../components/HomeChat";
 import WhoLookMe from "../components/WhoLookMe";
 import Repository from "../components/Repository";
+import ShopZoom from "../components/ShopZoom";
 import {
   reqHomeInit,
   reqCusayrob,
@@ -208,7 +211,8 @@ export default {
   components: {
     HomeChat,
     WhoLookMe,
-    Repository
+    Repository,
+    ShopZoom
   },
   data() {
     return {

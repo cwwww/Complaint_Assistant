@@ -130,7 +130,6 @@
       </div>
       <router-view />
     </van-popup>
-    <ShopZoom v-show="isShopZoom" @ShopZoomC="ShopZoomP" :Shop_Zoom="isShopZoom" :broker_id="broker_id" :robot_id="robot_id" :token="token" :type="type"/>
   </div>
 </template>
 <script>
@@ -142,16 +141,12 @@ import {
   reqEnable_kb,
   reqDisable_kb,
   reqReceive,
-  reqstarRating,
+  reqstarRating
 } from "../../axios/axios-api";
 export default {
   name: "Repository",
-  components:{
-    ShopZoom
-  },
   data() {
     return {
-      isShopZoom:false,
       show: true,
       show3: false,
       show4: false,
@@ -192,12 +187,18 @@ export default {
     close() {
       this.$emit('RepositoryC',false)
     },
-    ShopZoomP(data){
-        this.isShopZoom = data
-    },
     toShopZoom(index) {
+      console.log("shop" + this.$route.query);
       if (this.list[index].type == 0) {
-        this.isShopZoom = true
+        this.$router.push({
+          path: "/shopZoom",
+          query: {
+            broker_id: this.$route.query.broker_id,
+            robot_id: this.$route.query.robotId,
+            token: this.$route.query.token,
+            type: "type"
+          }
+        });
       }
     },
     toEvaluate(index) {
