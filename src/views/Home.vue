@@ -151,7 +151,7 @@
         <div class="input-bottom">
           <input
             type="text"
-            ref="input"
+            v-model="input"
             placeholder="输入“风险测评”试试"
             style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"
           />
@@ -185,7 +185,6 @@
       :token="$route.query.token"
     />
     <ShopZoom v-show="isShopZoom" @ShopZoomC="ShopZoomP" :Shop_Zoom="isShopZoom" :broker_id="broker_id" :robot_id="robot_id" :token="token" :type="type"/>
-
   </div>
 </template>
 <script>
@@ -584,7 +583,7 @@ export default {
     },
     submit(numIndex) {
       this.numIndex += 1;
-      if (this.$refs.input.value == "") {
+      if (this.value == "") {
         Toast("请输入聊天内容");
       } else {
         this.getDetail();
@@ -592,28 +591,26 @@ export default {
       }
     },
     getDetail() {
-      this.question = this.$refs.input.value;
+      this.question = this.value;
       let param;
       if (this.flag) {
         param = {
           dialog_type: "0",
-          broker_id: 33,
-          robot_id: 33,
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robot_id,
           speaker: "2",
           content: ".",
-          token:
-            "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          token: this.$route.query.token
         };
         this.flag = false;
       } else {
         param = {
           dialog_type: "1",
-          broker_id: 33,
-          robot_id: 33,
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robot_id,
           speaker: "2",
           content: this.question,
-          token:
-            "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          token: this.$route.query.token
         };
       }
       console.log(param);
@@ -628,7 +625,7 @@ export default {
           console.log(this.list2);
           if (this.list2[0] == "") {
           }
-          this.$refs.input.value = "";
+          this.value = "";
         })
         .catch(reslove => {
           console.log("error");
@@ -637,13 +634,12 @@ export default {
     //与机器人聊天任务
     getReqtaskStatus() {
       let param = {
-        broker_id: 1,
-        robot_id: 1,
+        broker_id: this.$route.query.broker_id,
+        robot_id: this.$route.query.robot_id,
         operation_type: 1,
-        token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+        token: this.$route.query.token
       };
       console.log("任务的param:" + param);
-
       let result = reqtaskStatus(param);
       result
         .then(res => {
@@ -662,45 +658,44 @@ export default {
           console.log("error");
         });
     },
-
-    getACchat() {
-      let param;
-      if (this.isInput) {
-        param = {
-          dialog_type: "2",
-          customer_id: 1,
-          customer_type: 0,
-          broker_id: 33,
-          robot_id: 33,
-          speaker: "1",
-          content: ".",
-          token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
-        };
-        this.isInput = false;
-      } else {
-        param = {
-          dialog_type: "2",
-          customer_id: 1,
-          customer_type: 2,
-          broker_id: 33,
-          robot_id: 33,
-          speaker: "1",
-          content: "第二版测试",
-          token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
-        };
-      }
-      console.log(param);
-      let res = reqCusayrob(param);
-      res
-        .then(res => {
-          console.log(res);
-          this.list = res.result.dialog_history;
-          this.$refs.input.value = "";
-        })
-        .catch(reslove => {
-          console.log("error");
-        });
-    },
+    // getACchat() {
+    //   let param;
+    //   if (this.isInput) {
+    //     param = {
+    //       dialog_type: "2",
+    //       customer_id: 1,
+    //       customer_type: 0,
+    //       broker_id: 33,
+    //       robot_id: 33,
+    //       speaker: "1",
+    //       content: ".",
+    //       token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
+    //     };
+    //     this.isInput = false;
+    //   } else {
+    //     param = {
+    //       dialog_type: "2",
+    //       customer_id: 1,
+    //       customer_type: 2,
+    //       broker_id: 33,
+    //       robot_id: 33,
+    //       speaker: "1",
+    //       content: "第二版测试",
+    //       token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
+    //     };
+    //   }
+    //   console.log(param);
+    //   let res = reqCusayrob(param);
+    //   res
+    //     .then(res => {
+    //       console.log(res);
+    //       this.list = res.result.dialog_history;
+    //       this.$refs.input.value = "";
+    //     })
+    //     .catch(reslove => {
+    //       console.log("error");
+    //     });
+    // },
 
     // 初始化页面
     getHomeInit() {
@@ -728,7 +723,6 @@ export default {
           this.vipNotification = this.homeInit.vip_notification;
           if (this.homeInit.vip_valid == false) {
             this.vipExpiryTime = "您的会员已到期";
-
             // this.vipExpiryTime ='您的会员将于'+times+'到期'
           } else {
             var time = this.homeInit.vip_expiry_time;
