@@ -1,5 +1,5 @@
 <template>
-	<div style="vertical-align: middle;margin-top: 220px;">
+	<div style="vertical-align: middle;margin-top: 160px;">
 		<center>
 			<div >
 				<font size="5px" >{{professionData}}</font>

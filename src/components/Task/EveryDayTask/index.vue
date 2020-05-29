@@ -5,15 +5,9 @@
  <div class="content" v-for="(item, index) in EverudayList" :key="item.index">
       <div class="leftBox">
         <div class="leftLogon">
-		 <div v-if= "index == 'daily1'">
-			 <img  src="../../../assets/images/chat@2x.png" alt />
-		 </div>
-		 <div v-if="index == 'daily2'">
-			 <img src="../../../assets/images/baifang@2x.png" alt />
-		 </div>
-		 <div v-if="index == 'daily3'">
-			 <img src="../../../assets/images/login@2x.png" alt />
-		 </div>
+			<img v-if= "index == 'daily1'" src="../../../assets/images/hi@2x.png" alt />
+			<img v-if="index == 'daily2'" src="../../../assets/images/baifang@2x.png" alt />
+			<img v-if="index == 'daily3'" src="../../../assets/images/login@2x.png" alt />
 		</div>
         <div class="textContent">
           <span>
@@ -65,11 +59,15 @@
 		    </div>
 		  </div>
 	
-        <div class="bottomButton">
+        <div class="bottomButton twos" v-if="item.status == '0'">
           <p v-if="item.status == '0'">去完成</p>
-		  <p v-if="item.status == '1'"  @click="getTaskStatus(broker_id,robot_id,item.task_id,token,item.index)" >领取</p>
-		  <p v-if="item.status == '2'" >已完成</p>
         </div>
+		<div class="bottomButton" v-if="item.status == '1'">
+			<p v-if="item.status == '1'" @click="getTaskStatus(broker_id,robot_id,item.task_id,token,item.index)">领取</p>
+		</div>
+		<div class="bottomButton threes" v-if="item.status == '2'">
+			<p v-if="item.status == '2'">已完成</p>
+		</div>
       </div>
     </div>
     </div>
@@ -97,8 +95,6 @@ export default {
   methods: {
 	    //领取任务完成
 	  	  getTaskStatus(broker_id,robot_id,task_id,token,index){
-
-				console.log("task_id", task_id);
 			  this.bxmove = !this.bxmove;
 			  this.itemSelected=task_id;
 			  setTimeout(() => {
@@ -172,6 +168,9 @@ export default {
     height: 350px;
     overflow-y: auto;
   }
+  .main::-webkit-scrollbar {
+    display: none; 
+  }
   .content {
     margin: 12px 0;
     width: 335px;
@@ -194,19 +193,20 @@ export default {
     }
     > .leftBox {
       display: flex;
-      > .leftLogon {
-        width: 50px;
-        height: 50px;
-        background: rgba(0, 0, 0, 0.15);
-        border-radius: 8px;
-        margin-top: 25px;
-        margin-left: 15px;
-        > img {
-          width: 30px;
-          height: 30px;
-          margin: 10px;
-        }
-      }
+	  >.leftLogon {
+	  	width: 50px;
+	  	height: 50px;
+	  	background: rgba(0, 0, 0, 0.15);
+	  	border-radius: 8px;
+	  	margin-top: 18px;
+	  	margin-left: 12px;
+	  
+	  	>img {
+	  		width: 30px;
+	  		height: 30px;
+	  		margin: 10px;
+	  	}
+	  }
       > .textContent {
         margin-left: 5px;
         > span {
@@ -293,13 +293,13 @@ export default {
       }
       > .twos {
         border: 1px solid rgba(255, 255, 255, 1);
-        background: rgba(76, 208, 105, 1);
+        background: none;
         > p {
           color: rgba(255, 255, 255, 1);
         }
       }
       > .threes {
-        background: rgba(246, 94, 94, 1);
+        background:rgba(0,0,0,0.25);
         > p {
           color: rgba(255, 255, 255, 1);
         }
@@ -336,23 +336,10 @@ export default {
  animation-iteration-count:1;
 }
 @keyframes iconmove {
-	
 	0% {
 	  -webkit-transform: translateY(3px);
-	 opacity: 1;
+	opacity: 1;
 		 
-	}
-	25% {
-	  -webkit-transform: translateY(-10px);
-	opacity: 0.75;
-	}
-	50% {
-	  -webkit-transform: translateY(-20px);
-	  opacity: 0.5;
-	}
-	75% {
-	  -webkit-transform: translateY(-30px);
-	  opacity: 0.25;
 	}
 	100% {
 	  -webkit-transform: translateY(-40px);
@@ -360,5 +347,4 @@ export default {
 		  opacity: 0;
 	}
 }
-
 </style>
