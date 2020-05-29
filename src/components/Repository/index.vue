@@ -174,13 +174,13 @@ export default {
       success: require("../../assets/images/success@2x.png")
     };
   },
-  props:['broker_id','robot_id','token','repository_show'],
+  props:['broker_id','robot_id','token','Repository_show'],
   created(){
       this.show = this.repository_show
   },
   watch:{
     repository_show(newValue){
-        this.chat = newValue
+        this.show = newValue
     }
   },
   methods: {

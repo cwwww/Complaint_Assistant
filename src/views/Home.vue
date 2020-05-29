@@ -176,6 +176,14 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
     />
+    <Repository
+      v-show="isRep"
+      @RepositoryC="RepositoryP"
+      :Repository_show="isRepository"
+      :broker_id="$route.query.broker_id"
+      :robot_id="$route.query.robot_id"
+      :token="$route.query.token"
+    />
   </div>
 </template>
 <script>
@@ -183,6 +191,7 @@ import { Popup, Toast } from "vant";
 import wx from "weixin-js-sdk";
 import HomeChat from "../components/HomeChat";
 import WhoLookMe from "../components/WhoLookMe";
+import Repository from "../components/Repository";
 import {
   reqHomeInit,
   reqCusayrob,
@@ -198,10 +207,12 @@ import {
 export default {
   components: {
     HomeChat,
-    WhoLookMe
+    WhoLookMe,
+    Repository
   },
   data() {
     return {
+      isRep:false,
       WhoLook: false,
       homeChat: false,
       vipExpiryTime: "",
@@ -282,6 +293,10 @@ export default {
     WhoLookP(data) {
       this.WhoLook = data;
     },
+    RepositoryP(data) {
+      // 知识库
+      this.isRep = data;
+    },
     open7() {
       this.$router.replace("/LevelUp");
 
@@ -327,18 +342,7 @@ export default {
     isYes() {
       //买家精灵商店确定购买
     },
-    Repository() {
-      // 知识库
-      this.$router.push({
-        path: "/Repository",
-        query: {
-          broker_id: this.$route.query.visitor_id,
-          robot_id: this.$route.query.robot_id,
-          token: this.$route.query.token
-        }
-      });
-      this.destoryTimer();
-    },
+
     FairyShop() {
       // 买家精灵商店
       this.$router.push({
