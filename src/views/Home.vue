@@ -295,7 +295,7 @@ export default {
     },
     RepositoryP(data) {
       // 知识库
-      this.isRep = data;
+      this.isRepository = data;
     },
     open7() {
       this.$router.replace("/LevelUp");
