@@ -474,7 +474,7 @@ export default {
 			 }else{
 				 this.showName = false;
 			 }
-		     //this.$refs.input.value = ''
+		     this.getHomeInit()
 		 }).catch(reslove=>{
 		    console.log('error')
 		 }) 
