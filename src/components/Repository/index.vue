@@ -9,62 +9,91 @@
       :style="{ height: '70%',color:'black'}"
       @close="close"
     >
-      <img :src=product_zsk alt />
+      <img :src="product_zsk" alt />
       <div class="contain">
-        <div class="bigContent" @click="toShopZoom(index)" :class="item.type == 2 && item.received == false && item.available == false ? 'active' : ''" v-for="(item, index) in list" :key="index">
+        <div
+          class="bigContent"
+          @click="toShopZoom(index)"
+          :class="item.type == 2 && item.received == false && item.available == false ? 'active' : ''"
+          v-for="(item, index) in list"
+          :key="index"
+        >
           <div class="sonContent">
             <div class="leftBox">
               <p style="max-width:177px;">{{item.name}}</p>
               <span>{{item.amount}}条知识</span>
             </div>
-            <div class="rightBox" >
-              <div class="buttonAnd" @click="toOpen(index)" v-if="item.type == 1 && item.enable == false">
+            <div class="rightBox">
+              <div
+                class="buttonAnd"
+                @click="toOpen(index)"
+                v-if="item.type == 1 && item.enable == false"
+              >
                 <p>启用</p>
               </div>
-              <div class="buttonAnd2" @click="toClose(index)" v-if="item.type == 1 && item.enable == true">
+              <div
+                class="buttonAnd2"
+                @click="toClose(index)"
+                v-if="item.type == 1 && item.enable == true"
+              >
                 <p>取消启用</p>
               </div>
             </div>
-            <div class="rightBox2" >
-              <div class="buttonAnd" @click="toOpen(index)" v-if="item.type == 2 && item.received == true && item.available == true && item.enable == false">
+            <div class="rightBox2">
+              <div
+                class="buttonAnd"
+                @click="toOpen(index)"
+                v-if="item.type == 2 && item.received == true && item.available == true && item.enable == false"
+              >
                 <p>启用</p>
               </div>
-              <div class="buttonAnd2" @click="toClose(index)" v-if="item.type == 2 && item.received == true && item.available == true && item.enable == true">
+              <div
+                class="buttonAnd2"
+                @click="toClose(index)"
+                v-if="item.type == 2 && item.received == true && item.available == true && item.enable == true"
+              >
                 <p>取消启用</p>
               </div>
             </div>
           </div>
           <div class="bottomBox">
             <div class="bottomFooter">
-              <img :src=imglevel alt />
+              <img :src="imglevel" alt />
               <p>{{text}}</p>
             </div>
-            <div class="title" v-if="item.type == 1 && item.status == 1" @click="tovisit(item.broker_id,item.robot_id)">
+            <div
+              class="title"
+              v-if="item.type == 1 && item.status == 1"
+              @click="tovisit(item.broker_id,item.robot_id)"
+            >
               <p>前往TA的事务所</p>
-              <img :src=next alt="">
+              <img :src="next" alt />
             </div>
             <div class="title" v-if="item.type == 1 && item.status == 0" @click="toEvaluate(index)">
               <p>去评价</p>
-              <img :src=next alt="">
+              <img :src="next" alt />
             </div>
-            <div @click="toget(index)" class="title2" v-if="item.type == 2 && item.received == false && item.available == true">
+            <div
+              @click="toget(index)"
+              class="title2"
+              v-if="item.type == 2 && item.received == false && item.available == true"
+            >
               <p>可领取</p>
             </div>
-            <van-popup
-                class="cont3"
-                v-model="show3"
-                click_overlay
-              >
-                <div class="contwrap">
-                  <img :src=success alt="">
-                  <div style="margin:20px 0 3px 0;">评价提交成功</div>
-                  <van-rate v-model="star" style="margin-left:30px;" color="#FFAD25" gutter="2px" readonly/>
-                </div>
+            <van-popup class="cont3" v-model="show3" click_overlay>
+              <div class="contwrap">
+                <img :src="success" alt />
+                <div style="margin:20px 0 3px 0;">评价提交成功</div>
+                <van-rate
+                  v-model="star"
+                  style="margin-left:30px;"
+                  color="#FFAD25"
+                  gutter="2px"
+                  readonly
+                />
+              </div>
             </van-popup>
-            <van-popup
-                class="cont4"
-                v-model="show4"
-              >
+            <van-popup class="cont4" v-model="show4">
               <div class="contwrap">
                 <div style="margin:30px auto 0;">给知识库的内容质量评个星吧！</div>
                 <van-rate
@@ -76,13 +105,25 @@
                   style="margin:26px auto 25px ;"
                   @change="onChange"
                 />
-                <van-button type="info" style="width:265px;height:42px;margin:0 auto;" v-show="value != 0" @click="comfirm(index)">提交</van-button>
-                <van-button type="info" style="width:265px;height:42px;margin:0 auto;background:#eee;color:#111;border:none;" v-show="value == 0">提交</van-button>
+                <van-button
+                  type="info"
+                  style="width:265px;height:42px;margin:0 auto;"
+                  v-show="value != 0"
+                  @click="comfirm(index)"
+                >提交</van-button>
+                <van-button
+                  type="info"
+                  style="width:265px;height:42px;margin:0 auto;background:#eee;color:#111;border:none;"
+                  v-show="value == 0"
+                >提交</van-button>
               </div>
             </van-popup>
           </div>
-          <div class="active" v-if="item.type == 2 && item.received == false && item.available == false">
-            <img :src="suo" alt="">
+          <div
+            class="active"
+            v-if="item.type == 2 && item.received == false && item.available == false"
+          >
+            <img :src="suo" alt />
             <p class="toInvite" @click="toInvite">去解锁</p>
           </div>
         </div>
@@ -92,26 +133,33 @@
   </div>
 </template>
 <script>
-import BScroll from 'better-scroll'
-import { Popup,Toast } from 'vant';
-import { reqShowList,  reqHomeInit,reqEnable_kb,reqDisable_kb,reqReceive, reqstarRating } from '../../axios/axios-api'
+import BScroll from "better-scroll";
+import { Popup, Toast } from "vant";
+import {
+  reqShowList,
+  reqHomeInit,
+  reqEnable_kb,
+  reqDisable_kb,
+  reqReceive,
+  reqstarRating
+} from "../../axios/axios-api";
 export default {
   name: "Repository",
   data() {
     return {
       show: true,
-      show3:false,
-      show4:false,
-      star:Boolean,
-      list:[],
-      colorList:[0],
-      imglevel:'',    
-      value:'',  
-      type:'',
-      state:'',
-      goods:'',
-      text:'',
-      isEvaluate:Boolean, //是否评价
+      show3: false,
+      show4: false,
+      star: Boolean,
+      list: [],
+      colorList: [0],
+      imglevel: "",
+      value: "",
+      type: "",
+      state: "",
+      goods: "",
+      text: "",
+      isEvaluate: Boolean, //是否评价
       img: require("../../assets/images/icon.png"),
       suo: require("../../assets/images/suo@2x.png"),
       product_zsk: require("../../assets/images/product_zsk@2x.png"),
@@ -123,200 +171,210 @@ export default {
       levelbx5: require("../../assets/images/level_baike@2x.png"),
       levelbx6: require("../../assets/images/level_daka@2x.png"),
       levelbx7: require("../../assets/images/level_famous@2x.png"),
-      success:require("../../assets/images/success@2x.png")
+      success: require("../../assets/images/success@2x.png")
     };
   },
+  props:['broker_id','robot_id','token','Repository_show'],
+  created(){
+      this.show = this.Repository_show
+  },
+  watch:{
+    Repository_show(newValue){
+      this.show = newValue
+    }
+  },
   methods: {
-    close(){
-      // this.show = false
-      this.$router.push({
-          path:'/',
-          query:{
-            "broker_id": this.$route.query.broker_id,
-            "robot_id": this.$route.query.robotId,
-            "token":this.$route.query.token,
-          }
-        })
+    close() {
+      this.$emit('RepositoryC',false)
     },
-    toShopZoom(index){
-      console.log("shop"+this.$route.query)
-      if(this.list[index].type == 0){
+    toShopZoom(index) {
+      console.log("shop" + this.$route.query);
+      if (this.list[index].type == 0) {
         this.$router.push({
-          path:'/shopZoom',
-          query:{
-            "broker_id": this.$route.query.broker_id,
-            "robot_id": this.$route.query.robotId,
-            "token":this.$route.query.token,
-            type:'type'
+          path: "/shopZoom",
+          query: {
+            broker_id: this.$route.query.broker_id,
+            robot_id: this.$route.query.robotId,
+            token: this.$route.query.token,
+            type: "type"
           }
-        })
+        });
       }
     },
-    toEvaluate(index){
-      this.show4 = true
-      console.log(this.list[index].goods_id)
-      this.type = this.list[index].goods_id
-      console.log(this.type)
+    toEvaluate(index) {
+      this.show4 = true;
+      console.log(this.list[index].goods_id);
+      this.type = this.list[index].goods_id;
+      console.log(this.type);
     },
     onChange(value) {
       // Toast('当前值：' + value);
     },
-    comfirm(index){
-        this.star = this.value
-        this.show4 = false
-        this.show3 = true
-        let param = {
-          "robot_id":this.$route.query.robot_id,
-          "goods_id":this.type,
-          "goods_score":this.value,
-          "user_id":this.$route.query.broker_id,
-          "token":this.$route.query.token
-        }
-        console.log(param)
-        let res = reqstarRating (param)
-        res.then(res=>{
-          console.log(res)
+    comfirm(index) {
+      this.star = this.value;
+      this.show4 = false;
+      this.show3 = true;
+      let param = {
+        robot_id: this.robot_id,
+        goods_id: this.type,
+        goods_score: this.value,
+        user_id: this.broker_id,
+        token: this.token
+      };
+      console.log(param);
+      let res = reqstarRating(param);
+      res
+        .then(res => {
+          console.log(res);
           // this.getInit()
-        }).catch(reslove=>{
-              console.log('error')
         })
+        .catch(reslove => {
+          console.log("error");
+        });
     },
-    toget(index){
-      this.goods = this.list[index].goods_id
-      let param = {
-        "robot_id":this.$route.query.robot_id,
-        "goods_id":this.goods,
-        "type":2,
-        "user_id":this.$route.query.broker_id,
-        "token":this.$route.query.token   
-      }
-      console.log(param)
-      let result = reqReceive(param)
-      result.then(res=>{
-        this.list[index].received = true
-        this.list[index].enable = true
-      }).catch(reslove=>{
-         console.log('error')
-      })
+    toget(index) {
+      this.goods = this.list[index].goods_id;
+      let param = {
+        robot_id: this.robot_id,
+        goods_id: this.goods,
+        type: 2,
+        user_id: this.broker_id,
+        token: this.token
+      };
+      console.log(param);
+      let result = reqReceive(param);
+      result
+        .then(res => {
+          this.list[index].received = true;
+          this.list[index].enable = true;
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     },
-    toOpen(index){
-      if(this.list[index].received){
-        this.state = 2
-      }else{
-        this.state = 1
-      }
-      this.type = this.list[index].goods_id
-      let param = {
-        "robot_id":this.$route.query.robot_id,
-        "goods_id":this.type,
-        "type":this.state,
-        "user_id":this.$route.query.broker_id,
-        "token":this.$route.query.token    
-      }
-      console.log(param)
-      let result = reqEnable_kb(param)
-      result.then(res=>{
-        this.list[index].enable = true
-        console.log(res)
-      }).catch(reslove=>{
-         console.log('error')
-      })
-    },
-    toClose(index){
-      this.goods = this.list[index].goods_id
-      if (this.list[index].type == 1) {
-        this.type = 1
+    toOpen(index) {
+      if (this.list[index].received) {
+        this.state = 2;
       } else {
-        this.type = 2
+        this.state = 1;
       }
-      let param = {
-        "goods_id":this.goods,
-        "type":this.type,
-        "robot_id":this.$route.query.robot_id,
-        "user_id":this.$route.query.broker_id,
-        "token":this.$route.query.token    
-      }
-      console.log(param)
-      let result = reqDisable_kb(param)
-      result.then(res=>{
-        this.list[index].enable = false
-        console.log(res)
-      }).catch(reslove=>{
-         console.log('error')
-      })
+      this.type = this.list[index].goods_id;
+      let param = {
+        robot_id: this.robot_id,
+        goods_id: this.type,
+        type: this.state,
+        user_id: this.broker_id,
+        token: this.token
+      };
+      console.log(param);
+      let result = reqEnable_kb(param);
+      result
+        .then(res => {
+          this.list[index].enable = true;
+          console.log(res);
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     },
-    tovisit:function(broker_id,robot_id){
+    toClose(index) {
+      this.goods = this.list[index].goods_id;
+      if (this.list[index].type == 1) {
+        this.type = 1;
+      } else {
+        this.type = 2;
+      }
+      let param = {
+        goods_id: this.goods,
+        type: this.type,
+        robot_id: this.robot_id,
+        user_id: this.broker_id,
+        token: this.token
+      };
+      console.log(param);
+      let result = reqDisable_kb(param);
+      result
+        .then(res => {
+          this.list[index].enable = false;
+          console.log(res);
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
+    },
+    tovisit: function(broker_id, robot_id) {
       this.$router.push({
-        path:'/HomeOther',
-        query:{
+        path: "/HomeOther",
+        query: {
           robot_id: this.$route.query.robot_id,
-          broker_id:this.$route.query.broker_id,
-          robot_visitId:robot_id,
-          token:this.$route.query.token
+          broker_id: this.$route.query.broker_id,
+          robot_visitId: robot_id,
+          token: this.$route.query.token
         }
-      })
-	  },
-    toInvite(){
-      this.$router.replace('/Invite')
+      });
     },
-    getInit(){
-	  
-      let param = {
-        "robot_id":this.$route.query.robot_id,
-        "user_id":this.$route.query.broker_id,
-        "token":this.$route.query.token    
-      }
-      let result = reqShowList(param)
-      result.then(res=>{
-      this.list = res.result.kb_list
-      console.log(this.list)
-      for (let i = 0; i < this.list.length; i++) {
-       if (this.list[i].level == 1) { //保险等级
-          this.imglevel = this.levelbx1
-          this.text = '保险新手'
-        } else if(this.list[i].level == 2){
-          this.imglevel = this.levelbx2
-          this.text = '保险复读机'
-        } else if(this.list[i].level == 3){
-          this.imglevel = this.levelbx3
-          this.text = '保险条款王'
-        } else if(this.list[i].level == 4){
-          this.imglevel = this.levelbx4
-          this.text = '保险配置王'
-        } else if(this.list[i].level == 5){
-          this.imglevel = this.levelbx5
-          this.text = '保险百科'
-        } else if(this.list[i].level == 6){
-          this.imglevel = this.levelbx6
-          this.text = '保险大咖'
-        } else if(this.list[i].level == 7){
-          this.imglevel = this.levelbx7
-          this.text = '保险名人堂'
-        } 
-      }
-      }).catch(reslove=>{
-         console.log('error')
-      })
+    toInvite() {
+      this.$router.replace("/Invite");
+    },
+    getInit() {
+      let param = {
+        robot_id: this.robot_id,
+        user_id: this.broker_id,
+        token: this.token
+      };
+      let result = reqShowList(param);
+      result
+        .then(res => {
+          this.list = res.result.kb_list;
+          console.log(this.list);
+          for (let i = 0; i < this.list.length; i++) {
+            if (this.list[i].level == 1) {
+              //保险等级
+              this.imglevel = this.levelbx1;
+              this.text = "保险新手";
+            } else if (this.list[i].level == 2) {
+              this.imglevel = this.levelbx2;
+              this.text = "保险复读机";
+            } else if (this.list[i].level == 3) {
+              this.imglevel = this.levelbx3;
+              this.text = "保险条款王";
+            } else if (this.list[i].level == 4) {
+              this.imglevel = this.levelbx4;
+              this.text = "保险配置王";
+            } else if (this.list[i].level == 5) {
+              this.imglevel = this.levelbx5;
+              this.text = "保险百科";
+            } else if (this.list[i].level == 6) {
+              this.imglevel = this.levelbx6;
+              this.text = "保险大咖";
+            } else if (this.list[i].level == 7) {
+              this.imglevel = this.levelbx7;
+              this.text = "保险名人堂";
+            }
+          }
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     },
     changeIndex(i) {
       this.curIndex = i;
     },
     showPopup() {
       this.show = true;
-    },
-    // scrollToBottom: function () { 
+    }
+    // scrollToBottom: function () {
     //  this.$nextTick(() => {
-	  //     var container = this.$el.querySelector(".bigContent");
+    //     var container = this.$el.querySelector(".bigContent");
     //     container.scrollTop = container.scrollHeight;
     //  })
     // }
   },
   //   updated:function(){
   //  this.scrollToBottom();
-// },
-  mounted(){
-    alert(this.$route.query.token)
-    this.getInit()
+  // },
+  mounted() {
+    this.getInit();
   }
 };
 </script>
@@ -324,7 +382,7 @@ export default {
 // /deep/ .van-popup {
 //   overflow: visible;
 // }
- .van-icon-cross {
+.van-icon-cross {
   position: fixed;
   right: 12px;
 }
@@ -335,7 +393,6 @@ export default {
   align-items: center;
   width: 100%;
   height: 100%;
-
   > .content {
     width: 100%;
     height: 466px;
@@ -351,16 +408,16 @@ export default {
       left: 50%;
       margin-left: -32px;
     }
-    .contain{
+    .contain {
       margin: 57px 0 20px 0;
       // overflow: hidden;
       > .bigContent {
-          width: 305px;
-          height: 120px;
-          background: rgba(233, 70, 70, 1);
-          border-radius: 15px;
-          margin: 20px auto 0px auto;   
-          
+        width: 305px;
+        height: 120px;
+        background: rgba(233, 70, 70, 1);
+        border-radius: 15px;
+        margin: 20px auto 0px auto;
+
         > .sonContent {
           display: flex;
           justify-content: space-between;
@@ -407,7 +464,7 @@ export default {
             > .buttonAnd2 {
               width: 85px;
               height: 32px;
-              background:rgba(0,0,0,0.25);
+              background: rgba(0, 0, 0, 0.25);
               border-radius: 16px;
               text-align: center;
               margin-top: 20px;
@@ -416,7 +473,7 @@ export default {
                 font-size: 15px;
                 font-family: PingFangSC-Medium, PingFang SC;
                 font-weight: 500;
-                color:#FFFFFF;
+                color: #ffffff;
                 line-height: 21px;
                 padding-top: 6px;
               }
@@ -444,7 +501,7 @@ export default {
             > .buttonAnd2 {
               width: 85px;
               height: 32px;
-              background:rgba(0,0,0,0.25);
+              background: rgba(0, 0, 0, 0.25);
               border-radius: 16px;
               text-align: center;
               margin-top: 20px;
@@ -453,7 +510,7 @@ export default {
                 font-size: 15px;
                 font-family: PingFangSC-Medium, PingFang SC;
                 font-weight: 500;
-                color:#FFFFFF;
+                color: #ffffff;
                 line-height: 21px;
                 padding-top: 6px;
               }
@@ -472,7 +529,7 @@ export default {
             > img {
               width: 30px;
               height: 30px;
-            } 
+            }
             > p {
               font-size: 15px;
               font-family: PingFangSC-Medium, PingFang SC;
@@ -494,7 +551,7 @@ export default {
               margin-top: 7px;
               margin-right: 20px;
             }
-            img{
+            img {
               width: 10px;
               height: 10px;
               position: absolute;
@@ -504,10 +561,10 @@ export default {
           }
           > .title2 {
             position: relative;
-            width:85px;
-            height:32px;
-            border-radius:4px;
-            border:1px solid rgba(255,255,255,1);
+            width: 85px;
+            height: 32px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 1);
             right: 20px;
             text-align: center;
             > p {
@@ -518,63 +575,61 @@ export default {
               line-height: 32px;
             }
           }
-          .cont3{
-              width: 170px;
-              height: 170px;
-              background:rgba(255,255,255,1);
-              border-radius:15px;
-              .contwrap{
-                display: flex;
-                flex-direction: column;
-                text-align: center;
-                > img{
-                  width: 55px;
-                  height: 55px;
-                  margin: 25px auto 0;
-                  
-                }
-                > div{
-                  font-size:15px;
-                  font-family:PingFangSC-Medium,PingFang SC;
-                  font-weight:500;
-                  color:rgba(51,51,51,1);
-                  line-height:21px;
-                }
-              }
-
-            }
-          .cont4{
-            width:305px;
-            height:208px;
-            background:rgba(255,255,255,1);
-            border-radius:15px;
-            .contwrap{
+          .cont3 {
+            width: 170px;
+            height: 170px;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 15px;
+            .contwrap {
               display: flex;
               flex-direction: column;
               text-align: center;
-              > img{
+              > img {
                 width: 55px;
                 height: 55px;
-                margin: 25px auto 0; 
+                margin: 25px auto 0;
               }
-              > div{
-                font-size:15px;
-                font-family:PingFangSC-Medium,PingFang SC;
-                font-weight:500;
-                color:rgba(51,51,51,1);
-                line-height:21px;
+              > div {
+                font-size: 15px;
+                font-family: PingFangSC-Medium, PingFang SC;
+                font-weight: 500;
+                color: rgba(51, 51, 51, 1);
+                line-height: 21px;
+              }
+            }
+          }
+          .cont4 {
+            width: 305px;
+            height: 208px;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 15px;
+            .contwrap {
+              display: flex;
+              flex-direction: column;
+              text-align: center;
+              > img {
+                width: 55px;
+                height: 55px;
+                margin: 25px auto 0;
+              }
+              > div {
+                font-size: 15px;
+                font-family: PingFangSC-Medium, PingFang SC;
+                font-weight: 500;
+                color: rgba(51, 51, 51, 1);
+                line-height: 21px;
               }
             }
           }
         }
       }
-      
-      > .active{
+
+      > .active {
         // background:rgba(0,0,0,1);
-        border-radius:15px;
-        opacity:0.5;
+        border-radius: 15px;
+        opacity: 0.5;
         position: relative;
-        img{
+        img {
           width: 32px;
           height: 40px;
           position: absolute;
@@ -583,12 +638,12 @@ export default {
           margin-top: -20px;
           margin-left: -37.5px;
         }
-        .toInvite{
-          font-size:15px;
-          font-family:PingFangSC-Medium,PingFang SC;
-          font-weight:500;
-          color:rgba(255,255,255,1);
-          line-height:21px;
+        .toInvite {
+          font-size: 15px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: rgba(255, 255, 255, 1);
+          line-height: 21px;
           position: absolute;
           top: 50%;
           left: 50%;

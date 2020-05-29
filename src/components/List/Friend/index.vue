@@ -86,7 +86,6 @@ export default {
         console.log(this.friendListe, "好友列表");
       })
       .catch(reslove => {
-        alert(66666);
         console.log("error");
       });
   },

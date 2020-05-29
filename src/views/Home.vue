@@ -115,8 +115,8 @@
         </div>
       </div>
       <ul class="bottomList">
-        <li>
-          <img @click="Repository" :src="home_zsk" alt />
+        <li @click="Repository">
+          <img  :src="home_zsk" alt />
           <span>知识库</span>
         </li>
         <li @click="FairyShop">
@@ -138,9 +138,6 @@
           <span>排行榜</span>
         </li>
       </ul>
-
-
-	  .
 	  <div class="input-bottom-content" >
 
       <van-popup
@@ -242,6 +239,7 @@ export default {
   },
   data() {
     return {
+      linewidthData:'',
       isList:true,
       isRep:false,
       WhoLook: false,
@@ -318,11 +316,24 @@ export default {
     };
   },
   methods: {
-    showChatP(data){
-      this.homeChat = data
+     ListP(data){
+      this.isList = data
     },
-    WhoLookP(data){
-      this.WhoLook = data
+    showChatP(data) {
+      this.homeChat = data;
+    },
+    WhoLookP(data) {
+      this.WhoLook = data;
+    },
+    RepositoryP(data) {
+      // 知识库
+      this.isRep = data;
+    },
+    BeanP(){ //粉丝
+      this.isBean = data;
+    },
+    FriendP(){ //好友
+      this.isFriend = data;
     },
     open7() {
       this.$router.replace("/LevelUp");
@@ -330,15 +341,8 @@ export default {
     },
     Repository() {
       // 知识库
-      this.$router.push({
-        path: "/Repository",
-        query: {
-          broker_id: this.$route.query.visitor_id,
-          robot_id: this.$route.query.robot_id,
-          token: this.$route.query.token
-        }
-      });
-      this.destoryTimer();
+      this.isRep = true
+      // this.destoryTimer();
     },
     FairyShop() {
       // 买家精灵商店
@@ -352,6 +356,21 @@ export default {
       });
       this.destoryTimer();
     },
+    isNo(){   //买家精灵商店取消购买
+      this.vipNotification = false
+    },
+    isYes(){  //买家精灵商店确定购买
+        this.vipNotification = false
+      this.$router.push({
+        path:'/sellerShop/vipShop',
+        query:{
+          "broker_id": this.$route.query.visitor_id,
+          "robot_id": this.$route.query.robot_id,
+          "token":this.$route.query.token
+          }
+        })
+    },
+
     HomeChat() {
       // 聊天记录
       this.homeChat = true

@@ -45,14 +45,14 @@ export default {
     };
   },
   created(){
-    this.show = this.WhoLook
+    this.show = this.Who_Look
   },
   watch:{
-    WhoLook(newValue){
+    Who_Look(newValue){
       this.show = newValue
     }
   },
-  props:['broker_id','robot_id','token','WhoLook'],
+  props:['broker_id','robot_id','token','Who_Look'],
   methods: {
     close() {
       this.$emit('WhoLookC',false)
@@ -85,7 +85,6 @@ export default {
         console.log(this.list);
       })
       .catch(reslove => {
-        alert(222);
         console.log("error");
       });
   }

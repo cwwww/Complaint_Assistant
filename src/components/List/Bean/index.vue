@@ -69,7 +69,6 @@ export default {
   // },
   mounted() {
     let param = {
-      robot_id: 33,
       operation_type: 1,
       robot_id: this.robot_id_prop,
       broker_id: this.broker_id_prop,
@@ -83,7 +82,6 @@ export default {
         console.log(this.baenstList, "粉丝");
       })
       .catch(reslove => {
-        alert(66666);
         console.log("error");
       });
   },
