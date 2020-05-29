@@ -258,6 +258,7 @@ export default {
       });
   },
   mounted() {
+    
     // this.wxconfig()
     // var url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
   }

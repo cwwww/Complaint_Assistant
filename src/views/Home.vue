@@ -757,7 +757,7 @@ export default {
     var end = this.url.indexOf("&");
     this.code = this.url.substring(start + 1, end);
     console.log(this.url);
-    // this.impower();
+    this.impower();
     this.wxconfig();
   },
   mounted() {
