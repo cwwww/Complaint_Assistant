@@ -377,22 +377,28 @@ export default {
     },
     getHomeInit() {
       var that = this;
-      if (that.registers.visitor_type == "0") {
-        that.customer_type = 0;
-        that.customer_robot_id = "";
-      } else if (that.registers.visitor_type == "1") {
-        that.customer_type = 1;
-        that.customer_robot_Nid = that.visitList.robot_id;
-      } else if (that.registers.visitor_type == "-1") {
-        that.customer_type = 0;
-        that.customer_robot_id = "";
-      }
+      // if (that.registers.visitor_type == "0") {
+      //   that.customer_type = 0;
+      //   that.customer_robot_id = "";
+      // } else if (that.registers.visitor_type == "1") {
+      //   that.customer_type = 1;
+      //   that.customer_robot_Nid = that.visitList.robot_id;
+      // } else if (that.registers.visitor_type == "-1") {
+      //   that.customer_type = 0;
+      //   that.customer_robot_id = "";
+      // }
       let param = {
-        customer_id: 33 || that.visitList.customer_id,
-        customer_robot_id: 33 || that.customer_robot_id,
-        customer_type: 1 || that.customer_type,
-        visited_robot_id: that.$route.query.broker_id,
-        token: that.visitList.token || "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        customer_id: 33 ,
+        customer_robot_id: 33 ,
+        customer_type: 1 ,
+        visited_robot_id: 93,
+        token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+
+        // customer_id: 33 || that.visitList.customer_id,
+        // customer_robot_id: 33 || that.customer_robot_id,
+        // customer_type: 1 || that.customer_type,
+        // visited_robot_id: that.$route.query.broker_id,
+        // token: that.visitList.token || "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
       };
       let result = reqVisitedInit(param);
       result
