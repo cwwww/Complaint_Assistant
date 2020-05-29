@@ -477,10 +477,10 @@ export default {
         this.showIimit = true;
       }
       let param = {
-        broker_id: this.broker_id,
-        robot_id: this.robot_id,
+        broker_id: this.$route.query.broker_id,
+        robot_id: this.$route.query.robot_id,
         robot_name: this.name,
-        token: this.token
+        token: this.$route.query.token
       };
       let res = reqHomeName(param);
       res

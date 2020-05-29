@@ -66,7 +66,7 @@ export const reqbebotCode = data => {
 };
 export const reqHomeName = data => {
   return axiosService({
-    url: BASE + `/common/modifyRobotName/`, // 主页初始化接口
+    url: BASE + `/common/modifyRobotName/`, // 起名字
     method: "post",
     data
   });
