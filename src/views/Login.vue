@@ -131,7 +131,7 @@ export default {
             }
           })
           .catch(reslove => {
-            Toast(msg)
+            console.log("error");
           });
       }
     },
@@ -183,6 +183,7 @@ export default {
       let res = reqbebotCode(param);
       res
         .then(res => {
+          console.log(res);
           this.mes = res.result;
         })
         .catch(reslove => {

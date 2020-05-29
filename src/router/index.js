@@ -18,12 +18,14 @@ import HomeOther from '../views/HomeOther'
 import FindList from '../components/FindList'
 import Strategy from '../views/Strategy'
 import Invite from '../views/Invite'
+import Repository from '../views/Repository'
 import CancelFollow from '../views/CancelFollow'
 import Task from '../views/Task'
 import EveryDayTask from '../components/Task/EveryDayTask'
 import NewTask from '../components/Task/NewTask'
 import ProfessionTask from '../components/Task/ProfessionTask'
 import Login from '../views/Login'
+import shopZoom from '../views/shopZoom'
 import bebotAgree from '../views/bebotAgree'
 import bebotSecret from '../views/bebotSecret'
 import LevelUp from '../views/LevelUp'
@@ -37,16 +39,16 @@ const routes = [
             title: "登录页"
         }
     },
-    {
-        path: '/LevelUp',
-        name: 'LevelUp',
-        component: LevelUp,
-    },
-    {
-        path: '/GetMedal',
-        name: 'GetMedal',
-        component: GetMedal,
-    },
+	{
+	    path: '/LevelUp',
+	    name: 'LevelUp',
+	    component: LevelUp,
+	},
+	{
+	    path: '/GetMedal',
+	    name: 'GetMedal',
+	    component: GetMedal,
+	},
     {
         path: '/HomeOther',
         name: 'HomeOther',
@@ -68,7 +70,7 @@ const routes = [
         name: "ACchat",
         component: ACchat,
         meta: {
-            title: "AC代理人对话"
+            title:  "AC代理人对话"
         },
     },
     {
@@ -76,7 +78,7 @@ const routes = [
         name: 'FairyShop',
         component: FairyShop,
         meta: {
-            title: "精灵商店买家"
+            title:  "精灵商店买家"
         },
     },
     {
@@ -167,10 +169,15 @@ const routes = [
         component: Invite
     },
     {
-        path: '/CancelFollow',
-        name: 'CancelFollow',
-        component: CancelFollow
+        path: '/Repository',
+        name: 'Repository',
+        component: Repository
     },
+	{
+	    path: '/CancelFollow',
+	    name: 'CancelFollow',
+	    component: CancelFollow
+	},
     {
         path: '/Task',
         name: 'Task',
@@ -180,25 +187,33 @@ const routes = [
             title: "任务"
         },
         children: [
-            {
-                path: '/Task/NewTask',
-                name: 'NewTask',
-                component: NewTask,
-            },
-
+			{
+			    path: '/Task/NewTask',
+			    name: 'NewTask',
+			    component: NewTask,
+			},
+			
             {
                 path: '/Task/EveryDayTask',
                 name: 'EveryDayTask',
                 component: EveryDayTask,
             },
-
-            {
-                path: '/Task/ProfessionTask',
-                name: 'ProfessionTask',
-                component: ProfessionTask,
-            },
-
+           
+			{
+			    path: '/Task/ProfessionTask',
+			    name: 'ProfessionTask',
+			    component: ProfessionTask,
+			},
+			
         ]
+    },
+    {
+        path: '/shopZoom',
+        name: 'shopZoom',
+        component: shopZoom,
+        meta: {
+            title: "知识库改版"
+        }
     },
     {
         path: '/bebotAgree',

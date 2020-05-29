@@ -94,7 +94,7 @@
 <script>
 import BScroll from 'better-scroll'
 import { Popup,Toast } from 'vant';
-import { reqShowList,  reqHomeInit,reqEnable_kb,reqDisable_kb,reqReceive, reqstarRating } from '../../axios/axios-api'
+import { reqShowList,  reqHomeInit,reqEnable_kb,reqDisable_kb,reqReceive, reqstarRating } from '../axios/axios-api'
 export default {
   name: "Repository",
   data() {
@@ -112,18 +112,18 @@ export default {
       goods:'',
       text:'',
       isEvaluate:Boolean, //是否评价
-      img: require("../../assets/images/icon.png"),
-      suo: require("../../assets/images/suo@2x.png"),
-      product_zsk: require("../../assets/images/product_zsk@2x.png"),
-      next: require("../../assets/images/next@2x.png"),
-      levelbx1: require("../../assets/images/level_xinshou@2x.png"),
-      levelbx2: require("../../assets/images/level_fudu@2x.png"),
-      levelbx3: require("../../assets/images/level_tiaokuan@2x.png"),
-      levelbx4: require("../../assets/images/level_peizhi@2x.png"),
-      levelbx5: require("../../assets/images/level_baike@2x.png"),
-      levelbx6: require("../../assets/images/level_daka@2x.png"),
-      levelbx7: require("../../assets/images/level_famous@2x.png"),
-      success:require("../../assets/images/success@2x.png")
+      img: require("../assets/images/icon.png"),
+      suo: require("../assets/images/suo@2x.png"),
+      product_zsk: require("../assets/images/product_zsk@2x.png"),
+      next: require("../assets/images/next@2x.png"),
+      levelbx1: require("../assets/images/level_xinshou@2x.png"),
+      levelbx2: require("../assets/images/level_fudu@2x.png"),
+      levelbx3: require("../assets/images/level_tiaokuan@2x.png"),
+      levelbx4: require("../assets/images/level_peizhi@2x.png"),
+      levelbx5: require("../assets/images/level_baike@2x.png"),
+      levelbx6: require("../assets/images/level_daka@2x.png"),
+      levelbx7: require("../assets/images/level_famous@2x.png"),
+      success:require("../assets/images/success@2x.png")
     };
   },
   methods: {

@@ -69,6 +69,7 @@ export default {
   // },
   mounted() {
     let param = {
+      robot_id: 33,
       operation_type: 1,
       robot_id: this.robot_id_prop,
       broker_id: this.broker_id_prop,
@@ -82,13 +83,22 @@ export default {
         console.log(this.baenstList, "粉丝");
       })
       .catch(reslove => {
+        alert(66666);
         console.log("error");
       });
   },
   
   methods:{
   	 clickThis:function(robot_id){
-  	 		  this.$emit('BeanC',false)
+  	 		  this.$router.push({
+  	 		    path:'/HomeOther',
+  	 		    query:{
+  	 		      robot_id: 33,
+  	 			  broker_id:33,
+  				  robot_visitId:robot_id,
+  	 			  token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+  	 		    }
+  	 		  })
   	 }
   }
 };

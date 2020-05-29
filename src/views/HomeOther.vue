@@ -121,22 +121,12 @@
     <!-- <div v-if="this.registers.visitor_type == '0'">
 			<img :src=share alt="">
     </div>-->
-    <ACVisitor
-      v-show="showACChat"
-      @closeACchat="closeACchat"
-      :showACChat="showACChat"
-      :broker_id="$route.query.broker_id"
-      :robot_id="$route.query.robot_id"
-      :customer_id="visitList.customer_id"
-      :customer_type="customer_type"
-      :token="visitList.token"
-      v-if="visitList.customer_id"
-    />
+	<ACVisitor v-show="showACChat" @closeACchat="closeACchat" :showACChat='showACChat' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :customer_id='visitList.customer_id' :customer_type='customer_type' :token ='visitList.token' v-if="visitList.customer_id"/>
   </div>
 </template>
 <script>
 import { Popup, Toast } from "vant";
-import ACVisitor from "../components/ACVisitor";
+import ACVisitor from '../components/ACVisitor'
 // import {
 // 	MessageBox
 // } from 'element-ui';
@@ -153,11 +143,11 @@ import {
 } from "../axios/axios-api";
 export default {
   components: {
-    ACVisitor
+	  ACVisitor
   },
   data() {
     return {
-      showACChat: false,
+	  showACChat:false,
       visitList: "",
       mes: "",
       registers: "",
@@ -180,7 +170,7 @@ export default {
       homeLevel: "",
       star: "",
       isStatus: "",
-      fairyStatus: "",
+	  fairyStatus: "",
       share: require("../assets/images/share@2x.png"),
       img: require("../assets/images/icon.png"),
       register: require("../assets/images/register@2x.png"),
@@ -239,12 +229,12 @@ export default {
       });
     },
     HomeChat() {
-      // 聊天记录
-      this.showACChat = true;
-    },
-    closeACchat(data) {
-      this.showACChat = false;
-    },
+	  // 聊天记录
+	  this.showACChat = true
+	},
+	closeACchat(data){
+	  this.showACChat = false
+	},
     toHome() {
       this.$router.replace("/");
     },
@@ -255,10 +245,10 @@ export default {
     nextPage() {
       talkContent.scrollTop += 138;
       this.isOwn = false;
-    },
-    toRegister() {
-      this.$router.push("/login");
-    },
+	},
+	toRegister(){
+	   this.$router.push("/login");
+	},
     submit(numIndex) {
       this.numIndex += 1;
       if (this.$refs.input.value == "") {
@@ -409,19 +399,19 @@ export default {
           if (that.homeInit.title == 1) {
             //保险等级
             that.homeLevel = that.levelbx1;
-          } else if (that.homeInit.title == 2) {
-            that.homeLevel = that.levelbx2;
-          } else if (that.homeInit.level == 3) {
-            that.homeLevel = that.levelbx3;
-          } else if (that.homeInit.level == 4) {
-            that.homeLevel = that.levelbx4;
-          } else if (that.homeInit.level == 5) {
-            that.homeLevel = that.levelbx5;
-          } else if (that.homeInit.level == 6) {
-            that.homeLevel = that.levelbx6;
-          } else if (that.homeInit.level == 7) {
-            that.homeLevel = that.levelbx7;
-          }
+			} else if (that.homeInit.title == 2) {
+				that.homeLevel = that.levelbx2;
+			} else if (that.homeInit.level == 3) {
+				that.homeLevel = that.levelbx3;
+			} else if (that.homeInit.level == 4) {
+				that.homeLevel = that.levelbx4;
+			} else if (that.homeInit.level == 5) {
+				that.homeLevel = that.levelbx5;
+			} else if (that.homeInit.level == 6) {
+				that.homeLevel = that.levelbx6;
+			} else if (that.homeInit.level == 7) {
+				that.homeLevel = that.levelbx7;
+		  }
           that.getCusayrob();
           //串门成功后，增加金币和经验
           that.chuanmen();
@@ -464,7 +454,7 @@ export default {
       let res = reqbebotCode(param);
       res
         .then(res => {
-          alert("授权回来的" + res);
+          console.log("授权回来的" + res);
           that.messages = res.result;
           let param = {
             openid: that.messages.openid
@@ -481,32 +471,32 @@ export default {
             .then(res => {
               that.registers = res.result;
               if (that.registers.visitor_type == "0") {
-                that.isRegister = false;
+				that.isRegister = false;
               } else if (that.registers.visitor_type == "1") {
-                that.isRegister = true;
+				that.isRegister = true;
               } else if (that.registers.visitor_type == "-1") {
-                that.isRegister = false;
-              }
-              let param = {
-                openid: that.messages.openid,
-                nickname: that.messages.nickname,
-                sex: that.messages.sex,
-                province: that.messages.province,
-                city: that.messages.city,
-                country: that.messages.country,
-                headimgurl: that.messages.headimgurl,
-                privilege: that.messages.privilege
-              };
-              let result = reqcustomerlogin(param);
-              result
-                .then(res => {
-                  that.visitList = res.result;
-                  alert('初始化')
-                  that.getHomeInit();
-                })
-                .catch(reslove => {
-                  console.log("error");
-                });
+				that.isRegister = false
+				}
+                let param = {
+                  openid: that.messages.openid,
+                  nickname: that.messages.nickname,
+                  sex: that.messages.sex,
+                  province: that.messages.province,
+                  city: that.messages.city,
+                  country: that.messages.country,
+                  headimgurl: that.messages.headimgurl,
+                  privilege: that.messages.privilege
+                };
+                let result = reqcustomerlogin(param);
+                result
+                  .then(res => {
+                    that.visitList = res.result;
+                    that.getHomeInit();
+                  })
+                  .catch(reslove => {
+                    console.log("error");
+                  });
+              
             })
             .catch(reslove => {
               console.log("error");

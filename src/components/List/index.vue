@@ -1,5 +1,6 @@
 <template>
   <div class="warp">
+    <!-- <van-cell is-link @click="showPopup">上划</van-cell> -->
     <van-popup
       class="content"
       v-model="show1"
@@ -76,7 +77,7 @@ export default {
     this.curIndex = 0;
     // }
   },
-
+  
   methods: {
     changeIndex(i) {
       this.curIndex = i;

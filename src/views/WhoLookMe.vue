@@ -33,7 +33,7 @@
   </div>
 </template>
 <script>
-import { reqLookMe } from "../../axios/axios-api";
+import { reqLookMe } from "../axios/axios-api";
 export default {
   name: "WhoLookMe",
   data() {
@@ -41,7 +41,7 @@ export default {
       curIndex: 0,
       show: true,
       list: [],
-      img: require("../../assets/images/Group@2x.png")
+      img: require("../assets/images/Group@2x.png")
     };
   },
   created(){
