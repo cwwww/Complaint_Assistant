@@ -61,9 +61,6 @@
         </div>
       </div>
     </div>
-    <div class="invitation">
-		  <img class="invitationicon" src="../assets/images/邀请@2x.png" alt="">
-		</div>
     <div class="rightList">
       <ul>
         <li>
@@ -163,17 +160,29 @@
         </div>
       </div>
     </div>
-    <HomeChat v-show="homeChat" @showChatC='showChatP' :show_chat='homeChat' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
-    <WhoLookMe v-show="WhoLook" @WhoLookC='WhoLookP' :Who_Look='WhoLook' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
-    <Repository v-show="RepositoryShow" @RepositoryC='RepositoryP' :repository_show='repository' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
+    <HomeChat
+      v-show="homeChat"
+      @showChatC="showChatP"
+      :show_chat="homeChat"
+      :broker_id="$route.query.broker_id"
+      :robot_id="$route.query.robot_id"
+      :token="$route.query.token"
+    />
+    <WhoLookMe
+      v-show="WhoLook"
+      @WhoLookC="WhoLookP"
+      :Who_Look="WhoLook"
+      :broker_id="$route.query.broker_id"
+      :robot_id="$route.query.robot_id"
+      :token="$route.query.token"
+    />
   </div>
 </template>
 <script>
 import { Popup, Toast } from "vant";
 import wx from "weixin-js-sdk";
-import HomeChat from '../components/HomeChat'
-import WhoLookMe from '../components/WhoLookMe'
-import Repository from '../components/Respository'
+import HomeChat from "../components/HomeChat";
+import WhoLookMe from "../components/WhoLookMe";
 import {
   reqHomeInit,
   reqCusayrob,
@@ -189,14 +198,12 @@ import {
 export default {
   components: {
     HomeChat,
-    WhoLookMe,
-    Repository
+    WhoLookMe
   },
   data() {
     return {
-      RepositoryShow:false,
-      WhoLook:false,
-      homeChat:false,
+      WhoLook: false,
+      homeChat: false,
       vipExpiryTime: "",
       vipNotification: false,
       vipValid: "",
@@ -217,10 +224,7 @@ export default {
       show1: false,
       isOwn: true,
       answerHight: "",
-      homeInit:{
-		  vip_valid: true
-	   },
-
+      homeInit: Object,
       bxdj: "",
       numIndex: 0,
       showName: false,
@@ -272,17 +276,15 @@ export default {
     };
   },
   methods: {
-    showChatP(data){
-      this.homeChat = data
+    showChatP(data) {
+      this.homeChat = data;
     },
-    WhoLookP(data){
-      this.WhoLook = data
-    },
-    RepositoryP(data){
-      this.RepositoryShow = data
+    WhoLookP(data) {
+      this.WhoLook = data;
     },
     open7() {
       this.$router.replace("/LevelUp");
+
       //       this.$confirm(
 
       // '','您的会员将于2020/5/3到期请前往【会员商店】领取', {
@@ -318,6 +320,25 @@ export default {
       //          });
       //        });
     },
+    isNo() {
+      //买家精灵商店取消购买
+      this.vipNotification = false;
+    },
+    isYes() {
+      //买家精灵商店确定购买
+    },
+    Repository() {
+      // 知识库
+      this.$router.push({
+        path: "/Repository",
+        query: {
+          broker_id: this.$route.query.visitor_id,
+          robot_id: this.$route.query.robot_id,
+          token: this.$route.query.token
+        }
+      });
+      this.destoryTimer();
+    },
     FairyShop() {
       // 买家精灵商店
       this.$router.push({
@@ -330,16 +351,16 @@ export default {
       });
       this.destoryTimer();
     },
-    // HomeChat() {
-    //   // 聊天记录
-    //   this.homeChat = true
-    //   // this.destoryTimer();
-    // },
-    // WhoLookMe() {
-    //   // 谁看过我
-    //   this.WhoLook = true
-    //   // this.destoryTimer();
-    // },
+    HomeChat() {
+      // 聊天记录
+      this.homeChat = true;
+      // this.destoryTimer();
+    },
+    WhoLookMe() {
+      // 谁看过我
+      this.WhoLook = true;
+      // this.destoryTimer();
+    },
     Ranking() {
       //排行榜
       //this.$router.replace('/Ranking')
@@ -366,25 +387,16 @@ export default {
       });
       this.destoryTimer();
     },
-    toFXCP(){
-      if(!this.homeInit.vip_valid){
-        this.vipNotification = true;
-        this.vipExpiryTime ="您的会员已到期"
-      }else{
-        window.parent.location.href = 'https://m.baoxianxia.com.cn/risk/index.html'
-        this.destoryTimer();
-      }
+    toFXCP() {
+      window.parent.location.href =
+        "https://m.baoxianxia.com.cn/risk/index.html";
+      this.destoryTimer();
     },
-    toPlan(){
-      if(!this.homeInit.vip_valid){
-        this.vipNotification = true;
-        this.vipExpiryTime ="您的会员已到期"
-      }else{
-        window.parent.location.href = 'https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16'
-        this.destoryTimer();
-      }
+    toPlan() {
+      window.parent.location.href =
+        "https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16";
+      this.destoryTimer();
     },
-
     frang() {
       // 好友
       this.$router.push({
@@ -448,6 +460,7 @@ export default {
         .then(res => {
           console.log(res);
           this.shareMessages = res.result;
+          // alert($route.query.visitor_id)
           var that = this;
           wx.config({
             debug: false,
@@ -513,14 +526,13 @@ export default {
     },
     // 授权
     impower() {
-      let param = { code: this.code };
+      let param = { code: "this.code" };
       let res = reqbebotCode(param);
       res
         .then(res => {
           console.log(res);
-          // alert()
           this.messages = res.result;
-          // this.customerLogin();
+          this.customerLogin();
         })
         .catch(reslove => {
           console.log("error");
@@ -678,26 +690,16 @@ export default {
           console.log("error");
         });
     },
-    isNo(){   //买家精灵商店取消购买
-      this.vipNotification = false
-    },
-    isYes(){  //买家精灵商店确定购买
-        this.vipNotification = false
-      this.$router.push({
-        path:'/sellerShop/vipShop',
-        query:{
-          "broker_id": this.$route.query.visitor_id,
-          "robot_id": this.$route.query.robot_id,
-          "token":this.$route.query.token
-          }
-        })
-    },
+
     // 初始化页面
     getHomeInit() {
       if (this.$route.query.broker_id == undefined) {
         this.$route.query.broker_id = this.$route.query.visitor_id;
       }
       let param = {
+        // "robot_id":35,
+        // "broker_id":35,
+        // "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
         robot_id: this.$route.query.robot_id,
         broker_id: this.$route.query.broker_id,
         token: this.$route.query.token
@@ -715,6 +717,7 @@ export default {
           this.vipNotification = this.homeInit.vip_notification;
           if (this.homeInit.vip_valid == false) {
             this.vipExpiryTime = "您的会员已到期";
+
             // this.vipExpiryTime ='您的会员将于'+times+'到期'
           } else {
             var time = this.homeInit.vip_expiry_time;
@@ -723,22 +726,23 @@ export default {
               d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             this.vipExpiryTime = "您的会员将于" + times + "到期";
           }
+
           if (this.homeInit.title == 1) {
             //保险等级
             this.homeLevel = this.levelbx1;
-            } else if (this.homeInit.title == 2) {
-              this.homeLevel = this.levelbx2;
-            } else if (this.homeInit.title == 3) {
-              this.homeLevel = this.levelbx3;
-            } else if (this.homeInit.title == 4) {
-              this.homeLevel = this.levelbx4;
-            } else if (this.homeInit.title == 5) {
-              this.homeLevel = this.levelbx5;
-            } else if (this.homeInit.title == 6) {
-              this.homeLevel = this.levelbx6;
-            } else if (this.goodsList.title == 7) {
-              this.homeLevel = this.levelbx7;
-            }
+          } else if (this.homeInit.title == 2) {
+            this.homeLevel = this.levelbx2;
+          } else if (this.homeInit.title == 3) {
+            this.homeLevel = this.levelbx3;
+          } else if (this.homeInit.title == 4) {
+            this.homeLevel = this.levelbx4;
+          } else if (this.homeInit.title == 5) {
+            this.homeLevel = this.levelbx5;
+          } else if (this.homeInit.title == 6) {
+            this.homeLevel = this.levelbx6;
+          } else if (this.goodsList.title == 7) {
+            this.homeLevel = this.levelbx7;
+          }
         })
         .catch(reslove => {
           console.log("error");
@@ -748,6 +752,32 @@ export default {
     destoryTimer() {
       clearInterval(this.timer);
     }
+
+    // getCode(){ // 非静默授权，第一次有弹框
+    //     this.code = ''
+    //     // var local = window.location.href // 获取页面url
+    //     var local = "https://bebot-web.baoxianxia.com.cn/#/" // 获取页面url
+    //     var appid = 'wx026553ce8b4e59a3'
+    //     this.code = this.getUrlCode().code // 截取code
+    //     if (this.code == null || this.code === '') { // 如果没有code，则去请求
+    //         window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
+    //     } else {
+    //         // 你自己的业务逻辑
+    //     }
+    // },
+    // getUrlCode() { // 截取url中的code方法
+    //     var url = window.location.search
+    //     this.winUrl = url
+    //     var theRequest = new Object()
+    //     if (url.indexOf("?") != -1) {
+    //         var str = url.substr(1)
+    //         var strs = str.split("&")
+    //         for(var i = 0; i < strs.length; i ++) {
+    //             theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
+    //         }
+    //     }
+    //     return theRequest
+    // }
   },
   created() {
     // this.getCode()
@@ -844,19 +874,6 @@ export default {
             to(rgba(45, 226, 230, 0.09))
           );
         }
-        		.invitation{
-			margin-left: 6px;
-			top: 23px;
-			left:0px;
-			position: absolute;
-			width: 40px;
-			height: 40px;
-		}
-		.invitationicon{
-			width: 40px;
-			height: 40px;
-		}
-
         .ArticleExperience {
           font-size: 10px;
           font-family: DINAlternate-Bold, DINAlternate;
