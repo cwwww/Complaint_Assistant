@@ -55,7 +55,6 @@
       </div>
       <router-view v-if="$route.path==='/home'"></router-view>
     </van-popup>
-    <ShopZoom v-show="isShopZoom" @ShopZoomC="ShopZoomP" :Answer="list[index].content" :Question="list[index-1].content" :Shop_ZoomChat="isShopZoom" :broker_id="broker_id" :robot_id="robot_id" :token="token" :type="type"/>
   </div>
 </template>
 <script>
@@ -70,12 +69,8 @@ import {
 export default {
   inject: ["reload"], // 引入页面同步刷新的依赖
   name: "HomeChat",
-  components:{
-    ShopZoom
-  },
   data() {
     return {
-      isShopZoom:false,
       list: [],
       chat: true,
       left: true,
@@ -112,6 +107,7 @@ export default {
       res
         .then(res => {
           console.log(res);
+          alert(JSON.stringify(res))
           this.list = res.result;
         })
         .catch(reslove => {
@@ -162,7 +158,6 @@ export default {
         });
     },
     teachYou(index) {
-      this.ShopZoom = true
       let param = {
         broker_id: this.broker_id,
         question: this.list[index - 1].content,
@@ -179,6 +174,13 @@ export default {
         .catch(reslove => {
           console.log("error");
         });
+      this.$router.push({
+        path: "/shopZoom",
+        query: {
+          Answer: this.list[index].content,
+          Question: this.list[index - 1].content
+        }
+      });
     },
     //  滚动条置底
     scrollToBottom: function() {

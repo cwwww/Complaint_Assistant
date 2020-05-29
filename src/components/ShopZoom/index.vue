@@ -83,20 +83,13 @@ export default {
       img5: require("@/assets/images/delete@3x.png")
     };
   },
-  props:['broker_id','robot_id','token','type','Shop_Zoom',"Answer","Question","Shop_ZoomChat"],
+  props:['broker_id','robot_id','token','type','Shop_Zoom'],
   created(){
-    if(Shop_Zoom){
-      this.show = Shop_ZoomChat
-    }else{
       this.show = Shop_Zoom
-    }
   },
   watch:{
       Shop_Zoom(newValue){
-        this.show = newValue
-      },
-      Shop_ZoomChat(){
-        this.show = newValue
+          this.show = newValue
       }
   },
   methods: {
@@ -104,9 +97,7 @@ export default {
       alert(this.type)
       if (this.type == "type") {
         this.$emit('ShopZoomC',false)
-      } else {
-        this.$emit('ShopZoomC',false)
-      }
+      } 
     },
     listPage(index) {
       console.log(this.list[index]);
