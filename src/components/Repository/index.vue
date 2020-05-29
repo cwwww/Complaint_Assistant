@@ -176,10 +176,10 @@ export default {
   },
   props:['broker_id','robot_id','token','Repository_show'],
   created(){
-      this.show = this.repository_show
+      this.show = this.Repository_show
   },
   watch:{
-    repository_show(newValue){
+    Repository_show(newValue){
         this.show = newValue
     }
   },
