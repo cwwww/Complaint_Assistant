@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div v-show="showBean"  v-for="(item, idx) in baenstList" :key="idx"  >
+    <div  v-for="(item, idx) in baenstList" :key="idx"  >
 	 <div class="warp" @click="clickThis(item.robot_id)">
       <div class="left">
         <div class="littleLeft">
@@ -46,7 +46,6 @@ export default {
   data() {
     return {
       baenstList: [],
-      showBean:true,
       img: require("../../../assets/images/金牌@2x.png"),
       img2: require("../../../assets/images/等级-保险配置王@2x.png"),
       img4: require("../../../assets/images/默认头像@2x.png"),
@@ -59,21 +58,21 @@ export default {
       gradeSeven: require("../../../assets/images/等级-保险名人堂@2x.png")
     };
   },
-  props: ['broker_id','robot_id','token','Bean_show','name'],
-  created(){
-      this.showBean = this.Bean_show
-  },
-  watch:{
-    Bean_show(newValue){
-        this.showBean = newValue
-    }
-  },
+  props: ['broker_id_prop','robot_id_prop','token_prop'],
+  // created(){
+  //     // this.showBean = this.Bean_show
+  // },
+  // watch:{
+  //   Bean_show(newValue){
+  //       this.showBean = newValue
+  //   }
+  // },
   mounted() {
     let param = {
       operation_type: 1,
-      robot_id: this.robot_id,
-      broker_id: this.broker_id,
-      token:this.token
+      robot_id: this.robot_id_prop,
+      broker_id: this.broker_id_prop,
+      token:this.token_prop
     };
     console.log(param);
     let result = BeanList(param);

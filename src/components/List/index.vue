@@ -2,39 +2,48 @@
   <div class="warp">
     <van-popup
       class="content"
-      v-model="show"
+      v-model="show1"
       closeable
       round
       position="bottom"
       :style="{ height: '70%' }"
-      @close="close"
+      @close="close1"
     >
       <div class="title" id="title">
         <ul>
-          <router-link
-            v-for="(route, index) in lists"
-            :key="index"
-            data-index="0"
+          <li
             :class="{'active': index === curIndex}"
             class="bigBox"
-            :to="{name: route.name}"
-            tag="li"
+            v-for="(item, index) in lists"
+            :key="index"
           >
-            <!-- <span @click="changeIndex(index)">{{route.title}}</span> -->
-          </router-link>
+            <span @click="changeIndex(index)">{{item.title}}</span>
+          </li>
         </ul>
       </div>
-      <router-view />
+         <Bean  :broker_id_prop='broker_id_prop' :robot_id_prop="robot_id_prop" :token_prop="token_prop"/>
+        <!-- <Friend /> -->
     </van-popup>
+
   </div>
 </template>
 <script>
+import Bean from '../List/Bean'
+// import Frien
 export default {
+    components:{
+        Bean,
+        // Friend
+    },
   name: "List",
+  
   data() {
     return {
       curIndex: 0,
-      show: true,
+      show1: true,
+      broker_id_prop:'',
+      robot_id_prop:'',
+      token_prop:'',
       lists: [
         {
           name: "Friend",
@@ -47,13 +56,16 @@ export default {
       ]
     };
   },
-  props: ["List_show", "broker_id", "robot_id", "token"],
+  props: ["list_show", "broker_id", "robot_id", "token"],
   created() {
-    this.show = this.List_show;
+    this.show1 = this.list_show;
+    this.broker_id_prop=this.broker_id;
+    this.robot_id_prop=this.robot_id;
+    this.token_prop=this.token;
   },
   watch: {
-    List_show(newValue) {
-      this.show = this.newValue;
+    list_show(newValue) {
+      this.show1 = newValue;
     }
   },
   mounted() {
@@ -61,7 +73,7 @@ export default {
     // if(name == "fensi"){
     //   this.curIndex = 1;
     // }else{
-      this.curIndex = 0;
+    this.curIndex = 0;
     // }
   },
 
@@ -72,8 +84,8 @@ export default {
     // showPopup() {
     //   this.show = true;
     // },
-    close() {
-      this.$emit("ListC", false);
+    close1() {
+      this.$emit("listc", false);
     }
   }
 };
@@ -106,7 +118,7 @@ export default {
         justify-content: space-around;
         padding-left: 108px;
         padding-right: 108px;
-        & > li.active {
+        > li.active {
           font-size: 17px;
           font-family: PingFangSC-Medium, PingFang SC;
           font-weight: 600;

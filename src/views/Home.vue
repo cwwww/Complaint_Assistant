@@ -151,7 +151,7 @@
         <div class="input-bottom">
           <input
             type="text"
-            v-model="input"
+            v-model="question"
             placeholder="输入“风险测评”试试"
             style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"
           />
@@ -185,26 +185,11 @@
       :token="$route.query.token"
     />
     <!-- <ShopZoom v-show="isShopZoom" @ShopZoomC="ShopZoomP" :Shop_Zoom="isShopZoom" :broker_id="broker_id" :robot_id="robot_id" :token="token" :type="type"/> -->
-    <Bean
-      v-show="isBean"
-      @BeanC="BeanP"
-      :Bean_show="isBean"
-      :broker_id="$route.query.broker_id"
-      :robot_id="$route.query.robot_id"
-      :token="$route.query.token"
-    />
-    <Friend
-      v-show="isFriend"
-      @FriendC="FriendP"
-      :Friend_show="isFriend"
-      :broker_id="$route.query.broker_id"
-      :robot_id="$route.query.robot_id"
-      :token="$route.query.token"
-    />
+
     <List
       v-show="isList"
-      @ListC="ListP"
-      :List_show="isList"
+      @listc="ListP"
+      :list_show="isList"
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
@@ -217,8 +202,6 @@ import wx from "weixin-js-sdk";
 import HomeChat from "../components/HomeChat";
 import WhoLookMe from "../components/WhoLookMe";
 import Repository from "../components/Repository";
-import Bean from "../components/List/Bean";
-import Friend from "../components/List/Friend";
 import List from "../components/List";
 // import ShopZoom from "../components/ShopZoom";
 import {
@@ -239,15 +222,11 @@ export default {
     WhoLookMe,
     Repository,
     // ShopZoom,
-    Bean,
-    Friend,
     List
   },
   data() {
     return {
-      isBean:false,
-      isFriend:false,
-      isList:false,
+      isList:true,
       isRep:false,
       WhoLook: false,
       homeChat: false,
@@ -274,7 +253,7 @@ export default {
       homeInit: Object,
       bxdj: "",
       numIndex: 0,
-      showName: true,
+      showName: false,
       isInput: "",
       flag: true,
       question: "",
@@ -459,7 +438,6 @@ export default {
     },
     lists() {
       // 粉丝
-      alert('粉丝')
       this.isList = true;
       // this.isRep = true;
       // this.destoryTimer();
@@ -611,7 +589,7 @@ export default {
     },
     submit(numIndex) {
       this.numIndex += 1;
-      if (this.$ref.input.value == "") {
+      if (this.question == "") {
         Toast("请输入聊天内容");
       } else {
         this.getDetail();
@@ -619,7 +597,6 @@ export default {
       }
     },
     getDetail() {
-      this.question = this.$ref.input.value;
       let param;
       if (this.flag) {
         param = {
