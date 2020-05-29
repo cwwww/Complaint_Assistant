@@ -109,8 +109,8 @@
         </div>
       </div>
       <ul class="bottomList">
-        <li>
-          <img @click="Repository" :src="home_zsk" alt />
+        <li @click="Repository">
+          <img :src="home_zsk" alt />
           <span>知识库</span>
         </li>
         <li @click="FairyShop">
@@ -179,7 +179,7 @@
     <Repository
       v-show="isRep"
       @RepositoryC="RepositoryP"
-      :Repository_show="isRepository"
+      :Repository_show="isRep"
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
@@ -295,7 +295,7 @@ export default {
     },
     RepositoryP(data) {
       // 知识库
-      this.isRepository = data;
+      this.isRep = data;
     },
     open7() {
       this.$router.replace("/LevelUp");

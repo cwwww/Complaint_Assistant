@@ -180,7 +180,7 @@ export default {
   },
   watch:{
     Repository_show(newValue){
-        this.show = newValue
+      this.show = newValue
     }
   },
   methods: {
