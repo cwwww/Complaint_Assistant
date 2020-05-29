@@ -80,7 +80,7 @@ export default {
   data() {
     return {
       boxshow: false,
-		EverudayList:{},
+		  EverudayList:{},
       status: "",
       result: Object,
       type: "",
@@ -101,7 +101,7 @@ export default {
 			    this.bxmove=false;
 			    this.itemSelected='';
 			  }, 1000);
-	  		         let _this = this;
+	  		      let _this = this;
 	  	  			//领取金币，更新金币和经验
 	  	  			let param = {
 	  	  			  "broker_id":broker_id,

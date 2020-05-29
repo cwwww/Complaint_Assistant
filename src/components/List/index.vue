@@ -21,19 +21,18 @@
           </li>
         </ul>
       </div>
-         <Bean  :broker_id_prop='broker_id_prop' :robot_id_prop="robot_id_prop" :token_prop="token_prop"/>
-        <!-- <Friend /> -->
+         <Bean v-show='curIndex == 1'  :broker_id_prop='broker_id_prop' :robot_id_prop="robot_id_prop" :token_prop="token_prop"/>
+         <Friend v-show='curIndex == 0' :broker_id_prop='broker_id_prop' :robot_id_prop="robot_id_prop" :token_prop="token_prop"/>
     </van-popup>
 
   </div>
 </template>
 <script>
-import Bean from '../List/Bean'
-// import Frien
+import Bean from './Bean'
+import Friend from './Friend'
 export default {
     components:{
-        Bean,
-        // Friend
+        Bean,Friend
     },
   name: "List",
   

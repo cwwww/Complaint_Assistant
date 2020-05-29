@@ -26,11 +26,11 @@
           </div>
           <div class="infor">
             <div class="swsName">{{homeInit.name}}&nbsp;事务所</div>
-         <img class="line" :src=line alt="">
-			
-			<div class="linebg"     :style="{'width': linewidthData}"></div>
-			
-            <img class="experience" :src=experience alt="">
+            <img class="line" :src="line" alt />
+
+            <div class="linebg" :style="{'width': linewidthData}"></div>
+
+            <img class="experience" :src="experience" alt />
 
             <div class="ArticleExperience">{{homeInit.exp}}/{{homeInit.level_exp}}</div>
             <div class="level">Lv.{{homeInit.level}}</div>
@@ -64,9 +64,9 @@
         </div>
       </div>
     </div>
-	<div class="invitation">
-		<img class="invitationicon" src="../assets/images/邀请@2x.png" alt="">
-		</div>
+    <div class="invitation">
+      <img class="invitationicon" src="../assets/images/邀请@2x.png" alt />
+    </div>
     <div class="rightList">
       <ul>
         <li>
@@ -116,7 +116,7 @@
       </div>
       <ul class="bottomList">
         <li @click="Repository">
-          <img  :src="home_zsk" alt />
+          <img :src="home_zsk" alt />
           <span>知识库</span>
         </li>
         <li @click="FairyShop">
@@ -138,8 +138,7 @@
           <span>排行榜</span>
         </li>
       </ul>
-	  <div class="input-bottom-content" >
-
+      <div class="input-bottom-content">
       <van-popup
           class="cont3"
           v-model="showName"
@@ -151,12 +150,14 @@
             <div id="warn">名字确定后不可更改哦～</div>
             <input type="text" style="text-align:center" name="name" maxlength="10" />
             <div id="line"></div>
-            <div id="limit" v-show="showIimit">名字超过字数限制，请重新输入</div>
+            <div id="limit" v-show="showIimit" style="height: 0.34667rem;">{{warnInfo}}</div>
+            <van-button type="info" style="width:265px;height:42px;margin:6px auto;" @click="getName">确定</van-button>
             <van-button
               type="info"
               style="width:265px;height:42px;margin:6px auto;"
               @click="getName"
             >确定</van-button>
+
           </div>
         </van-popup>
 
@@ -239,9 +240,10 @@ export default {
   },
   data() {
     return {
-      linewidthData:'',
-      isList:true,
-      isRep:false,
+      warnInfo:"",
+      linewidthData: "",
+      isList: true,
+      isRep: false,
       WhoLook: false,
       homeChat: false,
       vipExpiryTime: "",
@@ -316,8 +318,8 @@ export default {
     };
   },
   methods: {
-     ListP(data){
-      this.isList = data
+    ListP(data) {
+      this.isList = data;
     },
     showChatP(data) {
       this.homeChat = data;
@@ -329,10 +331,12 @@ export default {
       // 知识库
       this.isRep = data;
     },
-    BeanP(){ //粉丝
+    BeanP() {
+      //粉丝
       this.isBean = data;
     },
-    FriendP(){ //好友
+    FriendP() {
+      //好友
       this.isFriend = data;
     },
     open7() {
@@ -341,7 +345,7 @@ export default {
     },
     Repository() {
       // 知识库
-      this.isRep = true
+      this.isRep = true;
       // this.destoryTimer();
     },
     FairyShop() {
@@ -356,29 +360,31 @@ export default {
       });
       this.destoryTimer();
     },
-    isNo(){   //买家精灵商店取消购买
-      this.vipNotification = false
+    isNo() {
+      //买家精灵商店取消购买
+      this.vipNotification = false;
     },
-    isYes(){  //买家精灵商店确定购买
-        this.vipNotification = false
+    isYes() {
+      //买家精灵商店确定购买
+      this.vipNotification = false;
       this.$router.push({
-        path:'/sellerShop/vipShop',
-        query:{
-          "broker_id": this.$route.query.visitor_id,
-          "robot_id": this.$route.query.robot_id,
-          "token":this.$route.query.token
-          }
-        })
+        path: "/sellerShop/vipShop",
+        query: {
+          broker_id: this.$route.query.visitor_id,
+          robot_id: this.$route.query.robot_id,
+          token: this.$route.query.token
+        }
+      });
     },
 
     HomeChat() {
       // 聊天记录
-      this.homeChat = true
+      this.homeChat = true;
       this.destoryTimer();
     },
     WhoLookMe() {
       // 谁看过我
-      this.WhoLook = true
+      this.WhoLook = true;
       this.destoryTimer();
     },
     Ranking() {
@@ -444,26 +450,41 @@ export default {
       talkContent.scrollTop += 138;
       this.isOwn = false;
     },
-    getName() {
-      if (document.getElementsByName("name")[0].value.length >= 7) {
-        this.showIimit = true;
-      }
-      let param = {
-        broker_id: this.$route.query.useId,
-        robot_id: this.$route.query.robot_id,
-        robot_name: document.getElementsByName("name")[0].value,
-        token: this.$route.query.token
-      };
-      let res = reqHomeName(param);
-      res
-        .then(res => {
-          console.log(res);
-          this.list = res.result.dialog_history;
-          this.$refs.input.value = "";
-        })
-        .catch(reslove => {
-          console.log("error");
-        });
+   getName(){
+	  if(document.getElementsByName("name")[0].value.length == 0){
+		   this.warnInfo = "请输入昵称"
+		   this.showIimit = true
+		   this.showName = true;
+	  }else{
+		 if(document.getElementsByName("name")[0].value.length >= 7){
+		   this.showIimit = true
+		   this.warnInfo = "名字最长不能超过7个字符，请重新输入"
+		   this.showName = true;
+		   return false;
+		 }
+		 this.showIimit = false;
+		 let param = {
+		   "broker_id":this.$route.query.useId,
+		   "robot_id":this.$route.query.robot_id,
+		   "robot_name":document.getElementsByName("name")[0].value,
+		   "token":this.$route.query.token
+		 }
+		 let res = reqHomeName(param)
+		 res.then(res=>{
+		     console.log(res)
+		     //this.list = res.result.dialog_history
+			 if(res.result.robot_name == ''){
+				 this.showIimit = true
+				 this.warnInfo = res.result.info
+				 this.showName = true;
+			 }else{
+				 this.showName = false;
+			 }
+		     //this.$refs.input.value = ''
+		 }).catch(reslove=>{
+		    console.log('error')
+		 }) 
+	  }
     },
     wxconfig() {
       let param = { url: window.location.href.split("#")[0] };
@@ -712,56 +733,59 @@ export default {
         // "broker_id":35,
         // "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
 
-        "robot_id":this.$route.query.robot_id,
-        "broker_id":this.$route.query.broker_id,
-        "token":this.$route.query.token
-      }
-      console.log(param)
-      let result = reqHomeInit(param)
-      result.then(res=>{
-      console.log(res)
-      this.homeInit = res.result
-      if(this.homeInit.name == ''){
-        this.showName = true
-      }
-      console.log(this.homeInit)
-	  if(this.vipNotification == true ){
-		 
-	  }else{
-		  this.vipNotification = this.homeInit.vip_notification
-		  if(this.homeInit.vip_valid == false){
-		  		 this.vipExpiryTime ='您的会员已到期'  
-		  		  // this.vipExpiryTime ='您的会员将于'+times+'到期'
-		  }else{
-		  		  var time=this.homeInit.vip_expiry_time;
-		  		  var d = new Date(time);
-		  		  var times=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
-		  		   this.vipExpiryTime ='您的会员将于'+times+'到期'	  
-		  }
-	  }
-	  var expLine =0;
-	  //99为进度条px值 
-	  expLine=this.homeInit.exp/this.homeInit.level_exp *99;
-	  this.linewidthData=expLine+"px", 
-	     console.log('this.linewidthData',this.linewidthData)
-      if (this.homeInit.title == 1) { //保险等级
-          this.homeLevel = this.levelbx1
-        } else if(this.homeInit.title == 2){
-          this.homeLevel = this.levelbx2
-        } else if(this.homeInit.title == 3){
-          this.homeLevel = this.levelbx3
-        } else if(this.homeInit.title == 4){
-          this.homeLevel = this.levelbx4
-        } else if(this.homeInit.title == 5){
-          this.homeLevel = this.levelbx5
-        } else if(this.homeInit.title == 6){
-          this.homeLevel = this.levelbx6
-        } else if(this.goodsList.title == 7){
-          this.homeLevel = this.levelbx7
-        }
-      }).catch(reslove=>{
-         console.log('error')
-      })
+        robot_id: this.$route.query.robot_id,
+        broker_id: this.$route.query.broker_id,
+        token: this.$route.query.token
+      };
+      console.log(param);
+      let result = reqHomeInit(param);
+      result
+        .then(res => {
+          console.log(res);
+          this.homeInit = res.result;
+          if (this.homeInit.name == "") {
+            this.showName = true;
+          }
+          console.log(this.homeInit);
+          if (this.vipNotification == true) {
+          } else {
+            this.vipNotification = this.homeInit.vip_notification;
+            if (this.homeInit.vip_valid == false) {
+              this.vipExpiryTime = "您的会员已到期";
+              // this.vipExpiryTime ='您的会员将于'+times+'到期'
+            } else {
+              var time = this.homeInit.vip_expiry_time;
+              var d = new Date(time);
+              var times =
+                d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+              this.vipExpiryTime = "您的会员将于" + times + "到期";
+            }
+          }
+          var expLine = 0;
+          //99为进度条px值
+          expLine = (this.homeInit.exp / this.homeInit.level_exp) * 99;
+          (this.linewidthData = expLine + "px"),
+            console.log("this.linewidthData", this.linewidthData);
+          if (this.homeInit.title == 1) {
+            //保险等级
+            this.homeLevel = this.levelbx1;
+          } else if (this.homeInit.title == 2) {
+            this.homeLevel = this.levelbx2;
+          } else if (this.homeInit.title == 3) {
+            this.homeLevel = this.levelbx3;
+          } else if (this.homeInit.title == 4) {
+            this.homeLevel = this.levelbx4;
+          } else if (this.homeInit.title == 5) {
+            this.homeLevel = this.levelbx5;
+          } else if (this.homeInit.title == 6) {
+            this.homeLevel = this.levelbx6;
+          } else if (this.goodsList.title == 7) {
+            this.homeLevel = this.levelbx7;
+          }
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     },
 
     destoryTimer() {
@@ -966,22 +990,26 @@ export default {
         margin-right: 8px;
       }
     }
+    .fansAndFriend .new{width:12px;height:11px;position:absolute;top:-3px;right:0;}
     .fansAndFriend {
+   position:fixed;
+   right:0;
       display: flex;
       flex-direction: column;
-      margin-right: 14px;
+      // margin-right: 14px;
       flex: 1;
       text-align: right;
       align-items: flex-end;
       .friend {
         display: flex;
         justify-content: center;
-        margin: 8px 0 10px 0;
+        margin: 8px 10px 10px 0;
       }
       .fan {
         position: relative;
         display: flex;
         justify-content: center;
+  padding-right:12px;
       }
       .num {
         color: rgba(255, 255, 255, 1);
@@ -1016,6 +1044,7 @@ export default {
         padding: 2px;
       }
     }
+  }
   }
   .rightList {
     display: flex;
@@ -1618,7 +1647,7 @@ export default {
     //   margin-top: 15px;
     margin: 20px auto 0px auto;
   }
-}
+
 .cont2 {
   width: 305px;
   height: 174px;
