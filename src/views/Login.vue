@@ -6,12 +6,12 @@
     </div>
     <span>请登录</span>
     <div class="inputZh">
-      <input class="input phone" type="text" placeholder="请输入手机号" maxlength="11" v-model="phone" />
+      <input class="input phone" type="text" placeholder="请输入手机号" maxlength="11" ref="phone" />
       <img :src="img2" alt />
     </div>
     <div class="passWord">
       <div class="leftPassword">
-        <input class="input research" type="text" placeholder="请输入验证码" v-model="research" maxlength="6" />
+        <input class="input research" type="text" placeholder="请输入验证码" ref="research" maxlength="6" />
         <img :src="img3" alt />
       </div>
       <div class="rightSend" id="box">
@@ -105,12 +105,12 @@ export default {
     },
 
     loginResearch() {
-      if (this.value == "") {
+      if (this.$refs.phone.value == "") {
         Toast("请输入手机号");
-      } else if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.value)) {
+      } else if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value)) {
         Toast("请输入正确的手机号");
-      } else if (/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.value)) {
-        let param = { PHONE: this.value };
+      } else if (/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value)) {
+        let param = { PHONE: this.$refs.phone.value };
         console.log(param);
         let res = reqsendMsmCode(param);
         res
@@ -136,19 +136,19 @@ export default {
       }
     },
     login() {
-      if (this.value == "" || this.value == "") {
+      if (this.$refs.phone.value == "" || this.$refs.research.value == "") {
         Toast("请输入手机号和验证码");
       } else if (
-        /^1(3|4|5|6|7|8|9)\d{9}$/.test(this.value) &&
-        this.value.length < 6
+        /^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value) &&
+        this.$refs.research.value.length < 6
       ) {
         Toast("请输入正确的验证码");
       } else if (!this.check) {
         Toast("请勾选协议");
       } else {
         let param = {
-          PHONE: this.value,
-          code: this.value,
+          PHONE: this.$refs.phone.value,
+          code: this.$refs.research.value,
           OPENID: this.mes.openid,
           NICKNAME: this.mes.nickname,
           HEADIMGURL: this.mes.headimgurl,
@@ -223,19 +223,13 @@ export default {
     }
   },
   created() {
-    if (!window.localStorage.getItem("openId")) {
-      // 如果缓存localStorage中没有微信openId，则需用code去后台获取
-      this.getCode();
-    } else {
-      // 别的业务逻辑
-    }
     this.url = window.location.href.split("#")[0];
     var start = this.url.indexOf("=");
     var end = this.url.indexOf("&");
     this.code = this.url.substring(start + 1, end);
     console.log(this.url);
     this.impower();
-    alert(JSON.stringify(this.mes))
+    alert(this.mes)
     let param = { openid: this.mes.openid };
     let res = reqisregistered(param);
     res
@@ -258,7 +252,12 @@ export default {
       });
   },
   mounted() {
-    
+    if (!window.localStorage.getItem("openId")) {
+      // 如果缓存localStorage中没有微信openId，则需用code去后台获取
+      this.getCode();
+    } else {
+      // 别的业务逻辑
+    }
     // this.wxconfig()
     // var url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
   }
