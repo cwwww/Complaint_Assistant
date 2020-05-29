@@ -65,7 +65,7 @@ import {
   reqtaskStatus
 } from "@/axios/axios-api";
 export default {
-  name: "shopZoom",
+  name: "ShopZoom",
   data() {
     return {
       list: [],
