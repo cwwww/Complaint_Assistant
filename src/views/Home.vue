@@ -137,7 +137,7 @@
           <div class="contwrap">
             <div id="title">给你的精灵起个名字吧！</div>
             <div id="warn">名字确定后不可更改哦～</div>
-            <input type="text" style="text-align:center" name="name" maxlength="10" />
+            <input type="text" style="text-align:center" v-model="name" name="name" maxlength="10" />
             <div id="line"></div>
             <div id="limit" v-show="showIimit">名字超过字数限制，请重新输入</div>
             <van-button
@@ -192,7 +192,6 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
-      :name="fensi"
     />
     <Friend
       v-show="isFriend"
@@ -201,7 +200,6 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
-      :name="friend"
     />
     <List
       v-show="isList"
@@ -247,6 +245,8 @@ export default {
   },
   data() {
     return {
+      isBean:false,
+      isFriend:false,
       isList:false,
       isRep:false,
       WhoLook: false,
@@ -274,7 +274,7 @@ export default {
       homeInit: Object,
       bxdj: "",
       numIndex: 0,
-      showName: false,
+      showName: true,
       isInput: "",
       flag: true,
       question: "",
@@ -289,6 +289,8 @@ export default {
       messages: "",
       shareMessages: "",
       showNewIcon: false,
+      input:'',
+      name:'',
       ezgif: require("../assets/images/ezgif.gif"),
       img: require("../assets/images/icon.png"),
       shop: require("../assets/images/shop@2x.png"),
@@ -457,6 +459,7 @@ export default {
     },
     lists() {
       // 粉丝
+      alert('粉丝')
       this.isList = true;
       // this.isRep = true;
       // this.destoryTimer();
@@ -470,21 +473,21 @@ export default {
       this.isOwn = false;
     },
     getName() {
-      if (document.getElementsByName("name")[0].value.length >= 7) {
+      if (this.name.length >= 7) {
         this.showIimit = true;
       }
       let param = {
-        broker_id: this.$route.query.useId,
-        robot_id: this.$route.query.robot_id,
-        robot_name: document.getElementsByName("name")[0].value,
-        token: this.$route.query.token
+        broker_id: this.broker_id,
+        robot_id: this.robot_id,
+        robot_name: this.name,
+        token: this.token
       };
       let res = reqHomeName(param);
       res
         .then(res => {
           console.log(res);
           this.list = res.result.dialog_history;
-          this.input = "";
+          this.name = "";
         })
         .catch(reslove => {
           console.log("error");
@@ -756,7 +759,6 @@ export default {
               d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             this.vipExpiryTime = "您的会员将于" + times + "到期";
           }
-
           if (this.homeInit.title == 1) {
             //保险等级
             this.homeLevel = this.levelbx1;

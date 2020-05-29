@@ -1,6 +1,5 @@
 <template>
   <div class="warp">
-    <!-- <van-cell is-link @click="showPopup">上划</van-cell> -->
     <van-popup
       class="content"
       v-model="show"
@@ -21,7 +20,7 @@
             :to="{name: route.name}"
             tag="li"
           >
-            <span @click="changeIndex(index)">{{route.title}}</span>
+            <!-- <span @click="changeIndex(index)">{{route.title}}</span> -->
           </router-link>
         </ul>
       </div>
@@ -48,24 +47,33 @@ export default {
       ]
     };
   },
-  mounted() {
-    let name = this.$route.query.name;
-    if (name == "fensi") {
-      this.curIndex = 1;
-    } else {
-      this.curIndex = 0;
+  props: ["List_show", "broker_id", "robot_id", "token"],
+  created() {
+    this.show = this.List_show;
+  },
+  watch: {
+    List_show(newValue) {
+      this.show = this.newValue;
     }
+  },
+  mounted() {
+    // let name = this.name;
+    // if(name == "fensi"){
+    //   this.curIndex = 1;
+    // }else{
+      this.curIndex = 0;
+    // }
   },
 
   methods: {
     changeIndex(i) {
       this.curIndex = i;
     },
-    showPopup() {
-      this.show = true;
-    },
+    // showPopup() {
+    //   this.show = true;
+    // },
     close() {
-      this.$router.replace("/");
+      this.$emit("ListC", false);
     }
   }
 };

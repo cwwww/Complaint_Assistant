@@ -104,7 +104,7 @@ export default {
   },
   watch:{
     showACChat(newValue){
-        this.chat = newValue
+        this.chat = this.newValue
     }
   },
   methods: {
