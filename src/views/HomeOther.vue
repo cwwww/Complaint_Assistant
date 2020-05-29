@@ -136,6 +136,10 @@
 </template>
 <script>
 import { Popup, Toast } from "vant";
+import ACVisitor from "../components/ACVisitor";
+// import {
+// 	MessageBox
+// } from 'element-ui';
 import {
   reqHomeInit,
   reqCusayrob,
@@ -144,14 +148,17 @@ import {
   guanZhu,
   reqtaskStatus,
   reqisregistered,
-  reqbebotCode
+  reqbebotCode,
+  reqcustomerlogin
 } from "../axios/axios-api";
 export default {
-  components: {},
+  components: {
+    ACVisitor
+  },
   data() {
     return {
-      vipExpiryTime: "",
-      vipNotification: false,
+      showACChat: false,
+      visitList: "",
       mes: "",
       registers: "",
       isRegister: Boolean,
@@ -174,6 +181,7 @@ export default {
       star: "",
       isStatus: "",
       fairyStatus: "",
+      share: require("../assets/images/share@2x.png"),
       img: require("../assets/images/icon.png"),
       register: require("../assets/images/register@2x.png"),
       ezgif: require("../assets/images/ezgif.gif"),
@@ -219,42 +227,23 @@ export default {
     },
     FairyShop() {
       //买家精灵商店
-      //在串门页面，首先判断访问者的会员是否已经到期，
-      //如果没有到期的话，可以访问,如果会员到期，则提示会员到期
-      let param = {
-        robot_id: this.$route.query.robot_id,
-        broker_id: this.$route.query.broker_id,
-        token: this.$route.query.token
-      };
-      let result = reqHomeInit(param);
-      result
-        .then(res => {
-          console.log(res);
-          this.homeInit = res.result;
-          console.log(this.homeInit);
-          this.vipNotification = this.homeInit.vip_notification;
-          if (this.homeInit.vip_valid == false) {
-            this.vipExpiryTime = "您的会员已到期";
-          } else {
-            this.$router.push({
-              path: "/FairyShop",
-              query: {
-                robot_id: this.$route.query.robot_id,
-                broker_id: this.$route.query.broker_id,
-                robot_visitId: this.$route.query.robot_visitId,
-                Othername: this.homeInit.name,
-                token: this.$route.query.token
-              }
-            });
-          }
-        })
-        .catch(reslove => {
-          console.log("error");
-        });
+      this.$router.push({
+        path: "/FairyShop",
+        query: {
+          robot_id: this.$route.query.robot_id,
+          broker_id: this.$route.query.broker_id,
+          robot_visitId: this.$route.query.robot_visitId,
+          Othername: this.homeInit.name,
+          token: this.$route.query.token
+        }
+      });
     },
     HomeChat() {
       // 聊天记录
-      this.$router.replace("/ACVisitor");
+      this.showACChat = true;
+    },
+    closeACchat(data) {
+      this.showACChat = false;
     },
     toHome() {
       this.$router.replace("/");
@@ -266,6 +255,9 @@ export default {
     nextPage() {
       talkContent.scrollTop += 138;
       this.isOwn = false;
+    },
+    toRegister() {
+      this.$router.push("/login");
     },
     submit(numIndex) {
       this.numIndex += 1;
@@ -387,44 +379,52 @@ export default {
         });
     },
     getHomeInit() {
-      if ((this.isRegister = false)) {
-        this.customer_type = 0;
-      } else if ((this.isRegister = true)) {
-        this.customer_type = 1;
+      var that = this;
+      if (that.registers.visitor_type == "0") {
+        that.customer_type = 0;
+        that.customer_robot_id = "";
+      } else if (that.registers.visitor_type == "1") {
+        that.customer_type = 1;
+        that.customer_robot_Nid = that.visitList.robot_id;
+      } else if (that.registers.visitor_type == "-1") {
+        that.customer_type = 0;
+        that.customer_robot_id = "";
       }
       let param = {
-        customer_id: this.$route.query.broker_id,
-        customer_robot_id: this.$route.query.robot_id,
-        customer_type: this.customer_type,
-        visited_robot_id: this.$route.query.robot_visitId,
-        token: this.$route.query.token
+        customer_id: that.visitList.customer_id,
+        customer_robot_id: that.customer_robot_id,
+        customer_type: that.customer_type,
+        visited_robot_id: that.$route.query.broker_id,
+        token: that.visitList.token
       };
       let result = reqVisitedInit(param);
       result
         .then(res => {
-          console.log("daying:" + res);
-          this.homeInit = res.result;
-          if (this.homeInit.followed) {
-            this.guanzhuContent = "已关注";
+          that.homeInit = res.result;
+          if (that.homeInit.followed) {
+            that.guanzhuContent = "已关注";
           } else {
-            this.guanzhuContent = "关注TA";
+            that.guanzhuContent = "关注TA";
           }
-          if (this.homeInit.title == 1) {
+          if (that.homeInit.title == 1) {
             //保险等级
-            this.homeLevel = this.levelbx1;
-          } else if (this.homeInit.title == 2) {
-            this.homeLevel = this.levelbx2;
-          } else if (this.homeInit.level == 3) {
-            this.homeLevel = this.levelbx3;
-          } else if (this.homeInit.level == 4) {
-            this.homeLevel = this.levelbx4;
-          } else if (this.homeInit.level == 5) {
-            this.homeLevel = this.levelbx5;
-          } else if (this.homeInit.level == 6) {
-            this.homeLevel = this.levelbx6;
-          } else if (this.homeInit.level == 7) {
-            this.homeLevel = this.levelbx7;
+            that.homeLevel = that.levelbx1;
+          } else if (that.homeInit.title == 2) {
+            that.homeLevel = that.levelbx2;
+          } else if (that.homeInit.level == 3) {
+            that.homeLevel = that.levelbx3;
+          } else if (that.homeInit.level == 4) {
+            that.homeLevel = that.levelbx4;
+          } else if (that.homeInit.level == 5) {
+            that.homeLevel = that.levelbx5;
+          } else if (that.homeInit.level == 6) {
+            that.homeLevel = that.levelbx6;
+          } else if (that.homeInit.level == 7) {
+            that.homeLevel = that.levelbx7;
           }
+          that.getCusayrob();
+          //串门成功后，增加金币和经验
+          that.chuanmen();
         })
         .catch(reslove => {
           console.log("error");
@@ -458,14 +458,58 @@ export default {
           console.log("error");
         });
     },
-
-    impower() {
-      let param = { code: this.code };
+    impower(code) {
+      var that = this;
+      let param = { code: code };
       let res = reqbebotCode(param);
       res
         .then(res => {
-          console.log(res);
-          this.mes = res.result;
+          console.log("授权回来的" + res);
+          that.messages = res.result;
+          let param = {
+            openid: that.messages.openid
+            //           "NICKNAME": this.messages.nickname,
+            //           "HEADIMGURL":  this.messages.headimgurl,
+            //           "SEX":  this.messages.sex,
+            //           "PROVINCE":  this.messages.province,
+            //           "CITY": this.messages.city,
+            //           "COUNTRY": this.messages.country,
+            //           "PRIVILEGE":  this.messages.privilege,
+          };
+          let result = reqisregistered(param);
+          result
+            .then(res => {
+              that.registers = res.result;
+              if (that.registers.visitor_type == "0") {
+                that.isRegister = false;
+              } else if (that.registers.visitor_type == "1") {
+                that.isRegister = true;
+              } else if (that.registers.visitor_type == "-1") {
+                that.isRegister = false;
+              }
+              let param = {
+                openid: that.messages.openid,
+                nickname: that.messages.nickname,
+                sex: that.messages.sex,
+                province: that.messages.province,
+                city: that.messages.city,
+                country: that.messages.country,
+                headimgurl: that.messages.headimgurl,
+                privilege: that.messages.privilege
+              };
+              let result = reqcustomerlogin(param);
+              result
+                .then(res => {
+                  that.visitList = res.result;
+                  that.getHomeInit();
+                })
+                .catch(reslove => {
+                  console.log("error");
+                });
+            })
+            .catch(reslove => {
+              console.log("error");
+            });
         })
         .catch(reslove => {
           console.log("error");
@@ -475,7 +519,9 @@ export default {
       // 非静默授权，第一次有弹框
       this.code = "";
       // var local = window.location.href // 获取页面url
-      var local = "https://test-bebot-web.baoxianxia.com.cn/#/HomeOther"; // 获取页面url
+      var local =
+        "https://test-bebot-web.baoxianxia.com.cn/#/" +
+        `HomeOther?broker_id=${this.$route.query.broker_id}&robot_id=${this.$route.query.robot_id}`; // 获取页面url
       var appid = "wx026553ce8b4e59a3";
       this.code = this.getUrlCode().code; // 截取code
       if (this.code == null || this.code === "") {
@@ -500,49 +546,17 @@ export default {
         }
       }
       return theRequest;
-    },
-    isNo() {
-      //买家精灵商店取消购买
-      this.vipNotification = false;
-    },
-    isYes() {
-      //买家精灵商店确定购买
     }
   },
-  mounted() {
-    // if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
-    // 	this.getCode()
-    // } else {
-    // 	// 别的业务逻辑
-    // }
-    this.getHomeInit();
-    this.getCusayrob();
-    //串门成功后，增加金币和经验
-    this.chuanmen();
-  },
+  mounted() {},
   created() {
-    let param = {
-      openid: this.openid
-    };
-    let result = reqisregistered(param);
-    result
-      .then(res => {
-        console.log("创前：" + res);
-        this.registers = res.result;
-
-        if (this.registers.visitor_type == "0") {
-          this.isRegister = false;
-          this.$router.push("/login");
-          // this.$route.query.broker_id = this.registers.visitor_id
-          // this.$route.query.robot_id = this.registers.robot_id
-          // this.$route.query.token = this.registers.token
-        } else if (this.registers.visitor_type == "1") {
-          this.isRegister = true;
-        }
-      })
-      .catch(reslove => {
-        console.log("error");
-      });
+    if (!window.localStorage.getItem("openId")) {
+      // 如果缓存localStorage中没有微信openId，则需用code去后台获取
+      this.getCode();
+    } else {
+      // 别的业务逻辑
+    }
+    this.impower(this.code);
   }
 };
 </script>
@@ -1130,6 +1144,7 @@ export default {
       height: 174px;
       background: rgba(255, 255, 255, 1);
       border-radius: 15px;
+
       .contwrap {
         font-size: 17px;
         font-family: PingFangSC-Medium, PingFang SC;
@@ -1140,11 +1155,14 @@ export default {
         flex-direction: column;
         align-items: center;
         margin-top: 30px;
+
         .top {
           margin-bottom: 7px;
         }
+
         .isOk {
           display: flex;
+
           // align-items: center;
           // justify-content: center;
           .isNo {
@@ -1155,6 +1173,7 @@ export default {
             text-align: center;
             line-height: 42px;
           }
+
           .isYes {
             width: 125px;
             height: 42px;
