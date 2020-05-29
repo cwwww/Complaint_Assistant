@@ -183,8 +183,9 @@ export default {
       let res = reqbebotCode(param);
       res
         .then(res => {
-          console.log(res);
+          alert(JSON.stringify(res));
           this.mes = res.result;
+          alert(JSON.stringify(this.mes))
         })
         .catch(reslove => {
           console.log("error");
