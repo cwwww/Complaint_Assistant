@@ -27,7 +27,6 @@ import EveryDayTask from '../components/Task/EveryDayTask'
 import NewTask from '../components/Task/NewTask'
 import ProfessionTask from '../components/Task/ProfessionTask'
 import Login from '../views/Login'
-import shopZoom from '../views/shopZoom'
 import bebotAgree from '../views/bebotAgree'
 import bebotSecret from '../views/bebotSecret'
 import LevelUp from '../views/LevelUp'
@@ -203,14 +202,6 @@ const routes = [
             },
 
         ]
-    },
-    {
-        path: '/shopZoom',
-        name: 'shopZoom',
-        component: shopZoom,
-        meta: {
-            title: "知识库改版"
-        }
     },
     {
         path: '/bebotAgree',

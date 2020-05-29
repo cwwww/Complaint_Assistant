@@ -130,6 +130,7 @@
       </div>
       <router-view />
     </van-popup>
+    <ShopZoom v-show="isShopZoom" @ShopZoomC="ShopZoomP" :Shop_Zoom="isShopZoom" :broker_id="broker_id" :robot_id="robot_id" :token="token" :type="type"/>
   </div>
 </template>
 <script>
@@ -141,12 +142,16 @@ import {
   reqEnable_kb,
   reqDisable_kb,
   reqReceive,
-  reqstarRating
+  reqstarRating,
 } from "../../axios/axios-api";
 export default {
   name: "Repository",
+  components:{
+    ShopZoom
+  },
   data() {
     return {
+      isShopZoom:false,
       show: true,
       show3: false,
       show4: false,
@@ -187,18 +192,12 @@ export default {
     close() {
       this.$emit('RepositoryC',false)
     },
+    ShopZoomP(data){
+        this.isShopZoom = data
+    },
     toShopZoom(index) {
-      console.log("shop" + this.$route.query);
       if (this.list[index].type == 0) {
-        this.$router.push({
-          path: "/shopZoom",
-          query: {
-            broker_id: this.$route.query.broker_id,
-            robot_id: this.$route.query.robotId,
-            token: this.$route.query.token,
-            type: "type"
-          }
-        });
+        this.isShopZoom = true
       }
     },
     toEvaluate(index) {
@@ -215,11 +214,11 @@ export default {
       this.show4 = false;
       this.show3 = true;
       let param = {
-        robot_id: this.$route.query.robot_id,
+        robot_id: this.robot_id,
         goods_id: this.type,
         goods_score: this.value,
-        user_id: this.$route.query.broker_id,
-        token: this.$route.query.token
+        user_id: this.broker_id,
+        token: this.token
       };
       console.log(param);
       let res = reqstarRating(param);
@@ -235,11 +234,11 @@ export default {
     toget(index) {
       this.goods = this.list[index].goods_id;
       let param = {
-        robot_id: this.$route.query.robot_id,
+        robot_id: this.robot_id,
         goods_id: this.goods,
         type: 2,
-        user_id: this.$route.query.broker_id,
-        token: this.$route.query.token
+        user_id: this.broker_id,
+        token: this.token
       };
       console.log(param);
       let result = reqReceive(param);
@@ -260,11 +259,11 @@ export default {
       }
       this.type = this.list[index].goods_id;
       let param = {
-        robot_id: this.$route.query.robot_id,
+        robot_id: this.robot_id,
         goods_id: this.type,
         type: this.state,
-        user_id: this.$route.query.broker_id,
-        token: this.$route.query.token
+        user_id: this.broker_id,
+        token: this.token
       };
       console.log(param);
       let result = reqEnable_kb(param);
@@ -287,9 +286,9 @@ export default {
       let param = {
         goods_id: this.goods,
         type: this.type,
-        robot_id: this.$route.query.robot_id,
-        user_id: this.$route.query.broker_id,
-        token: this.$route.query.token
+        robot_id: this.robot_id,
+        user_id: this.broker_id,
+        token: this.token
       };
       console.log(param);
       let result = reqDisable_kb(param);
@@ -318,9 +317,9 @@ export default {
     },
     getInit() {
       let param = {
-        robot_id: this.$route.query.robot_id,
-        user_id: this.$route.query.broker_id,
-        token: this.$route.query.token
+        robot_id: this.robot_id,
+        user_id: this.broker_id,
+        token: this.token
       };
       let result = reqShowList(param);
       result
