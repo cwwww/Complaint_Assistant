@@ -152,12 +152,6 @@
             <div id="line"></div>
             <div id="limit" v-show="showIimit" style="height: 0.34667rem;">{{warnInfo}}</div>
             <van-button type="info" style="width:265px;height:42px;margin:6px auto;" @click="getName">确定</van-button>
-            <van-button
-              type="info"
-              style="width:265px;height:42px;margin:6px auto;"
-              @click="getName"
-            >确定</van-button>
-
           </div>
         </van-popup>
 
@@ -464,7 +458,7 @@ export default {
 		 }
 		 this.showIimit = false;
 		 let param = {
-		   "broker_id":this.$route.query.useId,
+		   "broker_id":this.$route.query.broker_id,
 		   "robot_id":this.$route.query.robot_id,
 		   "robot_name":document.getElementsByName("name")[0].value,
 		   "token":this.$route.query.token
