@@ -464,7 +464,7 @@ export default {
       let res = reqbebotCode(param);
       res
         .then(res => {
-          console.log("授权回来的" + res);
+          alert("授权回来的" + res);
           that.messages = res.result;
           let param = {
             openid: that.messages.openid
@@ -501,6 +501,7 @@ export default {
               result
                 .then(res => {
                   that.visitList = res.result;
+                  alert('初始化')
                   that.getHomeInit();
                 })
                 .catch(reslove => {
