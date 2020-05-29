@@ -185,6 +185,24 @@
       :token="$route.query.token"
     />
     <ShopZoom v-show="isShopZoom" @ShopZoomC="ShopZoomP" :Shop_Zoom="isShopZoom" :broker_id="broker_id" :robot_id="robot_id" :token="token" :type="type"/>
+    <Bean
+      v-show="isBean"
+      @BeanC="BeanP"
+      :Bean_show="isBean"
+      :broker_id="$route.query.broker_id"
+      :robot_id="$route.query.robot_id"
+      :token="$route.query.token"
+      :name="fensi"
+    />
+    <Friend
+      v-show="isFriend"
+      @FriendC="FriendP"
+      :Friend_show="isFriend"
+      :broker_id="$route.query.broker_id"
+      :robot_id="$route.query.robot_id"
+      :token="$route.query.token"
+      :name="friend"
+    />
   </div>
 </template>
 <script>
@@ -193,7 +211,9 @@ import wx from "weixin-js-sdk";
 import HomeChat from "../components/HomeChat";
 import WhoLookMe from "../components/WhoLookMe";
 import Repository from "../components/Repository";
-import ShopZoom from "../components/ShopZoom";
+import Bean from "../components/Repository";
+import Friend from "../components/Repository";
+// import ShopZoom from "../components/ShopZoom";
 import {
   reqHomeInit,
   reqCusayrob,
@@ -211,7 +231,9 @@ export default {
     HomeChat,
     WhoLookMe,
     Repository,
-    ShopZoom
+    ShopZoom,
+    Bean,
+    Friend
   },
   data() {
     return {
@@ -299,6 +321,12 @@ export default {
     RepositoryP(data) {
       // 知识库
       this.isRep = data;
+    },
+    BeanP(){
+      this.isBean = data;
+    },
+    FriendP(){
+      this.isFriend = data;
     },
     open7() {
       this.$router.replace("/LevelUp");
@@ -409,6 +437,7 @@ export default {
     },
     frang() {
       // 好友
+      this.isFriend = true;
       this.$router.push({
         path: "/List/Friend",
         query: {
@@ -422,7 +451,7 @@ export default {
     },
     lists() {
       // 粉丝
-      //this.$router.replace('/List/Bean')
+      this.isRep = true;
       this.$router.push({
         path: "/List/Bean",
         query: {
@@ -457,7 +486,7 @@ export default {
         .then(res => {
           console.log(res);
           this.list = res.result.dialog_history;
-          this.$refs.input.value = "";
+          this.input = "";
         })
         .catch(reslove => {
           console.log("error");
@@ -583,7 +612,7 @@ export default {
     },
     submit(numIndex) {
       this.numIndex += 1;
-      if (this.value == "") {
+      if (this.$ref.input.value == "") {
         Toast("请输入聊天内容");
       } else {
         this.getDetail();
@@ -591,7 +620,7 @@ export default {
       }
     },
     getDetail() {
-      this.question = this.value;
+      this.question = this.$ref.input.value;
       let param;
       if (this.flag) {
         param = {

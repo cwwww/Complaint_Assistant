@@ -10,7 +10,7 @@
     >
       <div class="title">聊天记录</div>
       <div style="background:rgba(245,245,245,1);height:1.2%"></div>
-      <div class="wrapper" ref="wrapper">
+      <div class="wrapper" >
         <div class="content" v-for="(i,index) in list" :key="index">
           <div class="content-top" v-show="i.speaker == 2">
             <div class="topTime" v-show="i.create_time != null">{{i.create_time}}</div>

@@ -40,7 +40,8 @@ module.exports = {
     devServer: {// 环境配置
         // host: 'localhost',
         host: '0.0.0.0',
-        port: 8080,
+        port: 8888,
+        disableHostCheck: true,
         https: false,
         hotOnly: false,
         open: true, //配置自动启动浏览器

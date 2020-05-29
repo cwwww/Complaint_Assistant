@@ -183,9 +183,7 @@ export default {
       let res = reqbebotCode(param);
       res
         .then(res => {
-          alert(JSON.stringify(res));
           this.mes = res.result;
-          alert(JSON.stringify(this.mes))
         })
         .catch(reslove => {
           console.log("error");
@@ -229,7 +227,6 @@ export default {
     this.code = this.url.substring(start + 1, end);
     console.log(this.url);
     this.impower();
-    alert(this.mes)
     let param = { openid: this.mes.openid };
     let res = reqisregistered(param);
     res
