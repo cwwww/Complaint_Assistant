@@ -33,7 +33,7 @@
       </div>
       <div class="fansAndFriend">
         <div class="friend">
-          <span class="num">{{homeInit.fans_num}}</span>
+          <span class="num">{{homeInit.friends_num}}</span>
           <img src="../assets/images/friends@2x.png" alt />
           <span class="design">好友</span>
         </div>
@@ -334,6 +334,7 @@ export default {
               this.guanzhuContent = "已关注";
               //更新关注任务状态，领取经验和金币
               this.guanzhuUpdateTask();
+              this.getHomeInit()
             }
           })
           .catch(reslove => {

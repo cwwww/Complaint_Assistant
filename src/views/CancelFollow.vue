@@ -75,7 +75,7 @@ export default {
 				this.$router.push({
 				  path:'/HomeOther',
 				  query:{
-				    robot_id: this.robot_id,
+				  robot_id: this.robot_id,
 					broker_id:this.broker_id,
 					robot_visitId:this.followed_robot_id,
 					token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
