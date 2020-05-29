@@ -283,7 +283,6 @@ export default {
     },
     open7() {
       this.$router.replace("/LevelUp");
-
       //       this.$confirm(
 
       // '','您的会员将于2020/5/3到期请前往【会员商店】领取', {
@@ -331,16 +330,16 @@ export default {
       });
       this.destoryTimer();
     },
-    HomeChat() {
-      // 聊天记录
-      this.homeChat = true
-      // this.destoryTimer();
-    },
-    WhoLookMe() {
-      // 谁看过我
-      this.WhoLook = true
-      // this.destoryTimer();
-    },
+    // HomeChat() {
+    //   // 聊天记录
+    //   this.homeChat = true
+    //   // this.destoryTimer();
+    // },
+    // WhoLookMe() {
+    //   // 谁看过我
+    //   this.WhoLook = true
+    //   // this.destoryTimer();
+    // },
     Ranking() {
       //排行榜
       //this.$router.replace('/Ranking')

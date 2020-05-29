@@ -131,7 +131,7 @@ export default {
             }
           })
           .catch(reslove => {
-            Toast('msg')
+            Toast(msg)
           });
       }
     },

@@ -174,26 +174,18 @@ export default {
       success: require("../../assets/images/success@2x.png")
     };
   },
-  props:['broker_id','robot_id','token','RepositoryC'],
+  props:['broker_id','robot_id','token','repository_show'],
   created(){
-      this.show = this.RepositoryC
+      this.show = this.repository_show
   },
   watch:{
-    RepositoryC(newValue){
+    repository_show(newValue){
         this.chat = newValue
     }
   },
   methods: {
     close() {
-      // this.show = false
-      this.$router.push({
-        path: "/",
-        query: {
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robotId,
-          token: this.$route.query.token
-        }
-      });
+      this.$emit('RepositoryC',false)
     },
     toShopZoom(index) {
       console.log("shop" + this.$route.query);
