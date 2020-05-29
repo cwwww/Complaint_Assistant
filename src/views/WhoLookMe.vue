@@ -33,7 +33,7 @@
   </div>
 </template>
 <script>
-import { reqLookMe } from "../../axios/axios-api";
+import { reqLookMe } from "../axios/axios-api";
 export default {
   name: "WhoLookMe",
   data() {
@@ -41,18 +41,18 @@ export default {
       curIndex: 0,
       show: true,
       list: [],
-      img: require("../../assets/images/Group@2x.png")
+      img: require("../assets/images/Group@2x.png")
     };
   },
-  props:['broker_id','robot_id','token','Who_Look'],
   created(){
-    this.show = this.Who_Look
+    this.show = this.WhoLook
   },
   watch:{
-    Who_Look(newValue){
+    WhoLook(newValue){
       this.show = newValue
     }
   },
+  props:['broker_id','robot_id','token','WhoLook'],
   methods: {
     close() {
       this.$emit('WhoLookC',false)
@@ -85,6 +85,7 @@ export default {
         console.log(this.list);
       })
       .catch(reslove => {
+        alert(222);
         console.log("error");
       });
   }

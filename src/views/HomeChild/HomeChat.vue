@@ -136,27 +136,25 @@ export default {
         })
     },
     teachYou(index){
-    //   let param = {
-    //     "broker_id":this.$route.query.broker_id,
-    //     "question":this.list[index-1].content,
-    //     "answer":this.list[index].content,
-    //     "token":this.$route.query.token
-    //   }
-    //   console.log(param)
-    //   let res = reqaddledgeList(param)
-    //     res.then(res=>{
-    //     // this.ShoWList()
-    //       console.log(res);
-    //     }).catch(reslove=>{
-    //        console.log('error')
-    //     })
+      let param = {
+        "broker_id":33,
+        "question":this.list[index-1].content,
+        "answer":this.list[index].content,
+        "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+      }
+      console.log(param)
+      let res = reqaddledgeList(param)
+        res.then(res=>{
+        // this.ShoWList()
+          console.log(res);
+        }).catch(reslove=>{
+           console.log('error')
+        })
       this.$router.push({
         path:'/shopZoom',
         query:{
-		  "broker_id":this.$route.query.broker_id,
-           Answer:this.list[index].content,
-           Question:this.list[index-1].content,
-		  "token":this.$route.query.token
+          Answer:this.list[index].content,
+          Question:this.list[index-1].content
         }
       })
     },

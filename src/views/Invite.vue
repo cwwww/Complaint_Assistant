@@ -64,15 +64,13 @@
     <div class="threeCentent">
       <span>成功邀请</span>
 	  <div class="content" v-for="(recommender,index) in yaoqList.recommendedlist"  :key="recommender.id">
+		 
 		    <div class="left">
 		      <p>{{index+1}}</p>
 		      <div class="loginImg">
-		        <img :src="recommender.broker_head" alt  v-if="recommender.broker_head !=null"/>
-		       	<img :src="defaultImg" alt v-else/>
+		        <img :src="recommender.broker_head" alt /> 
 		      </div>
-		       <span v-if="recommender.broker_name !=null">{{recommender.broker_name}}</span>
-		       <span v-else>Bebot用户_{{recommender.broker_id}}</span>
-
+		       <span>{{recommender.broker_name}}</span> 
 		    </div>
 		    <div class="right">
 		      <div class="rightFontColor" v-if="recommender.member_day >0"><p>{{recommender.member_day}}天会员</p></div>
@@ -123,7 +121,6 @@ export default {
 	  },
 	  paddingLeft:"",
       img: require("../assets/images/bg.png"),
-	  defaultImg: require("../assets/images/默认头像@2x.png"),
       img1: "",
 	  img3: "",
 	  img5: "",
@@ -413,7 +410,6 @@ export default {
     }
   }
   > .threeCentent {
-	overflow-y:auto;
     width: 325px;
     height: 417px;
     background: rgba(255, 255, 255, 1);

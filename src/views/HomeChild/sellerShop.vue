@@ -41,7 +41,7 @@ export default {
       routes: [
         {
           name: "myShop",
-          title: "我的商店",
+          title: "我的商店"
         },
         {
           name: "vipShop",

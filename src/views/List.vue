@@ -1,5 +1,6 @@
 <template>
   <div class="warp">
+    <!-- <van-cell is-link @click="showPopup">上划</van-cell> -->
     <van-popup
       class="content"
       v-model="show"
@@ -7,7 +8,7 @@
       round
       position="bottom"
       :style="{ height: '70%' }"
-      @close="close"
+      @close=close
     >
       <div class="title" id="title">
         <ul>
@@ -20,7 +21,7 @@
             :to="{name: route.name}"
             tag="li"
           >
-            <!-- <span @click="changeIndex(index)">{{route.title}}</span> -->
+            <span @click="changeIndex(index)">{{route.title}}</span>
           </router-link>
         </ul>
       </div>
@@ -29,6 +30,7 @@
   </div>
 </template>
 <script>
+
 export default {
   name: "List",
   data() {
@@ -47,34 +49,25 @@ export default {
       ]
     };
   },
-  props: ["List_show", "broker_id", "robot_id", "token"],
-  created() {
-    this.show = this.List_show;
+  mounted(){
+	  let name = this.$route.query.name;
+	  if(name == "fensi"){
+		  this.curIndex = 1;
+	  }else{
+		  this.curIndex = 0; 
+	  }
   },
-  watch: {
-    List_show(newValue) {
-      this.show = this.newValue;
-    }
-  },
-  mounted() {
-    // let name = this.name;
-    // if(name == "fensi"){
-    //   this.curIndex = 1;
-    // }else{
-      this.curIndex = 0;
-    // }
-  },
-
+  
   methods: {
     changeIndex(i) {
       this.curIndex = i;
     },
-    // showPopup() {
-    //   this.show = true;
-    // },
-    close() {
-      this.$emit("ListC", false);
-    }
+    showPopup() {
+      this.show = true;
+    },
+     close(){
+      this.$router.replace('/')
+    },
   }
 };
 </script>

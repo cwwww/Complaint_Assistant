@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div v-show="showBean"  v-for="(item, idx) in baenstList" :key="idx"  >
+    <div  v-for="(item, idx) in baenstList" :key="idx"  >
 	 <div class="warp" @click="clickThis(item.robot_id)">
       <div class="left">
         <div class="littleLeft">
@@ -46,7 +46,6 @@ export default {
   data() {
     return {
       baenstList: [],
-      showBean:true,
       img: require("../../../assets/images/金牌@2x.png"),
       img2: require("../../../assets/images/等级-保险配置王@2x.png"),
       img4: require("../../../assets/images/默认头像@2x.png"),
@@ -59,21 +58,13 @@ export default {
       gradeSeven: require("../../../assets/images/等级-保险名人堂@2x.png")
     };
   },
-  props: ['broker_id','robot_id','token','Bean_show','name'],
-  created(){
-      this.showBean = this.Bean_show
-  },
-  watch:{
-    Bean_show(newValue){
-        this.showBean = newValue
-    }
-  },
   mounted() {
     let param = {
+      robot_id: 33,
       operation_type: 1,
-      robot_id: this.robot_id,
-      broker_id: this.broker_id,
-      token:this.token
+      broker_id: 33,
+      token:
+        "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
     };
     console.log(param);
     let result = BeanList(param);
@@ -83,13 +74,22 @@ export default {
         console.log(this.baenstList, "粉丝");
       })
       .catch(reslove => {
+        alert(66666);
         console.log("error");
       });
   },
   
   methods:{
   	 clickThis:function(robot_id){
-  	 		  this.$emit('BeanC',false)
+  	 		  this.$router.push({
+  	 		    path:'/HomeOther',
+  	 		    query:{
+  	 		      robot_id: 33,
+  	 			  broker_id:33,
+  				  robot_visitId:robot_id,
+  	 			  token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+  	 		    }
+  	 		  })
   	 }
   }
 };
