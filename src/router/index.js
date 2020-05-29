@@ -21,7 +21,6 @@ import Bean from '../components/List/Bean'
 import FindList from '../components/FindList'
 import Strategy from '../views/Strategy'
 import Invite from '../views/Invite'
-import Repository from '../views/Repository'
 import CancelFollow from '../views/CancelFollow'
 import Task from '../views/Task'
 import EveryDayTask from '../components/Task/EveryDayTask'
@@ -170,11 +169,6 @@ const routes = [
         path: '/Invite',
         name: "Invite",
         component: Invite
-    },
-    {
-        path: '/Repository',
-        name: 'Repository',
-        component: Repository
     },
     {
         path: '/CancelFollow',

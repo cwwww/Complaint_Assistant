@@ -165,6 +165,7 @@
     </div>
     <HomeChat v-show="homeChat" @showChatC='showChatP' :show_chat='homeChat' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
     <WhoLookMe v-show="WhoLook" @WhoLookC='WhoLookP' :Who_Look='WhoLook' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
+    <Repository v-show="RepositoryShow" @RepositoryC='RepositoryP' :repository_show='repository' :broker_id='$route.query.broker_id' :robot_id='$route.query.robot_id' :token='$route.query.token'/>
   </div>
 </template>
 <script>
@@ -172,6 +173,7 @@ import { Popup, Toast } from "vant";
 import wx from "weixin-js-sdk";
 import HomeChat from '../components/HomeChat'
 import WhoLookMe from '../components/WhoLookMe'
+import Repository from '../components/Respository'
 import {
   reqHomeInit,
   reqCusayrob,
@@ -187,10 +189,12 @@ import {
 export default {
   components: {
     HomeChat,
-    WhoLookMe
+    WhoLookMe,
+    Repository
   },
   data() {
     return {
+      RepositoryShow:false,
       WhoLook:false,
       homeChat:false,
       vipExpiryTime: "",
@@ -215,7 +219,7 @@ export default {
       answerHight: "",
       homeInit:{
 		  vip_valid: true
-	  },
+	   },
 
       bxdj: "",
       numIndex: 0,
@@ -274,6 +278,9 @@ export default {
     WhoLookP(data){
       this.WhoLook = data
     },
+    RepositoryP(data){
+      this.RepositoryShow = data
+    },
     open7() {
       this.$router.replace("/LevelUp");
 
@@ -311,25 +318,6 @@ export default {
       //            message: '已取消删除'
       //          });
       //        });
-    },
-    isNo() {
-      //买家精灵商店取消购买
-      this.vipNotification = false;
-    },
-    isYes() {
-      //买家精灵商店确定购买
-    },
-    Repository() {
-      // 知识库
-      this.$router.push({
-        path: "/Repository",
-        query: {
-          broker_id: this.$route.query.visitor_id,
-          robot_id: this.$route.query.robot_id,
-          token: this.$route.query.token
-        }
-      });
-      this.destoryTimer();
     },
     FairyShop() {
       // 买家精灵商店
@@ -691,7 +679,7 @@ export default {
           console.log("error");
         });
     },
-isNo(){   //买家精灵商店取消购买
+  isNo(){   //买家精灵商店取消购买
 	  this.vipNotification = false
 	},
 	isYes(){  //买家精灵商店确定购买
@@ -705,16 +693,12 @@ isNo(){   //买家精灵商店取消购买
 	      }
 	    })
 	},
-
     // 初始化页面
     getHomeInit() {
       if (this.$route.query.broker_id == undefined) {
         this.$route.query.broker_id = this.$route.query.visitor_id;
       }
       let param = {
-        // "robot_id":35,
-        // "broker_id":35,
-        // "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
         robot_id: this.$route.query.robot_id,
         broker_id: this.$route.query.broker_id,
         token: this.$route.query.token
@@ -741,7 +725,6 @@ isNo(){   //买家精灵商店取消购买
               d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             this.vipExpiryTime = "您的会员将于" + times + "到期";
           }
-
           if (this.homeInit.title == 1) {
             //保险等级
             this.homeLevel = this.levelbx1;
@@ -767,32 +750,6 @@ isNo(){   //买家精灵商店取消购买
     destoryTimer() {
       clearInterval(this.timer);
     }
-
-    // getCode(){ // 非静默授权，第一次有弹框
-    //     this.code = ''
-    //     // var local = window.location.href // 获取页面url
-    //     var local = "https://bebot-web.baoxianxia.com.cn/#/" // 获取页面url
-    //     var appid = 'wx026553ce8b4e59a3'
-    //     this.code = this.getUrlCode().code // 截取code
-    //     if (this.code == null || this.code === '') { // 如果没有code，则去请求
-    //         window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
-    //     } else {
-    //         // 你自己的业务逻辑
-    //     }
-    // },
-    // getUrlCode() { // 截取url中的code方法
-    //     var url = window.location.search
-    //     this.winUrl = url
-    //     var theRequest = new Object()
-    //     if (url.indexOf("?") != -1) {
-    //         var str = url.substr(1)
-    //         var strs = str.split("&")
-    //         for(var i = 0; i < strs.length; i ++) {
-    //             theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
-    //         }
-    //     }
-    //     return theRequest
-    // }
   },
   created() {
     // this.getCode()
