@@ -108,8 +108,8 @@ export default {
             if(res.result.status == 0){
                 Toast('上架成功');
                 this.isStatus = true
-				//上架成功获取经验和金币
-				this.getReqtaskStatus();
+            //上架成功获取经验和金币
+            this.getReqtaskStatus();
             }else if(res.result.status == 1){
                 Toast('知识库条数少于10,不能上架');
             }

@@ -652,10 +652,10 @@ export default {
     //与机器人聊天任务
     getReqtaskStatus() {
       let param = {
-        broker_id: 1,
-        robot_id: 1,
+        broker_id: this.$route.query.broker_id,
+        broker_id: this.$route.query.broker_id,
         operation_type: 1,
-        token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+        token: this.$route.query.token
       };
       console.log("任务的param:" + param);
 
@@ -945,7 +945,7 @@ export default {
         .level {
           position: absolute;
           top: 26px;
-          right: -34px;
+          right: -52px;
           font-size: 11px;
           font-family: DINAlternate-Bold, DINAlternate;
           font-weight: bold;

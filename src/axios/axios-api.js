@@ -52,7 +52,7 @@ export const reqisunlocked = data => {
 };
 export const reqtaskStatus = data => {
   return axiosService({
-    url: BASE + `/common/taskStatusUpdate/`, // 展示访客页被访机器人信息
+    url: BASE + `/common/taskStatusUpdate/`, // 机器人状态更新
     method: "post",
     data
   });
