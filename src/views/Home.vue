@@ -366,23 +366,23 @@ export default {
       });
       this.destoryTimer();
     },
-   toFXCP(){
-	  if(!this.homeInit.vip_valid){
-		  this.vipNotification = true;
-		  this.vipExpiryTime ="您的会员已到期"
-	  }else{
-		  window.parent.location.href = 'https://m.baoxianxia.com.cn/risk/index.html'
-		  this.destoryTimer();
-	  }
+    toFXCP(){
+      if(!this.homeInit.vip_valid){
+        this.vipNotification = true;
+        this.vipExpiryTime ="您的会员已到期"
+      }else{
+        window.parent.location.href = 'https://m.baoxianxia.com.cn/risk/index.html'
+        this.destoryTimer();
+      }
     },
     toPlan(){
-	  if(!this.homeInit.vip_valid){
-		  this.vipNotification = true;
-		  this.vipExpiryTime ="您的会员已到期"
-	  }else{
-		  window.parent.location.href = 'https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16'
-		  this.destoryTimer();
-	  }
+      if(!this.homeInit.vip_valid){
+        this.vipNotification = true;
+        this.vipExpiryTime ="您的会员已到期"
+      }else{
+        window.parent.location.href = 'https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16'
+        this.destoryTimer();
+      }
     },
 
     frang() {
@@ -518,8 +518,9 @@ export default {
       res
         .then(res => {
           console.log(res);
+          // alert()
           this.messages = res.result;
-          this.customerLogin();
+          // this.customerLogin();
         })
         .catch(reslove => {
           console.log("error");
@@ -677,20 +678,20 @@ export default {
           console.log("error");
         });
     },
-  isNo(){   //买家精灵商店取消购买
-	  this.vipNotification = false
-	},
-	isYes(){  //买家精灵商店确定购买
+    isNo(){   //买家精灵商店取消购买
       this.vipNotification = false
-	  this.$router.push({
-	    path:'/sellerShop/vipShop',
-	    query:{
-	       "broker_id": this.$route.query.visitor_id,
-	       "robot_id": this.$route.query.robot_id,
-	       "token":this.$route.query.token
-	      }
-	    })
-	},
+    },
+    isYes(){  //买家精灵商店确定购买
+        this.vipNotification = false
+      this.$router.push({
+        path:'/sellerShop/vipShop',
+        query:{
+          "broker_id": this.$route.query.visitor_id,
+          "robot_id": this.$route.query.robot_id,
+          "token":this.$route.query.token
+          }
+        })
+    },
     // 初始化页面
     getHomeInit() {
       if (this.$route.query.broker_id == undefined) {
@@ -714,7 +715,6 @@ export default {
           this.vipNotification = this.homeInit.vip_notification;
           if (this.homeInit.vip_valid == false) {
             this.vipExpiryTime = "您的会员已到期";
-
             // this.vipExpiryTime ='您的会员将于'+times+'到期'
           } else {
             var time = this.homeInit.vip_expiry_time;
@@ -726,19 +726,19 @@ export default {
           if (this.homeInit.title == 1) {
             //保险等级
             this.homeLevel = this.levelbx1;
-          } else if (this.homeInit.title == 2) {
-            this.homeLevel = this.levelbx2;
-          } else if (this.homeInit.title == 3) {
-            this.homeLevel = this.levelbx3;
-          } else if (this.homeInit.title == 4) {
-            this.homeLevel = this.levelbx4;
-          } else if (this.homeInit.title == 5) {
-            this.homeLevel = this.levelbx5;
-          } else if (this.homeInit.title == 6) {
-            this.homeLevel = this.levelbx6;
-          } else if (this.goodsList.title == 7) {
-            this.homeLevel = this.levelbx7;
-          }
+            } else if (this.homeInit.title == 2) {
+              this.homeLevel = this.levelbx2;
+            } else if (this.homeInit.title == 3) {
+              this.homeLevel = this.levelbx3;
+            } else if (this.homeInit.title == 4) {
+              this.homeLevel = this.levelbx4;
+            } else if (this.homeInit.title == 5) {
+              this.homeLevel = this.levelbx5;
+            } else if (this.homeInit.title == 6) {
+              this.homeLevel = this.levelbx6;
+            } else if (this.goodsList.title == 7) {
+              this.homeLevel = this.levelbx7;
+            }
         })
         .catch(reslove => {
           console.log("error");
@@ -757,7 +757,7 @@ export default {
     var end = this.url.indexOf("&");
     this.code = this.url.substring(start + 1, end);
     console.log(this.url);
-    this.impower();
+    // this.impower();
     this.wxconfig();
   },
   mounted() {

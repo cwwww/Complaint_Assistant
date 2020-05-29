@@ -228,6 +228,7 @@ export default {
     this.code = this.url.substring(start + 1, end);
     console.log(this.url);
     this.impower();
+    alert(this.mes)
     let param = { openid: this.mes.openid };
     let res = reqisregistered(param);
     res
