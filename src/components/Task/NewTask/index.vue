@@ -250,7 +250,7 @@ export default {
   mounted() {
     this.broker_id = this.broker_id_prop;
     this.robot_id = this.robot_id_prop;
-    this.token = this.token_prop
+    this.token = this.token_prop;
     // this.broker_id = 1;
     // this.robot_id = 1;
     // this.token = "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np";

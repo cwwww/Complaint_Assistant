@@ -137,9 +137,9 @@ export default {
 
     queryDailyTask() {
       let param2 = {
-        broker_id: this.broker_id_prop,
-        robot_id: this.robot_id_prop,
-        token: this.token_prop
+        broker_id: this.broker_id,
+        robot_id: this.robot_id,
+        token: this.token
         // "robot_id": 33,
         // "broker_id":33,
         // "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"

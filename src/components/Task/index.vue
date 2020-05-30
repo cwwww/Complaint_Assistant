@@ -50,7 +50,7 @@ import ProfessionTask from "./ProfessionTask";
 import { taskStatusUpdate } from "../../axios/axios-api";
 export default {
   name: "Task",
-    components: {
+  components: {
     EveryDayTask,
     NewTask,
     ProfessionTask
@@ -111,10 +111,14 @@ export default {
   mounted() {
     //获取任务所有的状态
     let param = {
-      broker_id: 1,
-      robot_id: 1,
+      broker_id: this.broker_id_prop,
+      robot_id: this.robot_id_prop,
       operation_type: 99,
-      token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+      token: this.token_prop
+      //   broker_id: 1,
+      //   robot_id: 1,
+      //   operation_type: 99,
+      //   token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
     };
     let result = taskStatusUpdate(param);
     result
