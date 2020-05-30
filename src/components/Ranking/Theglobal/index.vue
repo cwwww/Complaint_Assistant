@@ -70,8 +70,8 @@ export default {
   props: ["broker_id_prop", "robot_id_prop", "token_prop"],
   mounted() {
     let param = {
-      broker_id:  this.robot_id_prop,
-      robot_id:  this.broker_id_prop,
+      broker_id: this.broker_id_prop,
+      robot_id: this.robot_id_prop ,
       token:  this.token_prop
 
     };

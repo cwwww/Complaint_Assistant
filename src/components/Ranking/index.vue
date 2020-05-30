@@ -29,7 +29,6 @@
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
-        :newValue="newValue"
       />
       <Sentiment
         v-show="curIndex == 2"
