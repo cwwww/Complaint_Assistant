@@ -68,13 +68,13 @@ export default {
       gradeSeven: require("../../../assets/images/等级-保险名人堂@2x.png")
     };
   },
-  props: ["broker_id_prop", "robot_id_prop", "token_prop"],
+  props: ["broker_id_prop", "robot_id_prop", "token_prop","newValue"],
   mounted() {
     let param = {
-      broker_id: 33 || this.robot_id_prop,
-      robot_id: 33 || this.broker_id_prop,
-      token:this.token_prop||
-        "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+      broker_id: this.robot_id_prop,
+      robot_id:  this.broker_id_prop,
+      token:this.token_prop
+        // "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
     };
     console.log(param);
     let result = RanlingDatasFriend(param);
@@ -92,7 +92,7 @@ export default {
       alert(robot_id)
      if(robot_id = this.robot_id_prop){
        alert('回家')
-       this.$emit("rankingc", false);
+       this.$emit("newValue", false);
      }else{
 
        this.$router.push({

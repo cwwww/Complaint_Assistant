@@ -29,6 +29,7 @@
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
+        :newValue="newValue"
       />
       <Sentiment
         v-show="curIndex == 2"
@@ -58,7 +59,7 @@ export default {
   },
   data() {
     return {
-        curIndex:1,
+        curIndex:0,
             broker_id_prop:'',
       robot_id_prop:'',
       token_prop:'',
