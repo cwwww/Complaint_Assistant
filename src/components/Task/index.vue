@@ -105,7 +105,7 @@ export default {
     },
 
     close() {
-      this.$emit("rankingc", false);
+      this.$emit("taskc", false);
     }
   },
   mounted() {
