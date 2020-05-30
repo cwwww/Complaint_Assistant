@@ -12,24 +12,44 @@
       <img :src="img" alt />
       <div class="title" id="title">
         <ul>
-          <router-link
-            v-for="(route, index) in lists"
+                    <li
+            v-for="(item, index) in lists"
             :key="index"
-            data-index="0"
+            
             :class="{'active': index === curIndex}"
             class="bigBox"
-            :to="{name: route.name}"
-            tag="li"
           >
-            <span @click="changeIndex(index)">{{route.title}}</span>
-          </router-link>
+            <span @click="changeIndex(index)">{{item.title}}</span>
+          </li>
         </ul>
       </div>
-      <router-view />
+            <Friends
+        v-show="curIndex == 1"
+        :broker_id_prop="broker_id_prop"
+        :robot_id_prop="robot_id_prop"
+        :token_prop="token_prop"
+      />
+      <Sentiment
+        v-show="curIndex == 2"
+        :broker_id_prop="broker_id_prop"
+        :robot_id_prop="robot_id_prop"
+        :token_prop="token_prop"
+      />
+      <Theglobal
+        v-show="curIndex == 0"
+        :broker_id_prop="broker_id_prop"
+        :robot_id_prop="robot_id_prop"
+        :token_prop="token_prop"
+        v-bind="$attrs" 
+        v-on="$listeners"
+      />
     </van-popup>
   </div>
 </template>
 <script>
+import Friends from "./Friends";
+import Sentiment from "./Sentiment";
+import Theglobal from "./Theglobal";
 import { taskStatusUpdate } from "../axios/axios-api";
 export default {
   name: "Task",
@@ -37,6 +57,9 @@ export default {
     return {
       curIndex: 0,
       show: true,
+         broker_id_prop:'',
+      robot_id_prop:'',
+      token_prop:'',
       img: require("../assets/images/icon.png"),
       lists: [
         {
@@ -59,17 +82,31 @@ export default {
 	  np5:"",
     };
   },
+    props: ["ranking_show", "broker_id", "robot_id", "token"],
+  created() {
+    this.show = this.ranking_show;
+    // this.broker_id_prop = 93;
+    // this.robot_id_prop = 93;
+    // this.token_prop = "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZXg3VDowZHo1d0pIQjVxbTh6WmI4MWhVVVhmNnV5Nkk.ZXlKUVNFOU9SU0k2SWpFNE1qRXdNRGt4T0Rnd0lpd2lTVVFpT2prekxDSnBZWFFpT2pFMU9UQTRNamd6TXpFdU56VXlORGd3TTMwOjFqZXg3VDpnQVJNdGhFYkZDM0I4ZXVTZ1lJN2w4QXN0Snc.7f927d6cc7ad46abb0be8e52483a6d02";
+    this.broker_id_prop = this.broker_id;
+    this.robot_id_prop = this.robot_id;
+    this.token_prop = this.token;
+  },
+  watch: {
+    ranking_show(newValue) {
+      this.show = newValue;
+    }
+  },
   methods: {
     changeIndex(i) {
       this.curIndex = i;
     },
 
     close() {
-      this.$router.replace('/')
+      this.$emit("rankingc", false);
     }
   },
   mounted(){
-    console.log(this.$route.query.TaskStatus)
 	//获取任务所有的状态
 	let param = {
 	  "broker_id":1,

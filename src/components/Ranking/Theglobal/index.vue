@@ -88,12 +88,9 @@ export default {
   },
   methods:{
 	  clickThis:function(broker_id,robot_id){
-      alert(robot_id)
-     if(robot_id = this.robot_id_prop){
-       alert('回家')
-       this.$emit("rankingc", false);
+     if(robot_id == this.robot_id_prop){
+       this.$emit("rankgohome",false);
      }else{
-
        this.$router.push({
          path:'/HomeOther',
          query:{

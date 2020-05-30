@@ -53,7 +53,7 @@
       </div>
       <div class="fansAndFriend">
         <div class="friend" @click="frang(curIndex)">
-          <span class="num">{{homeInit.fans_num}}</span>
+          <span class="num">{{homeInit.friends_num}}</span>
           <img src="../assets/images/friends@2x.png" alt />
           <span class="design">好友</span>
         </div>
@@ -207,6 +207,15 @@
       v-show="isRanking"
       @rankingc="RankingP"
       :ranking_show="isRanking"
+      @rankgohome="rankgohome"
+      :broker_id="$route.query.broker_id"
+      :robot_id="$route.query.robot_id"
+      :token="$route.query.token"
+    />
+    <Task
+      v-show="isTask"
+      @taskc="TaskP"
+      :task_show="isTask"
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
@@ -222,6 +231,7 @@ import WhoLookMe from "../components/WhoLookMe";
 import Repository from "../components/Repository";
 import List from "../components/List";
 import Ranking from "../components/Ranking";
+import Task from "../components/Task";
 import {
   reqHomeInit,
   reqCusayrob,
@@ -239,12 +249,13 @@ export default {
     HomeChat,
     WhoLookMe,
     Repository,
-    // ShopZoom,
     List,
-    Ranking
+    Ranking,
+    Task
   },
   data() {
     return {
+      isTask:false,
       isRanking:false,
       curIndex: Number,
       warnInfo: "",
@@ -328,6 +339,12 @@ export default {
     };
   },
   methods: {
+    TaskP(data){
+      this.isTask = data;
+    },
+    rankgohome(data){
+      this.isRanking = data;
+    },
   RankingP(data) {
       this.isRanking = data;
     },
@@ -410,15 +427,7 @@ export default {
     },
     Task() {
       // 任务
-      this.$router.push({
-        path: "/Task",
-        query: {
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robotId,
-          token: this.$route.query.token,
-          TaskStatus: this.homeInit
-        }
-      });
+      this.isTask = true;
       this.destoryTimer();
     },
     toFXCP() {
@@ -736,9 +745,9 @@ export default {
         // "broker_id":35,
         // "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
 
-        robot_id: this.$route.query.robot_id,
-        broker_id: this.$route.query.broker_id,
-        token: this.$route.query.token
+        robot_id:93||  this.$route.query.robot_id,
+        broker_id:93||  this.$route.query.broker_id,
+        token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZXg3VDowZHo1d0pIQjVxbTh6WmI4MWhVVVhmNnV5Nkk.ZXlKUVNFOU9SU0k2SWpFNE1qRXdNRGt4T0Rnd0lpd2lTVVFpT2prekxDSnBZWFFpT2pFMU9UQTRNamd6TXpFdU56VXlORGd3TTMwOjFqZXg3VDpnQVJNdGhFYkZDM0I4ZXVTZ1lJN2w4QXN0Snc.7f927d6cc7ad46abb0be8e52483a6d02" || this.$route.query.token
       };
       console.log(param);
       let result = reqHomeInit(param);

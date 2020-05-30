@@ -201,8 +201,6 @@
 		name: "NewTask",
 		data() {
 			return {
-				broker_id: '',
-				robot_id: '',
 				status: '',
 				status2: '',
 				status3: '',
@@ -227,22 +225,25 @@
 				itemSelected: '',
 			};
 		},
+		  props: ["broker_id_prop", "robot_id_prop", "token_prop"],
+
 		mounted() {
-			//console.log(this.type)
-			// console.log(this.$route.query.TaskStatus.np2)
-			// this.result = this.$route.query.TaskStatus
-			// if(this.result.np2 == 2){
-			//     this.status = '已领取'
-			// }
+			// this.broker_id = this.broker_id_prop;
+			// this.robot_id = this.robot_id_prop;
+			// this.token = this.token_prop
 			this.broker_id = 1;
 			this.robot_id = 1;
 			this.token = "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
 			//获取任务所有的状态
 			let param = {
-				"broker_id": 1,
-				"robot_id": 1,
+				"broker_id": this.broker_id_prop,
+				"robot_id": this.robot_id_prop,
 				"operation_type": 99,
-				"token": "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+				"token": this.token_prop
+				// "broker_id": 1,
+				// "robot_id": 1,
+				// "operation_type": 99,
+				// "token": "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
 			};
 			let result = taskStatusUpdate(param);
 			result
@@ -311,7 +312,6 @@
 		},
 		methods: {
 			getTaskStatus(broker_id, robot_id, status, task_id, token) {
-
 				if (status == "领取") {
 					//动画状态
 					this.bxmove = !this.bxmove;
@@ -323,11 +323,17 @@
 					}, 1000);
 					//领取金币，更新金币和经验
 					let param = {
-						"broker_id": broker_id,
-						"robot_id": robot_id,
+						"broker_id": this.broker_id_prop,
+						"robot_id": this.robot_id_prop,
 						"operation_type": 7,
-						"token": token,
+						"token": this.token_prop,
 						"task_id": task_id,
+
+						// "broker_id": broker_id,
+						// "robot_id": robot_id,
+						// "operation_type": 7,
+						// "token": token,
+						// "task_id": task_id,
 					};
 					let result = taskStatusUpdate(param);
 					result

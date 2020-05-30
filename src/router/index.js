@@ -6,10 +6,6 @@ import Home from '../views/Home'
 import ACchat from '../views/HomeChild/ACchat'
 import FairyShop from '../views/HomeChild/FairyShop'
 import sellerShop from '../views/HomeChild/sellerShop'
-
-import Theglobal from '../components/Ranking/Friends'
-import Friends from '../components/Ranking/Sentiment'
-import Sentiment from '../components/Ranking/Theglobal'
 import myShop from '../components/sellerShop/myShop'
 import mySeller from '../components/sellerShop/mySeller'
 import vipShop from '../components/sellerShop/vipShop'
@@ -18,10 +14,6 @@ import FindList from '../components/FindList'
 import Strategy from '../views/Strategy'
 import Invite from '../views/Invite'
 import CancelFollow from '../views/CancelFollow'
-import Task from '../views/Task'
-import EveryDayTask from '../components/Task/EveryDayTask'
-import NewTask from '../components/Task/NewTask'
-import ProfessionTask from '../components/Task/ProfessionTask'
 import Login from '../views/Login'
 import bebotAgree from '../views/bebotAgree'
 import bebotSecret from '../views/bebotSecret'
@@ -124,35 +116,6 @@ const routes = [
 	    name: 'CancelFollow',
 	    component: CancelFollow
 	},
-    {
-        path: '/Task',
-        name: 'Task',
-        redirect: '/Task/NewTask',
-        component: Task,
-        meta: {
-            title: "任务"
-        },
-        children: [
-			{
-			    path: '/Task/NewTask',
-			    name: 'NewTask',
-			    component: NewTask,
-			},
-			
-            {
-                path: '/Task/EveryDayTask',
-                name: 'EveryDayTask',
-                component: EveryDayTask,
-            },
-           
-			{
-			    path: '/Task/ProfessionTask',
-			    name: 'ProfessionTask',
-			    component: ProfessionTask,
-			},
-			
-        ]
-    },
     {
         path: '/bebotAgree',
         name: 'bebotAgree',
