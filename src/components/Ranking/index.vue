@@ -58,7 +58,7 @@ export default {
   },
   data() {
     return {
-        curIndex:0,
+        curIndex:1,
             broker_id_prop:'',
       robot_id_prop:'',
       token_prop:'',

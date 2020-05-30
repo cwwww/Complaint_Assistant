@@ -50,7 +50,7 @@
 <script>
 import { RanlingDatasQi } from "../../../axios/axios-api";
 export default {
-  name: "Sentiment",
+  name: "Friends",
   data() {
     return {
       theglobalListe: [],
@@ -72,9 +72,9 @@ export default {
   props: ["broker_id_prop", "robot_id_prop", "token_prop"],
   mounted() {
     let param = {
-      robot_id: 33 || this.robot_id_prop,
-      broker_id: 33 || this.broker_id_prop,
-      token:this.token_prop || "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+      robot_id: this.robot_id_prop,
+      broker_id:  this.broker_id_prop,
+      token:this.token_prop 
     };
     console.log(param);
     let result = RanlingDatasQi(param);
@@ -88,15 +88,20 @@ export default {
   },
   methods:{
 	 clickThis:function(broker_id,robot_id){
-      this.$router.push({
-        path:'/HomeOther',
-        query:{
-          robot_id: this.robot_id_prop,
-          broker_id:this.broker_id_prop,
-          robot_visitId:robot_id,
-          token:this.token_prop
-        }
-      })
+     if(robot_id = this.robot_id_prop){
+       this.$emit("rankingc", false);
+     }else{
+
+       this.$router.push({
+         path:'/HomeOther',
+         query:{
+           robot_id: this.robot_id_prop,
+           broker_id:this.broker_id_prop,
+           robot_visitId:robot_id,
+           token:this.token_prop
+         }
+       })
+     }
 	 },
   }
 };

@@ -49,7 +49,7 @@
 <script>
 import { RanlingDatasFriend } from "../../../axios/axios-api";
 export default {
-  name: "Friends",
+  name: "Sentiment",
   data() {
     return {
       theglobalList: [],
@@ -87,15 +87,20 @@ export default {
   },
   methods:{
 	  clickThis:function(broker_id,robot_id){
-	  		  this.$router.push({
-	  		    path:'/HomeOther',
-	  		    query:{
-	  		      robot_id: this.robot_id_prop,
-	  			  broker_id:this.broker_id_prop,
-				  robot_visitId:robot_id,
-          token: this.token_prop
-	  		    }
-	  		  })
+     if(robot_id = this.robot_id_prop){
+       this.$emit("rankingc", false);
+     }else{
+
+       this.$router.push({
+         path:'/HomeOther',
+         query:{
+           robot_id: this.robot_id_prop,
+           broker_id:this.broker_id_prop,
+           robot_visitId:robot_id,
+           token:this.token_prop
+         }
+       })
+     }
 	  }
   }
 };
