@@ -67,6 +67,7 @@ export default {
       gradeSeven: require("../../../assets/images/等级-保险名人堂@2x.png")
     };
   },
+  props: ["broker_id_prop", "robot_id_prop", "token_prop"],
   mounted() {
     let param = {
       broker_id: 33 || this.robot_id_prop,
@@ -87,7 +88,9 @@ export default {
   },
   methods:{
 	  clickThis:function(broker_id,robot_id){
+      alert(robot_id)
      if(robot_id = this.robot_id_prop){
+       alert('回家')
        this.$emit("rankingc", false);
      }else{
 

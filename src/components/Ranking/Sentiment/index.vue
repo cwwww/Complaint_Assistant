@@ -1,8 +1,8 @@
 <template>
-  <!-- 好友 -->
   <div>
+    <!-- 人气 -->
     <div class="main">
-      <div v-for="(item, idx) in theglobalList" :key="idx">
+      <div v-for="(item, idx) in theglobalListe" :key="idx">
         <div class="wrap"  @click="clickThis(item.broker_id,item.robot_id)">
           <div class="left">
             <div class="leftLittleLogon">
@@ -14,6 +14,7 @@
             <div class="leftBigLogon">
               <img :src="item.headimgurl === null ? img4 : item.headimgurl" alt="error" />
             </div>
+
             <div class="content">
               <div class="topTitle">
                 <span>{{item.name}}</span>
@@ -31,8 +32,8 @@
                 </div>
               </div>
               <div class="bottom">
-                <div class="biaoqian" v-for="(items, idxs) in item.medals" :key="idxs">
-                  <p>{{items}}</p>
+                <div class="biaoqian">
+                  <span>粉丝数：{{item.fans_num}}</span>
                 </div>
               </div>
             </div>
@@ -47,12 +48,13 @@
   </div>
 </template>
 <script>
-import { RanlingDatasFriend } from "../../../axios/axios-api";
+import { RanlingDatasQi } from "../../../axios/axios-api";
 export default {
   name: "Sentiment",
   data() {
     return {
-      theglobalList: [],
+      theglobalListe: [],
+      paiming: "1",
       img: require("../../../assets/images/金牌@2x.png"),
       img1: require("../../../assets/images/next@2x.png"),
       img2: require("../../../assets/images/银牌@2x.png"),
@@ -64,30 +66,32 @@ export default {
       gradeFour: require("../../../assets/images/等级-保险配置王@2x.png"),
       gradeFive: require("../../../assets/images/等级-保险百科@2x.png"),
       gradeSix: require("../../../assets/images/等级-保险大咖@2x.png"),
-      gradeSeven: require("../../../assets/images/等级-保险名人堂@2x.png")
+      gradeSeven: require("../../../assets/images/等级-保险名人堂@2x.png"),
     };
   },
+props: ["broker_id_prop", "robot_id_prop", "token_prop"],
   mounted() {
     let param = {
-      robot_id: 33 || this.robot_id_prop,
-      broker_id: 33 || this.broker_id_prop,
-      token:this.token_prop ||
+      broker_id: 33 || this.robot_id_prop,
+      robot_id: 33 || this.broker_id_prop,
+      token:this.token_prop||
         "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
     };
     console.log(param);
-    let result = RanlingDatasFriend(param);
+    let result = RanlingDatasQi(param);
     result
       .then(res => {
-        console.log(res);
-        this.theglobalList = res.result.friends;
+        this.theglobalListe = res.result.fans;
       })
       .catch(reslove => {
         console.log("error");
       });
   },
   methods:{
-	  clickThis:function(broker_id,robot_id){
+	 clickThis:function(broker_id,robot_id){
+      alert(robot_id)
      if(robot_id = this.robot_id_prop){
+       alert('回家')
        this.$emit("rankingc", false);
      }else{
 
@@ -101,7 +105,7 @@ export default {
          }
        })
      }
-	  }
+	 },
   }
 };
 </script>
@@ -139,6 +143,7 @@ export default {
       width: 50px;
       height: 50px;
       border-radius: 50%;
+      background-color: aqua;
       > img {
         width: 50px;
         height: 50px;
@@ -191,15 +196,13 @@ export default {
         margin-top: 6px;
         display: flex;
         > .biaoqian {
-          margin-left: 5px;
-          background: rgba(236, 247, 255, 1);
-          border-radius: 11px;
-          > p {
-            padding: 2px 8px 3px 8px;
+          margin-left: 8px;
+          > span {
+            display: block;
             font-size: 12px;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
-            color: rgba(0, 134, 231, 1);
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: rgba(102, 102, 102, 1);
             line-height: 17px;
           }
         }
@@ -222,7 +225,6 @@ export default {
   width: 335px;
   height: 1px;
   background: rgba(239, 239, 239, 1);
-  //   margin-top: 15px;
   margin: 15px auto 0px auto;
 }
 </style>
