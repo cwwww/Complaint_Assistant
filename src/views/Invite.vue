@@ -157,40 +157,39 @@ export default {
           });
           //处理验证失败的信息
           wx.error(function (res) {
-            logUtil.printLog('验证失败返回的信息:',res);
+            console.log('验证失败返回的信息:',res);
           });
           //处理验证成功的信息
           wx.ready(function () {
             //分享到朋友圈
             wx.onMenuShareTimeline({
-              title: _this.newDetailObj.title, // 分享标题
+              title: '朋友圈标题', // 分享标题
               link: window.location.href.split("?")[0], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: _this.newDetailObj.thu_image, // 分享图标
+              imgUrl: '', // 分享图标
               success: function (res) {
                 // 用户确认分享后执行的回调函数
-                logUtil.printLog("分享到朋友圈成功返回的信息为:",res);
-                _this.showMsg("分享成功!")
+                console.log("分享到朋友圈成功返回的信息为:",res);
               },
               cancel: function (res) {
                 // 用户取消分享后执行的回调函数
-                logUtil.printLog("取消分享到朋友圈返回的信息为:",res);
+                console.log("取消分享到朋友圈返回的信息为:",res);
               }
             });
             // 分享给朋友
             wx.onMenuShareAppMessage({
-              title: _this.newDetailObj.title, // 分享标题
-              desc: _this.desc, // 分享描述
+              title: '朋友标题', // 分享标题
+              desc: '', // 分享描述
               link: window.location.href.split('#')[0], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: _this.newDetailObj.thu_image, // 分享图标
-              type: '', // 分享类型,music、video或link，不填默认为link
-              dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+              imgUrl: '', // 分享图标
+              // type: '', // 分享类型,music、video或link，不填默认为link
+              // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
               success: function (res) {
                 // 用户确认分享后执行的回调函数
-                logUtil.printLog("分享给朋友成功返回的信息为:",res);
+                console.log("分享给朋友成功返回的信息为:",res);
               },
               cancel: function (res) {
                 // 用户取消分享后执行的回调函数
-                logUtil.printLog("取消分享给朋友返回的信息为:",res);
+                console.log("取消分享给朋友返回的信息为:",res);
               }
             })
           });

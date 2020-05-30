@@ -6,7 +6,7 @@
       closeable
       round
       position="bottom"
-      :style="{ height: '70%' }"
+      :style="{ height: '85%' }"
       @close="close1"
     >
       <div class="title" id="title">
@@ -24,7 +24,6 @@
          <Bean v-show='curIndex == 1'  :broker_id_prop='broker_id_prop' :robot_id_prop="robot_id_prop" :token_prop="token_prop"/>
          <Friend v-show='curIndex == 0' :broker_id_prop='broker_id_prop' :robot_id_prop="robot_id_prop" :token_prop="token_prop"/>
     </van-popup>
-
   </div>
 </template>
 <script>
@@ -38,7 +37,6 @@ export default {
   
   data() {
     return {
-      curIndex: 0,
       show1: true,
       broker_id_prop:'',
       robot_id_prop:'',
@@ -55,7 +53,7 @@ export default {
       ]
     };
   },
-  props: ["list_show", "broker_id", "robot_id", "token"],
+  props: ["list_show", "broker_id", "robot_id", "token",'curIndex'],
   created() {
     this.show1 = this.list_show;
     this.broker_id_prop=this.broker_id;
@@ -72,7 +70,7 @@ export default {
     // if(name == "fensi"){
     //   this.curIndex = 1;
     // }else{
-    this.curIndex = 0;
+    // this.curIndex = 0;
     // }
   },
   

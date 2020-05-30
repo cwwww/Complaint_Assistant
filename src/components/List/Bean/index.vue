@@ -1,41 +1,41 @@
 <template>
   <div class="main">
-    <div  v-for="(item, idx) in baenstList" :key="idx"  >
-	 <div class="warp" @click="clickThis(item.robot_id)">
-      <div class="left">
-        <div class="littleLeft">
-          <img :src="item.headimgurl === null ? img4 : item.headimgurl" alt="error" />
-        </div>
-        <div class="littleRight">
-          <div class="topTitle">
-            <span>{{item.name}}</span>
-            <div class="lelve">
-              <p>Lv.{{item.level}}</p>
+    <div v-for="(item, idx) in baenstList" :key="idx">
+      <div class="warp" @click="clickThis(item.robot_id)">
+        <div class="left">
+          <div class="littleLeft">
+            <img :src="item.headimgurl === null ? img4 : item.headimgurl" alt="error" />
+          </div>
+          <div class="littleRight">
+            <div class="topTitle">
+              <span>{{item.name}}</span>
+              <div class="lelve">
+                <p>Lv.{{item.level}}</p>
+              </div>
+              <div class="dengji">
+                <img v-if="item.level == 1" :src="gradeOne" alt />
+                <img v-if="item.level == 2" :src="gradeTwo" alt />
+                <img v-if="item.level == 3" :src="gradeThree" alt />
+                <img v-if="item.level == 4" :src="gradeFour" alt />
+                <img v-if="item.level == 5" :src="gradeFive" alt />
+                <img v-if="item.level == 6" :src="gradeSix" alt />
+                <img v-if="item.level == 7" :src="gradeSeven" alt />
+              </div>
             </div>
-            <div class="dengji">
-              <img v-if="item.level == 0" :src="gradeOne" alt />
-              <img v-if="item.level == 1" :src="gradeTwo" alt />
-              <img v-if="item.level == 2" :src="gradeThree" alt />
-              <img v-if="item.level == 3" :src="gradeFour" alt />
-              <img v-if="item.level == 4" :src="gradeFive" alt />
-              <img v-if="item.level == 5" :src="gradeSix" alt />
-              <img v-if="item.level == 6" :src="gradeSeven" alt />
+            <div class="bottom">
+              <div class="biaoqian" v-for="(items, idxs) in item.medals" :key="idxs">
+                <p>{{items}}</p>
+              </div>
             </div>
           </div>
-          <div class="bottom">
-            <div class="biaoqian" v-for="(items, idxs) in item.medals" :key="idxs">
-              <p>{{items}}</p>
-            </div>
-          </div>
+        </div>
+        <div v-if="item.followed == false" class="right">
+          <span>关注</span>
+        </div>
+        <div v-if="item.followed == true" class="rightNo">
+          <span>已关注</span>
         </div>
       </div>
-      <div v-if="item.followed == false" class="right">
-        <span>关注</span>
-      </div>
-      <div v-if="item.followed == true" class="rightNo">
-        <span>已关注</span>
-      </div>
-	 </div>
     </div>
   </div>
 </template>
@@ -58,23 +58,16 @@ export default {
       gradeSeven: require("../../../assets/images/等级-保险名人堂@2x.png")
     };
   },
-  props: ['broker_id_prop','robot_id_prop','token_prop'],
-  // created(){
-  //     // this.showBean = this.Bean_show
-  // },
-  // watch:{
-  //   Bean_show(newValue){
-  //       this.showBean = newValue
-  //   }
-  // },
+  props: ["broker_id_prop", "robot_id_prop", "token_prop"],
   mounted() {
     let param = {
       operation_type: 1,
       robot_id: 33 || this.robot_id_prop,
       broker_id: 33 || this.broker_id_prop,
-      token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1" || this.token_prop
+      token:
+        "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1" ||
+        this.token_prop
     };
-    console.log(param);
     let result = BeanList(param);
     result
       .then(res => {
@@ -85,28 +78,27 @@ export default {
         console.log("error");
       });
   },
-  
-  methods:{
-  	 clickThis:function(robot_id){
-  	 		  this.$router.push({
-  	 		    path:'/HomeOther',
-  	 		    query:{
-  	 		      robot_id: 33,
-  	 			  broker_id:33,
-  				  robot_visitId:robot_id,
-  	 			  token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
-  	 		    }
-  	 		  })
-  	 }
+
+  methods: {
+    clickThis: function(robot_id) {
+      this.$router.push({
+        path: "/HomeOther",
+        query: {
+          robot_id: this.robot_id_prop,
+          broker_id: this.broker_id_prop,
+          robot_visitId: robot_id,
+          token: this.token_prop
+        }
+      });
+    }
   }
 };
 </script>
 <style lang="scss" scoped>
 .main {
-  height: 350px;
+  height: 410px;
   overflow-y: auto;
   margin-top: 12px;
-
   .warp {
     width: 335px;
     height: 80px;

@@ -317,6 +317,7 @@ export default {
       color: rgba(148, 240, 255, 1);
       line-height: 21px;
       text-indent: 2em;
+      margin-left: 6px;
     }
     > img {
       width: 26px;
@@ -348,6 +349,7 @@ export default {
         color: rgba(148, 240, 255, 1);
         line-height: 21px;
         text-indent: 2em;
+        margin-left: 6px;
       }
       > img {
         width: 26px;

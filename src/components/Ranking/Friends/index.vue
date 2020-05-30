@@ -22,13 +22,13 @@
                   <p>Lv.{{item.level}}</p>
                 </div>
                 <div class="dengji">
-                  <img v-if="item.level == 0" :src="gradeOne" alt />
-                  <img v-if="item.level == 1" :src="gradeTwo" alt />
-                  <img v-if="item.level == 2" :src="gradeThree" alt />
-                  <img v-if="item.level == 3" :src="gradeFour" alt />
-                  <img v-if="item.level == 4" :src="gradeFive" alt />
-                  <img v-if="item.level == 5" :src="gradeSix" alt />
-                  <img v-if="item.level == 6" :src="gradeSeven" alt />
+                  <img v-if="item.level == 1" :src="gradeOne" alt />
+                  <img v-if="item.level == 2" :src="gradeTwo" alt />
+                  <img v-if="item.level == 3" :src="gradeThree" alt />
+                  <img v-if="item.level == 4" :src="gradeFour" alt />
+                  <img v-if="item.level == 5" :src="gradeFive" alt />
+                  <img v-if="item.level == 6" :src="gradeSix" alt />
+                  <img v-if="item.level == 7" :src="gradeSeven" alt />
                 </div>
               </div>
               <div class="bottom">
@@ -69,12 +69,12 @@ export default {
       gradeSeven: require("../../../assets/images/等级-保险名人堂@2x.png"),
     };
   },
-
+  props: ["broker_id_prop", "robot_id_prop", "token_prop"],
   mounted() {
     let param = {
-      robot_id: 33,
-      broker_id: 33,
-      token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+      robot_id: 33 || this.robot_id_prop,
+      broker_id: 33 || this.broker_id_prop,
+      token:this.token_prop || "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
     };
     console.log(param);
     let result = RanlingDatasQi(param);

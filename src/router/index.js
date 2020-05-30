@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import Home from '../views/Home'
-import Ranking from '../views/Ranking'
 import ACchat from '../views/HomeChild/ACchat'
 import FairyShop from '../views/HomeChild/FairyShop'
 import sellerShop from '../views/HomeChild/sellerShop'
@@ -18,14 +17,12 @@ import HomeOther from '../views/HomeOther'
 import FindList from '../components/FindList'
 import Strategy from '../views/Strategy'
 import Invite from '../views/Invite'
-import Repository from '../views/Repository'
 import CancelFollow from '../views/CancelFollow'
 import Task from '../views/Task'
 import EveryDayTask from '../components/Task/EveryDayTask'
 import NewTask from '../components/Task/NewTask'
 import ProfessionTask from '../components/Task/ProfessionTask'
 import Login from '../views/Login'
-import shopZoom from '../views/shopZoom'
 import bebotAgree from '../views/bebotAgree'
 import bebotSecret from '../views/bebotSecret'
 import LevelUp from '../views/LevelUp'
@@ -108,52 +105,6 @@ const routes = [
         ]
     },
     {
-        path: '/Ranking',
-        name: "Ranking",
-        redirect: '/Ranking/Sentiment',
-        component: Ranking,
-        meta: {
-            title: "排行榜"
-        },
-        children: [
-            {
-                path: "/Ranking/Theglobal",
-                name: 'Theglobal',
-                component: Theglobal,
-            },
-            {
-                path: "/Ranking/Friends",
-                name: 'Friends',
-                component: Friends,
-            },
-            {
-                path: "/Ranking/Sentiment",
-                name: "Sentiment",
-                component: Sentiment
-            }
-        ]
-    },
-    // {
-    //     path: '/List',
-    //     name: 'List',
-    //     component: List,
-    //     meta: {
-    //         title: "列表"
-    //     },
-    //     children: [
-    //         {
-    //             path: "/List/Friend",
-    //             name: "Friend",
-    //             component: Friend
-    //         },
-    //         {
-    //             path: "/List/Bean",
-    //             name: "Bean",
-    //             component: Bean
-    //         }
-    //     ]
-    // },
-    {
         path: '/FindList',
         name: "FindList",
         component: FindList
@@ -167,11 +118,6 @@ const routes = [
         path: '/Invite',
         name: "Invite",
         component: Invite
-    },
-    {
-        path: '/Repository',
-        name: 'Repository',
-        component: Repository
     },
 	{
 	    path: '/CancelFollow',
@@ -206,14 +152,6 @@ const routes = [
 			},
 			
         ]
-    },
-    {
-        path: '/shopZoom',
-        name: 'shopZoom',
-        component: shopZoom,
-        meta: {
-            title: "知识库改版"
-        }
     },
     {
         path: '/bebotAgree',

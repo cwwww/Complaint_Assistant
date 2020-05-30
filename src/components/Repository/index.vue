@@ -6,7 +6,7 @@
       closeable
       round
       position="bottom"
-      :style="{ height: '70%',color:'black'}"
+      :style="{ height: '75%',color:'black'}"
       @close="close"
     >
       <img :src="product_zsk" alt />
@@ -128,13 +128,14 @@
           </div>
         </div>
       </div>
-      <router-view />
+      <shopZoom v-show="showMyshop" @shopZoomC="shopZoomP" :shopZoomC_show="showMyshop" :broker_id_prop='broker_id_prop' :robot_id_prop="robot_id_prop" :token_prop="token_prop"/>
     </van-popup>
   </div>
 </template>
 <script>
 import BScroll from "better-scroll";
 import { Popup, Toast } from "vant";
+import shopZoom from '../Repository/shopZoom'
 import {
   reqShowList,
   reqHomeInit,
@@ -145,8 +146,12 @@ import {
 } from "../../axios/axios-api";
 export default {
   name: "Repository",
+  components:{
+    shopZoom
+  },
   data() {
     return {
+      showMyshop:true,
       show: true,
       show3: false,
       show4: false,
@@ -177,6 +182,9 @@ export default {
   props:['broker_id','robot_id','token','Repository_show'],
   created(){
       this.show = this.Repository_show
+      this.broker_id_prop=this.broker_id;
+      this.robot_id_prop=this.robot_id;
+      this.token_prop=this.token;
   },
   watch:{
     Repository_show(newValue){
@@ -188,17 +196,10 @@ export default {
       this.$emit('RepositoryC',false)
     },
     toShopZoom(index) {
-      console.log("shop" + this.$route.query);
-      if (this.list[index].type == 0) {
-        this.$router.push({
-          path: "/shopZoom",
-          query: {
-            broker_id: this.$route.query.broker_id,
-            robot_id: this.$route.query.robotId,
-            token: this.$route.query.token,
-            type: "type"
-          }
-        });
+      if(this.list[index].type == 0){
+        alert(111)
+        this.showMyshop = true
+        // this.$emit('RepositoryC',false)
       }
     },
     toEvaluate(index) {
@@ -318,9 +319,9 @@ export default {
     },
     getInit() {
       let param = {
-        robot_id: this.robot_id,
-        user_id: this.broker_id,
-        token: this.token
+        robot_id:33 ||  this.robot_id,
+        user_id: 33 || this.broker_id,
+        token:         "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1" || this.token
       };
       let result = reqShowList(param);
       result
@@ -397,6 +398,7 @@ export default {
     width: 100%;
     height: 466px;
     background: rgba(255, 255, 255, 1);
+    // position: relative;
     > img {
       display: block;
       width: 65px;
@@ -404,20 +406,23 @@ export default {
       margin: 0 auto;
       margin-top: -31px;
       margin-bottom: 5px;
-      position: fixed;
+      position: absolute;
       left: 50%;
+      top: 0;
       margin-left: -32px;
     }
     .contain {
-      margin: 57px 0 20px 0;
+      margin-top: 52px;
+      overflow-y: hidden;
+      height: 420px;
+      overflow: scroll;
       // overflow: hidden;
       > .bigContent {
         width: 305px;
         height: 120px;
         background: rgba(233, 70, 70, 1);
         border-radius: 15px;
-        margin: 20px auto 0px auto;
-
+        margin:  0px auto 20px;
         > .sonContent {
           display: flex;
           justify-content: space-between;

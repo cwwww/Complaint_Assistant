@@ -1,6 +1,5 @@
 <template>
   <div class="warp">
-    <!-- <van-cell is-link @click="showPopup">上划</van-cell> -->
     <van-popup
       class="content"
       v-model="show"
@@ -8,36 +7,58 @@
       round
       position="bottom"
       :style="{ height: '75%' }"
-        @close="close"
+      @close="close"
     >
       <img :src="img" alt />
       <div class="title" id="title">
         <ul>
+            <!-- data-index="0" -->
           <li
-                      v-for="(item, index) in lists"
+            v-for="(item, index) in lists"
             :key="index"
-            data-index="0"
+            
             :class="{'active': index === curIndex}"
             class="bigBox"
-          ></li>
+          >
+            <span @click="changeIndex(index)">{{item.title}}</span>
+          </li>
         </ul>
       </div>
-        <Friend v-show='curIndex == 2'  :broker_id_prop='broker_id_prop' :robot_id_prop="robot_id_prop" :token_prop="token_prop"/>
-        <Sentiment v-show='curIndex == 1' :broker_id_prop='broker_id_prop' :robot_id_prop="robot_id_prop" :token_prop="token_prop"/>
-        <Theglobal v-show='curIndex == 0' :broker_id_prop='broker_id_prop' :robot_id_prop="robot_id_prop" :token_prop="token_prop"/>
-
+      <Friend
+        v-show="curIndex == 2"
+        :broker_id_prop="broker_id_prop"
+        :robot_id_prop="robot_id_prop"
+        :token_prop="token_prop"
+      />
+      <Sentiment
+        v-show="curIndex == 1"
+        :broker_id_prop="broker_id_prop"
+        :robot_id_prop="robot_id_prop"
+        :token_prop="token_prop"
+      />
+      <Theglobal
+        v-show="curIndex == 0"
+        :broker_id_prop="broker_id_prop"
+        :robot_id_prop="robot_id_prop"
+        :token_prop="token_prop"
+      />
     </van-popup>
   </div>
 </template>
 <script>
+import Friends from "./Friends";
+import Sentiment from "./Sentiment";
+import Theglobal from "./Theglobal";
 export default {
   name: "ranking",
-  components:{
-    Friend,Sentiment,Theglobal
+  components: {
+    Friends,
+    Sentiment,
+    Theglobal
   },
   data() {
     return {
-      curIndex: 0,
+      curIndex:0,
       show: true,
       img: require("../../assets/images/icon.png"),
       lists: [
@@ -48,37 +69,34 @@ export default {
         {
           name: "Friends",
           title: "好友排行"
-        }, 
+        },
         {
           name: "Theglobal",
           title: "人气排行"
         }
-      ],
-	  broker_id: 33,
-	  robot_id: 33,
+      ]
     };
   },
-    created() {
-    this.show = this.list_show;
-    this.broker_id_prop=this.broker_id;
-    this.robot_id_prop=this.robot_id;
-    this.token_prop=this.token;
+  props: ["ranking_show", "broker_id", "robot_id", "token", "curIndex"],
+
+  created() {
+    this.show = this.ranking_show;
+    this.broker_id_prop = this.broker_id;
+    this.robot_id_prop = this.robot_id;
+    this.token_prop = this.token;
   },
   watch: {
-    list_show(newValue) {
+    ranking_show(newValue) {
       this.show = newValue;
     }
   },
-  mounted() {
-	 this.broker_id = this.$route.query.broker_id;
-	 this.robot_id = this.$route.query.robot_id;
-  },
+  mounted() {},
   methods: {
     changeIndex(i) {
       this.curIndex = i;
     },
     close() {
-      this.$router.replace('/')
+      this.$emit("rankingc", false);
     }
   }
 };
