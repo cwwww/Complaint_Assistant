@@ -24,14 +24,14 @@
           </li>
         </ul>
       </div>
-      <Friend
-        v-show="curIndex == 2"
+      <Friends
+        v-show="curIndex == 1"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
       />
       <Sentiment
-        v-show="curIndex == 1"
+        v-show="curIndex == 2"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
@@ -50,7 +50,7 @@ import Friends from "./Friends";
 import Sentiment from "./Sentiment";
 import Theglobal from "./Theglobal";
 export default {
-  name: "ranking",
+  name: "Ranking",
   components: {
     Friends,
     Sentiment,
@@ -58,7 +58,10 @@ export default {
   },
   data() {
     return {
-      curIndex:0,
+        curIndex:0,
+            broker_id_prop:'',
+      robot_id_prop:'',
+      token_prop:'',
       show: true,
       img: require("../../assets/images/icon.png"),
       lists: [
@@ -77,7 +80,7 @@ export default {
       ]
     };
   },
-  props: ["ranking_show", "broker_id", "robot_id", "token", "curIndex"],
+  props: ["ranking_show", "broker_id", "robot_id", "token"],
 
   created() {
     this.show = this.ranking_show;
@@ -90,7 +93,8 @@ export default {
       this.show = newValue;
     }
   },
-  mounted() {},
+  mounted() {
+  },
   methods: {
     changeIndex(i) {
       this.curIndex = i;
@@ -132,7 +136,7 @@ export default {
         justify-content: space-around;
         padding-left: 63px;
         padding-right: 62px;
-        & > li.active {
+        > li.active {
           font-size: 17px;
           font-family: PingFangSC-Medium, PingFang SC;
           font-weight: 600;

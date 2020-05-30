@@ -76,6 +76,7 @@ export default {
   
   methods: {
     changeIndex(i) {
+      alert(222)
       this.curIndex = i;
     },
     // showPopup() {

@@ -134,7 +134,7 @@
           <span>聊天记录</span>
           <router-view></router-view>
         </li>
-        <li @click="Ranking">
+        <li @click="Ranking(curIndex)">
           <img :src="home_rankinglist" alt />
           <span>排行榜</span>
         </li>
@@ -210,7 +210,6 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
-      :curIndex="curIndex"
     />
   </div>
 </template>
@@ -404,7 +403,8 @@ export default {
       this.WhoLook = true;
       this.destoryTimer();
     },
-    Ranking() {
+    Ranking(curIndex) {
+      // this.curIndex = 0
       this.isRanking = true
       this.destoryTimer();
     },
