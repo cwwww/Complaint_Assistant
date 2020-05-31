@@ -131,7 +131,7 @@ export default {
             }
           })
           .catch(reslove => {
-            Toast(reslove.msg)
+            Toast(reslove.msg);
           });
       }
     },
@@ -164,14 +164,27 @@ export default {
           .then(res => {
             console.log(res);
             this.messages = res.result;
-            this.$router.push({
-              path: "/",
-              query: {
-                broker_id: this.messages.ID,
-                robot_id: this.messages.ROBOT_ID,
-                token: this.messages.token
-              }
-            });
+            if (this.$route.query.type == "otherLogin") {
+              this.$router.push({
+                path: "/HomeOther",
+                // query: {
+                //   customer_id: this.visitList.customer_id,
+                //   customer_robot_id: this.customer_robot_id,
+                //   customer_type: this.customer_type,
+                //   visited_robot_id: this.$route.query.broker_id,
+                //   token: this.visitList.token
+                // }
+              });
+            } else {
+              this.$router.push({
+                path: "/",
+                query: {
+                  broker_id: this.messages.ID,
+                  robot_id: this.messages.ROBOT_ID,
+                  token: this.messages.token
+                }
+              });
+            }
           })
           .catch(reslove => {
             console.log("error");

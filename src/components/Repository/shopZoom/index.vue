@@ -4,6 +4,7 @@
       class="content"
       v-model="show"
       closeable
+      round
       position="bottom"
       :style="{ height: '75%' }"
       @close="close"
@@ -64,7 +65,7 @@ export default {
       show: false,
       isShow:false,
 	    showIndex:0,
-      flag:true,
+      flag:false,
       img: require("../../../assets/images/Q_small_icon@2x.png"),
       img1: require("../../../assets/images/A_small_icon@2x.png"),
       img2: require("../../../assets/images/biajide.png"),
@@ -73,12 +74,13 @@ export default {
       img5:require("../../../assets/images/delete@3x.png")
     };
   },
-  props: ["broker_id_prop", "robot_id_prop", "token_prop",'shopZoomC_show'],
+  props: ["broker_id_prop", "robot_id_prop", "token_prop",'shopZoomC_show',"type"],
   created(){
       this.show = this.shopZoomC_show
       this.broker_id_prop=this.broker_id;
       this.robot_id_prop=this.robot_id;
       this.token_prop=this.token;
+      this.type_prop = this.type
   },
   watch:{
     shopZoomC_show(newValue){
@@ -87,7 +89,7 @@ export default {
   },
   methods: {
     close(){
-      if(this.$route.query.type == 'type'){
+      if(this.type_prop){
           this.$emit('shopZoomC',false)
         // this.$router.push({
         //   path:'/Repository',
@@ -136,10 +138,10 @@ export default {
         this.Answer = ''
       }
       let param = {
-        "broker_id":this.$route.query.broker_id,
+        "broker_id":this.broker_id_prop,
         "question":this.Qusetion,
         "answer":this.Answer,
-        "token":this.$route.query.token
+        "token":this.token_prop
       }
       console.log(param)
       let res = reqaddledgeList(param)
@@ -152,9 +154,9 @@ export default {
     },
     remove(index){
       let param = {
-        "broker_id":this.$route.query.broker_id,
+        "broker_id":this.broker_id_prop,
         "online_data_id":this.list[index].online_data_id,
-        "token":this.$route.query.token
+        "token":this.token_prop
       }
       console.log(param)
       let res = reqdeleteList (param)
@@ -190,10 +192,10 @@ export default {
 	  
       let param = {
         "modified_data_id":this.list[index].online_data_id,
-        "broker_id":this.$route.query.broker_id,
+        "broker_id":this.broker_id_prop,
         "question":this.$route.query.Qusetion,
         "answer":this.$route.query.Answer,
-        "token":this.$route.query.token
+        "token":this.token_prop
       }
       let res = reqeditList(param)
         res.then(res=>{

@@ -15,7 +15,7 @@
 			<div class="textNum">03</div>
 			 <div class="textText">保险新手</div>
 			  </div>
-			<img src="../assets/images/level15@2x.png" alt class="level" /></img>
+			<img src="../assets/images/level15@2x.png" alt class="level" />
 			<div class="wenzibox">
 			<img src="../assets/images/congratulations@2x.png" alt class="wenzi" />
 	      <span>您等级已提升至3级，并获得保险新手称号！</span>

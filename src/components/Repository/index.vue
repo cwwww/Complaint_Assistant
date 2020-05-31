@@ -17,6 +17,7 @@
           :class="item.type == 2 && item.received == false && item.available == false ? 'active' : ''"
           v-for="(item, index) in list"
           :key="index"
+          :style="randomRgb(item)"
         >
           <div class="sonContent">
             <div class="leftBox">
@@ -29,7 +30,7 @@
                 @click="toOpen(index)"
                 v-if="item.type == 1 && item.enable == false"
               >
-                <p>启用</p>
+                <p :style="randomColor(item)">启用</p>
               </div>
               <div
                 class="buttonAnd2"
@@ -45,7 +46,7 @@
                 @click="toOpen(index)"
                 v-if="item.type == 2 && item.received == true && item.available == true && item.enable == false"
               >
-                <p>启用</p>
+                <p :style="randomColor(item)">启用</p>
               </div>
               <div
                 class="buttonAnd2"
@@ -123,19 +124,27 @@
             class="active"
             v-if="item.type == 2 && item.received == false && item.available == false"
           >
-            <img :src="suo" alt />
+            <img class="suoimg" :src="suo" alt />
             <p class="toInvite" @click="toInvite">去解锁</p>
           </div>
         </div>
       </div>
-      <shopZoom v-show="showMyshop" @shopZoomC="shopZoomP" :shopZoomC_show="showMyshop" :broker_id_prop='broker_id_prop' :robot_id_prop="robot_id_prop" :token_prop="token_prop"/>
+      <shopZoom
+        v-show="showMyshop"
+        @shopZoomC="shopZoomP"
+        :shopZoomC_show="showMyshop"
+        :broker_id_prop="broker_id_prop"
+        :robot_id_prop="robot_id_prop"
+        :token_prop="token_prop"
+        :type="type"
+      />
     </van-popup>
   </div>
 </template>
 <script>
 import BScroll from "better-scroll";
 import { Popup, Toast } from "vant";
-import shopZoom from '../Repository/shopZoom'
+import shopZoom from "../Repository/shopZoom";
 import {
   reqShowList,
   reqHomeInit,
@@ -146,12 +155,12 @@ import {
 } from "../../axios/axios-api";
 export default {
   name: "Repository",
-  components:{
+  components: {
     shopZoom
   },
   data() {
     return {
-      showMyshop:true,
+      showMyshop: false,
       show: true,
       show3: false,
       show4: false,
@@ -160,10 +169,13 @@ export default {
       colorList: [0],
       imglevel: "",
       value: "",
-      type: "",
+      type: 1,
       state: "",
       goods: "",
       text: "",
+      broker_id_prop:'',
+      robot_id_prop:'',
+      token_prop:'',
       isEvaluate: Boolean, //是否评价
       img: require("../../assets/images/icon.png"),
       suo: require("../../assets/images/suo@2x.png"),
@@ -179,26 +191,44 @@ export default {
       success: require("../../assets/images/success@2x.png")
     };
   },
-  props:['broker_id','robot_id','token','Repository_show'],
-  created(){
-      this.show = this.Repository_show
-      this.broker_id_prop=this.broker_id;
-      this.robot_id_prop=this.robot_id;
-      this.token_prop=this.token;
+  props: ["broker_id", "robot_id", "token", "Repository_show"],
+  created() {
+    this.show = this.Repository_show;
+    this.broker_id_prop = this.broker_id;
+    this.robot_id_prop = this.robot_id;
+    this.token_prop = this.token;
   },
-  watch:{
-    Repository_show(newValue){
-      this.show = newValue
+  watch: {
+    Repository_show(newValue) {
+      this.show = newValue;
     }
   },
   methods: {
+    randomColor(item){
+        let R = Math.floor(Math.random() * 233 );
+        let G = Math.floor(Math.random() * 70 );
+        let B = Math.floor(Math.random() * 70 );
+        return {
+          color:'rgb(' + R + ',' + G + ',' + B + ')'
+        };
+    },
+    randomRgb(item) {
+        let R = Math.floor(Math.random() * 233 + 70);
+        let G = Math.floor(Math.random() * 70 + 70);
+        let B = Math.floor(Math.random() * 70 + 70);
+        return {
+          background: 'rgb(' + R + ',' + G + ',' + B + ')',
+        };
+      },
     close() {
-      this.$emit('RepositoryC',false)
+      this.$emit("RepositoryC", false);
+    },
+    shopZoomP(data){
+      this.showMyshop = data
     },
     toShopZoom(index) {
-      if(this.list[index].type == 0){
-        alert(111)
-        this.showMyshop = true
+      if (this.list[index].type == 0) {
+        this.showMyshop = true;
         // this.$emit('RepositoryC',false)
       }
     },
@@ -216,11 +246,11 @@ export default {
       this.show4 = false;
       this.show3 = true;
       let param = {
-        robot_id: this.robot_id,
+        robot_id: this.robot_id_prop,
         goods_id: this.type,
         goods_score: this.value,
-        user_id: this.broker_id,
-        token: this.token
+        user_id: this.broker_id_prop,
+        token: this.token_prop
       };
       console.log(param);
       let res = reqstarRating(param);
@@ -235,12 +265,13 @@ export default {
     },
     toget(index) {
       this.goods = this.list[index].goods_id;
+      alert(this.robot_id_prop)
       let param = {
-        robot_id: this.robot_id,
+        robot_id: this.robot_id_prop,
         goods_id: this.goods,
         type: 2,
-        user_id: this.broker_id,
-        token: this.token
+        user_id: this.broker_id_prop,
+        token: this.token_prop
       };
       console.log(param);
       let result = reqReceive(param);
@@ -261,11 +292,11 @@ export default {
       }
       this.type = this.list[index].goods_id;
       let param = {
-        robot_id: this.robot_id,
+        robot_id: this.robot_id_prop,
         goods_id: this.type,
         type: this.state,
-        user_id: this.broker_id,
-        token: this.token
+        user_id: this.broker_id_prop,
+        token: this.token_prop
       };
       console.log(param);
       let result = reqEnable_kb(param);
@@ -288,9 +319,9 @@ export default {
       let param = {
         goods_id: this.goods,
         type: this.type,
-        robot_id: this.robot_id,
-        user_id: this.broker_id,
-        token: this.token
+        robot_id: this.robot_id_prop,
+        user_id: this.broker_id_prop,
+        token: this.token_prop
       };
       console.log(param);
       let result = reqDisable_kb(param);
@@ -307,10 +338,10 @@ export default {
       this.$router.push({
         path: "/HomeOther",
         query: {
-          robot_id: this.$route.query.robot_id,
-          broker_id: this.$route.query.broker_id,
+          robot_id: this.robot_id_prop,
+          broker_id: this.broker_id_prop,
           robot_visitId: robot_id,
-          token: this.$route.query.token
+          token: this.token_prop
         }
       });
     },
@@ -319,9 +350,11 @@ export default {
     },
     getInit() {
       let param = {
-        robot_id:33 ||  this.robot_id,
+        robot_id: 33 || this.robot_id,
         user_id: 33 || this.broker_id,
-        token:         "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1" || this.token
+        token:
+          "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1" ||
+          this.token
       };
       let result = reqShowList(param);
       result
@@ -422,7 +455,7 @@ export default {
         height: 120px;
         background: rgba(233, 70, 70, 1);
         border-radius: 15px;
-        margin:  0px auto 20px;
+        margin: 0px auto 20px;
         > .sonContent {
           display: flex;
           justify-content: space-between;
@@ -634,7 +667,7 @@ export default {
         border-radius: 15px;
         opacity: 0.5;
         position: relative;
-        img {
+        .suoimg {
           width: 32px;
           height: 40px;
           position: absolute;

@@ -167,6 +167,11 @@
         </div>
       </div>
     </div>
+    <van-overlay :showoverlay="showoverlay" v-show="showoverlay" @click="showoverlay = false">
+      <div class="wrapper" @click.stop>
+        <div class="block" />ffe
+      </div>
+    </van-overlay>
     <HomeChat
       v-show="homeChat"
       @showChatC="showChatP"
@@ -229,7 +234,7 @@
   </div>
 </template>
 <script>
-import { Popup, Toast } from "vant";
+import { Popup, Toast, Overlay } from "vant";
 // import wxapi from '../assets/js/common/wxapi';
 import wx from "weixin-js-sdk";
 import HomeChat from "../components/HomeChat";
@@ -263,6 +268,7 @@ export default {
   },
   data() {
     return {
+      showoverlay: true,
       isSellerShop: false,
       isTask: false,
       isRanking: false,
@@ -271,7 +277,7 @@ export default {
       linewidthData: "",
       isList: false,
       isBean: false,
-      isRep: false,
+      isRep: true,
       WhoLook: false,
       homeChat: false,
       vipExpiryTime: "",
@@ -575,7 +581,7 @@ export default {
     },
     // 授权
     impower() {
-      let param = { code: this.code};
+      let param = { code: this.code };
       let res = reqbebotCode(param);
       res
         .then(res => {
@@ -634,23 +640,21 @@ export default {
       if (this.flag) {
         param = {
           dialog_type: "0",
-          broker_id: 33,
-          robot_id: 33,
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robot_id,
           speaker: "2",
           content: ".",
-          token:
-            "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          token: this.$route.query.token
         };
         this.flag = false;
       } else {
         param = {
           dialog_type: "1",
-          broker_id: 33,
-          robot_id: 33,
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robot_id,
           speaker: "2",
           content: this.question,
-          token:
-            "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          token: this.$route.query.token
         };
       }
       console.log(param);
@@ -745,14 +749,15 @@ export default {
         this.$route.query.broker_id = this.$route.query.visitor_id;
       }
       let param = {
-        // "robot_id":35,
-        // "broker_id":35,
-        // "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
-
-        robot_id:  this.$route.query.robot_id,
-        broker_id: this.$route.query.broker_id,
+        robot_id: 93,
+        broker_id: 93,
         token:
-          this.$route.query.token
+          "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZks4bzpnaHZKVnpDTXVSOTdtdHQxVno1NnBXV1FxZm8.ZXlKUVNFOU9SU0k2SWpFNE1qRXdNRGt4T0Rnd0lpd2lTVVFpT2prekxDSnBZWFFpT2pFMU9UQTVNVFk0TWpZdU1UWTNNekUxTjMwOjFqZks4bzptaHp1R0QxdGMwa29rQmtEbnZzWlgtWmR6Tm8.fb462840a61d81dd83fac507776d51af"
+
+        // robot_id:  this.$route.query.robot_id,
+        // broker_id: this.$route.query.broker_id,
+        // token:
+        //   this.$route.query.token
       };
       console.log(param);
       let result = reqHomeInit(param);
@@ -783,6 +788,7 @@ export default {
           expLine = (this.homeInit.exp / this.homeInit.level_exp) * 99;
           (this.linewidthData = expLine + "px"),
             console.log("this.linewidthData", this.linewidthData);
+          // alert(JSON.stringify(this.homeInit))
           if (this.homeInit.title == 1) {
             //保险等级
             this.homeLevel = this.levelbx1;
@@ -838,6 +844,7 @@ export default {
   created() {
     // this.getCode()
     // this.getUrlCode()
+    // alert(this.$route.query.broker_id)
     this.url = window.location.href.split("#")[0];
     var start = this.url.indexOf("=");
     var end = this.url.indexOf("&");
@@ -866,6 +873,7 @@ export default {
 /deep/ .van-popup {
   overflow: visible;
 }
+
 .contain {
   height: 100vh;
   display: flex;
@@ -876,6 +884,18 @@ export default {
   background-position: 0 100%;
   justify-content: space-between;
   flex-direction: column;
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .block {
+    width: 120px;
+    height: 120px;
+    background-color: #fff;
+  }
   .information {
     height: 90px;
     margin: 18px 0 0 20px;

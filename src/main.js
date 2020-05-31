@@ -3,8 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Vant from 'vant';
-import element from 'element-ui'
-import { Toast,Button } from 'vant';
+import { Toast,Button,Overlay } from 'vant';
 import 'vant/lib/index.css';
 import VueClipboard  from 'vue-clipboard2'
 import { DatetimePicker } from 'vant';
@@ -24,14 +23,12 @@ let Request = new UrlSearch
 Vue.prototype.$Request = Request
 Vue.use(VueWechatTitle);
 Vue.use(Vant);
-Vue.use(element);
 Vue.use(DatetimePicker);
 // Vue.prototype.$http = http;
 Vue.prototype.$jquery = $;
 Vue.config.productionTip = false
 Vue.use( VueClipboard )
-Vue.use(Toast);
-Vue.use(Toast,Button);
+Vue.use(Toast,Button,Overlay);
 
 new Vue({
   router,

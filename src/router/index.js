@@ -1,9 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
-
 import Home from '../views/Home'
-import ACchat from '../views/HomeChild/ACchat'
 import HomeOther from '../views/HomeOther'
 import FindList from '../components/FindList'
 import Strategy from '../views/Strategy'
@@ -47,14 +45,6 @@ const routes = [
         meta: {
             title: "首页"
         }
-    },
-    {
-        path: '/ACchat',
-        name: "ACchat",
-        component: ACchat,
-        meta: {
-            title:  "AC代理人对话"
-        },
     },
     {
         path: '/FindList',

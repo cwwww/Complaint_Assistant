@@ -201,6 +201,7 @@ export default {
       star: "",
       isStatus: "",
       fairyStatus: "",
+      login:require("../assets/images/login@2x.png"),
       share: require("../assets/images/share@2x.png"),
       img: require("../assets/images/icon.png"),
       register: require("../assets/images/register@2x.png"),
@@ -284,7 +285,17 @@ this.fairyShop = data
       this.isOwn = false;
     },
     toRegister() {
-      this.$router.push("/login");
+      this.$router.push({
+        path:'/login',
+        query:{
+          type:'otherLogin',
+          customer_id:  this.visitList.customer_id,
+          customer_robot_id:  this.customer_robot_id,
+          customer_type:  this.customer_type,
+          visited_robot_id: this.$route.query.broker_id,
+          token: this.visitList.token || "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        }
+      });
     },
     submit(numIndex) {
       this.numIndex += 1;
