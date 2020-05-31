@@ -277,7 +277,7 @@ export default {
       linewidthData: "",
       isList: false,
       isBean: false,
-      isRep: true,
+      isRep: false,
       WhoLook: false,
       homeChat: false,
       vipExpiryTime: "",

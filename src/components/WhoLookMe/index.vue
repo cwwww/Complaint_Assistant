@@ -38,11 +38,11 @@
       :broker_id_prop="broker_id_prop"
       :robot_id_prop="robot_id_prop"
       :token_prop="token_prop"
-      :titleName="this.list[index].name"
-      :customer_type="this.list[index].customer_type"
-      :customerImg="this.list[index].headimgurl"
-      :customer_id="this.list[index].customer_id"
-      v-if="list[index].customer_id"
+      :titleName="list.name"
+      :customer_type="list.customer_type"
+      :customerImg="list.headimgurl"
+      :customer_id="list.customer_id"
+      v-if="list.customer_id"
     />
   </div>
 </template>
@@ -87,18 +87,6 @@ export default {
     },
     toACchat(index) {
       this.isACChat = true;
-      this.$router.push({
-        path: "/ACchat",
-        query: {
-          titleName: this.list[index].name,
-          customer_type: this.list[index].customer_type,
-          customerImg: this.list[index].headimgurl,
-          customer_id: this.list[index].customer_id,
-          broker_id: this.broker_id,
-          robot_id: this.robot_id,
-          token: this.token
-        }
-      });
     }
   },
   mounted() {
