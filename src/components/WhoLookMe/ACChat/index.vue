@@ -122,7 +122,6 @@ export default {
     this.customerImg_prop = this.customerImg;
     this.customer_id_prop = this.customer_id;
     this.list_prop = this.list
-    
   },
   watch: {
     ACChat_show(newValue) {
