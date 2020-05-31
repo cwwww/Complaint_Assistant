@@ -39,11 +39,11 @@
       :robot_id_prop="robot_id_prop"
       :token_prop="token_prop"
       :list="list"
+    />
       <!-- :titleName="list.name"
       :customer_type="list.customer_type"
       :customerImg="list.headimgurl"
-      :customer_id="list.customer_id" -->
-    />
+      :customer_id="list.customer_id"  -->
   </div>
 </template>
 <script>
@@ -93,7 +93,7 @@ export default {
     let param = {
       broker_id:  this.broker_id_prop,
       robot_id: this.robot_id_prop,
-      token: this.token_prop
+      token:this.token_prop
     };
     let result = reqLookMe(param);
     result
