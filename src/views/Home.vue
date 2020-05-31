@@ -756,8 +756,7 @@ export default {
 
         // robot_id:  this.$route.query.robot_id,
         // broker_id: this.$route.query.broker_id,
-        // token:
-        //   this.$route.query.token
+        // token:this.$route.query.token
       };
       console.log(param);
       let result = reqHomeInit(param);
@@ -859,8 +858,6 @@ export default {
     // } else {
     //     // 别的业务逻辑
     // }
-
-    console.log(JSON.stringify(this.$route.query));
     this.getHomeInit();
     this.getDetail();
     //定时获取粉丝数据

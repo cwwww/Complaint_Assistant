@@ -8,7 +8,7 @@
       :style="{ height: '77.2%' }"
       @closed="close"
     >
-      <div class="title">{{this.$route.query.titleName}}</div>
+      <div class="title">{{titleName_prop}}</div>
       <div style="background:rgba(245,245,245,1);height:1.2%"></div>
       <div class="wrapper" ref="wrapper">
         <div class="content" v-for="(i,index) in list" :key="index">
@@ -130,7 +130,6 @@ export default {
   },
   methods: {
     close() {
-      alert(this.list_prop)
       this.$emit("ACChatC", false);
     },
     getDialogAgent() {
