@@ -3,6 +3,7 @@
     <van-popup
       v-model="chat"
       closeable
+      round
       position="bottom"
       :style="{ height: '77.2%' }"
       @closed="close"
@@ -108,10 +109,11 @@ export default {
     "titleName",
     "customer_type",
     "customerImg",
-    "customer_id"
+    "customer_id",
+    "list"
   ],
   created() {
-    this.show = this.ACChat_show;
+    this.chat = this.ACChat_show;
     this.broker_id_prop = this.broker_id;
     this.robot_id_prop = this.robot_id;
     this.token_prop = this.token;
@@ -119,14 +121,17 @@ export default {
     this.customer_type_prop = this.customer_type;
     this.customerImg_prop = this.customerImg;
     this.customer_id_prop = this.customer_id;
+    this.list_prop = this.list
+    
   },
   watch: {
     ACChat_show(newValue) {
-      this.show = newValue;
+      this.chat = newValue;
     }
   },
   methods: {
     close() {
+      alert(this.list_prop)
       this.$emit("ACChatC", false);
     },
     getDialogAgent() {

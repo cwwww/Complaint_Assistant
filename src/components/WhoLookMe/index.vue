@@ -38,11 +38,11 @@
       :broker_id_prop="broker_id_prop"
       :robot_id_prop="robot_id_prop"
       :token_prop="token_prop"
-      :titleName="list.name"
+      :list="list"
+      <!-- :titleName="list.name"
       :customer_type="list.customer_type"
       :customerImg="list.headimgurl"
-      :customer_id="list.customer_id"
-      v-if="list.customer_id"
+      :customer_id="list.customer_id" -->
     />
   </div>
 </template>
@@ -91,9 +91,9 @@ export default {
   },
   mounted() {
     let param = {
-      broker_id: this.broker_id,
-      robot_id: this.robot_id,
-      token: this.token
+      broker_id: 33 || this.broker_id,
+      robot_id:33 ||  this.robot_id,
+      token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1" || this.token
     };
     let result = reqLookMe(param);
     result
