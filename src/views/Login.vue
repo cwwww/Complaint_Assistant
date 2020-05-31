@@ -131,7 +131,7 @@ export default {
             }
           })
           .catch(reslove => {
-            Toast(reslove.msg);
+            Toast('验证输入次数频繁');
           });
       }
     },
