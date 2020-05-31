@@ -164,9 +164,9 @@ export default {
           .then(res => {
             console.log(res);
             this.messages = res.result;
-            if (this.$route.query.type == "otherLogin") {
-              this.$router.push({
-                path: "/HomeOther",
+            // if (this.$route.query.type == "otherLogin") {
+              // this.$router.push({
+                // path: "/HomeOther",
                 // query: {
                 //   customer_id: this.visitList.customer_id,
                 //   customer_robot_id: this.customer_robot_id,
@@ -174,8 +174,8 @@ export default {
                 //   visited_robot_id: this.$route.query.broker_id,
                 //   token: this.visitList.token
                 // }
-              });
-            } else {
+              // });
+            // } else {
               this.$router.push({
                 path: "/",
                 query: {
@@ -184,7 +184,7 @@ export default {
                   token: this.messages.token
                 }
               });
-            }
+            // }
           })
           .catch(reslove => {
             console.log("error");

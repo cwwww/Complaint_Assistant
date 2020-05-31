@@ -749,14 +749,14 @@ export default {
         this.$route.query.broker_id = this.$route.query.visitor_id;
       }
       let param = {
-        robot_id: 93,
-        broker_id: 93,
-        token:
-          "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZks4bzpnaHZKVnpDTXVSOTdtdHQxVno1NnBXV1FxZm8.ZXlKUVNFOU9SU0k2SWpFNE1qRXdNRGt4T0Rnd0lpd2lTVVFpT2prekxDSnBZWFFpT2pFMU9UQTVNVFk0TWpZdU1UWTNNekUxTjMwOjFqZks4bzptaHp1R0QxdGMwa29rQmtEbnZzWlgtWmR6Tm8.fb462840a61d81dd83fac507776d51af"
+        // robot_id: 93,
+        // broker_id: 93,
+        // token:
+        //   "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZks4bzpnaHZKVnpDTXVSOTdtdHQxVno1NnBXV1FxZm8.ZXlKUVNFOU9SU0k2SWpFNE1qRXdNRGt4T0Rnd0lpd2lTVVFpT2prekxDSnBZWFFpT2pFMU9UQTVNVFk0TWpZdU1UWTNNekUxTjMwOjFqZks4bzptaHp1R0QxdGMwa29rQmtEbnZzWlgtWmR6Tm8.fb462840a61d81dd83fac507776d51af"
 
-        // robot_id:  this.$route.query.robot_id,
-        // broker_id: this.$route.query.broker_id,
-        // token:this.$route.query.token
+        robot_id:  this.$route.query.robot_id,
+        broker_id: this.$route.query.broker_id,
+        token:this.$route.query.token
       };
       console.log(param);
       let result = reqHomeInit(param);
