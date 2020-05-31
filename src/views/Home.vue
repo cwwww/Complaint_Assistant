@@ -411,14 +411,15 @@ export default {
     isYes() {
       //买家精灵商店确定购买
       this.vipNotification = false;
-      this.$router.push({
-        path: "/sellerShop/vipShop",
-        query: {
-          broker_id: this.$route.query.visitor_id,
-          robot_id: this.$route.query.robot_id,
-          token: this.$route.query.token
-        }
-      });
+      this.isSellerShop = true
+      // this.$router.push({
+      //   path: "/sellerShop/vipShop",
+      //   query: {
+      //     broker_id: this.$route.query.visitor_id,
+      //     robot_id: this.$route.query.robot_id,
+      //     token: this.$route.query.token
+      //   }
+      // });
     },
 
     HomeChat() {
