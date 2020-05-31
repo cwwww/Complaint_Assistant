@@ -34,9 +34,9 @@
 
             <div class="ArticleExperience">{{homeInit.exp}}/{{homeInit.level_exp}}</div>
             <div class="level">Lv.{{homeInit.level}}</div>
-                <div class="invitation" @click="toInvite">
-      <img class="invitationicon" src="../assets/images/邀请@2x.png" alt />
-    </div>
+            <div class="invitation" @click="toInvite">
+              <img class="invitationicon" src="../assets/images/邀请@2x.png" alt />
+            </div>
           </div>
         </div>
         <div class="bottomHalfPart">
@@ -123,7 +123,6 @@
         <li @click="FairyShop">
           <img :src="home_store" alt />
           <span>精灵商店</span>
-          <router-view></router-view>
         </li>
         <li @click="WhoLookMe">
           <img :src="home_browse" alt />
@@ -132,9 +131,8 @@
         <li @click="HomeChat">
           <img :src="home_chatrecord" alt />
           <span>聊天记录</span>
-          <router-view></router-view>
         </li>
-        <li @click="Ranking(curIndex)">
+        <li @click="Ranking()">
           <img :src="home_rankinglist" alt />
           <span>排行榜</span>
         </li>
@@ -220,6 +218,14 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
     />
+    <SellerShop
+      v-show="isSellerShop"
+      @sellershopc="SellerShopP"
+      :sellerShop_show="isSellerShop"
+      :broker_id="$route.query.broker_id"
+      :robot_id="$route.query.robot_id"
+      :token="$route.query.token"
+    />
   </div>
 </template>
 <script>
@@ -232,6 +238,7 @@ import Repository from "../components/Repository";
 import List from "../components/List";
 import Ranking from "../components/Ranking";
 import Task from "../components/Task";
+import SellerShop from "../components/SellerShop";
 import {
   reqHomeInit,
   reqCusayrob,
@@ -251,12 +258,14 @@ export default {
     Repository,
     List,
     Ranking,
-    Task
+    Task,
+    SellerShop
   },
   data() {
     return {
-      isTask:false,
-      isRanking:false,
+      isSellerShop: false,
+      isTask: false,
+      isRanking: false,
       curIndex: Number,
       warnInfo: "",
       linewidthData: "",
@@ -339,13 +348,16 @@ export default {
     };
   },
   methods: {
-    TaskP(data){
+    SellerShopP(data) {
+      this.isSellerShop = data;
+    },
+    TaskP(data) {
       this.isTask = data;
     },
-    rankgohome(data){
+    rankgohome(data) {
       this.isRanking = data;
     },
-  RankingP(data) {
+    RankingP(data) {
       this.isRanking = data;
     },
     ListP(data) {
@@ -369,7 +381,7 @@ export default {
       //好友
       this.isFriend = data;
     },
-    toInvite(){
+    toInvite() {
       this.$router.push("/invite");
     },
     open7() {
@@ -383,14 +395,7 @@ export default {
     },
     FairyShop() {
       // 买家精灵商店
-      this.$router.push({
-        path: "/sellerShop",
-        query: {
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robot_id,
-          token: this.$route.query.token
-        }
-      });
+      this.isSellerShop = true;
       this.destoryTimer();
     },
     isNo() {
@@ -420,9 +425,8 @@ export default {
       this.WhoLook = true;
       this.destoryTimer();
     },
-    Ranking(curIndex) {
-      // this.curIndex = 0
-      this.isRanking = true
+    Ranking() {
+      this.isRanking = true;
       this.destoryTimer();
     },
     Task() {
@@ -571,7 +575,7 @@ export default {
     },
     // 授权
     impower() {
-      let param = { code: "this.code" };
+      let param = { code: this.code};
       let res = reqbebotCode(param);
       res
         .then(res => {
@@ -671,7 +675,7 @@ export default {
     getReqtaskStatus() {
       let param = {
         broker_id: this.$route.query.broker_id,
-        broker_id: this.$route.query.broker_id,
+        robot_id: this.$route.query.robot_id,
         operation_type: 1,
         token: this.$route.query.token
       };
@@ -745,9 +749,10 @@ export default {
         // "broker_id":35,
         // "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVEZ1YzpfWDdibHVQSTlfakkzakpOLW9EaVh1YlRTTmM.ZXlKUVNFOU9SU0k2SWpFNE9ERXdOREEzTXpReUlpd2lTVVFpT2pNMUxDSnBZWFFpT2pFMU9EZ3dOREEyTXpRdU5qSTFOak15ZlE6MWpURnVjOklEeVg3Mm1ndVNCSVE2ak1SUXFrcTAySVgyMA.7b9a0477f64f392c41c0b4626d245c40"
 
-        robot_id:93||  this.$route.query.robot_id,
-        broker_id:93||  this.$route.query.broker_id,
-        token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZXg3VDowZHo1d0pIQjVxbTh6WmI4MWhVVVhmNnV5Nkk.ZXlKUVNFOU9SU0k2SWpFNE1qRXdNRGt4T0Rnd0lpd2lTVVFpT2prekxDSnBZWFFpT2pFMU9UQTRNamd6TXpFdU56VXlORGd3TTMwOjFqZXg3VDpnQVJNdGhFYkZDM0I4ZXVTZ1lJN2w4QXN0Snc.7f927d6cc7ad46abb0be8e52483a6d02" || this.$route.query.token
+        robot_id:  this.$route.query.robot_id,
+        broker_id: this.$route.query.broker_id,
+        token:
+          this.$route.query.token
       };
       console.log(param);
       let result = reqHomeInit(param);
@@ -882,16 +887,16 @@ export default {
     .topHalfPart {
       display: flex;
       margin-bottom: 6px;
-.invitation{
-			// margin-left: 6px;
-			top: 98px;
-			left:-62px;
-			position: absolute;
-      .invitationicon{
-        width: 61px;
-        height: 79px;
+      .invitation {
+        // margin-left: 6px;
+        top: 98px;
+        left: -62px;
+        position: absolute;
+        .invitationicon {
+          width: 61px;
+          height: 79px;
+        }
       }
-		}
       .headPortrait {
         width: 45px;
         height: 45px;
@@ -1065,7 +1070,6 @@ export default {
       }
     }
   }
-
 }
 .rightList {
   display: flex;
@@ -1405,7 +1409,7 @@ export default {
     width: 70px;
     height: 92px;
     position: absolute;
-    top:50%;
+    top: 50%;
     margin-top: -32px;
   }
 }

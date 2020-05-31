@@ -99,12 +99,10 @@
         <li @click="FairyShop">
           <img :src="home_store" alt />
           <span>精灵商店</span>
-          <router-view></router-view>
         </li>
         <li @click="HomeChat">
           <img :src="home_chatrecord" alt />
           <span>聊天记录</span>
-          <router-view></router-view>
         </li>
       </ul>
       <div class="input-bottom">
@@ -132,14 +130,34 @@
       :token="visitList.token"
       v-if="visitList.customer_id"
     />
+    <FairyShop
+      v-show="fairyShop"
+      @fairyShopC="FairyShopP"
+      :fairyShop="showACChat"
+      :broker_id="visitList.broker_id"
+      :robot_id="visitList.robot_id"
+
+      :token="visitList.token"
+      :robot_visitId="$route.query.robot_visitId"
+      v-if="visitList.Othername"
+    />
+    <CancelFollow
+      v-show="CancelFollow"
+      @cancelfollowC="CancelFollowP"
+            :broker_id="visitList.broker_id"
+      :robot_id="visitList.robot_id"
+
+      :token="visitList.token"
+      :cancelfollow="CancelFollow"
+      :robot_visitId="$route.query.robot_visitId"
+    />
   </div>
 </template>
 <script>
 import { Popup, Toast } from "vant";
 import ACVisitor from "../components/ACVisitor";
-// import {
-// 	MessageBox
-// } from 'element-ui';
+import FairyShop from "../components/FairyShop";
+import CancelFollow from "../components/CancelFollow";
 import {
   reqHomeInit,
   reqCusayrob,
@@ -153,10 +171,12 @@ import {
 } from "../axios/axios-api";
 export default {
   components: {
-    ACVisitor
+    ACVisitor,FairyShop,CancelFollow
   },
   data() {
     return {
+      CancelFollow:false,
+      fairyShop:false,
       showACChat: false,
       visitList: "",
       mes: "",
@@ -217,6 +237,12 @@ export default {
     };
   },
   methods: {
+    cancelfollowC(data){
+this.CancelFollow = data
+    },
+    FairyShopP(data){
+this.fairyShop = data
+    },
     toFXCP() {
       window.parent.location.href =
         "https://m.baoxianxia.com.cn/risk/index.html";
@@ -227,6 +253,7 @@ export default {
     },
     FairyShop() {
       //买家精灵商店
+      this.fairyShop = true
       this.$router.push({
         path: "/FairyShop",
         query: {
@@ -341,17 +368,7 @@ export default {
             console.log("error");
           });
       } else if (this.guanzhuContent == "已关注") {
-        this.$router.push({
-          path: "/CancelFollow",
-          query: {
-            robot_id: this.$route.query.robot_id,
-            followed_robot_id: this.$route.query.robot_visitId,
-            broker_id: this.$route.query.broker_id,
-            follow_name: this.homeInit.name,
-            follow_img: this.homeInit.headimgurl,
-            token:this.$route.query.token
-            }
-        });
+        this.CancelFollow = true
       }
     },
     //关注好友

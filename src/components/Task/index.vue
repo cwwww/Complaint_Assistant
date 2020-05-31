@@ -131,7 +131,6 @@ export default {
         this.np5 = res.result.np5;
       })
       .catch(reslove => {
-        alert(66666);
         console.log("error");
       });
   }

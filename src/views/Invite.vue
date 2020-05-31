@@ -231,7 +231,6 @@ export default {
         console.log(this.yaoqList, "邀请好友");
       })
       .catch(reslove => {
-        alert(66666);
         console.log("error");
       });
   },

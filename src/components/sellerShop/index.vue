@@ -7,38 +7,62 @@
       round
       position="bottom"
       :style="{ height: '70%' }"
-        @close="close"
+      @close="close"
     >
       <img :src="img" alt />
       <div class="title" id="title">
         <ul>
-          <router-link
-            v-for="(route, index) in routes"
+          <li
+            v-for="(item, index) in lists"
             :key="index"
-            data-index="0"
             :class="{'active': index === curIndex}"
             class="bigBox"
-            :to="{name: route.name}"
-            tag="li"
           >
-            <span @click="changeIndex(index)">{{route.title}}</span>
-          </router-link>
+            <span @click="changeIndex(index)">{{item.title}}</span>
+          </li>
         </ul>
       </div>
-      <router-view />
+      <mySeller
+        v-show="curIndex == 2"
+        :broker_id_prop="broker_id_prop"
+        :robot_id_prop="robot_id_prop"
+        :token_prop="token_prop"
+      />
+      <myShop
+        v-show="curIndex == 0"
+        :broker_id_prop="broker_id_prop"
+        :robot_id_prop="robot_id_prop"
+        :token_prop="token_prop"
+      />
+      <vipShop
+        v-show="curIndex == 1"
+        :broker_id_prop="broker_id_prop"
+        :robot_id_prop="robot_id_prop"
+        :token_prop="token_prop"
+      />
     </van-popup>
   </div>
 </template>
 <script>
+import mySeller from "./mySeller";
+import myShop from "./myShop";
+import vipShop from "./vipShop";
 export default {
   name: "sellerShop",
+  components: {
+    mySeller,
+    myShop,
+    vipShop
+  },
   data() {
     return {
-      // flag:0,
       curIndex: 0,
+      broker_id_prop: "",
+      robot_id_prop: "",
+      token_prop: "",
       show: true,
       img: require("../../assets/images/icon.png"),
-      routes: [
+      lists: [
         {
           name: "myShop",
           title: "我的商店"
@@ -46,7 +70,7 @@ export default {
         {
           name: "vipShop",
           title: "会员商店"
-        }, 
+        },
         {
           name: "mySeller",
           title: "我卖出的"
@@ -54,15 +78,28 @@ export default {
       ]
     };
   },
+  props: ["sellerShop_show", "broker_id", "robot_id", "token"],
+  created() {
+    
+    this.show = this.sellerShop_show;
+    this.broker_id_prop = this.broker_id;
+    this.robot_id_prop = this.robot_id;
+    this.token_prop = this.token;
+  },
+  watch: {
+    sellerShop_show(newValue) {
+      this.show = newValue;
+    }
+  },
   methods: {
     changeIndex(i) {
       this.curIndex = i;
     },
     close() {
-      this.$router.replace('/')
+      this.$emit("sellershopc", false);
     }
   },
-  mounted(){
+  mounted() {
     // this.curIndex = i
   }
 };
@@ -98,7 +135,7 @@ export default {
         justify-content: space-around;
         padding-left: 63px;
         padding-right: 62px;
-        & > li.active {
+        > li.active {
           font-size: 17px;
           font-family: PingFangSC-Medium, PingFang SC;
           font-weight: 600;
@@ -126,25 +163,25 @@ export default {
     }
   }
   > .rightLogin {
-    width:80px;
-    height:32px;
-    background:rgba(0,147,253,1);
-    border-radius:16px;
+    width: 80px;
+    height: 32px;
+    background: rgba(0, 147, 253, 1);
+    border-radius: 16px;
     margin: 29px 20px 0 0;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    > img{
+    > img {
       width: 16px;
-      height: 16px;  
+      height: 16px;
     }
-    > div{
-      font-size:15px;
-      font-family:PingFangSC-Medium,PingFang SC;
-      font-weight:500;
-      color:rgba(255,255,255,1);
-      line-height:21px;
+    > div {
+      font-size: 15px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      line-height: 21px;
       margin-left: 2px;
     }
   }

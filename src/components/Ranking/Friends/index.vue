@@ -76,11 +76,9 @@ export default {
       robot_id: this.robot_id_prop,
       token:this.token_prop
     };
-    console.log(param);
     let result = RanlingDatasFriend(param);
     result
       .then(res => {
-        console.log(res);
         this.theglobalList = res.result.friends;
       })
       .catch(reslove => {

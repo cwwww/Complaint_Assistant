@@ -11,24 +11,25 @@
     >
       <span>谁看过我</span>
       <div class="line"></div>
-      <div class="centerContent" @click="toACchat(index)" v-for="(i, index) in list" :key="index">
-        <div class="loginImg">
-          <img :src="img" alt v-show="i.headimgurl == null" />
-          <img :src="i.headimgurl" v-show="i.headimgurl != null" alt />
-        </div>
-        <div class="rightContent">
-          <div class="leftText">
-            <div class="topTitle">{{i.name}}</div>
-            <div class="bottomTime">{{i.visit_time}}</div>
+      <div class="main">
+        <div class="centerContent" @click="toACchat(index)" v-for="(i, index) in list" :key="index">
+          <div class="loginImg">
+            <img :src="img" alt v-show="i.headimgurl == null" />
+            <img :src="i.headimgurl" v-show="i.headimgurl != null" alt />
           </div>
-          <div class="rightPink">
-            <img :src="img" alt />
-            <p>{{i.intention_score}}</p>
+          <div class="rightContent">
+            <div class="leftText">
+              <div class="topTitle">{{i.name}}</div>
+              <div class="bottomTime">{{i.visit_time}}</div>
+            </div>
+            <div class="rightPink">
+              <img :src="img" alt />
+              <p>{{i.intention_score}}</p>
+            </div>
+            <div class="borderLine"></div>
           </div>
-          <div class="borderLine"></div>
         </div>
       </div>
-      <router-view />
     </van-popup>
   </div>
 </template>
@@ -118,6 +119,11 @@ export default {
       margin-top: 10px;
       margin-bottom: 16px;
     }
+    .main{
+      overflow-y: hidden;
+      overflow: scroll;
+      height: 400px;
+      ;
     > .centerContent {
       height: 60px;
       display: flex;
@@ -187,6 +193,7 @@ export default {
           left: 0;
         }
       }
+    }
     }
   }
 }
