@@ -199,7 +199,7 @@ export default {
   },
   mounted() {
     // this.scrollToBottom();
-    this.$forceUpdate();
+    this.reload()
     this.getChatList()
   }
 };
