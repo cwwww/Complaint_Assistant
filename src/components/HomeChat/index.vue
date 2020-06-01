@@ -142,7 +142,7 @@ export default {
           });
       }
     },
-    chathist(index) {
+    chathist(index) {  //发布
       console.log(this.list[index]);
       let param = {
         broker_id: this.broker_id,
@@ -199,6 +199,7 @@ export default {
   },
   mounted() {
     // this.scrollToBottom();
+    this.$forceUpdate();
     this.getChatList()
   }
 };
