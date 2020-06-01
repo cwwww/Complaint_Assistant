@@ -377,7 +377,7 @@ export default {
     showChatP(data) {
       this.homeChat = data;
       if(!this.homeChat){
-        this.list2 = this.HistoryList.slice(-4).content
+        this.list2 = this.HistoryList.slice(-4)
         alert(JSON.stringify(this.HistoryList))
       }
     },
@@ -708,7 +708,6 @@ export default {
           this.list.push(this.question);
           this.list.push(this.answer);
           this.list2 = this.list.slice(-4);
-          console.log(this.list2);
           if (this.list2[0] == "") {
           }
           this.question = "";
