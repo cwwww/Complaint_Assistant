@@ -240,6 +240,7 @@ export default {
     if (!window.localStorage.getItem("openId")) {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
       this.getCode();
+      this.impower();
     } else {
       // 别的业务逻辑
     }
@@ -251,7 +252,7 @@ export default {
     var end = this.url.indexOf("&");
     this.code = this.url.substring(start + 1, end);
     console.log(this.url);
-    this.impower();
+    
   }
 };
 </script>
