@@ -133,6 +133,7 @@ export default {
       this.$emit("ACChatC", false);
     },
     getDialogAgent() {
+      alert(JSON.stringify('三方聊天'+this.list_prop))
       //AC 聊天记录
       let param;
       if (this.flag) {
