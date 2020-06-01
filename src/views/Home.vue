@@ -231,6 +231,7 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :type="toget"
+      v-if="toget"
     />
   </div>
 </template>
@@ -404,7 +405,6 @@ export default {
     FairyShop() {
       // 买家精灵商店
       this.toget = 0
-      alert(this.toget)
       this.isSellerShop = true;
       this.destoryTimer();
     },
@@ -427,7 +427,6 @@ export default {
     },
     toGet(){
       this.toget = 1
-      alert(this.toget)
       this.isSellerShop = true;
     },
     noGet(){
