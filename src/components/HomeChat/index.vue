@@ -87,7 +87,7 @@ export default {
   props:['broker_id','robot_id','token','show_chat',"val"],
   created(){
       this.chat = this.show_chat
-      this.getChatList();
+      this.question = this.val
   },
   watch:{
     show_chat(newValue){
@@ -108,7 +108,7 @@ export default {
         token: this.token,
         robot_id : this.robot_id,
         speaker : '2',
-        content : this.val,
+        content : this.question,
         create_time : new Date().toLocaleString(),
       };
       alert(JSON.stringify(param))
