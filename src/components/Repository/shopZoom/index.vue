@@ -74,12 +74,12 @@ export default {
   data() {
     return {
       list: [],
-      questiondata: "",
-      answerdata: "",
-      show: false,
-      isShow: false,
-      showIndex: 0,
-      flag: false,
+    curIndex: 0,
+      show: true,
+      isShow:false,
+	  showIndex:0,
+	  isEdit:false,
+      flag:true,
       img: require("../../../assets/images/Q_small_icon@2x.png"),
       img1: require("../../../assets/images/A_small_icon@2x.png"),
       img2: require("../../../assets/images/biajide.png"),
@@ -156,8 +156,8 @@ export default {
     },
     toAdd() {
       if (this.flag) {
-        this.Qusetion = this.$route.query.Qusetion;
-        this.Answer = this.$route.query.Answer;
+        this.Qusetion = this.Qusetion;
+        this.Answer = this.Answer;
         this.flag = false;
       } else {
         this.Qusetion = "";
