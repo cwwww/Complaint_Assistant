@@ -269,6 +269,7 @@ export default {
   },
   data() {
     return {
+      
       toget:'',
       showoverlay: true,
       isSellerShop: false,
@@ -650,6 +651,11 @@ export default {
       }
     },
     getDetail() {
+      if(this.val != ''){
+        alert('val为：')
+        this.flag = false
+        this.question = this.val
+      }
       let param;
       if (this.flag) {
         param = {
