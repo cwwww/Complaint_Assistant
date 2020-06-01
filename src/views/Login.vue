@@ -196,8 +196,26 @@ export default {
       let res = reqbebotCode(param);
       res
         .then(res => {
-          console.log(res);
           this.mes = res.result;
+          let param = { openid: this.mes.openid };
+          let result = reqisregistered(param);
+          result
+            .then(result => {
+              this.loginMeg = result.result;
+              if (this.loginMeg.visitor_type == 1) {
+                this.$router.push({
+                  path: "/",
+                  query: {
+                    visitor_id: this.loginMeg.visitor_id,
+                    robot_id: this.loginMeg.robot_id,
+                    token: this.loginMeg.token
+                  }
+                });
+              }
+            })
+            .catch(reslove => {
+              console.log("error");
+            });
         })
         .catch(reslove => {
           console.log("error");
@@ -246,26 +264,6 @@ export default {
       this.code = this.url.substring(start + 1, end);
       console.log(this.url);
       this.impower();
-      let param = { openid: this.mes.openid };
-      let res = reqisregistered(param);
-      res
-        .then(res => {
-          this.loginMeg = res.result;
-          console.log(this.loginMeg);
-          if (this.loginMeg.visitor_type == 1) {
-            this.$router.push({
-              path: "/",
-              query: {
-                visitor_id: this.loginMeg.visitor_id,
-                robot_id: this.loginMeg.robot_id,
-                token: this.loginMeg.token
-              }
-            });
-          }
-        })
-        .catch(reslove => {
-          console.log("error");
-        });
     }
   },
   mounted() {
