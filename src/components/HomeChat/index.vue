@@ -107,10 +107,10 @@ export default {
       let param = {
         broker_id: this.broker_id,
         token: this.token,
-        robot_id : this.robot_id,
-        speaker : '2',
-        content : this.hisChat,
-        create_time : new Date().toLocaleString(),
+        // robot_id : this.robot_id,
+        // speaker : '2',
+        // content : this.hisChat,
+        // create_time : new Date().toLocaleString(),
       };
       alert(JSON.stringify(param))
       let res = reqRobotHistory(param);
