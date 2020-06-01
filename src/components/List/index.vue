@@ -73,7 +73,6 @@ export default {
       this.curIndex = i;
     },
     close1() {
-      alert(JSON.stringify(this.token_prop+'111'))
       this.$emit("listc", false);
     }
   }

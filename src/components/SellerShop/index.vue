@@ -82,7 +82,7 @@ export default {
     this.broker_id_prop = this.broker_id;
     this.robot_id_prop = this.robot_id;
     this.token_prop = this.token;
-    this.type_prop = this.class
+    this.type_prop = this.class;
   },
   watch: {
     sellerShop_show(newValue) {
@@ -94,17 +94,16 @@ export default {
       this.curIndex = i;
     },
     close() {
-          alert(JSON.stringify(this.token_prop +'token'))
-    // alert(JSON.stringify(this.type_prop +'class'))
+      alert(JSON.stringify(this.token_prop + "token"));
+      // alert(JSON.stringify(this.type_prop +'class'))
       this.$emit("sellershopc", false);
-      this.curIndex = 0
+      this.curIndex = 0;
     }
   },
   mounted() {
-
-    if(this.type_prop == 1){
-      this.curIndex = 1
-      console.log(this.class)
+    if (this.type_prop == 1) {
+      this.curIndex = 1;
+      console.log(this.class);
     }
   }
 };
