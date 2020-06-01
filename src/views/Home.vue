@@ -404,7 +404,9 @@ export default {
     },
     FairyShop() {
       // 买家精灵商店
+      alert(this.toget)
       this.toget = 0
+      alert(this.toget)
       this.isSellerShop = true;
       this.destoryTimer();
     },
