@@ -87,6 +87,7 @@ export default {
   props:['broker_id','robot_id','token','show_chat'],
   created(){
       this.chat = this.show_chat
+      this.getChatList();
   },
   watch:{
     show_chat(newValue){
@@ -194,7 +195,7 @@ export default {
   },
   mounted() {
     // this.scrollToBottom();
-    this.getChatList();
+    
   }
 };
 </script>

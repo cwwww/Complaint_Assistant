@@ -169,7 +169,7 @@
     </div>
     <van-overlay :showoverlay="showoverlay" v-show="showoverlay" @click="showoverlay = false">
       <div class="wrapper" @click.stop>
-        <div class="block" />ffe
+        <div class="block" />
       </div>
     </van-overlay>
     <HomeChat
