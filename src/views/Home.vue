@@ -427,6 +427,7 @@ export default {
     },
     toGet(){
       this.toget = 1
+      alert(this.toget)
       this.isSellerShop = true;
     },
     noGet(){
