@@ -189,9 +189,9 @@ export default {
       });
     }
   },
-//   updated: function() {
-//     this.scrollToBottom();
-//   },
+  updated: function() {
+    this.scrollToBottom();
+  },
   mounted() {
     // this.scrollToBottom();
     this.getChatList();
