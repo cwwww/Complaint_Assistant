@@ -94,8 +94,8 @@ export default {
         this.chat = newValue
     },
     val(newValue){
-        alert(JSON.stringify(this.val))
         this.val = newValue
+        alert(JSON.stringify(this.val))
     }
   },
   methods: {
