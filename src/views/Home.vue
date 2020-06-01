@@ -12,7 +12,7 @@
           <div class="isNo" @click="noGet">
             <span style="color:#666;">忽略</span>
           </div>
-          <div class="isYes" >
+          <div class="isYes" @click="toGet">
             <span style="color:#FFF;">去领取</span>
           </div>
         </div>
@@ -74,7 +74,7 @@
           <img :src="home_medal" alt />
           <div>勋章</div>
         </li>
-        <li @click="toGet">
+        <li @click="toHope">
           <img :src="home_discover" alt />
           <div>发现</div>
         </li>
@@ -229,7 +229,7 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
-      :type="type"
+      :type="toget"
     />
   </div>
 </template>
@@ -397,6 +397,7 @@ export default {
     },
     Repository() {
       // 知识库
+      this.toget = 0
       this.isRep = true;
       // this.destoryTimer();
     },
@@ -423,7 +424,6 @@ export default {
     },
     toGet(){
       this.toget = 1
-      alert(this.toget)
       this.isSellerShop = true;
     },
     noGet(){
