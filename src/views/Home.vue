@@ -180,6 +180,7 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :val="question"
+      :HistoryList="HistoryList"
     />
     <WhoLookMe
       v-show="WhoLook"
@@ -270,7 +271,7 @@ export default {
   },
   data() {
     return {
-      
+      HistoryList:[],
       toget:'',
       showoverlay: true,
       isSellerShop: false,
@@ -452,8 +453,7 @@ export default {
       let res = reqRobotHistory(param);
       res
         .then(res => {
-          console.log(res);
-          this.list = res.result;
+          this.HistoryList = res.result;
         })
         .catch(reslove => {
           console.log("error");

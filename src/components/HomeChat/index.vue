@@ -85,7 +85,7 @@ export default {
       smallBebot: require("../../assets/images/smallBebot.png")
     };
   },
-  props:['broker_id','robot_id','token','show_chat',"val"],
+  props:['broker_id','robot_id','token','show_chat',"val","HistoryList"],
   created(){
       this.chat = this.show_chat
       this.hisChat = this.val
@@ -97,6 +97,10 @@ export default {
     val(newValue){
         this.val = newValue
         alert(JSON.stringify(this.val))
+    },
+    HistoryList(newValue){
+        this.list = newValue
+        alert(JSON.stringify(this.list))
     }
   },
   methods: {
@@ -205,7 +209,7 @@ export default {
   },
   mounted() {
     // this.scrollToBottom();
-    this.getChatList()
+    // this.getChatList()
   }
 };
 </script>
