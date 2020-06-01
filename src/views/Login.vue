@@ -193,13 +193,9 @@ export default {
           });
       }
     },
-    impower() {
-      let param = { code: this.code };
-      let res = reqbebotCode(param);
-      res
-        .then(res => {
-          this.mes = res.result;
+    getisregistered(){
           let param = { openid: this.mes.openid };
+          
           let result = reqisregistered(param);
           result
             .then(result => {
@@ -218,6 +214,15 @@ export default {
             .catch(reslove => {
               console.log("error");
             });
+    },
+    impower() {
+      let param = { code: this.code };
+      let res = reqbebotCode(param);
+      res
+        .then(res => {
+          this.mes = res.result;
+          this.getisregistered()
+          this.login()
         })
         .catch(reslove => {
           console.log("error");
