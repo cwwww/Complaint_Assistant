@@ -29,13 +29,13 @@
         :token_prop="token_prop"
       />
       <myShop
-        v-show="curIndex == 0"
+        v-show="type == 0"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
       />
       <vipShop
-        v-show="curIndex == 1"
+        v-show="type == 1"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
@@ -100,8 +100,9 @@ export default {
     }
   },
   mounted() {
-    alert(this.type)
     if(this.type == 1){
+
+
       this.curIndex = 1
     }else{
       this.curIndex = 0
