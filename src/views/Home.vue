@@ -12,7 +12,7 @@
           <div class="isNo" @click="noGet">
             <span style="color:#666;">忽略</span>
           </div>
-          <div class="isYes" >
+          <div class="isYes" @click="toGet">
             <span style="color:#FFF;">去领取</span>
           </div>
         </div>
@@ -74,7 +74,7 @@
           <img :src="home_medal" alt />
           <div>勋章</div>
         </li>
-        <li @click="toGet">
+        <li @click="toHope">
           <img :src="home_discover" alt />
           <div>发现</div>
         </li>

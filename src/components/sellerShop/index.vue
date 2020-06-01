@@ -29,7 +29,7 @@
         :token_prop="token_prop"
       />
       <myShop
-        v-show="curIndex == 0"
+        v-show="type_prop == 0"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
