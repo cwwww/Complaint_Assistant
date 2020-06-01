@@ -439,6 +439,7 @@ export default {
     HomeChat() {
       // 聊天记录
       this.homeChat = true;
+      this.getDetail()
       this.destoryTimer();
     },
     WhoLookMe() {
