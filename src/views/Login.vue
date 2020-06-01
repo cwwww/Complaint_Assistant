@@ -172,6 +172,7 @@ export default {
       }
     },
     impower() {
+      alert(JSON.stringify('code'+this.code))
       let param = { code: this.code };
       let res = reqbebotCode(param);
       res
