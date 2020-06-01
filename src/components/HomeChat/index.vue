@@ -96,16 +96,16 @@ export default {
     },
     val(newValue){
         this.val = newValue
-        alert(JSON.stringify(this.val))
+        alert(JSON.stringify('val:'+this.val))
     },
     HistoryList(newValue){
         this.list = newValue
-        alert(JSON.stringify(this.list))
+        alert(JSON.stringify('HistoryList'+this.list))
     }
   },
   methods: {
     close() {
-      this.$emit('showChatC',false)
+      this.$emit('showChatC',this.list,false)
     },
     getChatList() {
       let param = {
