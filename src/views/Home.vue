@@ -162,7 +162,7 @@
             placeholder="输入“风险测评”试试"
             style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"
           />
-          <div class="btn" @click="submit">发送</div>
+          <div class="btn" @click="submit(numIndex)">发送</div>
           <!-- <div class="btn"  @click="open7">发送</div> -->
         </div>
       </div>
@@ -644,7 +644,6 @@ export default {
       } else {
         this.getDetail();
         this.getReqtaskStatus();
-        this.question = ''
       }
     },
     getDetail() {
@@ -681,7 +680,7 @@ export default {
           console.log(this.list2);
           if (this.list2[0] == "") {
           }
-          this.$refs.input.value = "";
+          this.question = "";
         })
         .catch(reslove => {
           console.log("error");
