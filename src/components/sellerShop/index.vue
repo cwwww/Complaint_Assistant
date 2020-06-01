@@ -35,7 +35,7 @@
         :token_prop="token_prop"
       />
       <vipShop
-        v-show="curIndex == 1"
+        v-show="type == 1"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
@@ -57,9 +57,6 @@ export default {
   data() {
     return {
       curIndex: 0,
-      broker_id_prop: "",
-      robot_id_prop: "",
-      token_prop: "",
       show: true,
       img: require("../../assets/images/icon.png"),
       lists: [
@@ -80,11 +77,11 @@ export default {
   },
   props: ["sellerShop_show", "broker_id", "robot_id", "token","type"],
   created() {
-
     this.show = this.sellerShop_show;
     this.broker_id_prop = this.broker_id;
     this.robot_id_prop = this.robot_id;
     this.token_prop = this.token;
+    this.type_prop = this.type
   },
   watch: {
     sellerShop_show(newValue) {
@@ -101,12 +98,9 @@ export default {
     }
   },
   mounted() {
-    if(this.type == 1){
-      alert('type:'+this.type)
+    if(this.type_prop == 1){
+      alert('type:'+this.type_prop)
       this.curIndex = 1
-    }else{
-      alert('type:'+this.type)
-      this.curIndex = 0
     }
   }
 };

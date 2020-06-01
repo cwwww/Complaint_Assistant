@@ -12,7 +12,7 @@
           <div class="isNo" @click="noGet">
             <span style="color:#666;">忽略</span>
           </div>
-          <div class="isYes" @click="toGet">
+          <div class="isYes" >
             <span style="color:#FFF;">去领取</span>
           </div>
         </div>
@@ -74,7 +74,7 @@
           <img :src="home_medal" alt />
           <div>勋章</div>
         </li>
-        <li @click="toHope">
+        <li @click="toGet">
           <img :src="home_discover" alt />
           <div>发现</div>
         </li>
@@ -359,7 +359,6 @@ export default {
   methods: {
     SellerShopP(data) {
       this.isSellerShop = data;
-      this.toget = ''
     },
     TaskP(data) {
       this.isTask = data;
@@ -405,14 +404,12 @@ export default {
     },
     FairyShop() {
       // 买家精灵商店
-      alert('第一次'+this.toget)
-      this.toget = 0
-      alert('第2次'+this.toget)
       this.isSellerShop = true;
-      this.destoryTimer();
+      // this.destoryTimer();
     },
     isNo() {
       //买家精灵商店取消购买
+      this.toget = 0
       this.vipNotification = false;
     },
     isYes() {
