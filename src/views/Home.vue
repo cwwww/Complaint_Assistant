@@ -255,7 +255,8 @@ import {
   reqisunlocked,
   reqbebotCode,
   reqwxconfig,
-  reqcustomerlogin
+  reqcustomerlogin,
+  reqRobotHistory
 } from "../axios/axios-api";
 export default {
   components: {
@@ -439,7 +440,24 @@ export default {
     HomeChat() {
       // 聊天记录
       this.homeChat = true;
-      this.getDetail()
+            let param = {
+        broker_id: this.$route.query.broker_id,
+        token: this.$route.query.token,
+        // robot_id : this.robot_id,
+        // speaker : '2',
+        // content : this.hisChat,
+        // create_time : new Date().toLocaleString(),
+      };
+      alert(JSON.stringify(param))
+      let res = reqRobotHistory(param);
+      res
+        .then(res => {
+          console.log(res);
+          this.list = res.result;
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
       this.destoryTimer();
     },
     WhoLookMe() {
