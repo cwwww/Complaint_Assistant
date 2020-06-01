@@ -375,11 +375,9 @@ export default {
       this.isList = data;
     },
     showChatP(data) {
-      alert(JSON.stringify(this.HistoryList))
       this.homeChat = data;
-      alert('2222')
       if(!this.homeChat){
-        alert('11111')
+        alert(JSON.stringify(this.HistoryList))
       }
     },
     WhoLookP(data) {
