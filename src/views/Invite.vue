@@ -5,7 +5,7 @@
     <div class="topNav">
       <dl>
         <dt>
-          <span>{{yaoqList.recommendedlist.length}} </span>
+          <span>{{yaoqList.recommendedlist.length}}</span>
           <p>人</p>
         </dt>
         <dd>已成功邀请</dd>
@@ -27,61 +27,79 @@
     </div>
     <div class="topNavTwo">
       <p v-if="yaoqList.recommendedlist.length <10">每邀请1人即可获得10天会员</p>
-		  <span v-if="yaoqList.recommendedlist.length <10">
-		    还差
-		    <span class="color">{{yaoqList.lack_num}}</span> 人，即可再获得
-		    <span class="color">{{yaoqList.expect_lexicon}}万词库</span>
-		  </span>
+      <span v-if="yaoqList.recommendedlist.length <10">
+        还差
+        <span class="color">{{yaoqList.lack_num}}</span> 人，即可再获得
+        <span class="color">{{yaoqList.expect_lexicon}}万词库</span>
+      </span>
       <div class="boxColor">
         <div class="jdColor" :style="{paddingLeft:'10px'}"></div>
       </div>
       <div class="checkOut">
         <ul>
           <li>
-            <div class="checkOutFont" v-show="img1Show"><p>1人</p></div>
-			<img :src="img1" alt /> 
+            <div class="checkOutFont" v-show="img1Show">
+              <p>1人</p>
+            </div>
+            <img :src="img1" alt />
           </li>
           <li>
-            <div class="checkOutFont" v-show="img3Show"><p>3人</p></div>
-			<img :src="img3" alt />
+            <div class="checkOutFont" v-show="img3Show">
+              <p>3人</p>
+            </div>
+            <img :src="img3" alt />
           </li>
           <li>
-            <img :src="img5" alt /> 
+            <div class="checkOutFont" v-show="img5Show">
+              <p>5人</p>
+            </div>
+            <img :src="img5" alt />
           </li>
           <li>
-            <div class="checkOutFont" v-show="img6Show"><p>6人</p></div>
-			<img :src="img6" alt /> 
+            <div class="checkOutFont" v-show="img6Show">
+              <p>6人</p>
+            </div>
+            <img :src="img6" alt />
           </li>
           <li>
-            <div class="checkOutFont" v-show="img10Show"><p>10人</p></div>
-			<img :src="img10" alt /> 
+            <div class="checkOutFont" v-show="img10Show">
+              <p>10人</p>
+            </div>
+            <img :src="img10" alt />
           </li>
         </ul>
       </div>
-      <div class="jumpFriend"  @click="shareFriend">去邀请好友</div>
+      <div class="jumpFriend" @click="shareFriend">去邀请好友</div>
       <div class="footer">活动截止日期 2020/5/20</div>
     </div>
     <div class="threeCentent">
       <span>成功邀请</span>
-	  <div class="content" v-for="(recommender,index) in yaoqList.recommendedlist"  :key="recommender.id">
-		    <div class="left">
-		      <p>{{index+1}}</p>
-		      <div class="loginImg">
-		        <img :src="recommender.broker_head" alt  v-if="recommender.broker_head !=null"/>
-		       	<img :src="defaultImg" alt v-else/>
-		      </div>
-		       <span v-if="recommender.broker_name !=null">{{recommender.broker_name}}</span>
-		       <span v-else>Bebot用户_{{recommender.broker_id}}</span>
+      <div
+        class="content"
+        v-for="(recommender,index) in yaoqList.recommendedlist"
+        :key="recommender.id"
+      >
+        <div class="left">
+          <p>{{index+1}}</p>
+          <div class="loginImg">
+            <img :src="recommender.broker_head" alt v-if="recommender.broker_head !=null" />
+            <img :src="defaultImg" alt v-else />
+          </div>
+          <span v-if="recommender.broker_name !=null">{{recommender.broker_name}}</span>
+          <span v-else>Bebot用户_{{recommender.broker_id}}</span>
+        </div>
+        <div class="right">
+          <div class="rightFontColor" v-if="recommender.member_day >0">
+            <p>{{recommender.member_day}}天会员</p>
+          </div>
+          <div class="rightFontColor" v-if="recommender.lexicon >0">
+            <p>{{recommender.lexicon}}万词库</p>
+          </div>
+        </div>
+        <!-- <div >
+        </div>-->
 
-		    </div>
-		    <div class="right">
-		      <div class="rightFontColor" v-if="recommender.member_day >0"><p>{{recommender.member_day}}天会员</p></div>
-		      <div class="rightFontColor" v-if="recommender.lexicon >0"><p>{{recommender.lexicon}}万词库</p></div>
-		    </div>
-			<!-- <div >
-		  </div> -->
-		  
-		  <!-- <div class="content">
+        <!-- <div class="content">
 		          <div class="left">
 		            <p>1</p>
 		            <div class="loginImg">
@@ -93,8 +111,8 @@
 		            <p>+10万词库</p>
 		            <p>+10天会员</p>
 		          </div>
-		        </div> -->
-	  </div>
+        </div>-->
+      </div>
     </div>
     <div class="lastCentent">
       <span>活动规则</span>
@@ -111,145 +129,146 @@
 </template>
 <script>
 import { yaoQing } from "../axios/axios-api";
-import wx from 'weixin-js-sdk';
+import wx from "weixin-js-sdk";
 export default {
   name: "Invite",
   data() {
     return {
       yaoqList: {
-		  lexicon: "",
-		  member_days:"",
-		  recommendedlist:[],
-	  },
-	  paddingLeft:"",
+        lexicon: "",
+        member_days: "",
+        recommendedlist: []
+      },
+      paddingLeft: "",
       img: require("../assets/images/bg.png"),
-	  defaultImg: require("../assets/images/默认头像@2x.png"),
+      defaultImg: require("../assets/images/默认头像@2x.png"),
       img1: "",
-	  img3: "",
-	  img5: "",
-	  img6: "",
-	  img10: "",
-	  img1Show:true,
-	  img3Show:true,
-	  img6Show:true,
-	  img10Show:true,
+      img3: "",
+      img5: "",
+      img6: "",
+      img10: "",
+      img1Show: true,
+      img3Show: true,
+      img5Show: true,
+      img6Show: true,
+      img10Show: true
     };
   },
-  methods:{
-   wxconfig(){
+  methods: {
+    wxconfig() {
       // this.url = this.url.split("?")[0]
-        let param = {"url":this.url}
-        let res = reqwxconfig(param)
-        res.then(res=>{
-          console.log(res)
-          this.shareMessages = res.result
-          console.log(this.shareMessages)
+      let param = { url: this.url };
+      let res = reqwxconfig(param);
+      res
+        .then(res => {
+          console.log(res);
+          this.shareMessages = res.result;
+          console.log(this.shareMessages);
           wx.config({
             debug: true,
-            appId: 'wx026553ce8b4e59a3', // 和获取Ticke的必须一样------必填，公众号的唯一标识
+            appId: "wx026553ce8b4e59a3", // 和获取Ticke的必须一样------必填，公众号的唯一标识
             timestamp: this.shareMessages.timestamp, // 必填，生成签名的时间戳
             nonceStr: this.shareMessages.nonceStr, // 必填，生成签名的随机串
-            signature: this.shareMessages.signature,// 必填，签名，见附录1
+            signature: this.shareMessages.signature, // 必填，签名，见附录1
             //需要分享的列表项:发送给朋友，分享到朋友圈
-            jsApiList: [
-              'onMenuShareAppMessage','onMenuShareTimeline'
-            ]
+            jsApiList: ["onMenuShareAppMessage", "onMenuShareTimeline"]
           });
           //处理验证失败的信息
-          wx.error(function (res) {
-            console.log('验证失败返回的信息:',res);
+          wx.error(function(res) {
+            console.log("验证失败返回的信息:", res);
           });
           //处理验证成功的信息
-          wx.ready(function () {
+          wx.ready(function() {
             //分享到朋友圈
             wx.onMenuShareTimeline({
-              title: '朋友圈标题', // 分享标题
+              title: "朋友圈标题", // 分享标题
               link: window.location.href.split("?")[0], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: '', // 分享图标
-              success: function (res) {
+              imgUrl: "", // 分享图标
+              success: function(res) {
                 // 用户确认分享后执行的回调函数
-                console.log("分享到朋友圈成功返回的信息为:",res);
+                console.log("分享到朋友圈成功返回的信息为:", res);
               },
-              cancel: function (res) {
+              cancel: function(res) {
                 // 用户取消分享后执行的回调函数
-                console.log("取消分享到朋友圈返回的信息为:",res);
+                console.log("取消分享到朋友圈返回的信息为:", res);
               }
             });
             // 分享给朋友
             wx.onMenuShareAppMessage({
-              title: '朋友标题', // 分享标题
-              desc: '', // 分享描述
-              link: window.location.href.split('#')[0], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: '', // 分享图标
+              title: "朋友标题", // 分享标题
+              desc: "", // 分享描述
+              link: window.location.href.split("#")[0], // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: "", // 分享图标
               // type: '', // 分享类型,music、video或link，不填默认为link
               // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-              success: function (res) {
+              success: function(res) {
                 // 用户确认分享后执行的回调函数
-                console.log("分享给朋友成功返回的信息为:",res);
+                console.log("分享给朋友成功返回的信息为:", res);
               },
-              cancel: function (res) {
+              cancel: function(res) {
                 // 用户取消分享后执行的回调函数
-                console.log("取消分享给朋友返回的信息为:",res);
+                console.log("取消分享给朋友返回的信息为:", res);
               }
-            })
+            });
           });
-        }).catch(reslove=>{
-          console.log('error')
         })
-    },
+        .catch(reslove => {
+          console.log("error");
+        });
+    }
   },
-    mounted() {
+  mounted() {
     let param = {
-      broker_id: 33,
+      broker_id: 33
     };
     console.log(param);
     let result = yaoQing(param);
     result
       .then(res => {
         this.yaoqList = res.result;
-		let recommenders = this.yaoqList.recommendedlist.length;
-		if(recommenders == 1){
-			this.img1 = require("../assets/images/one@2x.png");
-			this.paddingLeft = 285*10%+"px";
-			this.img1Show = false;
-		}else if(recommenders == 3){
-			this.paddingLeft = 285*30%+"px";
-			this.img3 = require("../assets/images/three@2x.png");
-			this.img3Show = false;
-		}else if (recommenders == 5){
-			this.paddingLeft = 285*50%+"px";
-			this.img5 = require("../assets/images/five@2x.png");
-		}else if(recommenders == 6){
-			this.paddingLeft = 285*80%+"px";
-			this.img6 = require("../assets/images/six@2x.png");
-			this.img6Show = false;
-		}else{
-			this.paddingLeft = 285*100%+"px";
-			this.img10 = require("../assets/images/ten@2x.png");
-			this.img10Show = false;
-		}
+        let recommenders = this.yaoqList.recommendedlist.length;
+        if (recommenders == 1) {
+          this.img1 = require("../assets/images/one@2x.png");
+          this.paddingLeft = (285 * 10) % +"px";
+          this.img1Show = false;
+        } else if (recommenders == 3) {
+          this.paddingLeft = (285 * 30) % +"px";
+          this.img3 = require("../assets/images/three@2x.png");
+          this.img3Show = false;
+        } else if (recommenders == 5) {
+          this.paddingLeft = (285 * 50) % +"px";
+          this.img5 = require("../assets/images/five@2x.png");
+          this.img5Show = false;
+        } else if (recommenders == 6) {
+          this.paddingLeft = (285 * 80) % +"px";
+          this.img6 = require("../assets/images/six@2x.png");
+          this.img6Show = false;
+        } else {
+          this.paddingLeft = (285 * 100) % +"px";
+          this.img10 = require("../assets/images/ten@2x.png");
+          this.img10Show = false;
+        }
         console.log(this.yaoqList, "邀请好友");
       })
       .catch(reslove => {
         console.log("error");
       });
   },
-  methods:{
-	  shareFriend:function(){
-		 // wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
-		 //   wx.updateAppMessageShareData({ 
-		 //     title: '分享', // 分享标题
-		 //     desc: '分享内容', // 分享描述
-		 //     link: 'http://api-bebot.baoxianxia.com.cn/api/callback/wxconfig/bebot/', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-		 //     imgUrl: '', // 分享图标
-		 //     success: function () {
-		 //       // 设置成功
-		 //     }
-		 //   })
-		 // }); 
-	  }
-	  
-     }
+  methods: {
+    shareFriend: function() {
+      // wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
+      //   wx.updateAppMessageShareData({
+      //     title: '分享', // 分享标题
+      //     desc: '分享内容', // 分享描述
+      //     link: 'http://api-bebot.baoxianxia.com.cn/api/callback/wxconfig/bebot/', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+      //     imgUrl: '', // 分享图标
+      //     success: function () {
+      //       // 设置成功
+      //     }
+      //   })
+      // });
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -357,7 +376,7 @@ export default {
         border-radius: 5px;
       }
     }
-	
+
     > .checkOut {
       width: 285px;
       margin: auto;
@@ -411,7 +430,7 @@ export default {
     }
   }
   > .threeCentent {
-	overflow-y:auto;
+    overflow-y: auto;
     width: 325px;
     height: 417px;
     background: rgba(255, 255, 255, 1);
@@ -477,24 +496,23 @@ export default {
           line-height: 17px;
         }
       }
-	
     }
   }
-  .checkOutFont{
-  	font-size: 15px;
-  	font-family: PingFangSC-Regular, PingFang SC;
-  	font-weight: 400;
-  	color: rgba(153, 153, 153, 1);
-  	line-height: 18px;
-  	margin-top: 5px;
+  .checkOutFont {
+    font-size: 15px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: rgba(153, 153, 153, 1);
+    line-height: 18px;
+    margin-top: 5px;
   }
-  .rightFontColor{
-		  font-size: 12px;
-		  font-family: PingFangSC-Medium, PingFang SC;
-		  font-weight: 500;
-		  color: rgba(253, 41, 41, 1);
-		  line-height: 17px;
-	  }
+  .rightFontColor {
+    font-size: 12px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: rgba(253, 41, 41, 1);
+    line-height: 17px;
+  }
   > .lastCentent {
     width: 325px;
     height: 245px;
