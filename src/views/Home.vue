@@ -269,7 +269,7 @@ export default {
   },
   data() {
     return {
-      toget:"",
+      toget:1,
       showoverlay: true,
       isSellerShop: false,
       isTask: false,
