@@ -375,7 +375,7 @@ export default {
       this.isList = data;
     },
     showChatP(data) {
-      alert(JSON.stringify(data))
+      alert(JSON.stringify(this.list))
       this.homeChat = data;
       alert('2222')
       if(!this.homeChat){
