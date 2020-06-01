@@ -77,7 +77,7 @@ export default {
       right: true,
       question: "",
       input:'',
-      hisChat:'',
+      hisChat:'',  
       placeholder: "有什么可以帮您？尽快发来问题吧",
       user: require("../../assets/images/头像@2x.png"),
       edit: require("../../assets/images/edit.png"),

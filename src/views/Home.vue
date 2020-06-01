@@ -269,7 +269,7 @@ export default {
   },
   data() {
     return {
-      toget:1,
+      toget:'',
       showoverlay: true,
       isSellerShop: false,
       isTask: false,
@@ -398,12 +398,13 @@ export default {
     },
     Repository() {
       // 知识库
-      this.toget = 0
+      
       this.isRep = true;
       // this.destoryTimer();
     },
     FairyShop() {
       // 买家精灵商店
+      this.toget = 0
       this.isSellerShop = true;
       // this.destoryTimer();
     },
