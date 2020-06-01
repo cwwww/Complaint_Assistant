@@ -43,6 +43,7 @@
       :customer_type="list.customer_type"
       :customerImg="list.headimgurl"
       :customer_id="list.customer_id" 
+      v-if="list"
     />
   </div>
 </template>

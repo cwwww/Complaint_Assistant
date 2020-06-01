@@ -10,7 +10,7 @@
     >
       <img class="img1" :src="shop" alt />
       <div class="title">
-        {{this.$route.query.Othername}}精灵商店
+        {{$route.query.Othername}}精灵商店
         <div class="active"></div>
       </div>
       <div class="wrap" v-if="goodsList.status!=''">
@@ -35,9 +35,9 @@
             </div>
           </div>
         </div>
-        <div class="rightLogin" v-show="this.fairyStatus == 0" type="text" @click="open">
+        <div class="rightLogin" v-show="fairyStatus == 0" type="text" @click="open">
           <img style="width:16px;height:16px;" :src="money" alt />
-          <div>{{this.goodsList.price}}</div>
+          <div>{{goodsList.price}}</div>
         </div>
         <!-- 精灵商店购买弹窗 -->
         <van-popup class="cont2" v-model="show2">
@@ -314,7 +314,6 @@ export default {
         let length = res.result.goods_list.length;
         if (length > 0) {
           that.goodsList = res.result.goods_list[0];
-          console.log(that.goodsList);
           this.fairyStatus = that.goodsList.status;
           if (that.goodsList.level == 1) {
             //保险等级

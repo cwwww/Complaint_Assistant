@@ -50,7 +50,7 @@
           <div class="buttons">
             <img :src="img2" @click="toEdit(index)" alt />
             <img :src="img3" v-show="index == showIndex ?true:false" @click="toSave(index)" alt />
-            <img @click="listPage(index)" :src="img4" v-show="index != showIndex ?true:false" alt />
+            <img @click="listPage(index)" :src="img4" v-show="index != showIndex ? true:false" alt />
           </div>
           <div style="height:20px;"></div>
         </div>
@@ -348,8 +348,8 @@ export default {
   //   console.log(document.getElementById("myText").value)
   // },
   mounted() {
-    let question = this.$route.query.Question;
-    let answer = this.$route.query.Answer;
+    let question = this.Question;
+    let answer = this.Answer;
     if (question != "") {
       this.showListAdd(question, answer);
     } else {
