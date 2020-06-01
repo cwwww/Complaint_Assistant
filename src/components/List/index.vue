@@ -66,22 +66,12 @@ export default {
     }
   },
   mounted() {
-    // let name = this.name;
-    // if(name == "fensi"){
-    //   this.curIndex = 1;
-    // }else{
-    // this.curIndex = 0;
-    // }
   },
   
   methods: {
     changeIndex(i) {
-      alert(222)
       this.curIndex = i;
     },
-    // showPopup() {
-    //   this.show = true;
-    // },
     close1() {
       this.$emit("listc", false);
     }

@@ -99,7 +99,6 @@ export default {
   },
   mounted() {
     if(this.type_prop == 1){
-      alert('type:'+this.type_prop)
       this.curIndex = 1
     }
   }

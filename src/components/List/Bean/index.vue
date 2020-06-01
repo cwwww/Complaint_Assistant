@@ -62,11 +62,9 @@ export default {
   mounted() {
     let param = {
       operation_type: 1,
-      robot_id: 33 || this.robot_id_prop,
-      broker_id: 33 || this.broker_id_prop,
-      token:
-        "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1" ||
-        this.token_prop
+      robot_id: this.robot_id_prop,
+      broker_id: this.broker_id_prop,
+      token: this.token_prop
     };
     let result = BeanList(param);
     result

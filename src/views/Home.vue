@@ -646,6 +646,7 @@ export default {
       } else {
         this.getDetail();
         this.getReqtaskStatus();
+        this.question = ''
       }
     },
     getDetail() {
