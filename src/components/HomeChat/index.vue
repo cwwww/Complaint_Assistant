@@ -94,6 +94,7 @@ export default {
         this.chat = newValue
     },
     val(newValue){
+        alert(JSON.stringify(this.val))
         this.val = newValue
     }
   },
@@ -107,10 +108,10 @@ export default {
         token: this.token,
         robot_id : this.robot_id,
         speaker : '2',
-        content : this.val == '' ? '.' : this.val,
+        content : this.val,
         create_time : new Date().toLocaleString(),
       };
-      console.log(param);
+      alert(JSON.stringify(param))
       let res = reqRobotHistory(param);
       res
         .then(res => {
