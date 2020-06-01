@@ -77,6 +77,7 @@ export default {
       right: true,
       question: "",
       input:'',
+      hisChat:'',
       placeholder: "有什么可以帮您？尽快发来问题吧",
       user: require("../../assets/images/头像@2x.png"),
       edit: require("../../assets/images/edit.png"),
@@ -87,7 +88,7 @@ export default {
   props:['broker_id','robot_id','token','show_chat',"val"],
   created(){
       this.chat = this.show_chat
-      this.question = this.val
+      this.hisChat = this.val
   },
   watch:{
     show_chat(newValue){
@@ -108,7 +109,7 @@ export default {
         token: this.token,
         robot_id : this.robot_id,
         speaker : '2',
-        content : this.question,
+        content : this.hisChat,
         create_time : new Date().toLocaleString(),
       };
       alert(JSON.stringify(param))
