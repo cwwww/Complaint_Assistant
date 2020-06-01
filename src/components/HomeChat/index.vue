@@ -104,7 +104,7 @@ export default {
         token: this.token,
         robot_id : this.robot_id,
         speaker : '2',
-        content : this.val,
+        content : this.val == '' ? '.' : this.val,
         create_time : new Date().toLocaleString(),
       };
       console.log(param);
@@ -199,7 +199,7 @@ export default {
   },
   mounted() {
     // this.scrollToBottom();
-    
+    this.getChatList()
   }
 };
 </script>
