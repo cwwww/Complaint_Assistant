@@ -20,16 +20,6 @@ const routes = [
             title: "登录页"
         }
     },
-	{
-	    path: '/LevelUp',
-	    name: 'LevelUp',
-	    component: LevelUp,
-	},
-	{
-	    path: '/GetMedal',
-	    name: 'GetMedal',
-	    component: GetMedal,
-	},
     {
         path: '/HomeOther',
         name: 'HomeOther',
@@ -45,6 +35,16 @@ const routes = [
         meta: {
             title: "首页"
         }
+    },
+    {
+        path: '/LevelUp',
+        name: 'LevelUp',
+        component: LevelUp,
+    },
+    {
+        path: '/GetMedal',
+        name: 'GetMedal',
+        component: GetMedal,
     },
     {
         path: '/FindList',

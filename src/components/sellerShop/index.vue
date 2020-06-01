@@ -29,13 +29,13 @@
         :token_prop="token_prop"
       />
       <myShop
-        v-show="type_prop == 0"
+        v-show="curIndex == 0"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
       />
       <vipShop
-        v-show="type_prop == 1"
+        v-show="curIndex == 1"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
@@ -81,7 +81,7 @@ export default {
     this.broker_id_prop = this.broker_id;
     this.robot_id_prop = this.robot_id;
     this.token_prop = this.token;
-    this.type_prop = this.type
+    // this.type_prop = this.type
   },
   watch: {
     sellerShop_show(newValue) {
@@ -94,13 +94,13 @@ export default {
     },
     close() {
       this.$emit("sellershopc", false);
-      this.curIndex = 0
+      // this.curIndex = 0
     }
   },
   mounted() {
-    if(this.type_prop == 1){
-      this.curIndex = 1
-    }
+    // if(this.type_prop == 1){
+    //   this.curIndex = 1
+    // }
   }
 };
 </script>
