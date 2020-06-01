@@ -12,7 +12,7 @@
           <div class="isNo" @click="noGet">
             <span style="color:#666;">忽略</span>
           </div>
-          <div class="isYes" @click="toGet">
+          <div class="isYes" >
             <span style="color:#FFF;">去领取</span>
           </div>
         </div>
@@ -74,7 +74,7 @@
           <img :src="home_medal" alt />
           <div>勋章</div>
         </li>
-        <li @click="toHope">
+        <li @click="toGet">
           <img :src="home_discover" alt />
           <div>发现</div>
         </li>
@@ -196,7 +196,6 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
     />
-    <!-- <ShopZoom v-show="isShopZoom" @ShopZoomC="ShopZoomP" :Shop_Zoom="isShopZoom" :broker_id="broker_id" :robot_id="robot_id" :token="token" :type="type"/> -->
     <List
       v-show="isList"
       @listc="ListP"
@@ -230,7 +229,7 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
-      :type="toget"
+      :class="1"
     />
   </div>
 </template>
@@ -269,7 +268,7 @@ export default {
   },
   data() {
     return {
-      toget:'',
+      toget:1,
       showoverlay: true,
       isSellerShop: false,
       isTask: false,
@@ -403,7 +402,6 @@ export default {
     },
     FairyShop() {
       // 买家精灵商店
-      // this.toget = 0
       this.isSellerShop = true;
       // this.destoryTimer();
     },
@@ -424,7 +422,8 @@ export default {
       // });
     },
     toGet(){
-      // this.toget = 1
+      this.toget = 1
+      alert(this.toget)
       this.isSellerShop = true;
     },
     noGet(){
