@@ -55,9 +55,10 @@ export default {
     myShop,
     vipShop
   },
+  props: ["sellerShop_show", "broker_id", "robot_id", "token", "type"],
   data() {
     return {
-      curIndex: 0,
+      curIndex: this.type,
       show: true,
       img: require("../../assets/images/icon.png"),
       lists: [
@@ -76,13 +77,12 @@ export default {
       ]
     };
   },
-  props: ["sellerShop_show", "broker_id", "robot_id", "token", "type"],
   created() {
     this.show = this.sellerShop_show;
     this.broker_id_prop = this.broker_id;
     this.robot_id_prop = this.robot_id;
     this.token_prop = this.token;
-    this.type_prop = this.type;
+    // this.type_prop = this.type;
   },
   watch: {
     sellerShop_show(newValue) {
@@ -94,16 +94,15 @@ export default {
       this.curIndex = i;
     },
     close() {
-      alert(JSON.stringify(this.type_prop +'type_prop'))
       this.$emit("sellershopc", false);
       this.curIndex = 0;
     }
   },
   mounted() {
-    if (this.type_prop == 1) {
-      this.curIndex = 1;
-      console.log(this.class);
-    }
+    // if (this.type_prop == 1) {
+    //   this.curIndex = 1;
+    //   console.log(this.class);
+    // }
   }
 };
 </script>

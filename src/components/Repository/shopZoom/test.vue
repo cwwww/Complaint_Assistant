@@ -4,9 +4,8 @@
       class="content"
       v-model="show"
       closeable
-      round
       position="bottom"
-      :style="{ height: '75%' }"
+      :style="{ height: '70%' }"
       @close="close"
     >
       <span>知识库</span>
@@ -19,13 +18,13 @@
         <div class="question">
           <div class="topQ">
             <img :src="img" alt />
-            <textarea v-model="questiondata" class="text" v-show="index == showIndex ?true:false" id="myText">
+            <textarea class="text" v-show="index == showIndex ?true:false" id="myText">
               {{item.question}}
             </textarea> 
             <div class="text2" v-show="index != showIndex ?true:false">
               {{item.question}}
               </div>
-            <img @click="remove(index)" class="delete" :src="img5" alt="">
+            <img @click="remove(index)" class="delete" :src="img5" alt="" v-if="item.online_data_id!=''">
           </div>
           <!-- <div class="texts">
             <p>{{$route.query.Question}}</p>
@@ -33,7 +32,7 @@
         </div>
         <div class="assets">
           <img :src="img1" alt />
-          <textarea v-model="answerdata" class="text" v-show="index == showIndex ?true:false" id="myText2" >
+          <textarea class="text" v-show="index == showIndex ?true:false" id="myText2" >
             {{item.answer}}
             </textarea> 
           <div class="text2" v-show="index != showIndex ?true:false">
@@ -54,74 +53,60 @@
 </template>
 <script>
 import { Toast } from 'vant';
-import { reqlistPage,reqknowledgeList,reqeditList,reqdeleteList,reqaddledgeList,reqtaskStatus } from '../../../axios/axios-api'
+import { reqlistPage,reqknowledgeList,reqeditList,reqdeleteList,reqaddledgeList,reqtaskStatus } from '../axios/axios-api'
 export default {
   name: "shopZoom",
   data() {
     return {
       list:[],
-      questiondata:'',
-      answerdata:'',
-      show: false,
+      curIndex: 0,
+      show: true,
       isShow:false,
-	    showIndex:0,
-      flag:false,
-      img: require("../../../assets/images/Q_small_icon@2x.png"),
-      img1: require("../../../assets/images/A_small_icon@2x.png"),
-      img2: require("../../../assets/images/biajide.png"),
-      img3: require("../../../assets/images/bachkdjfi.png"),
-      img4: require("../../../assets/images/fabude.png"),
-      img5:require("../../../assets/images/delete@3x.png")
+	  showIndex:0,
+	  isEdit:false,
+      flag:true,
+      img: require("../assets/images/Q_small_icon@2x.png"),
+      img1: require("../assets/images/A_small_icon@2x.png"),
+      img2: require("../assets/images/biajide.png"),
+      img3: require("../assets/images/bachkdjfi.png"),
+      img4: require("../assets/images/fabude.png"),
+      img5:require("../assets/images/delete@3x.png")
     };
-  },
-  props: ["broker_id_prop", "robot_id_prop", "token_prop",'shopZoomC_show',"type"],
-  created(){
-      this.show = this.shopZoomC_show
-      this.broker_id_prop=this.broker_id;
-      this.robot_id_prop=this.robot_id;
-      this.token_prop=this.token;
-      this.type_prop = this.type
-  },
-  watch:{
-    shopZoomC_show(newValue){
-      this.show = newValue
-    }
   },
   methods: {
     close(){
-      if(this.type_prop){
-          this.$emit('shopZoomC',false)
-        // this.$router.push({
-        //   path:'/Repository',
-        //   query:{
-        //     broker_id: this.$route.query.broker_id,
-        //     robot_id: this.$route.query.robotId,
-        //     token:this.$route.query.token,
-        //     type:'type'
-        //   }
-        // })
+      if(this.$route.query.type == 'type'){
+        this.$router.push({
+          path:'/Repository',
+          query:{
+            broker_id: this.$route.query.broker_id,
+            robot_id: this.$route.query.robotId,
+            token:this.$route.query.token,
+            type:'type'
+          }
+        })
       }else{
-        // this.$router.push({
-        //   path:'/HomeChat',
-        //   query:{
-        //     broker_id: this.$route.query.broker_id,
-        //     robot_id: this.$route.query.robotId,
-        //     token:this.$route.query.token,
-        //   }
-        // })
+        this.$router.push({
+          path:'/HomeChat',
+          query:{
+            broker_id: this.$route.query.broker_id,
+            robot_id: this.$route.query.robotId,
+            token:this.$route.query.token,
+          }
+        })
       }
     },
     listPage(index){
-            console.log(this.list[index])
+      console.log(this.list[index])
 	  if(this.list[index].online_data_id == ''){
 		   Toast("请编辑保存后再发布！");
 	  }else{
 		 let param = {
 		     "online_data_id":this.list[index].online_data_id,
-        "broker_id":this.broker_id_prop,
-        "question":this.questiondata,
-        "answer":this.answerdata,
-        "token":this.token_prop
+		     "broker_id":this.$route.query.broker_id,
+		     "question":this.$route.query.Qusetion,
+		     "answer":this.$route.query.Answer,
+		     "token":this.$route.query.token
 		   }
 		   console.log(param)
 		   let res = reqlistPage(param)
@@ -142,26 +127,35 @@ export default {
         this.Answer = ''
       }
       let param = {
-        "broker_id":this.broker_id_prop,
+        "broker_id":this.$route.query.broker_id,
         "question":this.Qusetion,
         "answer":this.Answer,
-        "token":this.token_prop
+        "token":this.$route.query.token
       }
       console.log(param)
-       this.showListAdd("","");
     //   let res = reqaddledgeList(param)
     //     res.then(res=>{
-    //       this.ShoWList()
+		  // debugger;
+        
     //       console.log(res);
     //     }).catch(reslove=>{
     //        console.log('error')
     //     })
+	  
+	  this.showListAdd("","");
+	  // this.$set(this.list, this.list.length,{
+	  // question : null,
+	  // answer:null,
+   //    online_data_id:"",
+   //    });
+	
+	  
     },
     remove(index){
       let param = {
-        "broker_id":this.broker_id_prop,
+        "broker_id":this.$route.query.broker_id,
         "online_data_id":this.list[index].online_data_id,
-        "token":this.token_prop
+        "token":this.$route.query.token
       }
       console.log(param)
       let res = reqdeleteList (param)
@@ -178,11 +172,11 @@ export default {
     toEdit(index){
 	  this.showIndex = index;
       //this.isShow = true
-      this.isEdit = true;
+	  this.isEdit = true;
     },
     toSave(index){
       //this.isShow = false
-	    this.showIndex = -1;
+	  this.showIndex = -1;
       this.$route.query.Qusetion = document.getElementById("myText").value
       this.$route.query.Answer = document.getElementById("myText2").value
       // if(this.list[index].Qusetion == ''){
@@ -191,7 +185,7 @@ export default {
       // if(this.list[index].Answer == ''){
       //   this.Answer = ' '
       // }
-	 	  let canSave = true;
+	  let canSave = true;
 	  if(this.trim(this.$route.query.Qusetion) == ""  || this.trim(this.$route.query.Answer) == "" ){
 		   Toast("内容不能为空");
 		   this.showIndex = index;
@@ -201,10 +195,10 @@ export default {
 	  if(this.list[index].online_data_id != ''){
 		let param = {
 		    "modified_data_id":this.list[index].online_data_id,
-		    "broker_id":this.broker_id,
-		    "question":this.Qusetion,
-		    "answer":this.Answer,
-		    "token":this.token
+		    "broker_id":this.$route.query.broker_id,
+		    "question":this.$route.query.Qusetion,
+		    "answer":this.$route.query.Answer,
+		    "token":this.$route.query.token
 		}
 		let res = reqeditList(param)
 		res.then(res=>{
@@ -217,10 +211,10 @@ export default {
 	  }else{
 		  if(canSave){
 			 let param2 = {
-			     "broker_id":this.broker_id,
-			     "question":this.Qusetion,
-			     "answer":this.Answer,
-			     "token":this.token
+			     "broker_id":this.$route.query.broker_id,
+			     "question":this.$route.query.Qusetion,
+			     "answer":this.$route.query.Answer,
+			     "token":this.$route.query.token
 			 }
 			 let res = reqaddledgeList(param2)
 			 res.then(res=>{
@@ -233,38 +227,46 @@ export default {
 			 //增加知识的任务
 			 this.getReqtaskStatus(); 
 		  }
+		
 	  }
-    //   let param = {
-    //     "modified_data_id":this.list[index].online_data_id,
-    //     "broker_id":this.broker_id_prop,
-    //     "question":this.$route.query.Qusetion,
-    //     "answer":this.$route.query.Answer,
-    //     "token":this.token_prop
-    //   }
-    //   let res = reqeditList(param)
-    //     res.then(res=>{
-    //       console.log(res)
-    //       this.list = res.result.data
-    //     }).catch(reslove=>{
-    //        console.log('error')
-    //     })
-		// //增加知识的任务
-		// this.getReqtaskStatus();
+      
+		
     },
+	showListAdd(question,answer){
+		this.showIndex = -1;
+		  let param = {
+		    "broker_id":this.$route.query.broker_id,
+		    "token":this.$route.query.token
+		  }
+		  console.log(param)
+		  let res = reqknowledgeList (param)
+		    res.then(res=>{
+		      console.log(res)
+		      this.list = res.result.data
+			  this.list.splice(0,0,{
+			  question : question,
+			  answer:answer,
+			  online_data_id:"",
+			  })
+			  //this.list.push();
+		    }).catch(reslove=>{
+		       console.log('error')
+		    })
+	},
     ShoWList(){
 	  this.showIndex = -1;
-      let param = {
-        "broker_id":this.$route.query.broker_id,
-        "token":this.$route.query.token
-      }
-      console.log(param)
-      let res = reqknowledgeList (param)
-        res.then(res=>{
-          console.log(res)
-          this.list = res.result.data
-        }).catch(reslove=>{
-           console.log('error')
-        })
+	    let param = {
+	      "broker_id":this.$route.query.broker_id,
+	      "token":this.$route.query.token
+	    }
+	    console.log(param)
+	    let res = reqknowledgeList (param)
+	      res.then(res=>{
+	        console.log(res)
+	        this.list = res.result.data
+	      }).catch(reslove=>{
+	         console.log('error')
+	      })
     },
 	trim(data){
 		return data.replace(/(^\s*)|(\s*$)/g, ''); 
@@ -295,7 +297,13 @@ export default {
   //   console.log(document.getElementById("myText").value)
   // },
   mounted(){
-    this.ShoWList()
+    let  question = this.$route.query.Question;
+	let answer =  this.$route.query.Answer;
+	if(question != ''){
+		 this.showListAdd(question,answer)
+	}else{
+		 this.ShoWList()
+	}
   }
 };
 </script>
@@ -344,9 +352,6 @@ export default {
       font-size: 14px;
     }
     .contain{
-      height: 390px;
-      overflow-y: hidden;
-      overflow:scroll;
       > .centercontent {
       width: 345px;
       height: auto;
