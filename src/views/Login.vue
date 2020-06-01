@@ -136,8 +136,8 @@ export default {
       }
     },
     login() {
-      var that = this
-      alert(JSON.stringify(that.mes))
+      var that = this;
+      alert(JSON.stringify(that.mes));
       if (that.$refs.phone.value == "" || that.$refs.research.value == "") {
         Toast("请输入手机号和验证码");
       } else if (
@@ -199,9 +199,9 @@ export default {
       res
         .then(res => {
           this.mes = res.result;
-          alert(this.mes)
+          alert(this.mes);
           let param = { openid: this.mes.openid };
-          
+
           let result = reqisregistered(param);
           result
             .then(result => {
@@ -262,16 +262,16 @@ export default {
       this.getCode();
     } else {
       // 别的业务逻辑
-      this.url = window.location.href.split("#")[0];
-      var start = this.url.indexOf("=");
-      var end = this.url.indexOf("&");
-      this.code = this.url.substring(start + 1, end);
-      console.log(this.url);
-      this.impower();
     }
   },
   mounted() {
     // this.wxconfig()
+    this.url = window.location.href.split("#")[0];
+    var start = this.url.indexOf("=");
+    var end = this.url.indexOf("&");
+    this.code = this.url.substring(start + 1, end);
+    console.log(this.url);
+    this.impower();
   }
 };
 </script>
