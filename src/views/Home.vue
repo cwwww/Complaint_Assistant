@@ -376,6 +376,9 @@ export default {
     },
     showChatP(data) {
       this.homeChat = data;
+      if(!this.homeChat){
+        alert('11111')
+      }
     },
     WhoLookP(data) {
       this.WhoLook = data;
@@ -801,6 +804,8 @@ export default {
         .then(res => {
           console.log(res);
           this.homeInit = res.result;
+          
+
           if (this.homeInit.name == "") {
             this.showName = true;
           }
