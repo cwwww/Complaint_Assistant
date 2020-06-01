@@ -269,7 +269,7 @@ export default {
   },
   data() {
     return {
-      toget:1,
+      toget:'',
       showoverlay: true,
       isSellerShop: false,
       isTask: false,
@@ -404,6 +404,7 @@ export default {
     FairyShop() {
       // 买家精灵商店
       this.toget = 0
+      alert(this.toget)
       this.isSellerShop = true;
       this.destoryTimer();
     },

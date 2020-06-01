@@ -83,6 +83,8 @@ export default {
     alert(this.type)
     if(this.type == 1){
       this.curIndex = 1
+    }else{
+      this.curIndex = 0
     }
     this.show = this.sellerShop_show;
     this.broker_id_prop = this.broker_id;
