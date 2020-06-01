@@ -229,7 +229,7 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
-      :class="1"
+      :type="type"
     />
   </div>
 </template>
