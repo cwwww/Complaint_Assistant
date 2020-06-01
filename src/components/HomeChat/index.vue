@@ -92,6 +92,9 @@ export default {
   watch:{
     show_chat(newValue){
         this.chat = newValue
+    },
+    val(newValue){
+        this.val = newValue
     }
   },
   methods: {
