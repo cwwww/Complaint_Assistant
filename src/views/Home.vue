@@ -179,6 +179,7 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
+      :val="question"
     />
     <WhoLookMe
       v-show="WhoLook"
@@ -425,6 +426,7 @@ export default {
     toGet(){
       this.toget = 1
       this.isSellerShop = true;
+      this.vipNotification = false
     },
     noGet(){
       this.vipNotification = false;

@@ -84,7 +84,7 @@ export default {
       smallBebot: require("../../assets/images/smallBebot.png")
     };
   },
-  props:['broker_id','robot_id','token','show_chat'],
+  props:['broker_id','robot_id','token','show_chat',"val"],
   created(){
       this.chat = this.show_chat
       this.getChatList();
@@ -101,7 +101,11 @@ export default {
     getChatList() {
       let param = {
         broker_id: this.broker_id,
-        token: this.token
+        token: this.token,
+        robot_id : this.robot_id,
+        speaker : '2',
+        content : this.val,
+        create_time : new Date().toLocaleString(),
       };
       console.log(param);
       let res = reqRobotHistory(param);
