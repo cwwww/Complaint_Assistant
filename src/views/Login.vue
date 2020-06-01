@@ -142,7 +142,6 @@ export default {
           NICKNAME: that.mes.nickname,
           HEADIMGURL: that.mes.headimgurl,
           SEX: that.mes.sex,
-
           PROVINCE: that.mes.province,
           CITY: that.mes.city,
           COUNTRY: that.mes.country,

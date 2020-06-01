@@ -78,9 +78,11 @@ export default {
       ]
     };
   },
-  props: ["sellerShop_show", "broker_id", "robot_id", "token"],
+  props: ["sellerShop_show", "broker_id", "robot_id", "token","type"],
   created() {
-    
+    if(this.type == 1){
+      this.curIndex = 1
+    }
     this.show = this.sellerShop_show;
     this.broker_id_prop = this.broker_id;
     this.robot_id_prop = this.robot_id;

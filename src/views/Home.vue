@@ -9,10 +9,10 @@
         </div>
         <div style="margin-bottom:25px;">请前往【会员商店】领取</div>
         <div class="isOk">
-          <div class="isNo" @click="isNo">
+          <div class="isNo" @click="noGet">
             <span style="color:#666;">忽略</span>
           </div>
-          <div class="isYes" @click="isYes">
+          <div class="isYes" @click="toGet">
             <span style="color:#FFF;">去领取</span>
           </div>
         </div>
@@ -70,11 +70,11 @@
 
     <div class="rightList">
       <ul>
-        <li>
+        <li @click="toHope">
           <img :src="home_medal" alt />
           <div>勋章</div>
         </li>
-        <li>
+        <li @click="toHope">
           <img :src="home_discover" alt />
           <div>发现</div>
         </li>
@@ -230,6 +230,7 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
+      :type="toGet"
     />
   </div>
 </template>
@@ -268,6 +269,7 @@ export default {
   },
   data() {
     return {
+      toGet:1,
       showoverlay: true,
       isSellerShop: false,
       isTask: false,
@@ -401,6 +403,7 @@ export default {
     },
     FairyShop() {
       // 买家精灵商店
+      
       this.isSellerShop = true;
       this.destoryTimer();
     },
@@ -411,7 +414,7 @@ export default {
     isYes() {
       //买家精灵商店确定购买
       this.vipNotification = false;
-      this.isSellerShop = true
+      this.isSellerShop = true;
       // this.$router.push({
       //   path: "/sellerShop/vipShop",
       //   query: {
@@ -421,7 +424,16 @@ export default {
       //   }
       // });
     },
-
+    toGet(){
+      this.toGet = 1
+      this.isSellerShop = true;
+    },
+    noGet(){
+      this.vipNotification = false;
+    },
+    toHope() {
+      Toast("敬请期待");
+    },
     HomeChat() {
       // 聊天记录
       this.homeChat = true;
@@ -755,9 +767,9 @@ export default {
         // token:
         //   "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZks4bzpnaHZKVnpDTXVSOTdtdHQxVno1NnBXV1FxZm8.ZXlKUVNFOU9SU0k2SWpFNE1qRXdNRGt4T0Rnd0lpd2lTVVFpT2prekxDSnBZWFFpT2pFMU9UQTVNVFk0TWpZdU1UWTNNekUxTjMwOjFqZks4bzptaHp1R0QxdGMwa29rQmtEbnZzWlgtWmR6Tm8.fb462840a61d81dd83fac507776d51af"
 
-        robot_id:  this.$route.query.robot_id,
+        robot_id: this.$route.query.robot_id,
         broker_id: this.$route.query.broker_id,
-        token:this.$route.query.token
+        token: this.$route.query.token
       };
       console.log(param);
       let result = reqHomeInit(param);
