@@ -136,34 +136,36 @@ export default {
       }
     },
     login() {
-      if (this.$refs.phone.value == "" || this.$refs.research.value == "") {
+      var that = this
+      alert(JSON.stringify(that.mes))
+      if (that.$refs.phone.value == "" || that.$refs.research.value == "") {
         Toast("请输入手机号和验证码");
       } else if (
-        /^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value) &&
-        this.$refs.research.value.length < 6
+        /^1(3|4|5|6|7|8|9)\d{9}$/.test(that.$refs.phone.value) &&
+        that.$refs.research.value.length < 6
       ) {
         Toast("请输入正确的验证码");
-      } else if (!this.check) {
+      } else if (!that.check) {
         Toast("请勾选协议");
       } else {
         let param = {
-          PHONE: this.$refs.phone.value,
-          code: this.$refs.research.value,
-          OPENID: this.mes.openid,
-          NICKNAME: this.mes.nickname,
-          HEADIMGURL: this.mes.headimgurl,
-          SEX: this.mes.sex,
-          PROVINCE: this.mes.province,
-          CITY: this.mes.city,
-          COUNTRY: this.mes.country,
-          PRIVILEGE: this.mes.privilege
+          PHONE: that.$refs.phone.value,
+          code: that.$refs.research.value,
+          OPENID: that.mes.openid,
+          NICKNAME: that.mes.nickname,
+          HEADIMGURL: that.mes.headimgurl,
+          SEX: that.mes.sex,
+          PROVINCE: that.mes.province,
+          CITY: that.mes.city,
+          COUNTRY: that.mes.country,
+          PRIVILEGE: that.mes.privilege
         };
         console.log(param);
         let res = reqlogin(param);
         res
           .then(res => {
             console.log(res);
-            this.messages = res.result;
+            that.messages = res.result;
             // if (this.$route.query.type == "otherLogin") {
             // this.$router.push({
             // path: "/HomeOther",
@@ -179,9 +181,9 @@ export default {
             this.$router.push({
               path: "/",
               query: {
-                broker_id: this.messages.ID,
-                robot_id: this.messages.ROBOT_ID,
-                token: this.messages.token
+                broker_id: that.messages.ID,
+                robot_id: that.messages.ROBOT_ID,
+                token: that.messages.token
               }
             });
             // }
