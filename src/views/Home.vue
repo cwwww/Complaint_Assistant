@@ -231,6 +231,7 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :type="toget"
+      v-if="toget"
     />
   </div>
 </template>
