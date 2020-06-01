@@ -115,7 +115,7 @@ export default {
     },
     login() {
       var that = this;
-      alert('授权'+JSON.stringify(that.mes));
+      alert("授权" + JSON.stringify(that.mes));
       if (that.$refs.phone.value == "" || that.$refs.research.value == "") {
         Toast("请输入手机号和验证码");
       } else if (
@@ -126,6 +126,15 @@ export default {
       } else if (!that.check) {
         Toast("请勾选协议");
       } else {
+        if (that.mes.country == "") {
+          that.mes.country = ".";
+        }
+        if (that.mes.province == "") {
+          that.mes.province = ".";
+        }
+        if (that.mes.city == "") {
+          that.mes.city = ".";
+        }
         let param = {
           PHONE: that.$refs.phone.value,
           code: that.$refs.research.value,
@@ -133,16 +142,17 @@ export default {
           NICKNAME: that.mes.nickname,
           HEADIMGURL: that.mes.headimgurl,
           SEX: that.mes.sex,
+
           PROVINCE: that.mes.province,
           CITY: that.mes.city,
           COUNTRY: that.mes.country,
           PRIVILEGE: that.mes.privilege
         };
-        alert('登录请求参数'+JSON.stringify(param));
+        alert("登录请求参数" + JSON.stringify(param));
         let res = reqlogin(param);
         res
           .then(res => {
-            alert('登录返回'+JSON.stringify(res));
+            alert("登录返回" + JSON.stringify(res));
             that.messages = res.result;
             // if (this.$route.query.type == "otherLogin") {
             // this.$router.push({
@@ -156,14 +166,14 @@ export default {
             // }
             // });
             // } else {
-                this.$router.push({
-                  path: "/",
-                  query: {
-                    broker_id: that.messages.ID,
-                    robot_id: that.messages.ROBOT_ID,
-                    token: that.messages.token
-                  }
-                });
+            this.$router.push({
+              path: "/",
+              query: {
+                broker_id: that.messages.ID,
+                robot_id: that.messages.ROBOT_ID,
+                token: that.messages.token
+              }
+            });
             // }
           })
           .catch(reslove => {
@@ -173,20 +183,20 @@ export default {
     },
     impower() {
       this.getCode();
-      alert(JSON.stringify('code'+this.code))
+      alert(JSON.stringify("code" + this.code));
       let param = { code: this.code };
       let res = reqbebotCode(param);
       res
         .then(res => {
           this.mes = res.result;
-          alert('授权返回'+JSON.stringify(this.mes));
-          
+          alert("授权返回" + JSON.stringify(this.mes));
+
           let param = { openid: this.mes.openid };
           let result = reqisregistered(param);
           result
             .then(result => {
               this.loginMeg = result.result;
-              alert('注册查询返回'+JSON.stringify(result.result))
+              alert("注册查询返回" + JSON.stringify(result.result));
               if (this.loginMeg.visitor_type == 1) {
                 // this.$router.push({
                 //   path: "/",
@@ -253,7 +263,6 @@ export default {
     var end = this.url.indexOf("&");
     this.code = this.url.substring(start + 1, end);
     console.log(this.url);
-    
   }
 };
 </script>
