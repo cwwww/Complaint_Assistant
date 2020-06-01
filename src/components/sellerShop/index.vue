@@ -80,6 +80,7 @@ export default {
   },
   props: ["sellerShop_show", "broker_id", "robot_id", "token","type"],
   created() {
+    alert(this.type)
     if(this.type == 1){
       this.curIndex = 1
     }
