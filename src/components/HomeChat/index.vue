@@ -199,7 +199,6 @@ export default {
   },
   mounted() {
     // this.scrollToBottom();
-    this.reload()
     this.getChatList()
   }
 };
