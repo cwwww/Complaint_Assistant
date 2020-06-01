@@ -160,11 +160,11 @@ export default {
           COUNTRY: that.mes.country,
           PRIVILEGE: that.mes.privilege
         };
-        alert(param);
+        alert(JSON.stringify(param));
         let res = reqlogin(param);
         res
           .then(res => {
-            alert(res);
+            alert(JSON.stringify(res));
             that.messages = res.result;
             // if (this.$route.query.type == "otherLogin") {
             // this.$router.push({
@@ -199,7 +199,7 @@ export default {
       res
         .then(res => {
           this.mes = res.result;
-          alert(this.mes);
+          alert(JSON.stringify(this.mes));
         })
         .catch(reslove => {
           console.log("error");
