@@ -156,14 +156,14 @@ export default {
             // }
             // });
             // } else {
-                // this.$router.push({
-                //   path: "/",
-                //   query: {
-                //     broker_id: that.messages.ID,
-                //     robot_id: that.messages.ROBOT_ID,
-                //     token: that.messages.token
-                //   }
-                // });
+                this.$router.push({
+                  path: "/",
+                  query: {
+                    broker_id: that.messages.ID,
+                    robot_id: that.messages.ROBOT_ID,
+                    token: that.messages.token
+                  }
+                });
             // }
           })
           .catch(reslove => {
