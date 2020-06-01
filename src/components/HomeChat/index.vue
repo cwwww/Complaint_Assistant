@@ -139,6 +139,7 @@ export default {
         let res = reqRobotDetail(param);
         res
           .then(res => {
+            this.val = question
             this.getChatList();
             this.input = "";
           })
