@@ -359,6 +359,7 @@ export default {
   methods: {
     SellerShopP(data) {
       this.isSellerShop = data;
+      this.toget = ''
     },
     TaskP(data) {
       this.isTask = data;
@@ -417,7 +418,6 @@ export default {
     isYes() {
       //买家精灵商店确定购买
       this.vipNotification = false;
-      this.isSellerShop = true;
       // this.$router.push({
       //   path: "/sellerShop/vipShop",
       //   query: {
