@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     close() {
-      this.$emit('showChatC',this.list,false)
+      this.$emit('showChatC',false)
     },
     getChatList() {
       let param = {
