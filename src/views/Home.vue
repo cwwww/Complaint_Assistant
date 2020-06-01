@@ -651,11 +651,10 @@ export default {
       }
     },
     getDetail() {
-      if(this.val != ''){
-        alert('val为：')
-        this.flag = false
-        this.question = this.val
-      }
+      // if(this.val != ''){
+      //   alert('val')
+      //   this.flag = false
+      // }
       let param;
       if (this.flag) {
         param = {

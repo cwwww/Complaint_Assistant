@@ -127,20 +127,20 @@ export default {
       if (this.input == "") {
         Toast("请输入聊天内容");
       } else {
-        this.question = this.input;
+        this.val = this.input;
         let param = {
           dialog_type: "1",
           broker_id: this.broker_id,
           robot_id: this.robot_id,
           speaker: "2",
-          content: this.question,
+          content: this.val,
           token: this.token
         };
         let res = reqRobotDetail(param);
         res
           .then(res => {
             this.getChatList();
-            this.val = this.question
+            // this.val = this.question
             this.input = "";
           })
           .catch(reslove => {
@@ -153,7 +153,7 @@ export default {
       let param = {
         broker_id: this.broker_id,
         sentence_id: this.list[index].sentence_id,
-        question: this.question,
+        question: this.val,
         answer: "",
         token: this.token
       };
