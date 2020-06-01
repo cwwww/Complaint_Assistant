@@ -230,7 +230,7 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
-      :type="toGet"
+      :type="toget"
     />
   </div>
 </template>
@@ -269,7 +269,7 @@ export default {
   },
   data() {
     return {
-      toGet:1,
+      toget:"",
       showoverlay: true,
       isSellerShop: false,
       isTask: false,
@@ -425,7 +425,7 @@ export default {
       // });
     },
     toGet(){
-      this.toGet = 1
+      this.toget = 1
       this.isSellerShop = true;
     },
     noGet(){
