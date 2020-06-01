@@ -234,9 +234,7 @@ export default {
     },
     toEvaluate(index) {
       this.show4 = true;
-      console.log(this.list[index].goods_id);
       this.type = this.list[index].goods_id;
-      console.log(this.type);
     },
     onChange(value) {
       // Toast('当前值：' + value);
@@ -350,9 +348,9 @@ export default {
     },
     getInit() {
       let param = {
-        robot_id:  this.robot_id,
-        user_id: this.broker_id,
-        token: gitthis.token
+        robot_id:  this.robot_id_prop,
+        user_id: this.broker_id_prop,
+        token: this.token_prop
       };
       let result = reqShowList(param);
       result
