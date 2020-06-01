@@ -137,7 +137,7 @@ export default {
     },
     login() {
       var that = this;
-      alert(JSON.stringify(that.mes));
+      alert('授权'+JSON.stringify(that.mes));
       if (that.$refs.phone.value == "" || that.$refs.research.value == "") {
         Toast("请输入手机号和验证码");
       } else if (
@@ -160,11 +160,11 @@ export default {
           COUNTRY: that.mes.country,
           PRIVILEGE: that.mes.privilege
         };
-        alert(JSON.stringify(param));
+        alert('登录请求参数'+JSON.stringify(param));
         let res = reqlogin(param);
         res
           .then(res => {
-            alert(JSON.stringify(res));
+            alert('登录返回'+JSON.stringify(res));
             that.messages = res.result;
             // if (this.$route.query.type == "otherLogin") {
             // this.$router.push({
@@ -178,14 +178,14 @@ export default {
             // }
             // });
             // } else {
-            this.$router.push({
-              path: "/",
-              query: {
-                broker_id: that.messages.ID,
-                robot_id: that.messages.ROBOT_ID,
-                token: that.messages.token
-              }
-            });
+            // this.$router.push({
+            //   path: "/",
+            //   query: {
+            //     broker_id: that.messages.ID,
+            //     robot_id: that.messages.ROBOT_ID,
+            //     token: that.messages.token
+            //   }
+            // });
             // }
           })
           .catch(reslove => {
@@ -199,7 +199,7 @@ export default {
       res
         .then(res => {
           this.mes = res.result;
-          alert(JSON.stringify(this.mes));
+          alert('授权返回'+JSON.stringify(this.mes));
           let param = { openid: this.mes.openid };
           let result = reqisregistered(param);
           result
