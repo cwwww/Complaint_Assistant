@@ -131,7 +131,7 @@ export default {
             }
           })
           .catch(reslove => {
-            Toast('验证输入次数频繁');
+            Toast("验证输入次数频繁");
           });
       }
     },
@@ -165,25 +165,25 @@ export default {
             console.log(res);
             this.messages = res.result;
             // if (this.$route.query.type == "otherLogin") {
-              // this.$router.push({
-                // path: "/HomeOther",
-                // query: {
-                //   customer_id: this.visitList.customer_id,
-                //   customer_robot_id: this.customer_robot_id,
-                //   customer_type: this.customer_type,
-                //   visited_robot_id: this.$route.query.broker_id,
-                //   token: this.visitList.token
-                // }
-              // });
+            // this.$router.push({
+            // path: "/HomeOther",
+            // query: {
+            //   customer_id: this.visitList.customer_id,
+            //   customer_robot_id: this.customer_robot_id,
+            //   customer_type: this.customer_type,
+            //   visited_robot_id: this.$route.query.broker_id,
+            //   token: this.visitList.token
+            // }
+            // });
             // } else {
-              this.$router.push({
-                path: "/",
-                query: {
-                  broker_id: this.messages.ID,
-                  robot_id: this.messages.ROBOT_ID,
-                  token: this.messages.token
-                }
-              });
+            this.$router.push({
+              path: "/",
+              query: {
+                broker_id: this.messages.ID,
+                robot_id: this.messages.ROBOT_ID,
+                token: this.messages.token
+              }
+            });
             // }
           })
           .catch(reslove => {
@@ -235,6 +235,12 @@ export default {
     }
   },
   created() {
+    if (!window.localStorage.getItem("openId")) {
+      // 如果缓存localStorage中没有微信openId，则需用code去后台获取
+      this.getCode();
+    } else {
+      // 别的业务逻辑
+    }
     this.url = window.location.href.split("#")[0];
     var start = this.url.indexOf("=");
     var end = this.url.indexOf("&");
@@ -263,12 +269,6 @@ export default {
       });
   },
   mounted() {
-    if (!window.localStorage.getItem("openId")) {
-      // 如果缓存localStorage中没有微信openId，则需用code去后台获取
-      this.getCode();
-    } else {
-      // 别的业务逻辑
-    }
     // this.wxconfig()
     // var url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
   }

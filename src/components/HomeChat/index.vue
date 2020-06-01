@@ -88,6 +88,7 @@ export default {
   created(){
       this.chat = this.show_chat
       this.getChatList();
+      
   },
   watch:{
     show_chat(newValue){
