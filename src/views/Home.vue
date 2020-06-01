@@ -377,6 +377,8 @@ export default {
     showChatP(data) {
       this.homeChat = data;
       if(!this.homeChat){
+        this.list2 = this.HistoryList
+        // this.list2 = this.HistoryList.slice(-4)
         alert(JSON.stringify(this.HistoryList))
       }
     },
