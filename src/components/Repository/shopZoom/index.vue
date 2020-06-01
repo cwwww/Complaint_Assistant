@@ -300,6 +300,9 @@ export default {
       font-size: 14px;
     }
     .contain{
+      height: 390px;
+      overflow-y: hidden;
+      overflow:scroll;
       > .centercontent {
       width: 345px;
       height: auto;

@@ -347,13 +347,11 @@ export default {
       this.$router.replace("/Invite");
     },
     getInit() {
-      alert(JSON.stringify(this.robot_id_prop))
       let param = {
         robot_id:  this.robot_id_prop,
         user_id: this.broker_id_prop,
         token: this.token_prop
       };
-      alert(JSON.stringify(param))
       let result = reqShowList(param);
       result
         .then(res => {
