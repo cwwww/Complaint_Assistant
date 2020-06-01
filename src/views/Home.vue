@@ -375,7 +375,9 @@ export default {
       this.isList = data;
     },
     showChatP(data) {
+      
       this.homeChat = data;
+      alert('2222')
       if(!this.homeChat){
         alert('11111')
       }
