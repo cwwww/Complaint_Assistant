@@ -71,28 +71,6 @@ export default {
     };
   },
   methods: {
-    getLogin() {
-      let param = {
-        PHONE: "13544668944",
-        OPENID: null,
-        NICKNAME: null,
-        HEADIMGURL: null,
-        SEX: null,
-        PROVINCE: null,
-        CITY: null,
-        COUNTRY: null,
-        PRIVILEGE: null,
-        code: "1256"
-      };
-      let res = reqlogin(param);
-      res
-        .then(res => {
-          // console.log(res)
-        })
-        .catch(reslove => {
-          console.log("error");
-        });
-    },
     checked() {
       this.check = false;
     },
@@ -178,14 +156,14 @@ export default {
             // }
             // });
             // } else {
-            // this.$router.push({
-            //   path: "/",
-            //   query: {
-            //     broker_id: that.messages.ID,
-            //     robot_id: that.messages.ROBOT_ID,
-            //     token: that.messages.token
-            //   }
-            // });
+                // this.$router.push({
+                //   path: "/",
+                //   query: {
+                //     broker_id: that.messages.ID,
+                //     robot_id: that.messages.ROBOT_ID,
+                //     token: that.messages.token
+                //   }
+                // });
             // }
           })
           .catch(reslove => {
@@ -200,20 +178,22 @@ export default {
         .then(res => {
           this.mes = res.result;
           alert('授权返回'+JSON.stringify(this.mes));
+          
           let param = { openid: this.mes.openid };
           let result = reqisregistered(param);
           result
             .then(result => {
               this.loginMeg = result.result;
+              alert('注册查询返回'+JSON.stringify(result.result))
               if (this.loginMeg.visitor_type == 1) {
-                this.$router.push({
-                  path: "/",
-                  query: {
-                    visitor_id: this.loginMeg.visitor_id,
-                    robot_id: this.loginMeg.robot_id,
-                    token: this.loginMeg.token
-                  }
-                });
+                // this.$router.push({
+                //   path: "/",
+                //   query: {
+                //     visitor_id: this.loginMeg.visitor_id,
+                //     robot_id: this.loginMeg.robot_id,
+                //     token: this.loginMeg.token
+                //   }
+                // });
               }
             })
             .catch(reslove => {
