@@ -95,7 +95,7 @@ export default {
     },
     close() {
           alert(JSON.stringify(this.token_prop +'token'))
-    alert(JSON.stringify(this.type_prop +'class'))
+    // alert(JSON.stringify(this.type_prop +'class'))
       this.$emit("sellershopc", false);
       this.curIndex = 0
     }
