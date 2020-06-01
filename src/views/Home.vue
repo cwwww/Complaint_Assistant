@@ -12,7 +12,7 @@
           <div class="isNo" @click="noGet">
             <span style="color:#666;">忽略</span>
           </div>
-          <div class="isYes" @click="toGet()">
+          <div class="isYes" @click="toGet">
             <span style="color:#FFF;">去领取</span>
           </div>
         </div>
@@ -120,7 +120,7 @@
           <img :src="home_zsk" alt />
           <span>知识库</span>
         </li>
-        <li @click="FairyShop(0)">
+        <li @click="FairyShop">
           <img :src="home_store" alt />
           <span>精灵商店</span>
         </li>
@@ -404,9 +404,9 @@ export default {
     },
     FairyShop() {
       // 买家精灵商店
-      alert(this.toget)
+      alert('第一次'+this.toget)
       this.toget = 0
-      alert(this.toget)
+      alert('第2次'+this.toget)
       this.isSellerShop = true;
       this.destoryTimer();
     },
