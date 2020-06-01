@@ -153,19 +153,19 @@ export default {
       let param = {
         broker_id: this.broker_id,
         sentence_id: this.list[index].sentence_id,
-        question: this.val,
-        answer: "",
+        question: this.list[index-1].question,
+        answer: this.list[index].answer,
         token: this.token
       };
-      console.log(param);
-      let res = reqChathist(param);
-      res
-        .then(res => {
-          Toast(res.msg);
-        })
-        .catch(reslove => {
-          console.log("error");
-        });
+      alert(JSON.stringify(param))
+      // let res = reqChathist(param);
+      // res
+      //   .then(res => {
+      //     Toast(res.msg);
+      //   })
+      //   .catch(reslove => {
+      //     console.log("error");
+      //   });
     },
     teachYou(index) {
       let param = {
