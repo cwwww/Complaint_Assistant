@@ -178,13 +178,13 @@ export default {
         .catch(reslove => {
           console.log("error");
         });
-      this.$router.push({
-        path: "/shopZoom",
-        query: {
-          Answer: this.list[index].content,
-          Question: this.list[index - 1].content
-        }
-      });
+      // this.$router.push({   //跳到知识库编辑页面
+      //   path: "/shopZoom",
+      //   query: {
+      //     Answer: this.list[index].content,
+      //     Question: this.list[index - 1].content
+      //   }
+      // });
     },
     //  滚动条置底
     scrollToBottom: function() {
