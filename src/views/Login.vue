@@ -240,37 +240,36 @@ export default {
       this.getCode();
     } else {
       // 别的业务逻辑
+      this.url = window.location.href.split("#")[0];
+      var start = this.url.indexOf("=");
+      var end = this.url.indexOf("&");
+      this.code = this.url.substring(start + 1, end);
+      console.log(this.url);
+      this.impower();
+      let param = { openid: this.mes.openid };
+      let res = reqisregistered(param);
+      res
+        .then(res => {
+          this.loginMeg = res.result;
+          console.log(this.loginMeg);
+          if (this.loginMeg.visitor_type == 1) {
+            this.$router.push({
+              path: "/",
+              query: {
+                visitor_id: this.loginMeg.visitor_id,
+                robot_id: this.loginMeg.robot_id,
+                token: this.loginMeg.token
+              }
+            });
+          }
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     }
-    this.url = window.location.href.split("#")[0];
-    var start = this.url.indexOf("=");
-    var end = this.url.indexOf("&");
-    this.code = this.url.substring(start + 1, end);
-    console.log(this.url);
-    this.impower();
-    let param = { openid: this.mes.openid };
-    let res = reqisregistered(param);
-    res
-      .then(res => {
-        this.loginMeg = res.result;
-        console.log(this.loginMeg);
-        if (this.loginMeg.visitor_type == 1) {
-          this.$router.push({
-            path: "/",
-            query: {
-              visitor_id: this.loginMeg.visitor_id,
-              robot_id: this.loginMeg.robot_id,
-              token: this.loginMeg.token
-            }
-          });
-        }
-      })
-      .catch(reslove => {
-        console.log("error");
-      });
   },
   mounted() {
     // this.wxconfig()
-    // var url = 'https://bebot-web.baoxianxia.com.cn/?code=001JkJZI1Yij410HU50J1Jh40J1JkJZV&state=123#/login';
   }
 };
 </script>
