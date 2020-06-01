@@ -35,7 +35,7 @@
         :token_prop="token_prop"
       />
       <vipShop
-        v-show="type == 1"
+        v-show="type_prop == 1"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
