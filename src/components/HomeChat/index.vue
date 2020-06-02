@@ -88,7 +88,6 @@ export default {
   props: ["broker_id", "robot_id", "token", "show_chat", "val"],
   created() {
     this.chat = this.show_chat;
-    this.question = this.val;
   },
   watch: {
     show_chat(newValue) {
