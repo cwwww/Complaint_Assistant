@@ -171,7 +171,7 @@ export default {
       } else {
         this.question = this.inputCont;
         let param = {
-          broker_id: this.broker_id,
+          broker_id: this.broker_id_prop,
           customer_id: this.customer_id_prop,
           customer_type: this.customer_type_prop,
           speaker: "2",
