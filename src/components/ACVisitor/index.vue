@@ -58,7 +58,7 @@
       <div class="bottomLine"></div>
       <div class="bottom">
         <div class="content-bottom">
-          <input type="text" :placeholder="placeholder" v-model="question" />
+          <input type="text" :placeholder="placeholder" v-model="ques" />
         </div>
         <div class="btn" @click="submit">
           <span>发送</span>
@@ -150,7 +150,7 @@ export default {
       alert(111)
       if (this.dialogMark == "1") {
         alert(2222)
-        if (this.question == "") {
+        if (this.ques == "") {
           Toast("请输入聊天内容");
         } else {
           let param = {
@@ -158,7 +158,7 @@ export default {
             customer_id: this.customer_id,
             customer_type: this.customer_type,
             speaker: "1",
-            content: this.question,
+            content: this.ques,
             token: this.token
           };
           alert('提交'+JSON.stringify(param))
@@ -168,7 +168,7 @@ export default {
               if (this.dialogMark == 1) {
                 this.getHistoryCustomer();
               }
-              this.question = "";
+              this.ques = "";
             })
             .catch(reslove => {
               console.log("error");
@@ -201,16 +201,16 @@ export default {
           broker_id: this.visited_broker_id,
           robot_id: this.visited_robot_id,
           speaker: "1",
-          content: this.question,
+          content: this.ques,
           token: this.token
         };
       }
       alert('mark0'+JSON.stringify(param))
       let res = reqCusayrob(param);
-      res =>{
+      res => {
           alert('mark0返回'+JSON.stringify(res))
           this.list = res.result.dialog_history;
-          this.question = "";
+          this.ques = "";
       }
         // .then(res => {
         //   alert('mark0返回'+JSON.stringify(res.result.dialog_history))
@@ -221,7 +221,6 @@ export default {
         //   console.log("error");
         // });
     },
-
     // 发布
     chathist(index) {
       console.log(this.list[index]);

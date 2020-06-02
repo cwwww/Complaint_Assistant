@@ -125,15 +125,15 @@ export default {
       } else if (!that.check) {
         Toast("请勾选协议");
       } else {
-        // if (that.mes.country == "") {
-        //   that.mes.country = ".";
-        // }
-        // if (that.mes.province == "") {
-        //   that.mes.province = ".";
-        // }
-        // if (that.mes.city == "") {
-        //   that.mes.city = ".";
-        // }
+        if (that.mes.country == "") {
+          that.mes.country = ".";
+        }
+        if (that.mes.province == "") {
+          that.mes.province = ".";
+        }
+        if (that.mes.city == "") {
+          that.mes.city = ".";
+        }
         let param = {
           PHONE: that.$refs.phone.value,
           code: that.$refs.research.value,
