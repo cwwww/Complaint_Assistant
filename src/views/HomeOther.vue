@@ -274,7 +274,14 @@ export default {
       this.showACChat = false;
     },
     toHome() {
-      this.$router.replace("/");
+      this.$router.push({
+        path:'/',
+        query:{
+          robot_id:this.customer_robot_id,
+          broker_id:this.visitList.customer_id,
+          token:this.visitList.token,
+        }
+      });
     },
     previousPage() {
       talkContent.scrollTop += -138;
