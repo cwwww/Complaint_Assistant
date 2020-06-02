@@ -56,7 +56,7 @@
 </template>
 <script>
 import { Toast } from "vant";
- import Bus from './../../../assets/js/common/Bus'
+import Bus from "./../../../assets/js/common/Bus";
 import {
   reqlistPage,
   reqknowledgeList,
@@ -92,14 +92,15 @@ export default {
     "type"
   ],
   created() {
-      Bus.$on('teachyou', (data) => {
-        if(data != ''){
-          this.show = this.true;
-        }
-        alert(JSON.stringify(data))
-        let question = data.Question
-        let answer = data.Answer
-      })
+    Bus.$on("teachyou", data => {
+      alert(JSON.stringify(data));
+      if (data != "") {
+        this.show = this.true;
+      }
+
+      let question = data.Question;
+      let answer = data.Answer;
+    });
     this.show = this.shopZoomC_show;
     this.broker_id_prop = this.broker_id;
     this.robot_id_prop = this.robot_id;
@@ -114,7 +115,7 @@ export default {
   methods: {
     close() {
       if (this.$route.query.type == "type") {
-        this.$emit('shopZoomC',false)
+        this.$emit("shopZoomC", false);
         // this.$router.push({
         //   path: "/Repository",
         //   query: {
@@ -125,8 +126,8 @@ export default {
         //   }
         // });
       }
-        // else {
-        // this.$emit('HomeChatC',false)
+      // else {
+      // this.$emit('HomeChatC',false)
       //   this.$router.push({
       //     path: "/HomeChat",
       //     query: {

@@ -180,7 +180,6 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :val="question"
-      :HistoryList="HistoryList"
     />
     <WhoLookMe
       v-show="WhoLook"

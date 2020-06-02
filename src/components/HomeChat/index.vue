@@ -86,7 +86,7 @@ export default {
       smallBebot: require("../../assets/images/smallBebot.png")
     };
   },
-  props:['broker_id','robot_id','token','show_chat',"val","HistoryList"],
+  props:['broker_id','robot_id','token','show_chat',"val"],  //,"HistoryList"
   created(){
       this.chat = this.show_chat
       this.hisChat = this.val
@@ -99,10 +99,10 @@ export default {
         this.val = newValue
         alert(JSON.stringify('val:'+this.val))
     },
-    HistoryList(newValue){
-        this.list = newValue
-        alert(JSON.stringify('HistoryList'+this.list))
-    }
+    // HistoryList(newValue){
+    //     this.list = newValue
+    //     alert(JSON.stringify('HistoryList'+this.list))
+    // }
   },
   methods: {
     close() {
@@ -178,7 +178,7 @@ export default {
           Question: this.list[index - 1].content
       }
       alert(JSON.stringify(params))
-      this.$Bus.emit('teachyou',params)
+      Bus.emit('teachyou',params)
       // let param = {
       //   broker_id: this.broker_id,
       //   question: this.list[index - 1].content,
