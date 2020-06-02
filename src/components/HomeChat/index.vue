@@ -113,12 +113,12 @@ export default {
           question: this.question,
           data: false
         };
+        this.flag = false;
       } else {
         let params = {
           data: false
         };
       }
-      this.flag = false;
       this.$emit("showChatC", params);
     },
     getChatList() {

@@ -377,7 +377,6 @@ export default {
     ListP(data) {
       this.isList = data;
     },
-
     showChatP(data) {
       alert(JSON.stringify(data));
       this.homeChat = data.data;
@@ -394,13 +393,23 @@ export default {
         res
           .then(res => {
             console.log(res);
-            // this.getHistory();
+            this.getHistory();
             // this.question = "";
           })
           .catch(reslove => {
             console.log("error");
           });
       }
+    },
+    toInvite() {
+   this.$router.push({
+     path: "/invite",
+     query: {
+   broker_id: this.$route.query.broker_id,
+   robot_id: this.$route.query.robot_id,
+      token: this.$route.query.token
+     }
+   });
     },
     WhoLookP(data) {
       this.WhoLook = data;
@@ -448,16 +457,6 @@ export default {
       //     token: this.$route.query.token
       //   }
       // });
-    },
-    toInvite() {
-      this.$router.push({
-        path: "/invite",
-        query: {
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robot_id,
-          token: this.$route.query.token
-        }
-      });
     },
     toGet() {
       this.toget = 1;
