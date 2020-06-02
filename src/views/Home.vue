@@ -377,10 +377,11 @@ export default {
     ListP(data) {
       this.isList = data;
     },
+
     showChatP(data) {
       alert(JSON.stringify(data));
       this.homeChat = data.data;
-      if (data.question != '') {
+      if (data.question != "") {
         let param = {
           dialog_type: "1",
           broker_id: this.$route.query.broker_id,
@@ -416,9 +417,6 @@ export default {
       //好友
       this.isFriend = data;
     },
-    toInvite() {
-      this.$router.push("/invite");
-    },
     open7() {
       this.$router.push("/LevelUp");
       //       this.$confirm(
@@ -450,6 +448,16 @@ export default {
       //     token: this.$route.query.token
       //   }
       // });
+    },
+    toInvite() {
+      this.$router.push({
+        path: "/invite",
+        query: {
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robot_id,
+          token: this.$route.query.token
+        }
+      });
     },
     toGet() {
       this.toget = 1;
