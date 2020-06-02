@@ -442,7 +442,7 @@ export default {
       Toast("施工中,敬请期待");
     },
     HomeChat() {
-      this.HomeChat = true;
+      
       let param = {
         broker_id: this.$route.query.broker_id,
         token: this.$route.query.token
@@ -456,6 +456,7 @@ export default {
       res
         .then(res => {
           this.HistoryList = res.result;
+          this.HomeChat = true;
         })
         .catch(reslove => {
           console.log("error");
