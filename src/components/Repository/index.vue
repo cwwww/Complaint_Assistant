@@ -145,6 +145,7 @@
 import BScroll from "better-scroll";
 import { Popup, Toast } from "vant";
 import shopZoom from "../Repository/shopZoom";
+import Bus from "../../assets/js/common/Bus";
 import {
   reqShowList,
   reqHomeInit,
@@ -155,6 +156,7 @@ import {
 } from "../../axios/axios-api";
 export default {
   name: "Repository",
+
   components: {
     shopZoom
   },
@@ -173,9 +175,9 @@ export default {
       state: "",
       goods: "",
       text: "",
-      broker_id_prop:'',
-      robot_id_prop:'',
-      token_prop:'',
+      broker_id_prop: "",
+      robot_id_prop: "",
+      token_prop: "",
       isEvaluate: Boolean, //是否评价
       img: require("../../assets/images/icon.png"),
       suo: require("../../assets/images/suo@2x.png"),
@@ -193,6 +195,11 @@ export default {
   },
   props: ["broker_id", "robot_id", "token", "Repository_show"],
   created() {
+    Bus.$on("teachyou", data => {
+      alert(JSON.stringify(data));
+      let question = data.Question;
+      let answer = data.Answer;
+    });
     this.show = this.Repository_show;
     this.broker_id_prop = this.broker_id;
     this.robot_id_prop = this.robot_id;
@@ -201,30 +208,34 @@ export default {
   watch: {
     Repository_show(newValue) {
       this.show = newValue;
+    },
+    data(newValue) {
+      alert(newValue);
+      this.show = newValue;
     }
   },
   methods: {
-    randomColor(item){
-        let R = Math.floor(Math.random() * 233 );
-        let G = Math.floor(Math.random() * 70 );
-        let B = Math.floor(Math.random() * 70 );
-        return {
-          color:'rgb(' + R + ',' + G + ',' + B + ')'
-        };
+    randomColor(item) {
+      let R = Math.floor(Math.random() * 233);
+      let G = Math.floor(Math.random() * 70);
+      let B = Math.floor(Math.random() * 70);
+      return {
+        color: "rgb(" + R + "," + G + "," + B + ")"
+      };
     },
     randomRgb(item) {
-        let R = Math.floor(Math.random() * 233 + 70);
-        let G = Math.floor(Math.random() * 70 + 70);
-        let B = Math.floor(Math.random() * 70 + 70);
-        return {
-          background: 'rgb(' + R + ',' + G + ',' + B + ')',
-        };
-      },
+      let R = Math.floor(Math.random() * 233 + 70);
+      let G = Math.floor(Math.random() * 70 + 70);
+      let B = Math.floor(Math.random() * 70 + 70);
+      return {
+        background: "rgb(" + R + "," + G + "," + B + ")"
+      };
+    },
     close() {
       this.$emit("RepositoryC", false);
     },
-    shopZoomP(data){
-      this.showMyshop = data
+    shopZoomP(data) {
+      this.showMyshop = data;
     },
     toShopZoom(index) {
       if (this.list[index].type == 0) {
@@ -263,7 +274,7 @@ export default {
     },
     toget(index) {
       this.goods = this.list[index].goods_id;
-      alert(this.robot_id_prop)
+      alert(this.robot_id_prop);
       let param = {
         robot_id: this.robot_id_prop,
         goods_id: this.goods,
@@ -348,7 +359,7 @@ export default {
     },
     getInit() {
       let param = {
-        robot_id:  this.robot_id_prop,
+        robot_id: this.robot_id_prop,
         user_id: this.broker_id_prop,
         token: this.token_prop
       };

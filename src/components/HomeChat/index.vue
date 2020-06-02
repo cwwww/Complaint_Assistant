@@ -60,6 +60,7 @@
 <script>
 import BScroll from "better-scroll";
 import { Popup, Toast, Loading } from "vant";
+import Bus from "../../assets/js/common/Bus";
 import {
   reqRobotDetail,
   reqRobotHistory,
@@ -168,22 +169,29 @@ export default {
         });
     },
     teachYou(index) {
-      let param = {
-        broker_id: this.broker_id,
-        question: this.list[index - 1].content,
-        answer: this.list[index].content,
-        token: this.token
+      let params = {
+        Answer: this.list[index].content,
+        Question: this.list[index - 1].content
       };
-      console.log(param);
-      let res = reqaddledgeList(param);
-      res
-        .then(res => {
-          // this.ShoWList()
-          console.log(res);
-        })
-        .catch(reslove => {
-          console.log("error");
-        });
+      alert(JSON.stringify(params));
+      Bus.$emit("teachyou", params);
+
+      // let param = {
+      //   broker_id: this.broker_id,
+      //   question: this.list[index - 1].content,
+      //   answer: this.list[index].content,
+      //   token: this.token
+      // };
+      // console.log(param);
+      // let res = reqaddledgeList(param);
+      // res
+      //   .then(res => {
+      //     // this.ShoWList()
+      //     console.log(res);
+      //   })
+      //   .catch(reslove => {
+      //     console.log("error");
+      //   });
       // this.$router.push({   //跳到知识库编辑页面
       //   path: "/shopZoom",
       //   query: {
