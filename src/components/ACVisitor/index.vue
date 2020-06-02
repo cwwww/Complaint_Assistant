@@ -86,7 +86,7 @@ export default {
       right: true,
       question: "",
       flag: true,
-      dialogMark: "",
+      dialogMark: 0,
       isInput: true,
       lastSentence: "",
       placeholder: "你试试输入“风险测评”",
@@ -147,7 +147,9 @@ export default {
         });
     },
     submit() {
+      alert(111)
       if (this.dialogMark == "1") {
+        alert(2222)
         if (this.question == "") {
           Toast("请输入聊天内容");
         } else {
