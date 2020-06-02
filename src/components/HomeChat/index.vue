@@ -88,15 +88,22 @@ export default {
   props: ["broker_id", "robot_id", "token", "show_chat", "val"],
   created() {
     this.chat = this.show_chat;
-    this.question = this.val;
   },
   watch: {
     show_chat(newValue) {
       this.chat = newValue;
+      if(this.chat){
+        this.getChatList()
+      }
     },
     val(newValue) {
       this.val = newValue;
+      alert(JSON.stringify(this.val));
     }
+  },
+  mounted() {
+    // alert(111)
+    // this.getChatList();
   },
   methods: {
     close() {
@@ -105,17 +112,15 @@ export default {
     getChatList() {
       let param = {
         broker_id: this.broker_id,
-        token: this.token,
+        token: this.token
         // robot_id:33 ||  this.robot_id,
         // speaker: "2",
         // content: 'this.question',
         // create_time: new Date().toLocaleString()
       };
-      alert(JSON.stringify(param));
       let res = reqRobotHistory(param);
       res
         .then(res => {
-          alert(JSON.stringify(res))
           this.list = res.result;
         })
         .catch(reslove => {
@@ -126,13 +131,13 @@ export default {
       if (this.input == "") {
         Toast("请输入聊天内容");
       } else {
-        this.val = this.input;
+        this.question = this.input;
         let param = {
           dialog_type: "1",
           broker_id: this.broker_id,
           robot_id: this.robot_id,
           speaker: "2",
-          content: this.val,
+          content: this.question,
           token: this.token
         };
         let res = reqRobotDetail(param);
@@ -171,7 +176,7 @@ export default {
         Answer: this.list[index].content,
         Question: this.list[index - 1].content
       };
-      alert(JSON.stringify(params));
+      alert(JSON.stringify('我教你'+params));
       Bus.$emit("teachyou", params);
 
       // let param = {
@@ -208,9 +213,6 @@ export default {
   },
   updated() {
     this.scrollToBottom();
-  },
-  mounted() {
-    this.getChatList();
   }
 };
 </script>

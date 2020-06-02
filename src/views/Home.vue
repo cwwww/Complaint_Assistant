@@ -375,10 +375,9 @@ export default {
     },
     showChatP(data) {
       this.homeChat = data;
-      // if (!this.homeChat) {
-      //   this.list2 = this.HistoryList.slice(-4).content;
-      //   alert(JSON.stringify(this.HistoryList.slice(-4).content));
-      // }
+      if (!this.homeChat) {
+        this.getDetail();
+      }
     },
     WhoLookP(data) {
       this.WhoLook = data;
@@ -440,11 +439,6 @@ export default {
     },
     toHope() {
       Toast("施工中,敬请期待");
-    },
-    
-    HomeChat() {
-      this.HomeChat = true;
-
     },
     HomeChat() {
       // 聊天记录
@@ -676,7 +670,6 @@ export default {
         .then(res => {
           this.HistoryList = res.result;
           this.list2 = this.HistoryList.slice(-4);
-          // alert(JSON.stringify(this.HistoryList.slice(-1)[0].content))
         })
         .catch(reslove => {
           console.log("error");
