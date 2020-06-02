@@ -38,9 +38,9 @@
       :broker_id_prop="broker_id_prop"
       :robot_id_prop="robot_id_prop"
       :token_prop="token_prop"
-      :titleName="name"
+      :titleName="titleName"
       :customer_type="customer_type"
-      :customerImg="headimgurl"
+      :customerImg="customerImg"
       :customer_id="customer_id" 
       v-if="list"
     />
