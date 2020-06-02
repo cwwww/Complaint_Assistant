@@ -375,10 +375,10 @@ export default {
     },
     showChatP(data) {
       this.homeChat = data;
-      if (!this.homeChat) {
-        this.list2 = this.HistoryList.slice(-4).content;
-        alert(JSON.stringify(this.HistoryList.slice(-4).content));
-      }
+      // if (!this.homeChat) {
+      //   this.list2 = this.HistoryList.slice(-4).content;
+      //   alert(JSON.stringify(this.HistoryList.slice(-4).content));
+      // }
     },
     WhoLookP(data) {
       this.WhoLook = data;

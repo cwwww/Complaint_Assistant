@@ -94,10 +94,6 @@ export default {
   created() {
     Bus.$on("teachyou", data => {
       alert(JSON.stringify(data));
-      if (data != "") {
-        this.show = this.true;
-      }
-
       let question = data.Question;
       let answer = data.Answer;
     });
@@ -109,6 +105,9 @@ export default {
   },
   watch: {
     shopZoomC_show(newValue) {
+      this.show = newValue;
+    },
+    data(newValue){
       this.show = newValue;
     }
   },
