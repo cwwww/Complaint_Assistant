@@ -466,6 +466,7 @@ export default {
         visited_robot_id: that.$route.query.robot_id,
         token: that.visitList.token
       };
+      alert('请求参数'+JSON.stringify(param))
       let result = reqVisitedInit(param);
       result
         .then(res => {
