@@ -117,19 +117,28 @@ export default {
     "myHeadImg"
   ],
   created() {
-    this.chat = this.ACChat_show; 
+    this.chat = this.ACChat_show;
     this.titleName_prop = this.titleName;
     this.customer_type_prop = this.customer_type;
     this.customerImg_prop = this.customerImg;
     this.customer_id_prop = this.customer_id;
-    this.myHeadImg_prop = this.myHeadImg
+    this.myHeadImg_prop = this.myHeadImg;
   },
   watch: {
     ACChat_show(newValue) {
       this.chat = newValue;
     },
-    titleName(){
+    titleName() {
       this.titleName_prop = this.titleName;
+    },
+    customer_type() {
+      this.customer_type_prop = this.customer_type;
+    },
+    customerImg() {
+      this.customerImg_prop = this.customerImg;
+    },
+    customer_id() {
+      this.customer_id_prop = this.customer_id;
     }
   },
   methods: {
@@ -137,7 +146,7 @@ export default {
       this.$emit("ACChatC", false);
     },
     getDialogAgent() {
-      alert(JSON.stringify(this.titleName_prop))
+      alert(JSON.stringify(this.titleName_prop));
       //AC 聊天记录
       let param;
       if (this.flag) {
@@ -158,7 +167,7 @@ export default {
           token: this.token_prop
         };
       }
-      
+
       let res = reqDialogAgent(param);
       res
         .then(res => {
@@ -208,7 +217,6 @@ export default {
     this.scrollToBottom();
   },
   mounted() {
-
     this.scrollToBottom();
     this.getDialogAgent();
     // window.setInterval(() => {
