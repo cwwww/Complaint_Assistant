@@ -340,8 +340,8 @@ export default {
       // 用$on事件来接收参数
       Bus.$on('teachyou', (data) => {
         alert(JSON.stringify(data))
-        this.question = data.Question
-        this.answer = data.Answer
+        let question = data.Question
+        let answer = data.Answer
       })
      
     // let question = this.$route.query.Question;
