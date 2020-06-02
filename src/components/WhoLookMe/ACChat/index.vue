@@ -121,7 +121,7 @@ export default {
     this.customer_type_prop = this.customer_type;
     this.customerImg_prop = this.customerImg;
     this.customer_id_prop = this.customer_id;
-    alert('ACChat'+JSON.stringify(this.titleName))
+    
   },
   watch: {
     ACChat_show(newValue) {
@@ -134,6 +134,7 @@ export default {
     },
     getDialogAgent() {
       //AC 聊天记录
+      alert('customer_type_prop'+JSON.stringify(this.customer_type_prop))
       let param;
       if (this.flag) {
         param = {
