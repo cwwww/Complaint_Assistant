@@ -108,17 +108,21 @@ export default {
   },
   methods: {
     close() {
-      if (this.flag) {
-        let params = {
-          question: this.question,
-          data: false
-        };
-        this.flag = false;
-      } else {
-        let params = {
-          data: false
-        };
-      }
+      // if (this.flag) {
+      //   let params = {
+      //     question: this.question,
+      //     data: false
+      //   };
+      //   this.flag = false;
+      // } else {
+      //   let params = {
+      //     data: false
+      //   };
+      // }
+      let params = {
+        question: this.question,
+        data: false
+      };
       this.$emit("showChatC", params);
     },
     getChatList() {
@@ -143,7 +147,7 @@ export default {
       if (this.input == "") {
         Toast("请输入聊天内容");
       } else {
-        this.flag = true;
+        // this.flag = true;
         this.question = this.input;
         let param = {
           dialog_type: "1",
