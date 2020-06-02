@@ -658,7 +658,7 @@ export default {
         Toast("请输入聊天内容");
       } else {
         this.getDetail();
-        // this.getHistory();
+        this.getHistory();
         this.getReqtaskStatus();
       }
     },
@@ -718,7 +718,7 @@ export default {
           this.list.push(this.answer);
           // if (this.list2[0] == "") {
           // }
-          this.getHistory()
+          
           this.question = "";
         })
         .catch(reslove => {
