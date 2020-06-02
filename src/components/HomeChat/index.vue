@@ -178,7 +178,7 @@ export default {
           Question: this.list[index - 1].content
       }
       alert(JSON.stringify(params))
-      Bus.emit('teachyou',params)
+      Bus.$emit('teachyou',params)
       // let param = {
       //   broker_id: this.broker_id,
       //   question: this.list[index - 1].content,
