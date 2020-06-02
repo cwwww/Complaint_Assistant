@@ -922,6 +922,7 @@ export default {
   overflow: visible;
 }
 .contain {
+  height: 100vh;
   display: flex;
   background-color: #0b2733;
   background-image: url(../assets/images/ezgif.gif);
