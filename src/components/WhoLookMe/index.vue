@@ -39,10 +39,6 @@
       :robot_id_prop="robot_id_prop"
       :token_prop="token_prop"
       :list="list"
-      :titleName="list.name"
-      :customer_type="list.customer_type"
-      :customerImg="list.headimgurl"
-      :customer_id="list.customer_id" 
       v-if="list"
     />
   </div>
@@ -100,7 +96,6 @@ export default {
     result
       .then(res => {
         this.list = res.result;
-        console.log(this.list);
       })
       .catch(reslove => {
         console.log("error");

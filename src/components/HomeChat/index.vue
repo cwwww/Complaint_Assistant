@@ -108,17 +108,6 @@ export default {
   },
   methods: {
     close() {
-      // if (this.flag) {
-      //   let params = {
-      //     question: this.question,
-      //     data: false
-      //   };
-      //   this.flag = false;
-      // } else {
-      //   let params = {
-      //     data: false
-      //   };
-      // }
       let params = {
         question: this.question,
         data: false
@@ -129,10 +118,6 @@ export default {
       let param = {
         broker_id: this.broker_id,
         token: this.token
-        // robot_id:33 ||  this.robot_id,
-        // speaker: "2",
-        // content: 'this.question',
-        // create_time: new Date().toLocaleString()
       };
       let res = reqRobotHistory(param);
       res

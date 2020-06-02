@@ -117,16 +117,17 @@ export default {
     this.broker_id_prop = this.broker_id;
     this.robot_id_prop = this.robot_id;
     this.token_prop = this.token;
-    this.titleName_prop = this.titleName;
-    this.customer_type_prop = this.customer_type;
-    this.customerImg_prop = this.customerImg;
-    this.customer_id_prop = this.customer_id;
-    this.list_prop = this.list
+    // this.titleName_prop = this.titleName;
+    // this.customer_type_prop = this.customer_type;
+    // this.customerImg_prop = this.customerImg;
+    // this.customer_id_prop = this.customer_id;
+    // this.list_prop = this.list
+    alert('谁看过我'+JSON.stringify(this.list))
   },
   watch: {
     ACChat_show(newValue) {
       this.chat = newValue;
-    }
+    },
   },
   methods: {
     close() {
