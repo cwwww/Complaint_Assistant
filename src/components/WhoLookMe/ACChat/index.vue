@@ -93,6 +93,10 @@ export default {
       flag: true,
       inputCont: "",
       lastSentence: "",
+      titleName: "",
+      customer_type: "",
+      customerImg: "",
+      customer_id: "",
       placeholder: "你好啊～我能问什么问题呢？",
       user: require("../../../assets/images/头像@2x.png"),
       fkuser: require("../../../assets/images/fkuser.png"),
@@ -114,12 +118,11 @@ export default {
   ],
   created() {
     this.chat = this.ACChat_show;
-
   },
   watch: {
     ACChat_show(newValue) {
       this.chat = newValue;
-    },
+    }
   },
   methods: {
     close() {
@@ -146,7 +149,7 @@ export default {
           token: this.token_prop
         };
       }
-      alert('param'+JSON.stringify(param))
+      alert("param" + JSON.stringify(param));
       let res = reqDialogAgent(param);
       res
         .then(res => {
@@ -198,7 +201,7 @@ export default {
     this.scrollToBottom();
   },
   mounted() {
-        this.titleName_prop = this.titleName;
+    this.titleName_prop = this.titleName;
     this.customer_type_prop = this.customer_type;
     this.customerImg_prop = this.customerImg;
     this.customer_id_prop = this.customer_id;

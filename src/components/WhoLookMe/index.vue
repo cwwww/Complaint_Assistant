@@ -42,7 +42,7 @@
       :customer_type="customer_type"
       :customerImg="customerImg"
       :customer_id="customer_id" 
-      v-if="list"
+      v-if="customer_id"
     />
   </div>
 </template>
