@@ -461,8 +461,8 @@ export default {
         // visited_robot_id: 93,
         // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
         customer_id: that.visitList.customer_id,
-        customer_robot_id: that.customer_robot_id,
-        customer_type: that.customer_type,
+        customer_robot_id: that.visitList.customer_robot_id,
+        customer_type: that.visitList.customer_type,
         visited_robot_id: that.$route.query.robot_id,
         token: that.visitList.token
       };
