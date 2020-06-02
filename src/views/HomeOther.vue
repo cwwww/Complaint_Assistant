@@ -444,16 +444,16 @@ export default {
     },
     getHomeInit() {
       var that = this;
-      // if (that.registers.visitor_type == "0") {
-      //   that.customer_type = 0;
-      //   that.customer_robot_id = "";
-      // } else if (that.registers.visitor_type == "1") {
-      //   that.customer_type = 1;
-      //   that.customer_robot_Nid = that.visitList.robot_id;
-      // } else if (that.registers.visitor_type == "-1") {
-      //   that.customer_type = 0;
-      //   that.customer_robot_id = "";
-      // }
+      if (that.registers.visitor_type == "0") {
+        that.customer_type = 0;
+        that.customer_robot_id = "";
+      } else if (that.registers.visitor_type == "1") {
+        that.customer_type = 1;
+        that.customer_robot_id = that.registers.robot_id;
+      } else if (that.registers.visitor_type == "-1") {
+        that.customer_type = 0;
+        that.customer_robot_id = "";
+      }
       let param = {
         // customer_id: 33,
         // customer_robot_id: 33,
@@ -461,10 +461,10 @@ export default {
         // visited_robot_id: 93,
         // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
         customer_id: that.visitList.customer_id,
-        customer_robot_id: that.visitList.customer_robot_id,
-        customer_type: that.visitList.customer_type,
+        customer_robot_id: that.customer_robot_id,
+        customer_type: that.customer_type,
         visited_robot_id: that.$route.query.robot_id,
-        token: that.visitList.token
+        token: that.registers.token
       };
       alert('请求参数'+JSON.stringify(param))
       let result = reqVisitedInit(param);
@@ -480,19 +480,19 @@ export default {
           if (that.homeInit.title == 1) {
             //保险等级
             that.homeLevel = that.levelbx1;
-          } else if (that.homeInit.title == 2) {
-            that.homeLevel = that.levelbx2;
-          } else if (that.homeInit.level == 3) {
-            that.homeLevel = that.levelbx3;
-          } else if (that.homeInit.level == 4) {
-            that.homeLevel = that.levelbx4;
-          } else if (that.homeInit.level == 5) {
-            that.homeLevel = that.levelbx5;
-          } else if (that.homeInit.level == 6) {
-            that.homeLevel = that.levelbx6;
-          } else if (that.homeInit.level == 7) {
-            that.homeLevel = that.levelbx7;
-          }
+            } else if (that.homeInit.title == 2) {
+              that.homeLevel = that.levelbx2;
+            } else if (that.homeInit.level == 3) {
+              that.homeLevel = that.levelbx3;
+            } else if (that.homeInit.level == 4) {
+              that.homeLevel = that.levelbx4;
+            } else if (that.homeInit.level == 5) {
+              that.homeLevel = that.levelbx5;
+            } else if (that.homeInit.level == 6) {
+              that.homeLevel = that.levelbx6;
+            } else if (that.homeInit.level == 7) {
+              that.homeLevel = that.levelbx7;
+            }
           that.getCusayrob();
           //串门成功后，增加金币和经验
           that.chuanmen();
@@ -505,11 +505,11 @@ export default {
     chuanmen() {
       var that = this;
       let param = {
-        broker_id: that.visitList.customer_id,
-        robot_id: that.visitList.customer_robot_id,
+        broker_id: that.registers.customer_id,
+        robot_id: that.registers.customer_robot_id,
         operation_type: 4,
         visited_robot_id: that.$route.query.robot_id,
-        token: that.visitList.token
+        token: that.registers.token
       };
       console.log("任务的param:" + param);
       let result = reqtaskStatus(param);
@@ -552,32 +552,35 @@ export default {
           result
             .then(res => {
               that.registers = res.result;
+              alert('register'+JSON.stringify(that.registers))
               if (that.registers.visitor_type == "0") {
+                that.customer_id = that.visitor_id
                 that.isRegister = false;
               } else if (that.registers.visitor_type == "1") {
+                that.broker_id = that.visitor_id
                 that.isRegister = true;
               } else if (that.registers.visitor_type == "-1") {
                 that.isRegister = false;
+                let param = {
+                  openid: that.messages.openid,
+                  nickname: that.messages.nickname,
+                  sex: that.messages.sex,
+                  province: that.messages.province,
+                  city: that.messages.city,
+                  country: that.messages.country,
+                  headimgurl: that.messages.headimgurl,
+                  privilege: that.messages.privilege
+                };
+                let result = reqcustomerlogin(param);
+                result
+                  .then(res => {
+                    that.visitList = res.result;
+                  })
+                  .catch(reslove => {
+                    console.log("error");
+                  });
               }
-              let param = {
-                openid: that.messages.openid,
-                nickname: that.messages.nickname,
-                sex: that.messages.sex,
-                province: that.messages.province,
-                city: that.messages.city,
-                country: that.messages.country,
-                headimgurl: that.messages.headimgurl,
-                privilege: that.messages.privilege
-              };
-              let result = reqcustomerlogin(param);
-              result
-                .then(res => {
-                  that.visitList = res.result;
-                  that.getHomeInit();
-                })
-                .catch(reslove => {
-                  console.log("error");
-                });
+              that.getHomeInit();
             })
             .catch(reslove => {
               console.log("error");
