@@ -95,6 +95,7 @@ export default {
     },
     val(newValue) {
       this.val = newValue;
+      alert(JSON.stringify(this.val))
     }
   },
   methods: {
