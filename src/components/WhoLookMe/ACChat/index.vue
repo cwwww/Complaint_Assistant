@@ -18,7 +18,7 @@
             <div class="question">
               <div class="q_content">{{i.content}}</div>
               <div class="photo">
-                <img :src="user" v-show="right" alt />
+                <img :src="customerImg_prop" v-show="right" alt />
               </div>
             </div>
           </div>
