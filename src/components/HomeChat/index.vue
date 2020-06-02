@@ -76,7 +76,7 @@ export default {
       left: true,
       right: true,
       question: "",
-      input:'',
+      input: "",
       placeholder: "有什么可以帮您？尽快发来问题吧",
       user: require("../../assets/images/头像@2x.png"),
       edit: require("../../assets/images/edit.png"),
@@ -84,36 +84,35 @@ export default {
       smallBebot: require("../../assets/images/smallBebot.png")
     };
   },
-  props:['broker_id','robot_id','token','show_chat',"val"],
-  created(){
-      this.chat = this.show_chat
-      this.question = this.val
-      alert(JSON.stringify(this.question))
-      this.getChatList()
+  props: ["broker_id", "robot_id", "token", "show_chat", "val"],
+  created() {
+    this.chat = this.show_chat;
+    this.question = this.val;
+    alert(JSON.stringify(this.question));
   },
-  watch:{
-    show_chat(newValue){
-        this.chat = newValue
+  watch: {
+    show_chat(newValue) {
+      this.chat = newValue;
     },
-    val(newValue){
-        this.val = newValue
-        alert(JSON.stringify(this.val))
+    val(newValue) {
+      this.val = newValue;
+      alert(JSON.stringify(this.val));
     }
   },
   methods: {
     close() {
-      this.$emit('showChatC',false)
+      this.$emit("showChatC", false);
     },
     getChatList() {
       let param = {
         broker_id: this.broker_id,
         token: this.token,
-        robot_id : this.robot_id,
-        speaker : '2',
-        content : this.question,
-        create_time : new Date().toLocaleString(),
+        robot_id: this.robot_id,
+        speaker: "2",
+        content: this.question,
+        create_time: new Date().toLocaleString()
       };
-      alert(JSON.stringify(param))
+      alert(JSON.stringify(param));
       let res = reqRobotHistory(param);
       res
         .then(res => {
@@ -148,7 +147,8 @@ export default {
           });
       }
     },
-    chathist(index) {  //发布
+    chathist(index) {
+      //发布
       console.log(this.list[index]);
       let param = {
         broker_id: this.broker_id,
@@ -193,19 +193,18 @@ export default {
       // });
     },
     //  滚动条置底
-    scrollToBottom: function() {
+    scrollToBottom() {
       this.$nextTick(() => {
         var container = this.$el.querySelector(".wrapper");
         container.scrollTop = container.scrollHeight;
       });
     }
   },
-  updated: function() {
+  updated() {
     this.scrollToBottom();
   },
   mounted() {
-    // this.scrollToBottom();
-    
+    this.getChatList();
   }
 };
 </script>
