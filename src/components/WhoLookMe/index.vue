@@ -38,8 +38,12 @@
       :broker_id_prop="broker_id_prop"
       :robot_id_prop="robot_id_prop"
       :token_prop="token_prop"
-      :list="list"
-      v-if="list"
+      :titleName="titleName"
+      :customer_type="customer_type"
+      :customerImg="customerImg"
+      :customer_id="customer_id" 
+      :myHeadImg="myHeadImg"
+      v-if="customer_id"
     />
   </div>
 </template>
@@ -60,6 +64,10 @@ export default {
       robot_id_prop: "",
       token_prop: "",
       list: [],
+      titleName:'',
+      customer_type:'',
+      customerImg:'',
+      customer_id:'',
       img: require("../../assets/images/Group@2x.png")
     };
   },
@@ -74,7 +82,13 @@ export default {
       this.show = newValue;
     }
   },
-  props: ["broker_id", "robot_id", "token", "Who_Look"],
+  props: ["broker_id", "robot_id", "token", "Who_Look","myHeadImg"],
+  // watch:{
+  //   titleName(){
+  //     this.titleName = this.list[index].name
+  //     alert(JSON.stringify(this.titleName))
+  //   }
+  // },
   methods: {
     ACChatP(data) {
       this.isACChat = data;
@@ -83,6 +97,10 @@ export default {
       this.$emit("WhoLookC", false);
     },
     toACchat(index) {
+      this.titleName = this.list[index].name
+      this.customer_type = this.list[index].customer_type
+      this.customerImg = this.list[index].headimgurl
+      this.customer_id = this.list[index].customer_id
       this.isACChat = true;
     }
   },

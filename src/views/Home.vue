@@ -192,6 +192,7 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
+      :myHeadImg="homeInit.headimgurl"
     />
     <Repository
       v-show="isRep"

@@ -18,7 +18,7 @@
             <div class="question">
               <div class="q_content">{{i.content}}</div>
               <div class="photo">
-                <img :src="user" v-show="right" alt />
+                <img :src="myHeadImg_prop" v-show="right" alt />
               </div>
             </div>
           </div>
@@ -38,7 +38,7 @@
             <div style="margin-top: 10px;" v-show="i.create_time == null"></div>
             <div class="question2">
               <div class="photo">
-                <img :src="fkuser" v-show="left" alt />
+                <img :src="customerImg_prop" v-show="left" alt />
               </div>
               <div class="q_content">{{i.content}}</div>
             </div>
@@ -93,6 +93,10 @@ export default {
       flag: true,
       inputCont: "",
       lastSentence: "",
+      titleName: "",
+      customer_type: "",
+      customerImg: "",
+      customer_id: "",
       placeholder: "你好啊～我能问什么问题呢？",
       user: require("../../../assets/images/头像@2x.png"),
       fkuser: require("../../../assets/images/fkuser.png"),
@@ -110,31 +114,38 @@ export default {
     "customer_type",
     "customerImg",
     "customer_id",
-    "list"
+    "myHeadImg"
   ],
   created() {
     this.chat = this.ACChat_show;
-    this.broker_id_prop = this.broker_id;
-    this.robot_id_prop = this.robot_id;
-    this.token_prop = this.token;
-    // this.titleName_prop = this.titleName;
-    // this.customer_type_prop = this.customer_type;
-    // this.customerImg_prop = this.customerImg;
-    // this.customer_id_prop = this.customer_id;
-    // this.list_prop = this.list
-    alert('谁看过我'+JSON.stringify(this.list))
+    this.titleName_prop = this.titleName;
+    this.customer_type_prop = this.customer_type;
+    this.customerImg_prop = this.customerImg;
+    this.customer_id_prop = this.customer_id;
+    this.myHeadImg_prop = this.myHeadImg;
   },
   watch: {
     ACChat_show(newValue) {
       this.chat = newValue;
     },
+    titleName() {
+      this.titleName_prop = this.titleName;
+    },
+    customer_type() {
+      this.customer_type_prop = this.customer_type;
+    },
+    customerImg() {
+      this.customerImg_prop = this.customerImg;
+    },
+    customer_id() {
+      this.customer_id_prop = this.customer_id;
+    }
   },
   methods: {
     close() {
       this.$emit("ACChatC", false);
     },
     getDialogAgent() {
-      alert(JSON.stringify('三方聊天'+this.list))
       //AC 聊天记录
       let param;
       if (this.flag) {
@@ -155,6 +166,7 @@ export default {
           token: this.token_prop
         };
       }
+
       let res = reqDialogAgent(param);
       res
         .then(res => {
@@ -172,7 +184,7 @@ export default {
       } else {
         this.question = this.inputCont;
         let param = {
-          broker_id: this.broker_id,
+          broker_id: this.broker_id_prop,
           customer_id: this.customer_id_prop,
           customer_type: this.customer_type_prop,
           speaker: "2",
@@ -183,11 +195,9 @@ export default {
         let res = reqAgentInput(param);
         res
           .then(res => {
-            console.log(res);
-            console.log(this.list);
             this.list = res.result.dialog_history;
             this.getDialogAgent();
-            this.$refs.input.value = "";
+            this.inputCont = "";
           })
           .catch(reslove => {
             console.log("error");
@@ -207,10 +217,10 @@ export default {
   },
   mounted() {
     this.scrollToBottom();
-    this.getDialogAgent();
-    // window.setInterval(() => {
-    //   setTimeout(this.getDialogAgent(), 0);
-    // }, 2000);
+    // this.getDialogAgent();
+    window.setInterval(() => {
+      setTimeout(this.getDialogAgent(), 0);
+    }, 2000);
   }
 };
 </script>
