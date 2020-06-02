@@ -77,6 +77,7 @@ export default {
       right: true,
       question: "",
       input:'',
+      hisChat:'',  
       placeholder: "有什么可以帮您？尽快发来问题吧",
       user: require("../../assets/images/头像@2x.png"),
       edit: require("../../assets/images/edit.png"),
@@ -84,14 +85,22 @@ export default {
       smallBebot: require("../../assets/images/smallBebot.png")
     };
   },
-  props:['broker_id','robot_id','token','show_chat'],
+  props:['broker_id','robot_id','token','show_chat',"val","HistoryList"],
   created(){
       this.chat = this.show_chat
-      this.getChatList();
+      this.hisChat = this.val
   },
   watch:{
     show_chat(newValue){
         this.chat = newValue
+    },
+    val(newValue){
+        this.val = newValue
+        alert(JSON.stringify('val:'+this.val))
+    },
+    HistoryList(newValue){
+        this.list = newValue
+        alert(JSON.stringify('HistoryList'+this.list))
     }
   },
   methods: {
@@ -101,9 +110,13 @@ export default {
     getChatList() {
       let param = {
         broker_id: this.broker_id,
-        token: this.token
+        token: this.token,
+        // robot_id : this.robot_id,
+        // speaker : '2',
+        // content : this.hisChat,
+        // create_time : new Date().toLocaleString(),
       };
-      console.log(param);
+      alert(JSON.stringify(param))
       let res = reqRobotHistory(param);
       res
         .then(res => {
@@ -118,19 +131,20 @@ export default {
       if (this.input == "") {
         Toast("请输入聊天内容");
       } else {
-        this.question = this.input;
+        this.val = this.input;
         let param = {
           dialog_type: "1",
           broker_id: this.broker_id,
           robot_id: this.robot_id,
           speaker: "2",
-          content: this.question,
+          content: this.val,
           token: this.token
         };
         let res = reqRobotDetail(param);
         res
           .then(res => {
             this.getChatList();
+            // this.val = this.question
             this.input = "";
           })
           .catch(reslove => {
@@ -138,24 +152,24 @@ export default {
           });
       }
     },
-    chathist(index) {
+    chathist(index) {  //发布
       console.log(this.list[index]);
       let param = {
         broker_id: this.broker_id,
         sentence_id: this.list[index].sentence_id,
-        question: this.question,
-        answer: "",
+        question: this.list[index-1].question,
+        answer: this.list[index].answer,
         token: this.token
       };
-      console.log(param);
-      let res = reqChathist(param);
-      res
-        .then(res => {
-          Toast(res.msg);
-        })
-        .catch(reslove => {
-          console.log("error");
-        });
+      alert(JSON.stringify(param))
+      // let res = reqChathist(param);
+      // res
+      //   .then(res => {
+      //     Toast(res.msg);
+      //   })
+      //   .catch(reslove => {
+      //     console.log("error");
+      //   });
     },
     teachYou(index) {
       let param = {
@@ -174,13 +188,13 @@ export default {
         .catch(reslove => {
           console.log("error");
         });
-      this.$router.push({
-        path: "/shopZoom",
-        query: {
-          Answer: this.list[index].content,
-          Question: this.list[index - 1].content
-        }
-      });
+      // this.$router.push({   //跳到知识库编辑页面
+      //   path: "/shopZoom",
+      //   query: {
+      //     Answer: this.list[index].content,
+      //     Question: this.list[index - 1].content
+      //   }
+      // });
     },
     //  滚动条置底
     scrollToBottom: function() {
@@ -195,7 +209,7 @@ export default {
   },
   mounted() {
     // this.scrollToBottom();
-    
+    // this.getChatList()
   }
 };
 </script>

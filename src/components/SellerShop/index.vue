@@ -87,6 +87,9 @@ export default {
   watch: {
     sellerShop_show(newValue) {
       this.show = newValue;
+    },
+    type(newValue){
+      this.curIndex = newValue
     }
   },
   methods: {

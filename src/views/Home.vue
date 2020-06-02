@@ -179,6 +179,8 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
+      :val="question"
+      :HistoryList="HistoryList"
     />
     <WhoLookMe
       v-show="WhoLook"
@@ -254,7 +256,8 @@ import {
   reqisunlocked,
   reqbebotCode,
   reqwxconfig,
-  reqcustomerlogin
+  reqcustomerlogin,
+  reqRobotHistory
 } from "../axios/axios-api";
 export default {
   components: {
@@ -268,7 +271,8 @@ export default {
   },
   data() {
     return {
-      toget: 1,
+      HistoryList:[],
+      toget:'',
       showoverlay: true,
       isSellerShop: false,
       isTask: false,
@@ -372,6 +376,10 @@ export default {
     },
     showChatP(data) {
       this.homeChat = data;
+      if(!this.homeChat){
+        this.list2 = this.HistoryList.slice(-4).content
+        alert(JSON.stringify(this.HistoryList))
+      }
     },
     WhoLookP(data) {
       this.WhoLook = data;
@@ -397,12 +405,13 @@ export default {
     },
     Repository() {
       // 知识库
-      this.toget = 0;
+      
       this.isRep = true;
       // this.destoryTimer();
     },
     FairyShop() {
       // 买家精灵商店
+      this.toget = 0
       this.isSellerShop = true;
       // this.destoryTimer();
     },
@@ -425,6 +434,7 @@ export default {
     toGet() {
       this.toget = 1;
       this.isSellerShop = true;
+      this.vipNotification = false
     },
     noGet() {
       this.vipNotification = false;
@@ -435,6 +445,23 @@ export default {
     HomeChat() {
       // 聊天记录
       this.homeChat = true;
+            let param = {
+        broker_id: this.$route.query.broker_id,
+        token: this.$route.query.token,
+        // robot_id : this.robot_id,
+        // speaker : '2',
+        // content : this.hisChat,
+        // create_time : new Date().toLocaleString(),
+      };
+      alert(JSON.stringify(param))
+      let res = reqRobotHistory(param);
+      res
+        .then(res => {
+          this.HistoryList = res.result;
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
       this.destoryTimer();
     },
     WhoLookMe() {
@@ -647,6 +674,10 @@ export default {
       }
     },
     getDetail() {
+      // if(this.val != ''){
+      //   alert('val')
+      //   this.flag = false
+      // }
       let param;
       if (this.flag) {
         param = {
@@ -677,7 +708,6 @@ export default {
           this.list.push(this.question);
           this.list.push(this.answer);
           this.list2 = this.list.slice(-4);
-          console.log(this.list2);
           if (this.list2[0] == "") {
           }
           this.question = "";
@@ -762,8 +792,7 @@ export default {
       let param = {
         // robot_id: 93,
         // broker_id: 93,
-        // token:
-        //   "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZks4bzpnaHZKVnpDTXVSOTdtdHQxVno1NnBXV1FxZm8.ZXlKUVNFOU9SU0k2SWpFNE1qRXdNRGt4T0Rnd0lpd2lTVVFpT2prekxDSnBZWFFpT2pFMU9UQTVNVFk0TWpZdU1UWTNNekUxTjMwOjFqZks4bzptaHp1R0QxdGMwa29rQmtEbnZzWlgtWmR6Tm8.fb462840a61d81dd83fac507776d51af"
+        // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZlpIRDpqQjEzUDk5dDItM2cxZjFmWmZYOFFSSFlqUms.ZXlKUVNFOU9SU0k2SWpFNE1qRXdNRGt4T0Rnd0lpd2lTVVFpT2prekxDSnBZWFFpT2pFMU9UQTVOelV3TURjdU1URTRNakV4TjMwOjFqZlpIRDpBRU1Bem9xdzFqRFE4VGhkQlpJdHRJaGc2Q0U.ab251255b191fc234c523c3d14b8888c"
 
         robot_id: this.$route.query.robot_id,
         broker_id: this.$route.query.broker_id,
@@ -775,6 +804,8 @@ export default {
         .then(res => {
           console.log(res);
           this.homeInit = res.result;
+          
+
           if (this.homeInit.name == "") {
             this.showName = true;
           }
