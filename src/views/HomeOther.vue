@@ -136,7 +136,6 @@
       :fairyShop="showACChat"
       :broker_id="visitList.broker_id"
       :robot_id="visitList.robot_id"
-
       :token="visitList.token"
       :robot_visitId="$route.query.robot_visitId"
       v-if="visitList.Othername"
@@ -144,9 +143,8 @@
     <CancelFollow
       v-show="CancelFollow"
       @cancelfollowC="CancelFollowP"
-            :broker_id="visitList.broker_id"
+      :broker_id="visitList.broker_id"
       :robot_id="visitList.robot_id"
-
       :token="visitList.token"
       :cancelfollow="CancelFollow"
       :robot_visitId="$route.query.robot_visitId"
@@ -171,12 +169,14 @@ import {
 } from "../axios/axios-api";
 export default {
   components: {
-    ACVisitor,FairyShop,CancelFollow
+    ACVisitor,
+    FairyShop,
+    CancelFollow
   },
   data() {
     return {
-      CancelFollow:false,
-      fairyShop:false,
+      CancelFollow: false,
+      fairyShop: false,
       showACChat: false,
       visitList: "",
       mes: "",
@@ -201,7 +201,7 @@ export default {
       star: "",
       isStatus: "",
       fairyStatus: "",
-      login:require("../assets/images/login@2x.png"),
+      login: require("../assets/images/login@2x.png"),
       share: require("../assets/images/share@2x.png"),
       img: require("../assets/images/icon.png"),
       register: require("../assets/images/register@2x.png"),
@@ -238,11 +238,11 @@ export default {
     };
   },
   methods: {
-    cancelfollowC(data){
-this.CancelFollow = data
+    cancelfollowC(data) {
+      this.CancelFollow = data;
     },
-    FairyShopP(data){
-this.fairyShop = data
+    FairyShopP(data) {
+      this.fairyShop = data;
     },
     toFXCP() {
       window.parent.location.href =
@@ -254,7 +254,7 @@ this.fairyShop = data
     },
     FairyShop() {
       //买家精灵商店
-      this.fairyShop = true
+      this.fairyShop = true;
       this.$router.push({
         path: "/FairyShop",
         query: {
@@ -286,14 +286,16 @@ this.fairyShop = data
     },
     toRegister() {
       this.$router.push({
-        path:'/login',
-        query:{
-          type:'otherLogin',
-          customer_id:  this.visitList.customer_id,
-          customer_robot_id:  this.customer_robot_id,
-          customer_type:  this.customer_type,
+        path: "/login",
+        query: {
+          type: "otherLogin",
+          customer_id: this.visitList.customer_id,
+          customer_robot_id: this.customer_robot_id,
+          customer_type: this.customer_type,
           visited_robot_id: this.$route.query.broker_id,
-          token: this.visitList.token || "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          token:
+            this.visitList.token ||
+            "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
         }
       });
     },
@@ -352,11 +354,12 @@ this.fairyShop = data
     guanzhu() {
       if (this.guanzhuContent == "关注TA") {
         let param = {
-          robot_id: 33 ,
-          followed_robot_id: 93 ,
+          robot_id: 33,
+          followed_robot_id: 93,
           operation_type: "0",
-          broker_id:33 ,
-          token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          broker_id: 33,
+          token:
+            "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
 
           // robot_id: 33 || this.$route.query.robot_id,
           // followed_robot_id: 93 || this.$route.query.robot_visitId,
@@ -372,24 +375,26 @@ this.fairyShop = data
               this.guanzhuContent = "已关注";
               //更新关注任务状态，领取经验和金币
               this.guanzhuUpdateTask();
-              this.getHomeInit()
+              this.getHomeInit();
             }
           })
           .catch(reslove => {
             console.log("error");
           });
       } else if (this.guanzhuContent == "已关注") {
-        this.CancelFollow = true
+        this.CancelFollow = true;
       }
     },
     //关注好友
     guanzhuUpdateTask() {
       let param = {
-        broker_id: 33 ||  this.$route.query.broker_id,
+        broker_id: 33 || this.$route.query.broker_id,
         robot_id: 33 || this.$route.query.robot_id,
         operation_type: 6,
         followed_robot_id: this.$route.query.robot_visitId,
-        token: this.$route.query.token || "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        token:
+          this.$route.query.token ||
+          "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
       };
       console.log("任务的param:" + param);
       let result = reqtaskStatus(param);
@@ -423,11 +428,11 @@ this.fairyShop = data
       //   that.customer_robot_id = "";
       // }
       let param = {
-        customer_id: 33 ,
-        customer_robot_id: 33 ,
-        customer_type: 1 ,
+        customer_id: 33,
+        customer_robot_id: 33,
+        customer_type: 1,
         visited_robot_id: 93,
-        token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
 
         // customer_id: 33 || that.visitList.customer_id,
         // customer_robot_id: 33 || that.customer_robot_id,
