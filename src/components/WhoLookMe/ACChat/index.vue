@@ -18,7 +18,7 @@
             <div class="question">
               <div class="q_content">{{i.content}}</div>
               <div class="photo">
-                <img :src="customerImg_prop" v-show="right" alt />
+                <img :src="myHeadImg_prop" v-show="right" alt />
               </div>
             </div>
           </div>
@@ -38,7 +38,7 @@
             <div style="margin-top: 10px;" v-show="i.create_time == null"></div>
             <div class="question2">
               <div class="photo">
-                <img :src="fkuser" v-show="left" alt />
+                <img :src="customerImg_prop" v-show="left" alt />
               </div>
               <div class="q_content">{{i.content}}</div>
             </div>
@@ -114,7 +114,7 @@ export default {
     "customer_type",
     "customerImg",
     "customer_id",
-    "list"
+    "myHeadImg"
   ],
   created() {
     this.chat = this.ACChat_show;
@@ -122,6 +122,7 @@ export default {
     this.customer_type_prop = this.customer_type;
     this.customerImg_prop = this.customerImg;
     this.customer_id_prop = this.customer_id;
+    this.myHeadImg_prop = this.myHeadImg
   },
   watch: {
     ACChat_show(newValue) {

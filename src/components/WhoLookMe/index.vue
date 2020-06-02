@@ -42,6 +42,7 @@
       :customer_type="customer_type"
       :customerImg="customerImg"
       :customer_id="customer_id" 
+      :myHeadImg="myHeadImg"
       v-if="customer_id"
     />
   </div>
@@ -81,7 +82,7 @@ export default {
       this.show = newValue;
     }
   },
-  props: ["broker_id", "robot_id", "token", "Who_Look"],
+  props: ["broker_id", "robot_id", "token", "Who_Look","myHeadImg"],
   // watch:{
   //   titleName(){
   //     this.titleName = this.list[index].name
