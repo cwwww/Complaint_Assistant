@@ -104,7 +104,7 @@
           <span>回家</span>
         </li>
         <li @click="toRegister" v-if="!isRegister">
-          <img :src="login" alt />
+          <img :src="register" alt />
           <span>去登录</span>
         </li>
         <li style="visibility:hidden">
@@ -221,7 +221,6 @@ export default {
       isStatus: "",
       fairyStatus: "",
       inputcon: "",
-      login: require("../assets/images/login@2x.png"),
       share: require("../assets/images/share@2x.png"),
       img: require("../assets/images/icon.png"),
       register: require("../assets/images/register@2x.png"),
@@ -425,7 +424,6 @@ export default {
         followed_robot_id: this.$route.query.robot_visitId,
         token: this.$route.query.token
       };
-      console.log("任务的param:" + param);
       let result = reqtaskStatus(param);
       result
         .then(res => {
@@ -472,6 +470,7 @@ export default {
       result
         .then(res => {
           that.homeInit = res.result;
+          alert('展示'+JSON.stringify(that.homeInit))
           if (that.homeInit.followed) {
             that.guanzhuContent = "已关注";
           } else {
