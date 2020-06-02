@@ -1,6 +1,6 @@
 <template>
   <div class="contain">
-    <van-popup class="cont2" v-model="vipNotification">
+    <van-popup class="cont6" v-model="vipNotification">
       <div class="contwrap">
         <div class="top">
           <span>您还没有登录哦~</span>
@@ -193,7 +193,7 @@ export default {
   },
   data() {
     return {
-      vipNotification:true,
+      vipNotification: true,
       CancelFollow: false,
       fairyShop: false,
       showACChat: false,
@@ -288,9 +288,7 @@ export default {
     },
     toGet() {
       this.vipNotification = false;
-      this.$router.push(
-        '/Login'
-      )
+      this.$router.push("/Login");
     },
     noGet() {
       this.vipNotification = false;
@@ -1213,48 +1211,48 @@ export default {
       }
     }
 
-  .cont2 {
-    width: 305px;
-    height: 174px;
-    background: rgba(255, 255, 255, 1);
-    border-radius: 15px;
-    .contwrap {
-      font-size: 17px;
-      font-family: PingFangSC-Medium, PingFang SC;
-      font-weight: 500;
-      color: rgba(51, 51, 51, 1);
-      line-height: 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 30px;
-      .top {
-        margin-bottom: 7px;
-      }
-      .isOk {
+    .cont6 {
+      width: 305px;
+      height: 174px;
+      background: rgba(255, 255, 255, 1);
+      border-radius: 15px;
+      .contwrap {
+        font-size: 17px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: rgba(51, 51, 51, 1);
+        line-height: 24px;
         display: flex;
-        // align-items: center;
-        // justify-content: center;
-        .isNo {
-          width: 125px;
-          height: 42px;
-          background: rgba(234, 234, 234, 1);
-          border-radius: 4px;
-          text-align: center;
-          line-height: 42px;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+        .top {
+          margin-bottom: 7px;
         }
-        .isYes {
-          width: 125px;
-          height: 42px;
-          background: rgba(0, 147, 253, 1);
-          border-radius: 4px;
-          text-align: center;
-          line-height: 42px;
-          margin-left: 20px;
+        .isOk {
+          display: flex;
+          // align-items: center;
+          // justify-content: center;
+          .isNo {
+            width: 125px;
+            height: 42px;
+            background: rgba(234, 234, 234, 1);
+            border-radius: 4px;
+            text-align: center;
+            line-height: 42px;
+          }
+          .isYes {
+            width: 125px;
+            height: 42px;
+            background: rgba(0, 147, 253, 1);
+            border-radius: 4px;
+            text-align: center;
+            line-height: 42px;
+            margin-left: 20px;
+          }
         }
       }
     }
-  }
     .cont3 {
       width: 170px;
       height: 170px;
