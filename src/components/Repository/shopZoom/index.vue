@@ -5,7 +5,7 @@
       v-model="show"
       closeable
       position="bottom"
-      :style="{ height: '70%' }"
+      :style="{ height: '80%' }"
       @close="close"
     >
       <span>知识库</span>

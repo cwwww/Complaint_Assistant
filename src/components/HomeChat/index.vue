@@ -217,7 +217,7 @@ export default {
   },
   mounted() {
     // this.scrollToBottom();
-    // this.getChatList()
+    this.getChatList()
   }
 };
 </script>
