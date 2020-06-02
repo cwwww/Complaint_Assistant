@@ -140,12 +140,13 @@
       v-show="showACChat"
       @closeACchat="closeACchat"
       :showACChat="showACChat"
-      :broker_id="registers.visitor_id"
-      :robot_id="customer_robot_id"
+      :customer_robot_id="customer_robot_id"
+      :customer_id="registers.visitor_id"
+      :visited_broker_id="$route.query.broker_id"
       :customer_type="customer_type"
       :token="registers.token"
       :visitHead="homeInit.headimgurl"
-      v-if="registers.token"
+      :val="ques"
     />
     <!-- :customer_id="visitList.customer_id" -->
     <FairyShop
@@ -194,6 +195,7 @@ export default {
   },
   data() {
     return {
+      ques:'',
       vipNotification: true,
       CancelFollow: false,
       fairyShop: false,
@@ -299,6 +301,9 @@ export default {
     },
     closeACchat(data) {
       this.showACChat = false;
+      if (!this.showACChat) {
+        this.getHistory();
+      }
     },
     toHome() {
       this.$router.push({

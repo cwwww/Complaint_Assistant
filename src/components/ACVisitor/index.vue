@@ -64,7 +64,6 @@
           <span>发送</span>
         </div>
       </div>
-      <router-view v-if="$route.path==='/HomeOther'"></router-view>
     </van-popup>
   </div>
 </template>
@@ -98,13 +97,9 @@ export default {
       smallBebot: require("../../assets/images/smallBebot.png")
     };
   },
-  props: ['broker_id','robot_id','customer_id','customer_type','token','showACChat',"visitHead"],
+  props: ["val",'customer_robot_id','customer_id','customer_id','visited_broker_id',"customer_type",'token','showACChat',"visitHead"],
   created(){
       this.chat = this.showACChat
-      this.broker_id_prop = this.broker_id
-      this.robot_id_prop = this.robot_id
-      this.customer_id_prop = this.customer_id
-      this.customer_type_prop = this.customer_type
   },
   watch:{
     showACChat(newValue){
@@ -120,20 +115,20 @@ export default {
       let param;		  
       if (this.flag) {
         param = {
-          broker_id: this.broker_id_prop,
-          customer_id: this.customer_id_prop,
-          customer_type: this.customer_type_prop,
+          broker_id: this.visited_broker_id,
+          customer_id: this.customer_id,
+          customer_type: this.customer_type,
           last_sentence: -1,
-          token: this.token_prop
+          token: this.token
         };
         this.flag = false;
       } else {
         param = {
-          broker_id: this.broker_id_prop,
-          customer_id: this.customer_id_prop,
+          broker_id: this.visited_broker_id,
+          customer_id: this.customer_id,
           customer_type: this.customer_type,
-          last_sentence: this.lastSentence_prop,
-          token: this.token_prop
+          last_sentence: this.lastSentence,
+          token: this.token
         };
       }
       let res = reqHistoryCustomer(param);
@@ -157,12 +152,12 @@ export default {
           Toast("请输入聊天内容");
         } else {
           let param = {
-            broker_id: this.broker_id_prop,
-            customer_id: this.customer_id_prop,
-            customer_type: this.customer_type_prop,
+            broker_id: this.visited_broker_id,
+            customer_id: this.customer_id,
+            customer_type: this.customer_type,
             speaker: "1",
             content: this.question,
-            token: this.token_prop
+            token: this.token
           };
           console.log(param);
           let res = reqCustomerInput(param);
@@ -187,25 +182,25 @@ export default {
       if (this.isInput) {
         param = {
           dialog_type: "2",
-          customer_id: this.customer_id_prop,
-          customer_type: this.customer_type_prop,
-          broker_id: this.broker_id_prop,
-          robot_id: this.robor_id_prop,
+          customer_id: this.customer_id,
+          customer_type: this.customer_type,
+          broker_id: this.visited_broker_id,
+          robot_id: this.customer_robot_id,
           speaker: "1",
           content: ".",
-          token: this.token_prop
+          token: this.token
         };
         this.isInput = false;
       } else {
         param = {
           dialog_type: "2",
-          customer_id: this.customer_id_prop,
-          customer_type: this.customer_type_prop,
-          broker_id: this.broker_id_prop,
-          robot_id: this.robor_id_prop,
+          customer_id: this.customer_id,
+          customer_type: this.customer_type,
+          broker_id: this.visited_broker_id,
+          robot_id: this.customer_robot_id,
           speaker: "1",
           content: this.question,
-          token: this.token_prop
+          token: this.token
         };
       }
       let res = reqCusayrob(param);
@@ -223,11 +218,11 @@ export default {
     chathist(index) {
       console.log(this.list[index]);
       let param = {
-        broker_id: this.broker_id_prop,
+        broker_id: this.visited_broker_id,
         sentence_id: this.list[index].sentence_id,
         question: this.question,
         answer: "",
-        token: this.token_prop
+        token: this.token
       };
       console.log(param);
       let res = reqChathist(param);
