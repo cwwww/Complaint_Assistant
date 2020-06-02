@@ -217,7 +217,7 @@ export default {
   },
   mounted() {
     this.scrollToBottom();
-    this.getDialogAgent();
+    // this.getDialogAgent();
     window.setInterval(() => {
       setTimeout(this.getDialogAgent(), 0);
     }, 2000);
