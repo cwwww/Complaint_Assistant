@@ -268,7 +268,7 @@ export default {
   },
   data() {
     return {
-      toget:1,
+      toget: 1,
       showoverlay: true,
       isSellerShop: false,
       isTask: false,
@@ -397,7 +397,7 @@ export default {
     },
     Repository() {
       // 知识库
-      this.toget = 0
+      this.toget = 0;
       this.isRep = true;
       // this.destoryTimer();
     },
@@ -422,15 +422,15 @@ export default {
       //   }
       // });
     },
-    toGet(){
-      this.toget = 1
+    toGet() {
+      this.toget = 1;
       this.isSellerShop = true;
     },
-    noGet(){
+    noGet() {
       this.vipNotification = false;
     },
     toHope() {
-      Toast("敬请期待");
+      Toast("施工中,敬请期待");
     },
     HomeChat() {
       // 聊天记录
