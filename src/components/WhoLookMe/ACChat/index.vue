@@ -117,8 +117,7 @@ export default {
     "myHeadImg"
   ],
   created() {
-    this.chat = this.ACChat_show;
-    
+    this.chat = this.ACChat_show; 
     this.titleName_prop = this.titleName;
     this.customer_type_prop = this.customer_type;
     this.customerImg_prop = this.customerImg;
