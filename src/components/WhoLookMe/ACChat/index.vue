@@ -118,6 +118,7 @@ export default {
   ],
   created() {
     this.chat = this.ACChat_show;
+    
     this.titleName_prop = this.titleName;
     this.customer_type_prop = this.customer_type;
     this.customerImg_prop = this.customerImg;
@@ -134,6 +135,7 @@ export default {
       this.$emit("ACChatC", false);
     },
     getDialogAgent() {
+      alert(JSON.stringify(this.titleName_prop))
       //AC 聊天记录
       let param;
       if (this.flag) {
@@ -154,7 +156,7 @@ export default {
           token: this.token_prop
         };
       }
-      alert("param" + JSON.stringify(param));
+      
       let res = reqDialogAgent(param);
       res
         .then(res => {
