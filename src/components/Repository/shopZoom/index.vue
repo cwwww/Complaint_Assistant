@@ -92,6 +92,14 @@ export default {
     "type"
   ],
   created() {
+      Bus.$on('teachyou', (data) => {
+        if(data != ''){
+          this.show = this.true;
+        }
+        alert(JSON.stringify(data))
+        let question = data.Question
+        let answer = data.Answer
+      })
     this.show = this.shopZoomC_show;
     this.broker_id_prop = this.broker_id;
     this.robot_id_prop = this.robot_id;
@@ -336,14 +344,6 @@ export default {
   //   console.log(document.getElementById("myText").value)
   // },
   mounted() {
-    // var vm = this
-      // 用$on事件来接收参数
-      Bus.$on('teachyou', (data) => {
-        alert(JSON.stringify(data))
-        let question = data.Question
-        let answer = data.Answer
-      })
-     
     // let question = this.$route.query.Question;
     // let answer = this.$route.query.Answer;
     if (question != "") {
