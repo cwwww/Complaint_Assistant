@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <div class="main">
-      <div class="content" v-for="(item, index) in EverudayList" :key="item.index">
+      <div class="content" v-for="(item, index) in EverydayList" :key="item.index">
         <div class="leftBox">
           <div class="leftLogon">
             <img v-if="index == 'daily1'" src="../../../assets/images/hi@2x.png" alt />
@@ -61,10 +61,10 @@
           </div>
 
           <div class="bottomButton twos" v-if="item.status == '0'">
-            <p v-if="item.status == '0'">去完成</p>
+            <p v-if="item.status == '0'">未完成</p>
           </div>
-          <div class="bottomButton" v-if="item.status == '1'">
-            <p
+          <div class="bottomButton"  v-if="item.status == '1'">
+            <p 
               v-if="item.status == '1'"
               @click="getTaskStatus(broker_id,robot_id,item.task_id,token,item.index)"
             >领取</p>
@@ -88,7 +88,7 @@ export default {
   data() {
     return {
       boxshow: false,
-      EverudayList: {},
+      EverydayList: {},
       status: "",
       result: Object,
       type: "",
@@ -148,8 +148,8 @@ export default {
       res2
         .then(res => {
           console.log("每日工作领取：" + res);
-          this.EverudayList = res.result;
-          console.log("EverudayList", this.EverudayList);
+          this.EverydayList = res.result;
+          console.log("EverydayList", this.EverydayList);
         })
         .catch(reslove => {
           console.log("error");
@@ -191,20 +191,26 @@ export default {
     width: 335px;
     height: 100px;
     background: rgba(245, 160, 21, 1);
+    color: rgba(245, 160, 21, 1);
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
     &:nth-child(2) {
       background: rgba(76, 208, 105, 1);
+      color: rgba(76, 208, 105, 1);
+      
     }
     &:nth-child(3) {
       background: rgba(246, 94, 94, 1);
+      color: rgba(76, 208, 105, 1);
     }
     &:nth-child(4) {
       background: rgba(40, 201, 181, 1);
+      color: rgba(40, 201, 181, 1);
     }
     &:last-child {
       background: rgba(99, 117, 254, 1);
+      color:rgba(99, 117, 254, 1);
     }
     > .leftBox {
       display: flex;
@@ -300,7 +306,7 @@ export default {
           font-size: 15px;
           font-family: PingFangSC-Medium, PingFang SC;
           font-weight: 500;
-          color: rgba(245, 160, 21, 1);
+          // color: rgba(245, 160, 21, 1);
           line-height: 21px;
           text-align: center;
           margin-top: 6px;
