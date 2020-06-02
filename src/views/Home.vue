@@ -66,7 +66,7 @@
           <img src="../assets/images/fans@2x.png" alt />
           <span class="design">粉丝</span>
           <div>
-            <img class="new" src="../assets/images/new@2x.png" alt />
+            <img class="new" v-show="showNewFans" src="../assets/images/new@2x.png" alt />
           </div>
         </div>
       </div>
@@ -296,11 +296,10 @@ export default {
       vipExpiryTime: "",
       vipNotification: false,
       vipValid: "",
-      showNew: false,
+      showNewFans: false,
       data: "",
       newData: "",
       option: "",
-      showNew: false,
       showIimit: false,
       wx_link: "",
       redirect_uri: "",
@@ -498,6 +497,7 @@ export default {
     lists(curIndex) {
       // 粉丝
       this.curIndex = 1;
+      this.showNewFans = false;
       this.isList = true;
       // this.destoryTimer();
     },
@@ -646,11 +646,10 @@ export default {
     // },
     getFensi() {
       let param = {
-        robot_id: 33,
+        robot_id: this.$route.query.robot_id,
         operation_type: 0,
-        broker_id: 33,
-        token:
-          "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        broker_id: this.$route.query.broker_id,
+        token: this.$route.query.token
       };
       let res = BeanList(param);
       res
@@ -658,7 +657,7 @@ export default {
           console.log(res);
           let showNotification = res.result.notification;
           if (showNotification) {
-            this.showNew = true;
+            this.showNewFans = true;
           }
         })
         .catch(reslove => {
@@ -925,6 +924,7 @@ export default {
 
     this.getDetail();
     //定时获取粉丝数据
+    this.getFensi();
     this.timer = setInterval(this.getFensi, 60000); //定时间隔，
   }
 };
