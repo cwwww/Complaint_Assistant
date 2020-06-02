@@ -95,7 +95,11 @@
     </div>
     <div>
       <div class="talk">
-        <div class="talkContent" id="talkContent" :class="{active:isOwn}">{{HistoryList.slice(-1)[0].content}}</div>
+        <div
+          class="talkContent"
+          id="talkContent"
+          :class="{active:isOwn}"
+        >{{HistoryList.slice(-1)[0].content}}</div>
         <div class="btnTalk">
           <img @click="previousPage" class="leftBtn" :src="nextpage2" alt />
           <img class="rightBtn" @click="nextPage" :src="nextpage" alt />
@@ -171,7 +175,7 @@
       <div class="wrapper" @click.stop>
         <div class="block" />ffe
       </div>
-    </van-overlay> -->
+    </van-overlay>-->
     <HomeChat
       v-show="homeChat"
       @showChatC="showChatP"
@@ -374,10 +378,27 @@ export default {
       this.isList = data;
     },
     showChatP(data) {
-      alert(JSON.stringify(data))
+      alert(JSON.stringify(data));
       this.homeChat = data.data;
       if (!this.homeChat) {
-        this.getDetail();
+        let param = {
+          dialog_type: "1",
+          broker_id: this.$route.query.broker_id,
+          robot_id: this.$route.query.robot_id,
+          speaker: "2",
+          content: data.question,
+          token: this.$route.query.token
+        };
+        let res = reqRobotDetail(param);
+        res
+          .then(res => {
+            console.log(res);
+            this.getHistory();
+            // this.question = "";
+          })
+          .catch(reslove => {
+            console.log("error");
+          });
       }
     },
     WhoLookP(data) {
@@ -657,10 +678,10 @@ export default {
         this.getReqtaskStatus();
       }
     },
-    getHistory(){
+    getHistory() {
       let param = {
         broker_id: this.$route.query.broker_id,
-        token:  this.$route.query.token
+        token: this.$route.query.token
         // robot_id : this.robot_id,
         // speaker : '2',
         // content : this.hisChat,
@@ -686,7 +707,7 @@ export default {
         param = {
           dialog_type: "0",
           broker_id: this.$route.query.broker_id,
-          robot_id:this.$route.query.robot_id,
+          robot_id: this.$route.query.robot_id,
           speaker: "2",
           content: ".",
           token: this.$route.query.token
@@ -699,7 +720,7 @@ export default {
           robot_id: this.$route.query.robot_id,
           speaker: "2",
           content: this.question,
-          token:  this.$route.query.token
+          token: this.$route.query.token
         };
       }
       console.log(param);
@@ -707,12 +728,12 @@ export default {
       res
         .then(res => {
           console.log(res);
-          this.answer = res.result.content;
-          this.list.push(this.question);
-          this.list.push(this.answer);
+          // this.answer = res.result.content;
+          // this.list.push(this.question);
+          // this.list.push(this.answer);
           // if (this.list2[0] == "") {
           // }
-          this.getHistory()
+          this.getHistory();
           this.question = "";
         })
         .catch(reslove => {
@@ -903,7 +924,7 @@ export default {
     //     // 别的业务逻辑
     // }
     this.getHomeInit();
-    
+
     this.getDetail();
     //定时获取粉丝数据
     this.timer = setInterval(this.getFensi, 60000); //定时间隔，
