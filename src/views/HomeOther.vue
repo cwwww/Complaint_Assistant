@@ -196,7 +196,7 @@ export default {
   data() {
     return {
       ques:'',
-      vipNotification: true,
+      vipNotification: false,
       CancelFollow: false,
       fairyShop: false,
       showACChat: false,

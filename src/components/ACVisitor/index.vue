@@ -86,7 +86,7 @@ export default {
       right: true,
       question: "",
       flag: true,
-      dialogMark: 0,
+      dialogMark: "",
       isInput: true,
       lastSentence: "",
       placeholder: "你试试输入“风险测评”",
