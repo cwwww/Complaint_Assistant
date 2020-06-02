@@ -140,13 +140,14 @@
       v-show="showACChat"
       @closeACchat="closeACchat"
       :showACChat="showACChat"
-      :broker_id="$route.query.broker_id"
-      :robot_id="$route.query.robot_id"
-      :customer_id="visitList.customer_id"
+      :broker_id="registers.visitor_id"
+      :robot_id="customer_robot_id"
       :customer_type="customer_type"
-      :token="visitList.token"
-      v-if="visitList.customer_id"
+      :token="registers.token"
+      :visitHead="homeInit.headimgurl"
+      v-if="registers.token"
     />
+    <!-- :customer_id="visitList.customer_id" -->
     <FairyShop
       v-show="fairyShop"
       @fairyShopC="FairyShopP"
