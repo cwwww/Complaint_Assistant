@@ -13,13 +13,13 @@
                 <p>Lv.{{item.level}}</p>
               </div>
               <div class="dengji">
-                <img v-if="item.level == 1" :src="gradeOne" alt />
-                <img v-if="item.level == 2" :src="gradeTwo" alt />
-                <img v-if="item.level == 3" :src="gradeThree" alt />
-                <img v-if="item.level == 4" :src="gradeFour" alt />
-                <img v-if="item.level == 5" :src="gradeFive" alt />
-                <img v-if="item.level == 6" :src="gradeSix" alt />
-                <img v-if="item.level == 7" :src="gradeSeven" alt />
+                  <img v-if="item.level <= 5" :src="gradeOne" alt />
+                  <img v-else-if="item.level <= 10" :src="gradeTwo" alt />
+                  <img v-else-if="item.level <= 20" :src="gradeThree" alt />
+                  <img v-else-if="item.level <= 30" :src="gradeFour" alt />
+                  <img v-else-if="item.level <= 40" :src="gradeFive" alt />
+                  <img v-else-if="item.level <= 50" :src="gradeSix" alt />
+                  <img v-else-if="item.level <= 60" :src="gradeSeven" alt />
               </div>
             </div>
             <div class="bottom">
