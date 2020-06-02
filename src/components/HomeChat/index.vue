@@ -58,9 +58,8 @@
   </div>
 </template>
 <script>
-// import BScroll from "better-scroll";
+import BScroll from "better-scroll";
 import { Popup, Toast, Loading } from "vant";
- import Bus from './../../assets/js/common/Bus'
 import {
   reqRobotDetail,
   reqRobotHistory,
@@ -78,7 +77,6 @@ export default {
       right: true,
       question: "",
       input:'',
-      hisChat:'',  
       placeholder: "有什么可以帮您？尽快发来问题吧",
       user: require("../../assets/images/头像@2x.png"),
       edit: require("../../assets/images/edit.png"),
@@ -86,10 +84,10 @@ export default {
       smallBebot: require("../../assets/images/smallBebot.png")
     };
   },
-  props:['broker_id','robot_id','token','show_chat',"val"],  //,"HistoryList"
+  props:['broker_id','robot_id','token','show_chat',"val"],
   created(){
       this.chat = this.show_chat
-      this.hisChat = this.val
+      this.question = this.val
   },
   watch:{
     show_chat(newValue){
@@ -97,12 +95,8 @@ export default {
     },
     val(newValue){
         this.val = newValue
-        alert(JSON.stringify('val:'+this.val))
-    },
-    // HistoryList(newValue){
-    //     this.list = newValue
-    //     alert(JSON.stringify('HistoryList'+this.list))
-    // }
+        alert(JSON.stringify(this.val))
+    }
   },
   methods: {
     close() {
@@ -112,10 +106,10 @@ export default {
       let param = {
         broker_id: this.broker_id,
         token: this.token,
-        // robot_id : this.robot_id,
-        // speaker : '2',
-        // content : this.hisChat,
-        // create_time : new Date().toLocaleString(),
+        robot_id : this.robot_id,
+        speaker : '2',
+        content : this.question,
+        create_time : new Date().toLocaleString(),
       };
       alert(JSON.stringify(param))
       let res = reqRobotHistory(param);
@@ -145,7 +139,6 @@ export default {
         res
           .then(res => {
             this.getChatList();
-            // this.val = this.question
             this.input = "";
           })
           .catch(reslove => {
@@ -158,44 +151,37 @@ export default {
       let param = {
         broker_id: this.broker_id,
         sentence_id: this.list[index].sentence_id,
-        question: this.list[index-1].question,
-        answer: this.list[index].answer,
+        question: this.question,
+        answer: "",
         token: this.token
       };
-      alert(JSON.stringify(param))
-      // let res = reqChathist(param);
-      // res
-      //   .then(res => {
-      //     Toast(res.msg);
-      //   })
-      //   .catch(reslove => {
-      //     console.log("error");
-      //   });
+      console.log(param);
+      let res = reqChathist(param);
+      res
+        .then(res => {
+          Toast(res.msg);
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     },
     teachYou(index) {
-      let params = {
-          Answer: this.list[index].content,
-          Question: this.list[index - 1].content
-      }
-      alert(JSON.stringify(params))
-      Bus.$emit('teachyou',params)
-      // let param = {
-      //   broker_id: this.broker_id,
-      //   question: this.list[index - 1].content,
-      //   answer: this.list[index].content,
-      //   token: this.token
-      // };
-      // console.log(param);
-      // let res = reqaddledgeList(param);
-      // res
-      //   .then(res => {
-      //     // this.ShoWList()
-      //     console.log(res);
-      //   })
-      //   .catch(reslove => {
-      //     console.log("error");
-      //   });
-
+      let param = {
+        broker_id: this.broker_id,
+        question: this.list[index - 1].content,
+        answer: this.list[index].content,
+        token: this.token
+      };
+      console.log(param);
+      let res = reqaddledgeList(param);
+      res
+        .then(res => {
+          // this.ShoWList()
+          console.log(res);
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
       // this.$router.push({   //跳到知识库编辑页面
       //   path: "/shopZoom",
       //   query: {
