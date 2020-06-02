@@ -271,7 +271,7 @@ export default {
         console.log(res, "任务列表");
         this.np1 = res.result.np1;
         if (this.np1 == "0") {
-          this.status = "去完成";
+          this.status = "未完成";
           this.statusWar = "twos";
         } else if (this.np1 == "1") {
           this.status = "领取";
@@ -282,7 +282,7 @@ export default {
         }
         this.np2 = res.result.np2;
         if (this.np2 == "0") {
-          this.status2 = "去完成";
+          this.status2 = "未完成";
           this.status1War = "twos";
         } else if (this.np2 == "1") {
           this.status2 = "领取";
@@ -293,7 +293,7 @@ export default {
         }
         this.np3 = res.result.np3;
         if (this.np3 == "0") {
-          this.status3 = "去完成";
+          this.status3 = "未完成";
           this.status2War = "twos";
         } else if (this.np3 == "1") {
           this.status3 = "领取";
@@ -304,7 +304,7 @@ export default {
         }
         this.np4 = res.result.np4;
         if (this.np4 == "0") {
-          this.status4 = "去完成";
+          this.status4 = "未完成";
           this.status3War = "twos";
         } else if (this.np4 == "1") {
           this.status4 = "领取";
@@ -315,7 +315,7 @@ export default {
         }
         this.np5 = res.result.np5;
         if (this.np5 == "0") {
-          this.status5 = "去完成";
+          this.status5 = "未完成";
           this.status4War = "twos";
         } else if (this.np5 == "1") {
           this.status5 = "领取";
@@ -406,24 +406,29 @@ export default {
     width: 335px;
     height: 100px;
     background: rgba(245, 160, 21, 1);
+    color: rgba(245, 160, 21, 1);
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
 
     &:nth-child(2) {
       background: rgba(76, 208, 105, 1);
+      color:rgba(76, 208, 105, 1);
     }
 
     &:nth-child(3) {
       background: rgba(246, 94, 94, 1);
+      color:rgba(246, 94, 94, 1);
     }
 
     &:nth-child(4) {
       background: rgba(40, 201, 181, 1);
+      color: rgba(40, 201, 181, 1);
     }
 
     &:last-child {
       background: rgba(99, 117, 254, 1);
+      color: rgba(99, 117, 254, 1);
     }
 
     > .leftBox {
@@ -534,7 +539,7 @@ export default {
           font-size: 15px;
           font-family: PingFangSC-Medium, PingFang SC;
           font-weight: 500;
-          color: rgba(245, 160, 21, 1);
+          // color: rgba(245, 160, 21, 1);
           line-height: 21px;
           text-align: center;
           margin-top: 6px;
@@ -543,7 +548,7 @@ export default {
 
       > .twos {
         border: 1px solid rgba(255, 255, 255, 1);
-        background: rgba(76, 208, 105, 1);
+        background:none;
         > p {
           color: rgba(255, 255, 255, 1);
         }
