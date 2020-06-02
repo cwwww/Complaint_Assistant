@@ -381,7 +381,7 @@ export default {
     showChatP(data) {
       alert(JSON.stringify(data));
       this.homeChat = data.data;
-      if (data.question != "") {
+      if (!this.homeChat) {
         let param = {
           dialog_type: "1",
           broker_id: this.$route.query.broker_id,
@@ -394,7 +394,7 @@ export default {
         res
           .then(res => {
             console.log(res);
-            this.getHistory();
+            // this.getHistory();
             // this.question = "";
           })
           .catch(reslove => {
