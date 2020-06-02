@@ -1,6 +1,23 @@
 <template>
   <div class="contain">
-    <!-- <div v-if="this.registers.visitor_type == '1'"> -->
+    <van-popup class="cont2" v-model="vipNotification">
+      <div class="contwrap">
+        <div class="top">
+          <span>您还没有登录哦~</span>
+          <!-- <img style="width:16px;height:16px;" :src=money alt=""> -->
+          <!-- <span>请前往【会员商店】领取</span> -->
+        </div>
+        <div style="margin-bottom:25px;">请登录后继续操作！</div>
+        <div class="isOk">
+          <div class="isNo" @click="noGet">
+            <span style="color:#666;">取消</span>
+          </div>
+          <div class="isYes" @click="toGet">
+            <span style="color:#FFF;">去登录</span>
+          </div>
+        </div>
+      </div>
+    </van-popup>
     <div class="information">
       <div class="mes">
         <div class="topHalfPart">
@@ -108,7 +125,7 @@
       <div class="input-bottom">
         <input
           type="text"
-          ref="input"
+          v-model="inputcon"
           placeholder="输入“风险测评”试试"
           style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"
         />
@@ -138,6 +155,7 @@
       :robot_id="visitList.robot_id"
       :token="visitList.token"
       :robot_visitId="$route.query.robot_visitId"
+      :Othername="homeInit.name"
       v-if="visitList.Othername"
     />
     <CancelFollow
@@ -175,6 +193,7 @@ export default {
   },
   data() {
     return {
+      vipNotification:true,
       CancelFollow: false,
       fairyShop: false,
       showACChat: false,
@@ -201,6 +220,7 @@ export default {
       star: "",
       isStatus: "",
       fairyStatus: "",
+      inputcon: "",
       login: require("../assets/images/login@2x.png"),
       share: require("../assets/images/share@2x.png"),
       img: require("../assets/images/icon.png"),
@@ -255,16 +275,25 @@ export default {
     FairyShop() {
       //买家精灵商店
       this.fairyShop = true;
-      this.$router.push({
-        path: "/FairyShop",
-        query: {
-          robot_id: this.$route.query.robot_id,
-          broker_id: this.$route.query.broker_id,
-          robot_visitId: this.$route.query.robot_visitId,
-          Othername: this.homeInit.name,
-          token: this.$route.query.token
-        }
-      });
+      // this.$router.push({
+      //   path: "/FairyShop",
+      //   query: {
+      //     robot_id: this.$route.query.robot_id,
+      //     broker_id: this.$route.query.broker_id,
+      //     robot_visitId: this.$route.query.robot_visitId,
+      //     Othername: this.homeInit.name,
+      //     token: this.$route.query.token
+      //   }
+      // });
+    },
+    toGet() {
+      this.vipNotification = false;
+      this.$router.push(
+        '/Login'
+      )
+    },
+    noGet() {
+      this.vipNotification = false;
     },
     HomeChat() {
       // 聊天记录
@@ -275,11 +304,11 @@ export default {
     },
     toHome() {
       this.$router.push({
-        path:'/',
-        query:{
-          robot_id:this.customer_robot_id,
-          broker_id:this.visitList.customer_id,
-          token:this.visitList.token,
+        path: "/",
+        query: {
+          robot_id: this.customer_robot_id,
+          broker_id: this.visitList.customer_id,
+          token: this.visitList.token
         }
       });
     },
@@ -300,59 +329,56 @@ export default {
           customer_robot_id: this.customer_robot_id,
           customer_type: this.customer_type,
           visited_robot_id: this.$route.query.broker_id,
-          token:
-            this.visitList.token ||
-            "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+          token: this.visitList.token
         }
       });
     },
     submit(numIndex) {
       this.numIndex += 1;
-      if (this.$refs.input.value == "") {
+      if (this.inputcon == "") {
         Toast("请输入聊天内容");
       } else {
         this.getCusayrob();
       }
     },
     getCusayrob() {
-      this.question = this.$refs.input.value;
+      var that = this;
+      that.question = that.inputcon;
       let param;
-      if (this.flag) {
+      if (that.flag) {
         param = {
           dialog_type: "0",
-          customer_type: 0,
-          customer_id: 51,
-          broker_id: 33,
-          robot_id: 33,
+          customer_type: that.customer_type,
+          customer_id: that.visitList.customer_id,
+          broker_id: that.$route.query.broker_id,
+          robot_id: that.$route.query.robot_id,
           speaker: "1",
           content: ".",
-          token:
-            "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqV0VhOTpHVjZOd2N0dVVzYmt5UnNkRHFNMkFsZkw2MUE.ZXlKd1lYbHNiMkZrSWpvMU1Td2lhV0YwSWpveE5UZzROelV3TlRBMUxqY3pOREk0TlgwOjFqV0VhOTpIa25FQi1Dc3lONTRDbk1ZcTd3NEtQUGhlQjA.934b2fd1932fa276b566133364ee9d89"
+          token: that.visitList.token
         };
-        this.flag = false;
+        that.flag = false;
       } else {
         param = {
           dialog_type: "1",
-          customer_type: 0,
-          customer_id: 51,
-          broker_id: 33,
-          robot_id: 33,
+          customer_type: that.customer_type,
+          customer_id: that.visitList.customer_id,
+          broker_id: that.$route.query.broker_id,
+          robot_id: that.$route.query.robot_id,
           speaker: "1",
-          content: this.question,
-          token:
-            "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqV0VhOTpHVjZOd2N0dVVzYmt5UnNkRHFNMkFsZkw2MUE.ZXlKd1lYbHNiMkZrSWpvMU1Td2lhV0YwSWpveE5UZzROelV3TlRBMUxqY3pOREk0TlgwOjFqV0VhOTpIa25FQi1Dc3lONTRDbk1ZcTd3NEtQUGhlQjA.934b2fd1932fa276b566133364ee9d89"
+          content: that.question,
+          token: that.visitList.token
         };
       }
       let res = reqCusayrob(param);
       res
         .then(res => {
-          this.answer = res.result.dialog_history.content;
-          this.list.push(this.question);
-          this.list.push(this.answer);
-          this.list2 = this.list.slice(-4);
-          if (this.list2[0] == "") {
+          that.answer = res.result.dialog_history.content;
+          that.list.push(this.question);
+          that.list.push(this.answer);
+          that.list2 = that.list.slice(-4);
+          if (that.list2[0] == "") {
           }
-          this.$refs.input.value = "";
+          that.inputcon = "";
         })
         .catch(reslove => {
           console.log("error");
@@ -395,13 +421,11 @@ export default {
     //关注好友
     guanzhuUpdateTask() {
       let param = {
-        broker_id: 33 || this.$route.query.broker_id,
-        robot_id: 33 || this.$route.query.robot_id,
+        broker_id: this.$route.query.broker_id,
+        robot_id: this.$route.query.robot_id,
         operation_type: 6,
         followed_robot_id: this.$route.query.robot_visitId,
-        token:
-          this.$route.query.token ||
-          "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        token: this.$route.query.token
       };
       console.log("任务的param:" + param);
       let result = reqtaskStatus(param);
@@ -435,17 +459,16 @@ export default {
       //   that.customer_robot_id = "";
       // }
       let param = {
-        customer_id: 33,
-        customer_robot_id: 33,
-        customer_type: 1,
-        visited_robot_id: 93,
-        token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
-
-        // customer_id: 33 || that.visitList.customer_id,
-        // customer_robot_id: 33 || that.customer_robot_id,
-        // customer_type: 1 || that.customer_type,
-        // visited_robot_id: that.$route.query.broker_id,
-        // token: that.visitList.token || "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+        // customer_id: 33,
+        // customer_robot_id: 33,
+        // customer_type: 1,
+        // visited_robot_id: 93,
+        // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
+        customer_id: that.visitList.customer_id,
+        customer_robot_id: that.customer_robot_id,
+        customer_type: that.customer_type,
+        visited_robot_id: that.$route.query.robot_id,
+        token: that.visitList.token
       };
       let result = reqVisitedInit(param);
       result
@@ -482,12 +505,13 @@ export default {
     },
     //串门成功调更新任务接口
     chuanmen() {
+      var that = this;
       let param = {
-        broker_id: this.$route.query.broker_id,
-        robot_id: this.$route.query.robot_id,
+        broker_id: that.visitList.customer_id,
+        robot_id: that.visitList.customer_robot_id,
         operation_type: 4,
-        visited_robot_id: this.$route.query.robot_visitId,
-        token: this.$route.query.token
+        visited_robot_id: that.$route.query.robot_id,
+        token: that.visitList.token
       };
       console.log("任务的param:" + param);
       let result = reqtaskStatus(param);
@@ -1189,54 +1213,48 @@ export default {
       }
     }
 
-    .cont2 {
-      width: 305px;
-      height: 174px;
-      background: rgba(255, 255, 255, 1);
-      border-radius: 15px;
-
-      .contwrap {
-        font-size: 17px;
-        font-family: PingFangSC-Medium, PingFang SC;
-        font-weight: 500;
-        color: rgba(51, 51, 51, 1);
-        line-height: 24px;
+  .cont2 {
+    width: 305px;
+    height: 174px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 15px;
+    .contwrap {
+      font-size: 17px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(51, 51, 51, 1);
+      line-height: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+      .top {
+        margin-bottom: 7px;
+      }
+      .isOk {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 30px;
-
-        .top {
-          margin-bottom: 7px;
+        // align-items: center;
+        // justify-content: center;
+        .isNo {
+          width: 125px;
+          height: 42px;
+          background: rgba(234, 234, 234, 1);
+          border-radius: 4px;
+          text-align: center;
+          line-height: 42px;
         }
-
-        .isOk {
-          display: flex;
-
-          // align-items: center;
-          // justify-content: center;
-          .isNo {
-            width: 125px;
-            height: 42px;
-            background: rgba(234, 234, 234, 1);
-            border-radius: 4px;
-            text-align: center;
-            line-height: 42px;
-          }
-
-          .isYes {
-            width: 125px;
-            height: 42px;
-            background: rgba(0, 147, 253, 1);
-            border-radius: 4px;
-            text-align: center;
-            line-height: 42px;
-            margin-left: 20px;
-          }
+        .isYes {
+          width: 125px;
+          height: 42px;
+          background: rgba(0, 147, 253, 1);
+          border-radius: 4px;
+          text-align: center;
+          line-height: 42px;
+          margin-left: 20px;
         }
       }
     }
-
+  }
     .cont3 {
       width: 170px;
       height: 170px;
