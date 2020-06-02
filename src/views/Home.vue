@@ -381,24 +381,25 @@ export default {
       alert(JSON.stringify(data));
       this.homeChat = data.data;
       if (!this.homeChat) {
-        let param = {
-          dialog_type: "1",
-          broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robot_id,
-          speaker: "2",
-          content: data.question,
-          token: this.$route.query.token
-        };
-        let res = reqRobotDetail(param);
-        res
-          .then(res => {
-            console.log(res);
-            this.getHistory();
-            // this.question = "";
-          })
-          .catch(reslove => {
-            console.log("error");
-          });
+        this.getHistory();
+        // let param = {
+        //   dialog_type: "1",
+        //   broker_id: this.$route.query.broker_id,
+        //   robot_id: this.$route.query.robot_id,
+        //   speaker: "2",
+        //   content: data.question,
+        //   token: this.$route.query.token
+        // };
+        // let res = reqRobotDetail(param);
+        // res
+        //   .then(res => {
+        //     console.log(res);
+            
+        //     // this.question = "";
+        //   })
+        //   .catch(reslove => {
+        //     console.log("error");
+        //   });
       }
     },
     toInvite() {
@@ -698,6 +699,7 @@ export default {
       res
         .then(res => {
           this.HistoryList = res.result;
+          alert('展示'+JSON.stringify(this.HistoryList))
           this.list2 = this.HistoryList.slice(-4);
         })
         .catch(reslove => {
