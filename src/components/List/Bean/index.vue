@@ -1,7 +1,7 @@
 <template>
   <div class="main" v-if="baenstList.length>0">
     <div v-for="(item, idx) in baenstList" :key="idx">
-      <div class="warp" @click="clickThis(item.robot_id)">
+      <div class="warp" @click="visitFollower(item.robot_id)">
         <div class="left">
           <div class="littleLeft">
             <img :src="item.headimgurl === null ? img4 : item.headimgurl" alt="error" />
@@ -9,17 +9,17 @@
           <div class="littleRight">
             <div class="topTitle">
               <span>{{item.name}}</span>
-              <div class="lelve">
+              <div class="level">
                 <p>Lv.{{item.level}}</p>
               </div>
               <div class="dengji">
-                  <img v-if="item.level <= 5" :src="gradeOne" alt />
-                  <img v-else-if="item.level <= 10" :src="gradeTwo" alt />
-                  <img v-else-if="item.level <= 20" :src="gradeThree" alt />
-                  <img v-else-if="item.level <= 30" :src="gradeFour" alt />
-                  <img v-else-if="item.level <= 40" :src="gradeFive" alt />
-                  <img v-else-if="item.level <= 50" :src="gradeSix" alt />
-                  <img v-else-if="item.level <= 60" :src="gradeSeven" alt />
+                <img v-if="item.level <= 5" :src="gradeOne" alt />
+                <img v-else-if="item.level <= 10" :src="gradeTwo" alt />
+                <img v-else-if="item.level <= 20" :src="gradeThree" alt />
+                <img v-else-if="item.level <= 30" :src="gradeFour" alt />
+                <img v-else-if="item.level <= 40" :src="gradeFive" alt />
+                <img v-else-if="item.level <= 50" :src="gradeSix" alt />
+                <img v-else-if="item.level <= 60" :src="gradeSeven" alt />
               </div>
             </div>
             <div class="bottom">
@@ -29,7 +29,7 @@
             </div>
           </div>
         </div>
-        <div v-if="item.followed == false" class="right">
+        <div v-if="item.followed == false" class="right" @click.stop="follow(item.robot_id,item)">
           <span>关注</span>
         </div>
         <div v-if="item.followed == true" class="rightNo">
@@ -40,11 +40,12 @@
   </div>
   <div class="emptyList" v-else>
     <img :src="emptyList" alt />
-    <div class="emptyListFont" >还没有人关注你呢</div>
+    <div class="emptyListFont">还没有人关注你呢</div>
   </div>
 </template>
 <script>
 import { BeanList } from "../../../axios/axios-api";
+import { guanZhu } from "../../../axios/axios-api";
 export default {
   name: "Bean",
   data() {
@@ -61,7 +62,6 @@ export default {
       gradeSix: require("../../../assets/images/等级-保险大咖@2x.png"),
       gradeSeven: require("../../../assets/images/等级-保险名人堂@2x.png"),
       emptyList: require("../../../assets/images/emptyList@2x.png")
-
     };
   },
   props: ["broker_id_prop", "robot_id_prop", "token_prop"],
@@ -84,7 +84,7 @@ export default {
   },
 
   methods: {
-    clickThis: function(robot_id) {
+    visitFollower: function(robot_id) {
       this.$router.push({
         path: "/HomeOther",
         query: {
@@ -94,7 +94,20 @@ export default {
           token: this.token_prop
         }
       });
+    },
+    follow: function(followed_robot_id,item) {
+      let param = {
+        operation_type: 0,
+        robot_id: this.robot_id_prop,
+        broker_id: this.broker_id_prop,
+        followed_robot_id: followed_robot_id,
+        token: this.token_prop
+      };
+      guanZhu(param)
+      item.followed = !item.followed
+
     }
+
   }
 };
 </script>
@@ -140,7 +153,7 @@ export default {
             color: rgba(51, 51, 51, 1);
             line-height: 21px;
           }
-          > .lelve {
+          > .level {
             height: 17px;
             background: linear-gradient(
               139deg,
