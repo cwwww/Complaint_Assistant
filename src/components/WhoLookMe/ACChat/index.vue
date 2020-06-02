@@ -114,9 +114,6 @@ export default {
   ],
   created() {
     this.chat = this.ACChat_show;
-    this.broker_id_prop = this.broker_id;
-    this.robot_id_prop = this.robot_id;
-    this.token_prop = this.token;
     this.titleName_prop = this.titleName;
     this.customer_type_prop = this.customer_type;
     this.customerImg_prop = this.customerImg;
@@ -134,7 +131,6 @@ export default {
     },
     getDialogAgent() {
       //AC 聊天记录
-      alert('customer_type_prop'+JSON.stringify(this.customer_type_prop))
       let param;
       if (this.flag) {
         param = {
@@ -154,6 +150,7 @@ export default {
           token: this.token_prop
         };
       }
+      alert('param'+JSON.stringify(param))
       let res = reqDialogAgent(param);
       res
         .then(res => {
