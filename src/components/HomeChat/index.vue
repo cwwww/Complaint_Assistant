@@ -102,7 +102,7 @@ export default {
     close() {
       this.$emit("showChatC", false);
     },
-    getHistory() {
+    getChatList() {
       let param = {
         broker_id: this.broker_id,
         token: this.token,
@@ -210,7 +210,7 @@ export default {
     this.scrollToBottom();
   },
   mounted() {
-    this.getHistory()
+    this.getChatList();
   }
 };
 </script>
