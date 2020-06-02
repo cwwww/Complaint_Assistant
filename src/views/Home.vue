@@ -658,14 +658,14 @@ export default {
         Toast("请输入聊天内容");
       } else {
         this.getDetail();
-        this.getHistory();
+        // this.getHistory();
         this.getReqtaskStatus();
       }
     },
     getHistory(){
       let param = {
         broker_id: this.$route.query.broker_id,
-        token: this.$route.query.token
+        token:  this.$route.query.token
         // robot_id : this.robot_id,
         // speaker : '2',
         // content : this.hisChat,
@@ -676,7 +676,7 @@ export default {
         .then(res => {
           this.HistoryList = res.result;
           this.list2 = this.HistoryList.slice(-4);
-          alert(JSON.stringify(this.HistoryList.slice(-1)[0].content))
+          // alert(JSON.stringify(this.HistoryList.slice(-1)[0].content))
         })
         .catch(reslove => {
           console.log("error");
@@ -692,7 +692,7 @@ export default {
         param = {
           dialog_type: "0",
           broker_id: this.$route.query.broker_id,
-          robot_id: this.$route.query.robot_id,
+          robot_id:this.$route.query.robot_id,
           speaker: "2",
           content: ".",
           token: this.$route.query.token
@@ -705,7 +705,7 @@ export default {
           robot_id: this.$route.query.robot_id,
           speaker: "2",
           content: this.question,
-          token: this.$route.query.token
+          token:  this.$route.query.token
         };
       }
       console.log(param);
@@ -718,6 +718,7 @@ export default {
           this.list.push(this.answer);
           // if (this.list2[0] == "") {
           // }
+          this.getHistory()
           this.question = "";
         })
         .catch(reslove => {
@@ -798,9 +799,9 @@ export default {
         this.$route.query.broker_id = this.$route.query.visitor_id;
       }
       let param = {
-        // robot_id: 93,
-        // broker_id: 93,
-        // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZlpIRDpqQjEzUDk5dDItM2cxZjFmWmZYOFFSSFlqUms.ZXlKUVNFOU9SU0k2SWpFNE1qRXdNRGt4T0Rnd0lpd2lTVVFpT2prekxDSnBZWFFpT2pFMU9UQTVOelV3TURjdU1URTRNakV4TjMwOjFqZlpIRDpBRU1Bem9xdzFqRFE4VGhkQlpJdHRJaGc2Q0U.ab251255b191fc234c523c3d14b8888c"
+        // robot_id: 33,
+        // broker_id: 33,
+        // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
 
         robot_id: this.$route.query.robot_id,
         broker_id: this.$route.query.broker_id,
@@ -908,7 +909,7 @@ export default {
     //     // 别的业务逻辑
     // }
     this.getHomeInit();
-    this.getHistory()
+    
     this.getDetail();
     //定时获取粉丝数据
     this.timer = setInterval(this.getFensi, 60000); //定时间隔，
@@ -1037,7 +1038,7 @@ export default {
         .level {
           position: absolute;
           top: 26px;
-          right: -52px;
+          right: -33px;
           font-size: 11px;
           font-family: DINAlternate-Bold, DINAlternate;
           font-weight: bold;
