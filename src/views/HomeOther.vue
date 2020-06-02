@@ -346,24 +346,24 @@ export default {
         param = {
           dialog_type: "0",
           customer_type: that.customer_type,
-          customer_id: that.visitList.customer_id,
+          customer_id: that.registers.visitor_id,
           broker_id: that.$route.query.broker_id,
           robot_id: that.$route.query.robot_id,
           speaker: "1",
           content: ".",
-          token: that.visitList.token
+          token: that.registers.token
         };
         that.flag = false;
       } else {
         param = {
           dialog_type: "1",
           customer_type: that.customer_type,
-          customer_id: that.visitList.customer_id,
+          customer_id: that.registers.visitor_id,
           broker_id: that.$route.query.broker_id,
           robot_id: that.$route.query.robot_id,
           speaker: "1",
           content: that.question,
-          token: that.visitList.token
+          token: that.registers.token
         };
       }
       let res = reqCusayrob(param);
@@ -382,30 +382,24 @@ export default {
         });
     },
     guanzhu() {
-      if (this.guanzhuContent == "关注TA") {
+      var that = this
+      if (that.guanzhuContent == "关注TA") {
         let param = {
-          robot_id: 33,
-          followed_robot_id: 93,
+          robot_id: that.customer_robot_id,
+          followed_robot_id: that.$route.query.robot_id,
           operation_type: "0",
-          broker_id: 33,
-          token:
-            "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
-
-          // robot_id: 33 || this.$route.query.robot_id,
-          // followed_robot_id: 93 || this.$route.query.robot_visitId,
-          // operation_type: "0",
-          // broker_id:33 || this.$route.query.broker_id,
-          // token:this.$route.query.token
+          broker_id: that.registers.visitor_id,
+          token:that.registers.token
         };
         let result = guanZhu(param);
         result
           .then(res => {
             console.log("guanzhu:" + res);
             if (res.result.info == "关注成功") {
-              this.guanzhuContent = "已关注";
+              that.guanzhuContent = "已关注";
               //更新关注任务状态，领取经验和金币
-              this.guanzhuUpdateTask();
-              this.getHomeInit();
+              that.guanzhuUpdateTask();
+              that.getHomeInit();
             }
           })
           .catch(reslove => {
