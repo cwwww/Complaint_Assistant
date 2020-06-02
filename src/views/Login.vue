@@ -23,9 +23,9 @@
       <van-checkbox class="checkout" v-model="check">复选框</van-checkbox>
       <div class="text">
         <span>已阅读并同意</span>
-        <router-link to="/bebotAgree">《保险侠服务协议》</router-link>
+        <router-link to="/bebotAgree">《必保机器人服务协议》</router-link>
         <span>及</span>
-        <a href="https://h5.baoxianxia.com.cn/app/secret.html">《保险侠隐私</a>
+        <a href="https://h5.baoxianxia.com.cn/app/secret.html">《必保机器人隐私</a>
         <a href="https://h5.baoxianxia.com.cn/app/secret.html">政策》</a>
       </div>
     </div>
