@@ -82,12 +82,12 @@ export default {
     }
   },
   props: ["broker_id", "robot_id", "token", "Who_Look"],
-  watch:{
-    titleName(){
-      this.titleName = this.list[index].name
-      alert(JSON.stringify(this.titleName))
-    }
-  },
+  // watch:{
+  //   titleName(){
+  //     this.titleName = this.list[index].name
+  //     alert(JSON.stringify(this.titleName))
+  //   }
+  // },
   methods: {
     ACChatP(data) {
       this.isACChat = data;
