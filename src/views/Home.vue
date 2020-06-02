@@ -380,7 +380,7 @@ export default {
     showChatP(data) {
       alert(JSON.stringify(data));
       this.homeChat = data.data;
-      if (!this.homeChat && data.question != '') {
+      if (data.question != '') {
         let param = {
           dialog_type: "1",
           broker_id: this.$route.query.broker_id,
