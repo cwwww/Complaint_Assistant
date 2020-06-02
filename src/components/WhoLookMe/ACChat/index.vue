@@ -127,6 +127,9 @@ export default {
   watch: {
     ACChat_show(newValue) {
       this.chat = newValue;
+    },
+    titleName(){
+      this.titleName_prop = this.titleName;
     }
   },
   methods: {
