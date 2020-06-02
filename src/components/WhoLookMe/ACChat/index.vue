@@ -134,7 +134,7 @@ export default {
       this.$emit("ACChatC", false);
     },
     getDialogAgent() {
-      alert(JSON.stringify('三方聊天'+this.list_prop))
+      alert(JSON.stringify('三方聊天'+this.list))
       //AC 聊天记录
       let param;
       if (this.flag) {
@@ -194,25 +194,6 @@ export default {
           });
       }
     },
-    // chathist(index) {
-    //   console.log(this.list[index]);
-    //   let param = {
-    //     broker_id: 33,
-    //     sentence_id: this.list[index].sentence_id,
-    //     question: this.question,
-    //     answer: "",
-    //     token: this.token_prop
-    //   };
-    //   console.log(param);
-    //   let res = reqChathist(param);
-    //   res
-    //     .then(res => {
-    //       Toast(res.msg);
-    //     })
-    //     .catch(reslove => {
-    //       console.log("error");
-    //     });
-    // },
     //  滚动条置底
     scrollToBottom: function() {
       this.$nextTick(() => {
