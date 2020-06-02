@@ -95,17 +95,22 @@ export default {
     },
     val(newValue) {
       this.val = newValue;
-      alert(JSON.stringify(this.val))
+      alert(JSON.stringify(this.val));
     }
+  },
+  mounted() {
+    alert(111)
+    this.getChatList();
   },
   methods: {
     close() {
       this.$emit("showChatC", false);
     },
     getChatList() {
+      alert(222)
       let param = {
         broker_id: this.broker_id,
-        token: this.token,
+        token: this.token
         // robot_id:33 ||  this.robot_id,
         // speaker: "2",
         // content: 'this.question',
@@ -115,7 +120,7 @@ export default {
       let res = reqRobotHistory(param);
       res
         .then(res => {
-          alert(JSON.stringify(res))
+          alert(JSON.stringify(res));
           this.list = res.result;
         })
         .catch(reslove => {
@@ -208,9 +213,6 @@ export default {
   },
   updated() {
     this.scrollToBottom();
-  },
-  mounted() {
-    this.getChatList();
   }
 };
 </script>
