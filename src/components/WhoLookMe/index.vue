@@ -96,6 +96,7 @@ export default {
     result
       .then(res => {
         this.list = res.result;
+        alert('看过我'+JSON.stringify(this.list))
       })
       .catch(reslove => {
         console.log("error");
