@@ -271,8 +271,8 @@ export default {
   },
   data() {
     return {
-      HistoryList:[],
-      toget:'',
+      HistoryList: [],
+      toget: "",
       showoverlay: true,
       isSellerShop: false,
       isTask: false,
@@ -376,9 +376,9 @@ export default {
     },
     showChatP(data) {
       this.homeChat = data;
-      if(!this.homeChat){
-        this.list2 = this.HistoryList.slice(-4).content
-        alert(JSON.stringify(this.HistoryList))
+      if (!this.homeChat) {
+        this.list2 = this.HistoryList.slice(-4).content;
+        alert(JSON.stringify(this.HistoryList.slice(-4).content));
       }
     },
     WhoLookP(data) {
@@ -405,13 +405,13 @@ export default {
     },
     Repository() {
       // 知识库
-      
+
       this.isRep = true;
       // this.destoryTimer();
     },
     FairyShop() {
       // 买家精灵商店
-      this.toget = 0
+      this.toget = 0;
       this.isSellerShop = true;
       // this.destoryTimer();
     },
@@ -431,29 +431,28 @@ export default {
       //   }
       // });
     },
-    toGet(){
-      this.toget = 1
+    toGet() {
+      this.toget = 1;
       this.isSellerShop = true;
-      this.vipNotification = false
+      this.vipNotification = false;
     },
-    noGet(){
+    noGet() {
       this.vipNotification = false;
     },
     toHope() {
       Toast("敬请期待");
     },
     HomeChat() {
-      // 聊天记录
-      this.homeChat = true;
-            let param = {
+      this.HomeChat = true;
+      let param = {
         broker_id: this.$route.query.broker_id,
-        token: this.$route.query.token,
+        token: this.$route.query.token
         // robot_id : this.robot_id,
         // speaker : '2',
         // content : this.hisChat,
         // create_time : new Date().toLocaleString(),
       };
-      alert(JSON.stringify(param))
+      alert(JSON.stringify(param));
       let res = reqRobotHistory(param);
       res
         .then(res => {
@@ -462,6 +461,11 @@ export default {
         .catch(reslove => {
           console.log("error");
         });
+    },
+    HomeChat() {
+      // 聊天记录
+      this.homeChat = true;
+      this.getHistory();
       this.destoryTimer();
     },
     WhoLookMe() {
@@ -804,7 +808,6 @@ export default {
         .then(res => {
           console.log(res);
           this.homeInit = res.result;
-          
 
           if (this.homeInit.name == "") {
             this.showName = true;

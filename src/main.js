@@ -29,7 +29,9 @@ Vue.prototype.$jquery = $;
 Vue.config.productionTip = false
 Vue.use( VueClipboard )
 Vue.use(Toast,Button,Overlay);
-
+import VueBus from 'vue-bus';
+ 
+Vue.use(VueBus);
 new Vue({
   router,
   store,
