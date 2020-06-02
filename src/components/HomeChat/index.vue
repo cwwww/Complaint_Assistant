@@ -88,6 +88,8 @@ export default {
   created(){
       this.chat = this.show_chat
       this.question = this.val
+      alert(JSON.stringify(this.question))
+      this.getChatList()
   },
   watch:{
     show_chat(newValue){
@@ -203,7 +205,7 @@ export default {
   },
   mounted() {
     // this.scrollToBottom();
-    this.getChatList()
+    
   }
 };
 </script>
