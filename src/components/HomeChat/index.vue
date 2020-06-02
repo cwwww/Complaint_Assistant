@@ -92,6 +92,9 @@ export default {
   watch: {
     show_chat(newValue) {
       this.chat = newValue;
+      if(this.chat){
+        this.getChatList()
+      }
     },
     val(newValue) {
       this.val = newValue;
@@ -99,8 +102,8 @@ export default {
     }
   },
   mounted() {
-    alert(111)
-    this.getChatList();
+    // alert(111)
+    // this.getChatList();
   },
   methods: {
     close() {
@@ -120,7 +123,7 @@ export default {
       let res = reqRobotHistory(param);
       res
         .then(res => {
-          alert(JSON.stringify('返回'+res));
+          // alert(JSON.stringify('返回'+res));
           this.list = res.result;
         })
         .catch(reslove => {
