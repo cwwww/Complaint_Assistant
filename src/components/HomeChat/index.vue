@@ -110,7 +110,6 @@ export default {
       this.$emit("showChatC", false);
     },
     getChatList() {
-      alert(222)
       let param = {
         broker_id: this.broker_id,
         token: this.token
@@ -119,11 +118,9 @@ export default {
         // content: 'this.question',
         // create_time: new Date().toLocaleString()
       };
-      alert(JSON.stringify('请求参数'+param));
       let res = reqRobotHistory(param);
       res
         .then(res => {
-          // alert(JSON.stringify('返回'+res));
           this.list = res.result;
         })
         .catch(reslove => {
