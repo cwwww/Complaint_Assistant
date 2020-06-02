@@ -89,7 +89,6 @@ export default {
   created() {
     this.chat = this.show_chat;
     this.question = this.val;
-    alert(JSON.stringify(this.question));
   },
   watch: {
     show_chat(newValue) {
@@ -97,7 +96,6 @@ export default {
     },
     val(newValue) {
       this.val = newValue;
-      alert(JSON.stringify(this.val));
     }
   },
   methods: {

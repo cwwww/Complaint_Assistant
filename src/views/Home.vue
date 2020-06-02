@@ -95,7 +95,7 @@
     </div>
     <div>
       <div class="talk">
-        <div class="talkContent" id="talkContent" :class="{active:isOwn}">{{answer}}</div>
+        <div class="talkContent" id="talkContent" :class="{active:isOwn}">{{HistoryList.slice(-1)[0].content}}</div>
         <div class="btnTalk">
           <img @click="previousPage" class="leftBtn" :src="nextpage2" alt />
           <img class="rightBtn" @click="nextPage" :src="nextpage" alt />
@@ -111,8 +111,8 @@
       </div>
       <div class="answer" id="answer">
         <div v-for="(i,index) in list2" :key="index">
-          <div class="ownerAnswer" v-show="index%2 == 1">{{i}}</div>
-          <div class="rebotAnswer" v-show="index%2 == 0">{{i}}</div>
+          <div class="ownerAnswer" v-show="index%2 == 1">{{i.content}}</div>
+          <div class="rebotAnswer" v-show="index%2 == 0">{{i.content}}</div>
         </div>
       </div>
       <ul class="bottomList">
@@ -167,11 +167,11 @@
         </div>
       </div>
     </div>
-    <van-overlay :showoverlay="showoverlay" v-show="showoverlay" @click="showoverlay = false">
+    <!-- <van-overlay :showoverlay="showoverlay" v-show="showoverlay" @click="showoverlay = false">
       <div class="wrapper" @click.stop>
         <div class="block" />ffe
       </div>
-    </van-overlay>
+    </van-overlay> -->
     <HomeChat
       v-show="homeChat"
       @showChatC="showChatP"
@@ -441,26 +441,10 @@ export default {
     toHope() {
       Toast("施工中,敬请期待");
     },
+    
     HomeChat() {
-      
-      let param = {
-        broker_id: this.$route.query.broker_id,
-        token: this.$route.query.token
-        // robot_id : this.robot_id,
-        // speaker : '2',
-        // content : this.hisChat,
-        // create_time : new Date().toLocaleString(),
-      };
-      alert(JSON.stringify(param));
-      let res = reqRobotHistory(param);
-      res
-        .then(res => {
-          this.HistoryList = res.result;
-          this.HomeChat = true;
-        })
-        .catch(reslove => {
-          console.log("error");
-        });
+      this.HomeChat = true;
+
     },
     HomeChat() {
       // 聊天记录
@@ -674,8 +658,29 @@ export default {
         Toast("请输入聊天内容");
       } else {
         this.getDetail();
+        this.getHistory();
         this.getReqtaskStatus();
       }
+    },
+    getHistory(){
+      let param = {
+        broker_id: this.$route.query.broker_id,
+        token: this.$route.query.token
+        // robot_id : this.robot_id,
+        // speaker : '2',
+        // content : this.hisChat,
+        // create_time : new Date().toLocaleString(),
+      };
+      let res = reqRobotHistory(param);
+      res
+        .then(res => {
+          this.HistoryList = res.result;
+          this.list2 = this.HistoryList.slice(-4);
+          alert(JSON.stringify(this.HistoryList.slice(-1)[0].content))
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     },
     getDetail() {
       // if(this.val != ''){
@@ -711,9 +716,8 @@ export default {
           this.answer = res.result.content;
           this.list.push(this.question);
           this.list.push(this.answer);
-          this.list2 = this.list.slice(-4);
-          if (this.list2[0] == "") {
-          }
+          // if (this.list2[0] == "") {
+          // }
           this.question = "";
         })
         .catch(reslove => {
@@ -904,6 +908,7 @@ export default {
     //     // 别的业务逻辑
     // }
     this.getHomeInit();
+    this.getHistory()
     this.getDetail();
     //定时获取粉丝数据
     this.timer = setInterval(this.getFensi, 60000); //定时间隔，
