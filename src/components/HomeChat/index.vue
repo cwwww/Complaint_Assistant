@@ -72,6 +72,7 @@ export default {
   name: "HomeChat",
   data() {
     return {
+      flag: false,
       list: [],
       chat: true,
       left: true,
@@ -92,8 +93,8 @@ export default {
   watch: {
     show_chat(newValue) {
       this.chat = newValue;
-      if(this.chat){
-        this.getChatList()
+      if (this.chat) {
+        this.getChatList();
       }
     },
     val(newValue) {
@@ -107,7 +108,18 @@ export default {
   },
   methods: {
     close() {
-      this.$emit("showChatC", false);
+      if (this.flag) {
+        let params = {
+          question: this.question,
+          data: false
+        };
+      } else {
+        let params = {
+          data: false
+        };
+      }
+      this.flag = false;
+      this.$emit("showChatC", params);
     },
     getChatList() {
       let param = {
@@ -131,6 +143,7 @@ export default {
       if (this.input == "") {
         Toast("请输入聊天内容");
       } else {
+        this.flag = true;
         this.question = this.input;
         let param = {
           dialog_type: "1",
@@ -176,7 +189,7 @@ export default {
         Answer: this.list[index].content,
         Question: this.list[index - 1].content
       };
-      alert(JSON.stringify('我教你'+params));
+      alert(JSON.stringify("我教你" + params));
       Bus.$emit("teachyou", params);
 
       // let param = {
