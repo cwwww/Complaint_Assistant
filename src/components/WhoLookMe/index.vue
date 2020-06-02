@@ -38,7 +38,10 @@
       :broker_id_prop="broker_id_prop"
       :robot_id_prop="robot_id_prop"
       :token_prop="token_prop"
-      :list="list"
+      :titleName="name"
+      :customer_type="customer_type"
+      :customerImg="headimgurl"
+      :customer_id="customer_id" 
       v-if="list"
     />
   </div>
@@ -60,6 +63,10 @@ export default {
       robot_id_prop: "",
       token_prop: "",
       list: [],
+      titleName:'',
+      customer_type:'',
+      customerImg:'',
+      customer_id:'',
       img: require("../../assets/images/Group@2x.png")
     };
   },
@@ -83,6 +90,11 @@ export default {
       this.$emit("WhoLookC", false);
     },
     toACchat(index) {
+      alert(JSON.stringify(this.list[index]))
+      this.titleName = this.list[index].name
+      this.customer_type = this.list[index].customer_type
+      this.customerImg = this.list[index].headimgurl
+      this.customer_id = this.list[index].customer_id
       this.isACChat = true;
     }
   },
@@ -96,7 +108,6 @@ export default {
     result
       .then(res => {
         this.list = res.result;
-        alert('看过我'+JSON.stringify(this.list))
       })
       .catch(reslove => {
         console.log("error");

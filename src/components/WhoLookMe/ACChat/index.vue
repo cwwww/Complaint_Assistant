@@ -117,12 +117,11 @@ export default {
     this.broker_id_prop = this.broker_id;
     this.robot_id_prop = this.robot_id;
     this.token_prop = this.token;
-    // this.titleName_prop = this.titleName;
-    // this.customer_type_prop = this.customer_type;
-    // this.customerImg_prop = this.customerImg;
-    // this.customer_id_prop = this.customer_id;
-    // this.list_prop = this.list
-    alert('ACChat'+JSON.stringify(this.list))
+    this.titleName_prop = this.titleName;
+    this.customer_type_prop = this.customer_type;
+    this.customerImg_prop = this.customerImg;
+    this.customer_id_prop = this.customer_id;
+    alert('ACChat'+JSON.stringify(this.titleName))
   },
   watch: {
     ACChat_show(newValue) {
@@ -134,7 +133,6 @@ export default {
       this.$emit("ACChatC", false);
     },
     getDialogAgent() {
-      alert(JSON.stringify('三方聊天'+this.list))
       //AC 聊天记录
       let param;
       if (this.flag) {
