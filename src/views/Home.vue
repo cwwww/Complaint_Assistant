@@ -374,11 +374,12 @@ export default {
       this.isList = data;
     },
     showChatP(data) {
+      alert(1111)
       alert(JSON.stringify(data))
       this.homeChat = data;
       if (!this.homeChat) {
         alert(222)
-        this.getDetail();
+        // this.getDetail();
       }
     },
     WhoLookP(data) {
