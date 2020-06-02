@@ -159,7 +159,7 @@ export default {
             content: this.question,
             token: this.token
           };
-          console.log(param);
+          alert('提交'+JSON.stringify(param))
           let res = reqCustomerInput(param);
           res
             .then(res => {
