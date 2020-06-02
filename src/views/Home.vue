@@ -37,6 +37,10 @@
             <div class="invitation" @click="toInvite">
               <img class="invitationicon" src="../assets/images/邀请@2x.png" alt />
             </div>
+            <div class="m_xstrat" @click="strategy">
+              <img src="../assets/images/product_zsk@2x.png" />
+              <span>攻略</span>
+            </div>
           </div>
         </div>
         <div class="bottomHalfPart">
@@ -115,8 +119,8 @@
       </div>
       <div class="answer" id="answer">
         <div v-for="(i,index) in list2" :key="index">
-          <div class="ownerAnswer" v-show="index%2 == 1">{{i.content}}</div>
-          <div class="rebotAnswer" v-show="index%2 == 0">{{i.content}}</div>
+          <div class="ownerAnswer" v-if="i.speaker == '2'">{{i.content}}</div>
+          <div class="rebotAnswer" v-else>{{i.content}}</div>
         </div>
       </div>
       <ul class="bottomList">
@@ -472,6 +476,9 @@ export default {
       this.isTask = true;
       this.destoryTimer();
     },
+    strategy() {
+      this.$router.push("/Strategy");
+    },
     toFXCP() {
       window.parent.location.href =
         "https://m.baoxianxia.com.cn/risk/index.html";
@@ -681,7 +688,8 @@ export default {
       res
         .then(res => {
           this.HistoryList = res.result;
-          this.list2 = this.HistoryList.slice(-4);
+          this.list2 = this.HistoryList.slice(-5);
+          // console.log("error1"+JSON.stringify(this.list2[0]));
         })
         .catch(reslove => {
           console.log("error");
@@ -926,6 +934,23 @@ export default {
 /deep/ .van-popup {
   overflow: visible;
 }
+.m_xstrat {
+  position: fixed;
+  left: 20px;
+  top: 210px;
+  text-align: center;
+  cursor: pointer;
+}
+.m_xstrat img {
+  display: block;
+  width: 35px;
+}
+.m_xstrat span {
+  color: rgba(253, 253, 253, 0.87);
+  font-size: 12px;
+  padding-top: 2px;
+  display: block;
+}
 .contain {
   height: 100vh;
   display: flex;
@@ -960,12 +985,11 @@ export default {
       margin-bottom: 6px;
       .invitation {
         // margin-left: 6px;
-        top: 98px;
+        top: 88px;
         left: -62px;
         position: absolute;
         .invitationicon {
-          width: 61px;
-          height: 79px;
+          width:60px;
         }
       }
       .headPortrait {
