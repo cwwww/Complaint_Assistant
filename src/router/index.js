@@ -11,6 +11,7 @@ import bebotAgree from '../views/bebotAgree'
 import bebotSecret from '../views/bebotSecret'
 import LevelUp from '../views/LevelUp'
 import GetMedal from '../views/GetMedal'
+import inviteShare from '../views/inviteShare'
 const routes = [
     {
         path: '/Login',
@@ -76,7 +77,12 @@ const routes = [
         meta: {
             title: "《保险侠服务协议》"
         }
-    }
+    },
+    {
+        path: '/inviteShare',
+        name: "inviteShare",
+        component: inviteShare
+    },
 
 
 ]
