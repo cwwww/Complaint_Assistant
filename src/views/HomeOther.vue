@@ -302,7 +302,7 @@ export default {
     closeACchat(data) {
       this.showACChat = false;
       if (!this.showACChat) {
-        this.getHistory();
+        this.getCusayrob();
       }
     },
     toHome() {
