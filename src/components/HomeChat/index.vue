@@ -132,13 +132,13 @@ export default {
       if (this.input == "") {
         Toast("请输入聊天内容");
       } else {
-        this.val = this.input;
+        this.question = this.input;
         let param = {
           dialog_type: "1",
           broker_id: this.broker_id,
           robot_id: this.robot_id,
           speaker: "2",
-          content: this.val,
+          content: this.question,
           token: this.token
         };
         let res = reqRobotDetail(param);
