@@ -921,9 +921,7 @@ export default {
 /deep/ .van-popup {
   overflow: visible;
 }
-
 .contain {
-  height: 100vh;
   display: flex;
   background-color: #0b2733;
   background-image: url(../assets/images/ezgif.gif);
@@ -938,7 +936,6 @@ export default {
     justify-content: center;
     height: 100%;
   }
-
   .block {
     width: 120px;
     height: 120px;
