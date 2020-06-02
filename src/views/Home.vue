@@ -440,7 +440,7 @@ export default {
       this.vipNotification = false;
     },
     toHope() {
-      Toast("敬请期待");
+      Toast("施工中,敬请期待");
     },
     HomeChat() {
       this.HomeChat = true;

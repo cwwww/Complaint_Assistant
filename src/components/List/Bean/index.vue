@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" v-if="baenstList.length>0">
     <div v-for="(item, idx) in baenstList" :key="idx">
       <div class="warp" @click="clickThis(item.robot_id)">
         <div class="left">
@@ -38,6 +38,10 @@
       </div>
     </div>
   </div>
+  <div class="emptyList" v-else>
+    <img :src="emptyList" alt />
+    <div class="emptyListFont" >还没有人关注你呢</div>
+  </div>
 </template>
 <script>
 import { BeanList } from "../../../axios/axios-api";
@@ -55,7 +59,9 @@ export default {
       gradeFour: require("../../../assets/images/等级-保险配置王@2x.png"),
       gradeFive: require("../../../assets/images/等级-保险百科@2x.png"),
       gradeSix: require("../../../assets/images/等级-保险大咖@2x.png"),
-      gradeSeven: require("../../../assets/images/等级-保险名人堂@2x.png")
+      gradeSeven: require("../../../assets/images/等级-保险名人堂@2x.png"),
+      emptyList: require("../../../assets/images/emptyList@2x.png")
+
     };
   },
   props: ["broker_id_prop", "robot_id_prop", "token_prop"],
@@ -228,6 +234,25 @@ export default {
         text-align: center;
       }
     }
+  }
+}
+.emptyList {
+  width: 150px;
+  height: 300px;
+  border-radius: 37.5px;
+  text-align: center;
+  margin: 0 auto;
+  > img {
+    //width: 150px;
+    height: 150px;
+    margin-top: 150px;
+  }
+  .emptyListFont {
+    font-size: 15px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: rgba(153, 153, 153, 1);
+    line-height: 21px;
   }
 }
 </style>

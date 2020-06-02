@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="main">
+    <div class="main" v-if="list.length>0">
       <div class="wrap" v-for="(i, index) in list" :key="index">
         <div class="left">
           <div class="leftBigLogon">
@@ -23,6 +23,11 @@
           <img :src="img1" alt />
         </div>
       </div>
+    </div>
+    <div v-else style="margin-top:50%">
+      <center>
+        <font size="3px" color="#999999">哎呀！还没有人买过你的商品噢😢</font>
+      </center>
     </div>
   </div>
 </template>
@@ -59,6 +64,9 @@ export default {
       robot_id: this.robot_id_prop,
       user_id: this.broker_id_prop,
       token: this.token_prop
+      // robot_id: 33,
+      // user_id: 33,
+      // token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZmZrVToyNk1NajVuOW1RSVpkU1dkRXdxbEY3NkxKRUU.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9UQTVPVGs0T0RZdU5UWXdNREF5Tm4wOjFqZmZrVTpFV0UxcTFiLVM3VXpFWnFub0ZWbmtxX2N1NG8.8ac7a581223587bff27fb3370b9d16a3"
     };
 
     let res = reqShowHistory(param);
