@@ -374,8 +374,10 @@ export default {
       this.isList = data;
     },
     showChatP(data) {
+      alert(JSON.stringify(data))
       this.homeChat = data;
       if (!this.homeChat) {
+        alert(222)
         this.getDetail();
       }
     },

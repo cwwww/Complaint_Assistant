@@ -107,7 +107,11 @@ export default {
   },
   methods: {
     close() {
-      this.$emit("showChatC", false);
+      // let params = {
+      //  question = this.question
+      //  data = false
+      // }
+      this.$emit("showChatC", {question :this.question},false);
     },
     getChatList() {
       let param = {
