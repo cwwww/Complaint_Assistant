@@ -83,12 +83,12 @@ export default {
     }
   },
   props: ["broker_id", "robot_id", "token", "Who_Look","myHeadImg"],
-  watch:{
-    // titleName(){
-    //   this.titleName = this.titleName
-    //   alert(JSON.stringify(this.titleName))
-    // }
-  },
+  // watch:{
+  //   titleName(){
+  //     this.titleName = this.list[index].name
+  //     alert(JSON.stringify(this.titleName))
+  //   }
+  // },
   methods: {
     ACChatP(data) {
       this.isACChat = data;
@@ -98,7 +98,7 @@ export default {
     },
     toACchat(index) {
       this.titleName = this.list[index].name
-      alert(JSON.stringify(this.titleName))
+      alert(JSON.stringify(this.titleName_prop))
       this.customer_type = this.list[index].customer_type
       this.customerImg = this.list[index].headimgurl
       this.customer_id = this.list[index].customer_id
