@@ -118,6 +118,10 @@ export default {
   ],
   created() {
     this.chat = this.ACChat_show;
+    this.titleName_prop = this.titleName;
+    this.customer_type_prop = this.customer_type;
+    this.customerImg_prop = this.customerImg;
+    this.customer_id_prop = this.customer_id;
   },
   watch: {
     ACChat_show(newValue) {
@@ -199,10 +203,7 @@ export default {
     this.scrollToBottom();
   },
   mounted() {
-    this.titleName_prop = this.titleName;
-    this.customer_type_prop = this.customer_type;
-    this.customerImg_prop = this.customerImg;
-    this.customer_id_prop = this.customer_id;
+
     this.scrollToBottom();
     this.getDialogAgent();
     // window.setInterval(() => {
