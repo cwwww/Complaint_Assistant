@@ -143,6 +143,7 @@
       :customer_robot_id="customer_robot_id"
       :customer_id="registers.visitor_id"
       :visited_broker_id="$route.query.broker_id"
+      :visited_robot_id="$route.query.robot_id"
       :customer_type="customer_type"
       :token="registers.token"
       :visitHead="homeInit.headimgurl"

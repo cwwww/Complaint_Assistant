@@ -97,7 +97,7 @@ export default {
       smallBebot: require("../../assets/images/smallBebot.png")
     };
   },
-  props: ["val",'customer_robot_id','customer_id','customer_id','visited_broker_id',"customer_type",'token','showACChat',"visitHead"],
+  props: ["val",'customer_robot_id','customer_id','visited_broker_id',"visited_robot_id","customer_type",'token','showACChat',"visitHead"],
   created(){
       this.chat = this.showACChat
   },
@@ -187,7 +187,7 @@ export default {
           customer_id: this.customer_id,
           customer_type: this.customer_type,
           broker_id: this.visited_broker_id,
-          robot_id: this.customer_robot_id,
+          robot_id: this.visited_robot_id,
           speaker: "1",
           content: ".",
           token: this.token
@@ -199,7 +199,7 @@ export default {
           customer_id: this.customer_id,
           customer_type: this.customer_type,
           broker_id: this.visited_broker_id,
-          robot_id: this.customer_robot_id,
+          robot_id: this.visited_robot_id,
           speaker: "1",
           content: this.question,
           token: this.token
