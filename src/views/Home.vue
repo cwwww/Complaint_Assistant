@@ -676,7 +676,6 @@ export default {
         .then(res => {
           this.HistoryList = res.result;
           this.list2 = this.HistoryList.slice(-4);
-          // alert(JSON.stringify(this.HistoryList.slice(-1)[0].content))
         })
         .catch(reslove => {
           console.log("error");
@@ -684,7 +683,6 @@ export default {
     },
     getDetail() {
       // if(this.val != ''){
-      //   alert('val')
       //   this.flag = false
       // }
       let param;

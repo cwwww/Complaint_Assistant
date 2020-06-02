@@ -116,11 +116,11 @@ export default {
         // content: 'this.question',
         // create_time: new Date().toLocaleString()
       };
-      alert(JSON.stringify(param));
+      alert(JSON.stringify('请求参数'+param));
       let res = reqRobotHistory(param);
       res
         .then(res => {
-          alert(JSON.stringify(res));
+          alert(JSON.stringify('返回'+res));
           this.list = res.result;
         })
         .catch(reslove => {
@@ -131,13 +131,13 @@ export default {
       if (this.input == "") {
         Toast("请输入聊天内容");
       } else {
-        this.val = this.input;
+        this.question = this.input;
         let param = {
           dialog_type: "1",
           broker_id: this.broker_id,
           robot_id: this.robot_id,
           speaker: "2",
-          content: this.val,
+          content: this.question,
           token: this.token
         };
         let res = reqRobotDetail(param);
@@ -176,7 +176,7 @@ export default {
         Answer: this.list[index].content,
         Question: this.list[index - 1].content
       };
-      alert(JSON.stringify(params));
+      alert(JSON.stringify('我教你'+params));
       Bus.$emit("teachyou", params);
 
       // let param = {
