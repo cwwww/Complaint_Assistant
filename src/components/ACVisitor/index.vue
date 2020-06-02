@@ -207,15 +207,19 @@ export default {
       }
       alert('mark0'+JSON.stringify(param))
       let res = reqCusayrob(param);
-      res
-        .then(res => {
-          alert('mark0返回'+JSON.stringify(res.result.dialog_history))
+      res =>{
+          alert('mark0返回'+JSON.stringify(res))
           this.list = res.result.dialog_history;
           this.question = "";
-        })
-        .catch(reslove => {
-          console.log("error");
-        });
+      }
+        // .then(res => {
+        //   alert('mark0返回'+JSON.stringify(res.result.dialog_history))
+        //   this.list = res.result.dialog_history;
+        //   this.question = "";
+        // })
+        // .catch(reslove => {
+        //   console.log("error");
+        // });
     },
 
     // 发布
