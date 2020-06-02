@@ -178,11 +178,9 @@ export default {
         let res = reqAgentInput(param);
         res
           .then(res => {
-            console.log(res);
-            console.log(this.list);
             this.list = res.result.dialog_history;
             this.getDialogAgent();
-            this.$refs.input.value = "";
+            this.inputCont = "";
           })
           .catch(reslove => {
             console.log("error");
