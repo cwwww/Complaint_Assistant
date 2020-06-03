@@ -47,7 +47,7 @@
               <img style="width:16px;height:16px;" :src="money" alt />
               <span>{{goodsList.price}}</span>
             </div>
-            <div style="margin-bottom:25px;">购买Josen的知识库吗？</div>
+            <div style="margin-bottom:25px;">购买{{goodsList.name}}的知识库吗？</div>
             <div class="isOk">
               <div class="isNo" @click="isNo">
                 <span style="color:#666;">取消</span>

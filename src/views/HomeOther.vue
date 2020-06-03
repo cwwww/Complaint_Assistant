@@ -102,7 +102,6 @@
       </div>
       <ul class="bottomList">
         <li @click="toHome" v-if="isRegister">
-          >
           <img :src="back" alt />
           <span>回家</span>
         </li>
@@ -136,9 +135,9 @@
       </div>
     </div>
     <!-- </div> -->
-    <!-- <div v-if="this.registers.visitor_type == '0'">
-			<img :src=share alt="">
-    </div>-->
+    <div v-if="this.registers.visitor_type == '0'">
+      <img :src="share" alt />
+    </div>
     <ACVisitor
       v-show="showACChat"
       @closeACchat="closeACchat"
@@ -618,6 +617,10 @@ export default {
           result
             .then(res => {
               that.registers = res.result;
+              if (that.$route.query.broker_id == that.registers.visitor_id) {
+                alert('ninini')
+                that.$route.replace("/");
+              }
               alert("register" + JSON.stringify(that.registers));
               if (that.registers.visitor_type == "0") {
                 that.customer_id = that.visitor_id;
@@ -1127,7 +1130,7 @@ export default {
       .btn {
         position: absolute;
         right: 0;
-        top: 1px;
+        top: -1px;
         width: 15.7%;
         height: 42px;
         line-height: 42px;
