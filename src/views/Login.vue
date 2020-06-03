@@ -150,18 +150,18 @@ export default {
         res
           .then(res => {
             that.messages = res.result;
-            // if (this.$route.query.type == "otherLogin") {
-            // this.$router.push({
-            // path: "/HomeOther",
-            // query: {
-            //   customer_id: this.visitList.customer_id,
-            //   customer_robot_id: this.customer_robot_id,
-            //   customer_type: this.customer_type,
-            //   visited_robot_id: this.$route.query.broker_id,
-            //   token: this.visitList.token
-            // }
-            // });
-            // } else {
+            if (this.$route.query.type == "otherLogin") {
+            this.$router.push({
+            path: "/HomeOther",
+            query: {
+              customer_id: this.$route.query.customer_id,
+              customer_robot_id: this.$route.query.customer_robot_id,
+              customer_type: this.$route.query.customer_type,
+              visited_robot_id: this.$route.query.visited_robot_id,
+              token: this.$route.query.token
+            }
+            });
+            } else {
             this.$router.push({
               path: "/",
               query: {
@@ -170,7 +170,7 @@ export default {
                 token: that.messages.token
               }
             });
-            // }
+            }
           })
           .catch(reslove => {
             console.log("error");
