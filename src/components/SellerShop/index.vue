@@ -1,5 +1,6 @@
 <template>
   <div class="warp">
+    <keep-alive>
     <van-popup
       class="content"
       v-model="show"
@@ -42,7 +43,7 @@
         :token_prop="token_prop"
       />
     </van-popup>
-    <keep-alive></keep-alive>
+    </keep-alive>
   </div>
 </template>
 <script>
