@@ -211,7 +211,7 @@ export default {
   },
   data() {
     return {
-      visitimgurl:'',
+      visitimgurl: "",
       isList: false,
       showNewFans: false,
       ques: "",
@@ -299,13 +299,23 @@ export default {
     Fairy() {
       //买家精灵商店
       this.fairyShop = true;
-      if(this.registers.visitor_type != 1){
-        this.vipNotification = true
+      if (this.registers.visitor_type != 1) {
+        this.vipNotification = true;
       }
     },
     toGet() {
       this.vipNotification = false;
-      this.$router.push("/Login");
+      this.$router.push({
+        path: "/login",
+        query: {
+          type: "otherLogin",
+          customer_id: this.visitList.customer_id,
+          customer_robot_id: this.customer_robot_id,
+          customer_type: this.customer_type,
+          visited_robot_id: this.$route.query.broker_id,
+          token: this.visitList.token
+        }
+      });
     },
     noGet() {
       this.vipNotification = false;
@@ -423,8 +433,8 @@ export default {
     },
     guanzhu() {
       var that = this;
-            if(that.registers.visitor_type != 1){
-        that.vipNotification = true
+      if (that.registers.visitor_type != 1) {
+        that.vipNotification = true;
       }
       if (that.guanzhuContent == "关注TA") {
         let param = {
@@ -434,11 +444,11 @@ export default {
           broker_id: that.registers.visitor_id,
           token: that.registers.token
         };
-        alert('关注请求参数'+JSON.stringify(param))
+        alert("关注请求参数" + JSON.stringify(param));
         let result = guanZhu(param);
         result
           .then(res => {
-            alert('关注返回'+JSON.stringify(param))
+            alert("关注返回" + JSON.stringify(param));
 
             if (res.result.info == "关注成功") {
               that.guanzhuContent = "已关注";
@@ -493,28 +503,29 @@ export default {
         that.customer_type = 0;
         that.customer_robot_id = "";
       }
-      // if (this.$route.query.type == "otherLogin") {
-      //   let param = {
-      //     customer_id: this.$route.query.customer_id,
-      //     customer_robot_id: this.$route.query.customer_robot_id,
-      //     customer_type: this.$route.query.customer_type,
-      //     visited_robot_id: this.$route.query.visited_robot_id,
-      //     token: this.$route.query.token
-      //   };
-      // } else {
-      let param = {
-        // customer_id: 33,
-        // customer_robot_id: 33,
-        // customer_type: 1,
-        // visited_robot_id: 93,
-        // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
-        customer_id: that.registers.visitor_id,
-        customer_robot_id: that.customer_robot_id,
-        customer_type: that.customer_type,
-        visited_robot_id: that.$route.query.robot_id,
-        token: that.registers.token
-      };
-      // }
+      if (this.$route.query.type == "otherLogin") {
+        let param = {
+          customer_id: this.$route.query.customer_id,
+          customer_robot_id: this.$route.query.customer_robot_id,
+          customer_type: this.$route.query.customer_type,
+          visited_robot_id: this.$route.query.visited_robot_id,
+          token: this.$route.query.token
+        };
+      } else {
+        let param = {
+          // customer_id: 33,
+          // customer_robot_id: 33,
+          // customer_type: 1,
+          // visited_robot_id: 93,
+          // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
+          customer_id: that.registers.visitor_id,
+          customer_robot_id: that.customer_robot_id,
+          customer_type: that.customer_type,
+          visited_robot_id: that.$route.query.robot_id,
+          token: that.registers.token
+        };
+      }
+      alert('初始化'+JSON.stringify(param))
       let result = reqVisitedInit(param);
       result
         .then(res => {
@@ -585,8 +596,8 @@ export default {
       res
         .then(res => {
           that.messages = res.result;
-          if(res.result.headimgurl != null){
-            that.visitimgurl = res.result.headimgurl
+          if (res.result.headimgurl != null) {
+            that.visitimgurl = res.result.headimgurl;
           }
           let param = {
             openid: that.messages.openid
@@ -605,14 +616,14 @@ export default {
               alert("register" + JSON.stringify(that.registers));
               if (that.registers.visitor_type == "0") {
                 that.customer_id = that.visitor_id;
-                that.registers.robot_id = -1
+                that.registers.robot_id = -1;
                 that.isRegister = false;
               } else if (that.registers.visitor_type == "1") {
                 that.broker_id = that.visitor_id;
                 that.isRegister = true;
               } else if (that.registers.visitor_type == "-1") {
                 that.isRegister = false;
-                that.registers.robot_id = -1
+                that.registers.robot_id = -1;
                 let param = {
                   openid: that.messages.openid,
                   nickname: that.messages.nickname,
