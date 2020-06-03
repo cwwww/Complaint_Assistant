@@ -3,7 +3,7 @@
   <div>
     <div class="main">
       <div v-for="(item, idx) in theglobalLists" :key="idx">
-        <div class="wrap" @click="clickThis(item.broker_id,item.robot_id)">
+        <div class="wrap" @click="clickThis(item.broker_id,item.robot_id,item.token)">
           <div class="left">
             <div class="leftLittleLogon">
               <img v-if="idx == 0" :src="img" alt />
