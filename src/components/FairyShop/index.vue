@@ -10,10 +10,10 @@
     >
       <img class="img1" :src="shop" alt />
       <div class="title">
-        {{$route.query.Othername}}精灵商店
+        {{Othername}}精灵商店
         <div class="active"></div>
       </div>
-      <div class="wrap" v-if="goodsList.status!=''">
+      <div class="wrap" >
         <div class="left">
           <!-- <div class="leftLittleLogon">
               <img :src=home_mytask alt />
@@ -45,7 +45,7 @@
             <div class="top">
               <span>花费</span>
               <img style="width:16px;height:16px;" :src="money" alt />
-              <span>{{this.goodsList.price}}</span>
+              <span>{{goodsList.price}}</span>
             </div>
             <div style="margin-bottom:25px;">购买Josen的知识库吗？</div>
             <div class="isOk">
@@ -104,20 +104,19 @@
             >提交</van-button>
           </div>
         </van-popup>
-        <div class="rightLogin2" v-show="this.fairyStatus == 1" @click="toEvaluate">
+        <div class="rightLogin2" v-show="fairyStatus == 1" @click="toEvaluate">
           <div>评价</div>
         </div>
-        <div class="rightLogin3" v-show="this.fairyStatus == 2">
+        <div class="rightLogin3" v-show="fairyStatus == 2">
           <div>交易完成</div>
         </div>
       </div>
-      <div v-else style="margin-top:40px">
+      <!-- <div v-else style="margin-top:40px">
         <center>
           <font size="3px">商品还没有上架，请稍后再来吧！</font>
         </center>
-      </div>
+      </div> -->
       <div class="bottomLine" v-if="goodsList.status !=''"></div>
-      <router-view></router-view>
     </van-popup>
   </div>
 </template>
@@ -184,17 +183,19 @@ export default {
     };
   },
   props: [
-    "fairyShop",
+    "fairyShop_show",
     "broker_id",
     "robot_id",
     "token",
-    "robot_visitId"
+    "robot_visitId",
+    "Othername"
   ],
   created() {
-    this.show1 = this.fairyShop;
+    this.show1 = this.fairyShop_show;
+    alert(this.show1)
   },
   watch: {
-    fairyShop(newValue) {
+    fairyShop_show(newValue) {
       this.show1 = newValue;
     }
   },
@@ -301,37 +302,40 @@ export default {
     }
   },
   mounted() {
+    alert('mounted')
+    var that = this;
     let param = {
-      seller_id: this.robot_visitId,
-      buyer_id: this.robot_id,
-      user_id: this.broker_id,
-      token:this.token
+      seller_id: that.robot_visitId,
+      buyer_id: that.robot_id,
+      user_id: that.broker_id,
+      token:that.token
     };
+    alert('请求参数'+JSON.stringify(param))
     let res = reqFairyShop(param);
     res
       .then(res => {
-        var that = this;
+        alert('返回'+JSON.stringify(res.result.goods_list))
         let length = res.result.goods_list.length;
         if (length > 0) {
           that.goodsList = res.result.goods_list[0];
-          this.fairyStatus = that.goodsList.status;
+          that.fairyStatus = that.goodsList.status;
           if (that.goodsList.level == 1) {
             //保险等级
-            that.levelbx = this.levelbx1;
+            that.levelbx = that.levelbx1;
           } else if (that.goodsList.level == 2) {
-            that.levelbx = this.levelbx2;
+            that.levelbx = that.levelbx2;
           } else if (that.goodsList.level == 3) {
-            that.levelbx = this.levelbx3;
+            that.levelbx = that.levelbx3;
           } else if (that.goodsList.level == 4) {
-            that.levelbx = this.levelbx4;
+            that.levelbx = ththatis.levelbx4;
           } else if (that.goodsList.level == 5) {
-            that.levelbx = this.levelbx5;
+            that.levelbx = that.levelbx5;
           } else if (that.goodsList.level == 6) {
-            that.levelbx = this.levelbx6;
+            that.levelbx = that.levelbx6;
           } else if (that.goodsList.level == 7) {
-            that.levelbx = this.levelbx7;
+            that.levelbx = that.levelbx7;
           }
-          this.star = that.goodsList.score;
+          that.star = that.goodsList.score;
         }
       })
       .catch(reslove => {

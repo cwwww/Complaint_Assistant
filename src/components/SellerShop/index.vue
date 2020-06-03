@@ -106,6 +106,9 @@ export default {
     //   this.curIndex = 1;
     //   console.log(this.class);
     // }
+  },
+  beforeUpdate(){
+    alert(this.broker_id)
   }
 };
 </script>

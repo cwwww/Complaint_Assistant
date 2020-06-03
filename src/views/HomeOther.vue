@@ -116,7 +116,7 @@
         <li style="visibility:hidden">
           <img :src="home_browse" alt />
         </li>
-        <li @click="FairyShop">
+        <li @click="Fairy">
           <img :src="home_store" alt />
           <span>精灵商店</span>
         </li>
@@ -155,7 +155,7 @@
     <FairyShop
       v-show="fairyShop"
       @fairyShopC="FairyShopP"
-      :fairyShop="showACChat"
+      :fairyShop_show="fairyShop"
       :broker_id="registers.visitor_id"
       :robot_id="customer_robot_id"
       :token="registers.token"
@@ -279,7 +279,7 @@ export default {
     ListP(data) {
       this.isList = data;
     },
-    cancelfollowC(data) {
+    CancelFollowP(data) {
       this.CancelFollow = data;
     },
     FairyShopP(data) {
@@ -306,19 +306,9 @@ export default {
       this.isList = true;
       // this.destoryTimer();
     },
-    FairyShop() {
+    Fairy() {
       //买家精灵商店
       this.fairyShop = true;
-      // this.$router.push({
-      //   path: "/FairyShop",
-      //   query: {
-      //     robot_id: this.$route.query.robot_id,
-      //     broker_id: this.$route.query.broker_id,
-      //     robot_visitId: this.$route.query.robot_visitId,
-      //     Othername: this.homeInit.name,
-      //     token: this.$route.query.token
-      //   }
-      // });
     },
     toGet() {
       this.vipNotification = false;
@@ -896,16 +886,13 @@ export default {
     top: 14.2%;
     right: 0;
     color: #2de2e6;
-
     li {
       text-align: center;
       margin-top: 15px;
-
       img {
         width: 40px;
         height: 40px;
       }
-
       span {
         height: 18px;
         font-size: 13px;
@@ -914,7 +901,6 @@ export default {
         line-height: 18px;
         text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
       }
-
       .new {
         width: 12px;
         height: 12px;
@@ -924,7 +910,6 @@ export default {
       }
     }
   }
-
   .talk {
     max-height: 28.5%;
     width: 60.6%;
@@ -990,7 +975,6 @@ export default {
       }
     }
   }
-
   .triangle {
     width: 0;
     height: 0;
@@ -1003,7 +987,6 @@ export default {
     left: 48%;
     // box-shadow:0px 0px 4px 0px rgba(45,226,230,0.75);
   }
-
   .triangle2 {
     width: 0;
     height: 0;
@@ -1016,7 +999,6 @@ export default {
     left: 48%;
     // box-shadow:0px 0px 4px 0px rgba(45,226,230,0.75);
   }
-
   .content {
     overflow: hidden;
     background-image: url(../assets/images/earth@2x.png);
