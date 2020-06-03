@@ -474,15 +474,15 @@ export default {
         that.customer_type = 0;
         that.customer_robot_id = "";
       }
-      if (this.$route.query.type == "otherLogin") {
-        let param = {
-          customer_id: this.$route.query.customer_id,
-          customer_robot_id: this.$route.query.customer_robot_id,
-          customer_type: this.$route.query.customer_type,
-          visited_robot_id: this.$route.query.visited_robot_id,
-          token: this.$route.query.token
-        };
-      } else {
+      // if (this.$route.query.type == "otherLogin") {
+      //   let param = {
+      //     customer_id: this.$route.query.customer_id,
+      //     customer_robot_id: this.$route.query.customer_robot_id,
+      //     customer_type: this.$route.query.customer_type,
+      //     visited_robot_id: this.$route.query.visited_robot_id,
+      //     token: this.$route.query.token
+      //   };
+      // } else {
         let param = {
           // customer_id: 33,
           // customer_robot_id: 33,
@@ -495,7 +495,7 @@ export default {
           visited_robot_id: that.$route.query.robot_id,
           token: that.registers.token
         };
-      }
+      // }
       alert("请求参数" + JSON.stringify(param));
       let result = reqVisitedInit(param);
       result
