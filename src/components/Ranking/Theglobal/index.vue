@@ -92,12 +92,13 @@ export default {
        this.$emit("rankgohome",false);
      }else{
        alert(token)
+       alert(this.theglobalLists)
        this.$router.push({
          path:'/HomeOther',
          query:{
            robot_id: robot_id,
            broker_id:broker_id,
-           robot_visitId:robot_id,
+          //  robot_visitId:robot_id,
            token:token
          }
        })
