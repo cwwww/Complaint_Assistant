@@ -42,6 +42,7 @@
         :token_prop="token_prop"
       />
     </van-popup>
+    <keep-alive></keep-alive>
   </div>
 </template>
 <script>
