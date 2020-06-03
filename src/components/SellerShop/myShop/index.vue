@@ -137,6 +137,7 @@ export default {
       let result = reqtaskStatus(param);
       result
         .then(res => {
+           this.initShop();
           // //更新金币
           // this.homeInit.bcoin = res.result.bcoin;
           // //更新等级
