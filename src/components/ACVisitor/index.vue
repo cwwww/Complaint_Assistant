@@ -89,6 +89,7 @@ export default {
       dialogMark: "",
       isInput: true,
       lastSentence: "",
+      ques:'',
       placeholder: "你试试输入“风险测评”",
       user: require("../../assets/images/头像@2x.png"),
       fkuser: require("../../assets/images/fkuser.png"),
@@ -211,20 +212,15 @@ export default {
       }
       alert('mark0'+JSON.stringify(param))
       let res = reqCusayrob(param);
-      res => {
-          this.ques = "";
-          alert('mark0返回'+JSON.stringify(res))
+      res 
+        .then(res => {
+          alert('mark0返回'+JSON.stringify(res.result.dialog_history))
           this.list = res.result.dialog_history;
-          
-      }
-        // .then(res => {
-        //   alert('mark0返回'+JSON.stringify(res.result.dialog_history))
-        //   this.list = res.result.dialog_history;
-        //   this.question = "";
-        // })
-        // .catch(reslove => {
-        //   console.log("error");
-        // });
+          this.ques = "";
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     },
     // 发布
     chathist(index) {
