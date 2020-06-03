@@ -297,7 +297,7 @@ export default {
     },
     Fairy() {
       //买家精灵商店
-      if (this.registers.visitor_type != 1) {
+      if (this.registers.visitor_type == -1) {
         this.vipNotification = true;
       } else {
         this.fairyShop = true;
@@ -350,14 +350,26 @@ export default {
       }
     },
     toHome() {
-      this.$router.push({
-        path: "/",
-        query: {
-          robot_id: this.customer_robot_id,
-          broker_id: this.registers.visitor_id,
-          token: this.registers.token
-        }
-      });
+      if (this.$route.query.type == "listType") {
+        this.$router.push({
+          path: "/",
+          query: {
+            broker_id: this.$route.query.broker_id_prop,
+            robot_id: this.$route.query.robot_id_prop,
+            token: this.$route.query.token_prop
+          }
+        });
+        alert('1221'+JSON.stringify(query))
+      } else {
+        this.$router.push({
+          path: "/",
+          query: {
+            robot_id: this.customer_robot_id,
+            broker_id: this.registers.visitor_id,
+            token: this.registers.token
+          }
+        });
+      }
     },
     previousPage() {
       talkContent.scrollTop += -138;
@@ -395,7 +407,6 @@ export default {
       if (that.flag) {
         param = {
           dialog_type: "0",
-          customer_type: that.customer_type,
           customer_id: that.registers.visitor_id,
           broker_id: that.$route.query.broker_id,
           robot_id: that.$route.query.robot_id,
@@ -407,7 +418,6 @@ export default {
       } else {
         param = {
           dialog_type: "1",
-          customer_type: that.customer_type,
           customer_id: that.registers.visitor_id,
           broker_id: that.$route.query.broker_id,
           robot_id: that.$route.query.robot_id,
@@ -617,13 +627,14 @@ export default {
           result
             .then(res => {
               that.registers = res.result;
-              if (that.$route.query.broker_id == that.registers.visitor_id) {  //是否是本人点进
+              if (that.$route.query.broker_id == that.registers.visitor_id) {
+                //是否是本人点进
                 that.$router.push({
-                  path:"/",
-                  query:{
-                    robot_id:that.registers.robot_id,
-                    broker_id:that.registers.visitor_id,
-                    token:that.registers.token,
+                  path: "/",
+                  query: {
+                    robot_id: that.registers.robot_id,
+                    broker_id: that.registers.visitor_id,
+                    token: that.registers.token
                   }
                 });
               }
@@ -707,9 +718,53 @@ export default {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
       this.getCode();
     } else {
-      // 别的业务逻辑
+      // 别的逻辑
     }
-    this.impower(this.code);
+    if (this.$route.query.type == "listType") {
+      let param = {
+        customer_id: this.$route.query.customer_id,
+        customer_robot_id: this.$route.query.customer_id,
+        customer_type: 1,
+        visited_robot_id: this.$route.query.robot_id,
+        token: this.$route.query.token
+      };
+      alert("初始化listType" + JSON.stringify(param));
+      let result = reqVisitedInit(param);
+      result
+        .then(res => {
+          this.homeInit = res.result;
+          alert("展示" + JSON.stringify(this.homeInit));
+          if (this.homeInit.followed) {
+            this.guanzhuContent = "已关注";
+          } else {
+            this.guanzhuContent = "关注TA";
+          }
+          if (this.homeInit.title == 1) {
+            //保险等级
+            this.homeLevel = this.levelbx1;
+          } else if (this.homeInit.title == 2) {
+            this.homeLevel = this.levelbx2;
+          } else if (this.homeInit.level == 3) {
+            this.homeLevel = this.levelbx3;
+          } else if (this.homeInit.level == 4) {
+            this.homeLevel = this.levelbx4;
+          } else if (this.homeInit.level == 5) {
+            this.homeLevel = this.levelbx5;
+          } else if (this.homeInit.level == 6) {
+            this.homeLevel = this.levelbx6;
+          } else if (this.homeInit.level == 7) {
+            this.homeLevel = this.levelbx7;
+          }
+          // this.getCusayrob();
+          //串门成功后，增加金币和经验
+          this.chuanmen();
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
+    } else {
+      this.impower(this.code);
+    }
   }
 };
 </script>
