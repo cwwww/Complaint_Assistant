@@ -111,11 +111,11 @@
           <div>交易完成</div>
         </div>
       </div>
-      <div v-else style="margin-top:40px">
+      <!-- <div v-else style="margin-top:40px">
         <center>
           <font size="3px">商品还没有上架，请稍后再来吧！</font>
         </center>
-      </div>
+      </div> -->
       <div class="bottomLine" v-if="goodsList.status !=''"></div>
     </van-popup>
   </div>
