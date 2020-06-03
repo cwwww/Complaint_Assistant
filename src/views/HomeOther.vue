@@ -514,15 +514,6 @@ export default {
           token: that.$route.query.token
         };
         alert("初始化otherLogin" + JSON.stringify(param));
-      } else if(that.$route.query.type == "listType"){
-        param = {
-          customer_id: that.$route.query.customer_id,
-          customer_robot_id: that.$route.query.customer_id,
-          customer_type: 1,
-          visited_robot_id: that.$route.query.robot_id,
-          token: that.$route.query.token
-        };
-        alert("初始化listType" + JSON.stringify(param));
       } else {
         param = {
           // customer_id: 33,
@@ -718,7 +709,52 @@ export default {
     } else {
       // 别的业务逻辑
     }
-    this.impower(this.code);
+    if(this.$route.query.type == "listType"){
+      alert(222)
+        param = {
+          customer_id: this.$route.query.customer_id,
+          customer_robot_id: this.$route.query.customer_id,
+          customer_type: 1,
+          visited_robot_id: this.$route.query.robot_id,
+          token: this.$route.query.token
+        };
+        alert("初始化listType" + JSON.stringify(param));
+        let result = reqVisitedInit(param);
+      result
+        .then(res => {
+          this.homeInit = res.result;
+          alert("展示" + JSON.stringify(this.homeInit));
+          if (this.homeInit.followed) {
+            this.guanzhuContent = "已关注";
+          } else {
+            this.guanzhuContent = "关注TA";
+          }
+          if (this.homeInit.title == 1) {
+            //保险等级
+            this.homeLevel = this.levelbx1;
+          } else if (this.homeInit.title == 2) {
+            this.homeLevel = this.levelbx2;
+          } else if (this.homeInit.level == 3) {
+            this.homeLevel = this.levelbx3;
+          } else if (this.homeInit.level == 4) {
+            this.homeLevel = this.levelbx4;
+          } else if (this.homeInit.level == 5) {
+            this.homeLevel = this.levelbx5;
+          } else if (this.homeInit.level == 6) {
+            this.homeLevel = this.levelbx6;
+          } else if (this.homeInit.level == 7) {
+            this.homeLevel = this.levelbx7;
+          }
+          this.getCusayrob();
+          //串门成功后，增加金币和经验
+          this.chuanmen();
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
+      }else{
+        this.impower(this.code);
+      }
   }
 };
 </script>
