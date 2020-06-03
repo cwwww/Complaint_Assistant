@@ -162,6 +162,7 @@ export default {
               token: this.$route.query.token
             }
             });
+            alert('query'+JSON.stringify(this.$route.query))
             } else {
             this.$router.push({
               path: "/",
