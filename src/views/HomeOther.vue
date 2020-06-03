@@ -372,7 +372,7 @@ export default {
         path: "/login",
         query: {
           type: "otherLogin",
-          customer_id: this.registers.customer_id,
+          customer_id: this.registers.visitor_id,
           customer_robot_id: this.customer_robot_id,
           customer_type: this.customer_type,
           visited_robot_id: this.$route.query.broker_id,
