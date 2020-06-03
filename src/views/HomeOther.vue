@@ -423,6 +423,9 @@ export default {
     },
     guanzhu() {
       var that = this;
+            if(that.registers.visitor_type != 1){
+        that.vipNotification = true
+      }
       if (that.guanzhuContent == "关注TA") {
         let param = {
           robot_id: that.customer_robot_id,
@@ -447,8 +450,8 @@ export default {
           .catch(reslove => {
             console.log("error");
           });
-      } else if (this.guanzhuContent == "已关注") {
-        this.CancelFollow = true;
+      } else if (that.guanzhuContent == "已关注") {
+        that.CancelFollow = true;
       }
     },
     //关注好友
