@@ -188,6 +188,7 @@ export default {
     "robot_id",
     "token",
     "robot_visitId",
+    "user_type",
     "Othername"
   ],
   created() {
@@ -302,14 +303,15 @@ export default {
   },
   mounted() {
     var that = this;
-    if(that.robot_id == ''){
-      that.robot_id = -1
-    }
+    // if(that.robot_id == ''){
+    //   that.robot_id = -1
+    // }
     let param = {
       seller_id: that.robot_visitId,
       buyer_id: that.robot_id,
       user_id: that.broker_id,
-      token:that.token
+      token:that.token,
+      user_type:that.user_type
     };
     alert('请求参数'+JSON.stringify(param))
     let res = reqFairyShop(param);

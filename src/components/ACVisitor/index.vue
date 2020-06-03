@@ -17,7 +17,7 @@
             <div class="question">
               <div class="q_content">{{i.content}}</div>
               <div class="photo">
-                <img :src="fkuser" v-show="right" alt />
+                <img :src="visitimgurl" v-show="right" alt />
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@ export default {
       dialogMark: "",
       isInput: true,
       lastSentence: "",
-      ques:'',
+      ques: "",
       placeholder: "你试试输入“风险测评”",
       user: require("../../assets/images/头像@2x.png"),
       fkuser: require("../../assets/images/fkuser.png"),
@@ -98,13 +98,27 @@ export default {
       smallBebot: require("../../assets/images/smallBebot.png")
     };
   },
-  props: ["val",'customer_robot_id','customer_id','visited_broker_id',"visited_robot_id","customer_type",'token','showACChat',"visitHead"],
-  created(){
-      this.chat = this.showACChat
+  props: [
+    "val",
+    "customer_robot_id",
+    "visitimgurl",
+    "customer_id",
+    "visited_broker_id",
+    "visited_robot_id",
+    "customer_type",
+    "token",
+    "showACChat",
+    "visitHead"
+  ],
+  created() {
+    this.chat = this.showACChat;
+    if (!visitimgurl) {
+      this.visitimgurl = this.fkuser
+    }
   },
-  watch:{
-    showACChat(newValue){
-        this.chat = newValue
+  watch: {
+    showACChat(newValue) {
+      this.chat = newValue;
     }
   },
   methods: {
@@ -113,11 +127,11 @@ export default {
         question: this.ques,
         data: false
       };
-        this.$emit('closeACchat',params)
+      this.$emit("closeACchat", params);
     },
     getHistoryCustomer() {
       //AC 聊天记录
-      let param;		  
+      let param;
       if (this.flag) {
         param = {
           broker_id: this.visited_broker_id,
@@ -152,9 +166,9 @@ export default {
         });
     },
     submit() {
-      alert(111)
+      alert(111);
       if (this.dialogMark == "1") {
-        alert(2222)
+        alert(2222);
         if (this.ques == "") {
           Toast("请输入聊天内容");
         } else {
@@ -166,7 +180,7 @@ export default {
             content: this.ques,
             token: this.token
           };
-          alert('提交'+JSON.stringify(param))
+          alert("提交" + JSON.stringify(param));
           let res = reqCustomerInput(param);
           res
             .then(res => {
@@ -210,11 +224,11 @@ export default {
           token: this.token
         };
       }
-      alert('mark0'+JSON.stringify(param))
+      alert("mark0" + JSON.stringify(param));
       let res = reqCusayrob(param);
-      res 
+      res
         .then(res => {
-          alert('mark0返回'+JSON.stringify(res.result.dialog_history))
+          alert("mark0返回" + JSON.stringify(res.result.dialog_history));
           this.list = res.result.dialog_history;
           this.ques = "";
         })
@@ -257,6 +271,7 @@ export default {
     if (this.dialogMark == 0) {
       this.getMarkrebot();
     }
+
     this.scrollToBottom();
     window.setInterval(() => {
       setTimeout(this.getHistoryCustomer(), 0);

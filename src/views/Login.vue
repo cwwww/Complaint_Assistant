@@ -6,12 +6,12 @@
     </div>
     <span>请登录</span>
     <div class="inputZh">
-      <input class="input phone" type="text" placeholder="请输入手机号" maxlength="11" ref="phone" />
+      <input class="input phone" type="text" placeholder="请输入手机号" maxlength="11" v-model="phone" />
       <img :src="img2" alt />
     </div>
     <div class="passWord">
       <div class="leftPassword">
-        <input class="input research" type="text" placeholder="请输入验证码" ref="research" maxlength="6" />
+        <input class="input research" type="text" placeholder="请输入验证码" v-model="research" maxlength="6" />
         <img :src="img3" alt />
       </div>
       <div class="rightSend" id="box">
@@ -83,12 +83,12 @@ export default {
     },
 
     loginResearch() {
-      if (this.$refs.phone.value == "") {
+      if (this.phone == "") {
         Toast("请输入手机号");
-      } else if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value)) {
+      } else if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.phone)) {
         Toast("请输入正确的手机号");
-      } else if (/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.$refs.phone.value)) {
-        let param = { PHONE: this.$refs.phone.value };
+      } else if (/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.phone)) {
+        let param = { PHONE: this.phone };
         console.log(param);
         let res = reqsendMsmCode(param);
         res
@@ -115,11 +115,11 @@ export default {
     },
     login() {
       var that = this;
-      if (that.$refs.phone.value == "" || that.$refs.research.value == "") {
+      if (that.phone == "" || that.research == "") {
         Toast("请输入手机号和验证码");
       } else if (
-        /^1(3|4|5|6|7|8|9)\d{9}$/.test(that.$refs.phone.value) &&
-        that.$refs.research.value.length < 6
+        /^1(3|4|5|6|7|8|9)\d{9}$/.test(that.phone) &&
+        that.phone.length < 6
       ) {
         Toast("请输入正确的验证码");
       } else if (!that.check) {
@@ -135,8 +135,8 @@ export default {
           that.mes.city = ".";
         }
         let param = {
-          PHONE: that.$refs.phone.value,
-          code: that.$refs.research.value,
+          PHONE: that.phone,
+          code: that.research,
           OPENID: that.mes.openid,
           NICKNAME: that.mes.nickname,
           HEADIMGURL: that.mes.headimgurl,

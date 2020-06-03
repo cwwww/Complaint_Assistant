@@ -49,12 +49,12 @@
         </div>
       </div>
       <div class="fansAndFriend">
-        <div class="friend" @click="frang(curIndex)">
+        <div class="friend">
           <span class="num">{{homeInit.friends_num}}</span>
           <img src="../assets/images/friends@2x.png" alt />
           <span class="design">好友</span>
         </div>
-        <div class="fan" @click="lists(curIndex)">
+        <div class="fan">
           <span class="num">{{homeInit.fans_num}}</span>
           <img src="../assets/images/fans@2x.png" alt />
           <span class="design">粉丝</span>
@@ -150,6 +150,7 @@
       :customer_type="customer_type"
       :token="registers.token"
       :visitHead="homeInit.headimgurl"
+      :visitimgurl="visitimgurl"
       :val="ques"
     />
     <FairyShop
@@ -161,6 +162,7 @@
       :token="registers.token"
       :robot_visitId="$route.query.robot_id"
       :Othername="homeInit.name"
+      :user_type="registers.visitor_type"
       v-if="registers.token"
     />
     <CancelFollow
@@ -209,6 +211,7 @@ export default {
   },
   data() {
     return {
+      visitimgurl:'',
       isList: false,
       showNewFans: false,
       ques: "",
@@ -293,22 +296,12 @@ export default {
       window.parent.location.href =
         "https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16";
     },
-    frang(curIndex) {
-      // 好友
-      this.curIndex = 0;
-      this.isList = true;
-      this.destoryTimer();
-    },
-    lists(curIndex) {
-      // 粉丝
-      this.curIndex = 1;
-      this.showNewFans = false;
-      this.isList = true;
-      // this.destoryTimer();
-    },
     Fairy() {
       //买家精灵商店
       this.fairyShop = true;
+      if(this.registers.visitor_type != 1){
+        this.vipNotification = true
+      }
     },
     toGet() {
       this.vipNotification = false;
@@ -587,6 +580,9 @@ export default {
       res
         .then(res => {
           that.messages = res.result;
+          if(res.result.headimgurl != null){
+            that.visitimgurl = res.result.headimgurl
+          }
           let param = {
             openid: that.messages.openid
             //           "NICKNAME": this.messages.nickname,
@@ -604,12 +600,14 @@ export default {
               alert("register" + JSON.stringify(that.registers));
               if (that.registers.visitor_type == "0") {
                 that.customer_id = that.visitor_id;
+                that.registers.robot_id = -1
                 that.isRegister = false;
               } else if (that.registers.visitor_type == "1") {
                 that.broker_id = that.visitor_id;
                 that.isRegister = true;
               } else if (that.registers.visitor_type == "-1") {
                 that.isRegister = false;
+                that.registers.robot_id = -1
                 let param = {
                   openid: that.messages.openid,
                   nickname: that.messages.nickname,
