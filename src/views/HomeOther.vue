@@ -619,7 +619,7 @@ export default {
               that.registers = res.result;
               if (that.$route.query.broker_id == that.registers.visitor_id) {
                 alert('ninini')
-                that.$route.replace("/");
+                that.$router.replace("/");
               }
               alert("register" + JSON.stringify(that.registers));
               if (that.registers.visitor_type == "0") {
