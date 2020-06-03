@@ -301,37 +301,39 @@ export default {
     }
   },
   mounted() {
+    var that = this;
     let param = {
-      seller_id: this.robot_visitId,
-      buyer_id: this.robot_id,
-      user_id: this.broker_id,
-      token:this.token
+      seller_id: that.robot_visitId,
+      buyer_id: that.robot_id,
+      user_id: that.broker_id,
+      token:that.token
     };
+    alert('请求参数'+JSON.stringify(param))
     let res = reqFairyShop(param);
     res
       .then(res => {
-        var that = this;
+        alert('返回'+JSON.stringify(res.result.goods_list))
         let length = res.result.goods_list.length;
         if (length > 0) {
           that.goodsList = res.result.goods_list[0];
-          this.fairyStatus = that.goodsList.status;
+          that.fairyStatus = that.goodsList.status;
           if (that.goodsList.level == 1) {
             //保险等级
-            that.levelbx = this.levelbx1;
+            that.levelbx = that.levelbx1;
           } else if (that.goodsList.level == 2) {
-            that.levelbx = this.levelbx2;
+            that.levelbx = that.levelbx2;
           } else if (that.goodsList.level == 3) {
-            that.levelbx = this.levelbx3;
+            that.levelbx = that.levelbx3;
           } else if (that.goodsList.level == 4) {
-            that.levelbx = this.levelbx4;
+            that.levelbx = ththatis.levelbx4;
           } else if (that.goodsList.level == 5) {
-            that.levelbx = this.levelbx5;
+            that.levelbx = that.levelbx5;
           } else if (that.goodsList.level == 6) {
-            that.levelbx = this.levelbx6;
+            that.levelbx = that.levelbx6;
           } else if (that.goodsList.level == 7) {
-            that.levelbx = this.levelbx7;
+            that.levelbx = that.levelbx7;
           }
-          this.star = that.goodsList.score;
+          that.star = that.goodsList.score;
         }
       })
       .catch(reslove => {
