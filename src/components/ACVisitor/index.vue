@@ -108,7 +108,11 @@ export default {
   },
   methods: {
     close() {
-        this.$emit('closeACchat',false)
+      let params = {
+        question: this.ques,
+        data: false
+      };
+        this.$emit('closeACchat',params)
     },
     getHistoryCustomer() {
       //AC 聊天记录
@@ -208,9 +212,10 @@ export default {
       alert('mark0'+JSON.stringify(param))
       let res = reqCusayrob(param);
       res => {
+          this.ques = "";
           alert('mark0返回'+JSON.stringify(res))
           this.list = res.result.dialog_history;
-          this.ques = "";
+          
       }
         // .then(res => {
         //   alert('mark0返回'+JSON.stringify(res.result.dialog_history))

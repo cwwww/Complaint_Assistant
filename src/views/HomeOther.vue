@@ -196,7 +196,7 @@ export default {
   },
   data() {
     return {
-      ques:'',
+      ques: "",
       vipNotification: false,
       CancelFollow: false,
       fairyShop: false,
@@ -301,9 +301,28 @@ export default {
       this.showACChat = true;
     },
     closeACchat(data) {
-      this.showACChat = false;
+      this.showACChat = data.data;
       if (!this.showACChat) {
-        this.getCusayrob();
+        param = {
+          dialog_type: "1",
+          customer_type: that.customer_type,
+          customer_id: that.registers.visitor_id,
+          broker_id: that.$route.query.broker_id,
+          robot_id: that.$route.query.robot_id,
+          speaker: "1",
+          content: data.question,
+          token: that.registers.token
+        };
+        let res = reqCusayrob(param);
+        res.then(res => {
+          that.answer = res.result.dialog_history.content;
+          that.list.push(this.question);
+          that.list.push(this.answer);
+          that.list2 = that.list.slice(-4);
+          if (that.list2[0] == "") {
+          }
+          that.inputcon = "";
+        });
       }
     },
     toHome() {
@@ -389,14 +408,14 @@ export default {
         });
     },
     guanzhu() {
-      var that = this
+      var that = this;
       if (that.guanzhuContent == "关注TA") {
         let param = {
           robot_id: that.customer_robot_id,
           followed_robot_id: that.$route.query.robot_id,
           operation_type: "0",
           broker_id: that.registers.visitor_id,
-          token:that.registers.token
+          token: that.registers.token
         };
         let result = guanZhu(param);
         result
@@ -467,12 +486,12 @@ export default {
         visited_robot_id: that.$route.query.robot_id,
         token: that.registers.token
       };
-      alert('请求参数'+JSON.stringify(param))
+      alert("请求参数" + JSON.stringify(param));
       let result = reqVisitedInit(param);
       result
         .then(res => {
           that.homeInit = res.result;
-          alert('展示'+JSON.stringify(that.homeInit))
+          alert("展示" + JSON.stringify(that.homeInit));
           if (that.homeInit.followed) {
             that.guanzhuContent = "已关注";
           } else {
@@ -481,19 +500,19 @@ export default {
           if (that.homeInit.title == 1) {
             //保险等级
             that.homeLevel = that.levelbx1;
-            } else if (that.homeInit.title == 2) {
-              that.homeLevel = that.levelbx2;
-            } else if (that.homeInit.level == 3) {
-              that.homeLevel = that.levelbx3;
-            } else if (that.homeInit.level == 4) {
-              that.homeLevel = that.levelbx4;
-            } else if (that.homeInit.level == 5) {
-              that.homeLevel = that.levelbx5;
-            } else if (that.homeInit.level == 6) {
-              that.homeLevel = that.levelbx6;
-            } else if (that.homeInit.level == 7) {
-              that.homeLevel = that.levelbx7;
-            }
+          } else if (that.homeInit.title == 2) {
+            that.homeLevel = that.levelbx2;
+          } else if (that.homeInit.level == 3) {
+            that.homeLevel = that.levelbx3;
+          } else if (that.homeInit.level == 4) {
+            that.homeLevel = that.levelbx4;
+          } else if (that.homeInit.level == 5) {
+            that.homeLevel = that.levelbx5;
+          } else if (that.homeInit.level == 6) {
+            that.homeLevel = that.levelbx6;
+          } else if (that.homeInit.level == 7) {
+            that.homeLevel = that.levelbx7;
+          }
           that.getCusayrob();
           //串门成功后，增加金币和经验
           that.chuanmen();
@@ -553,12 +572,12 @@ export default {
           result
             .then(res => {
               that.registers = res.result;
-              alert('register'+JSON.stringify(that.registers))
+              alert("register" + JSON.stringify(that.registers));
               if (that.registers.visitor_type == "0") {
-                that.customer_id = that.visitor_id
+                that.customer_id = that.visitor_id;
                 that.isRegister = false;
               } else if (that.registers.visitor_type == "1") {
-                that.broker_id = that.visitor_id
+                that.broker_id = that.visitor_id;
                 that.isRegister = true;
               } else if (that.registers.visitor_type == "-1") {
                 that.isRegister = false;
@@ -576,7 +595,7 @@ export default {
                 result
                   .then(res => {
                     that.visitList = res.result;
-                    that.registers.customer_id = that.visitList.customer_id
+                    that.registers.customer_id = that.visitList.customer_id;
                   })
                   .catch(reslove => {
                     console.log("error");
@@ -1216,7 +1235,6 @@ export default {
       }
     }
 
-
     .cont3 {
       width: 170px;
       height: 170px;
@@ -1364,48 +1382,48 @@ export default {
       }
     }
   }
-.cont6 {
-  width: 305px;
-  height: 174px;
-  background: rgba(255, 255, 255, 1);
-  border-radius: 15px;
-  .contwrap {
-    font-size: 17px;
-    font-family: PingFangSC-Medium, PingFang SC;
-    font-weight: 500;
-    color: rgba(51, 51, 51, 1);
-    line-height: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 30px;
-    .top {
-      margin-bottom: 7px;
-    }
-    .isOk {
+  .cont6 {
+    width: 305px;
+    height: 174px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 15px;
+    .contwrap {
+      font-size: 17px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(51, 51, 51, 1);
+      line-height: 24px;
       display: flex;
-      // align-items: center;
-      // justify-content: center;
-      .isNo {
-        width: 125px;
-        height: 42px;
-        background: rgba(234, 234, 234, 1);
-        border-radius: 4px;
-        text-align: center;
-        line-height: 42px;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+      .top {
+        margin-bottom: 7px;
       }
-      .isYes {
-        width: 125px;
-        height: 42px;
-        background: rgba(0, 147, 253, 1);
-        border-radius: 4px;
-        text-align: center;
-        line-height: 42px;
-        margin-left: 20px;
+      .isOk {
+        display: flex;
+        // align-items: center;
+        // justify-content: center;
+        .isNo {
+          width: 125px;
+          height: 42px;
+          background: rgba(234, 234, 234, 1);
+          border-radius: 4px;
+          text-align: center;
+          line-height: 42px;
+        }
+        .isYes {
+          width: 125px;
+          height: 42px;
+          background: rgba(0, 147, 253, 1);
+          border-radius: 4px;
+          text-align: center;
+          line-height: 42px;
+          margin-left: 20px;
+        }
       }
     }
   }
-}
   .bottomLine {
     width: 335px;
     height: 1px;

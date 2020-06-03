@@ -395,7 +395,7 @@ export default {
     toInvite() {
       this.$router.push({
         path: "/invite",
-        query: {
+        query: { 
           broker_id: this.$route.query.broker_id,
           robot_id: this.$route.query.robot_id,
           token: this.$route.query.token

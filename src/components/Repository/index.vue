@@ -238,10 +238,10 @@ export default {
       this.showMyshop = data;
     },
     toShopZoom(index) {
-      // if (this.list[index].type == 0) {
+      if (this.list[index].type == 0) {
         this.showMyshop = true;
         // this.$emit('RepositoryC',false)
-      // }
+      }
     },
     toEvaluate(index) {
       this.show4 = true;

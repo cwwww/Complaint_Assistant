@@ -103,7 +103,6 @@ export default {
     }
   },
   mounted() {
-    // alert(111)
     // this.getChatList();
   },
   methods: {
