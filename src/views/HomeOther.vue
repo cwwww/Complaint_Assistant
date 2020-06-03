@@ -503,13 +503,13 @@ export default {
         that.customer_type = 0;
         that.customer_robot_id = "";
       }
-      if (this.$route.query.type == "otherLogin") {
+      if (that.$route.query.type == "otherLogin") {
         let param = {
-          customer_id: this.$route.query.customer_id,
-          customer_robot_id: this.$route.query.customer_robot_id,
-          customer_type: this.$route.query.customer_type,
-          visited_robot_id: this.$route.query.visited_robot_id,
-          token: this.$route.query.token
+          customer_id: that.$route.query.customer_id,
+          customer_robot_id: that.$route.query.customer_robot_id,
+          customer_type: that.$route.query.customer_type,
+          visited_robot_id: that.$route.query.visited_robot_id,
+          token: that.$route.query.token
         };
       } else {
         let param = {
