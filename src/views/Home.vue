@@ -365,11 +365,6 @@ export default {
       success: require("../assets/images/success@2x.png")
     };
   },
-  // created(){
-  //   if(this.$route.query.broker_id ==  undefined){
-  //     this.$router.push('/Login')
-  //   }
-  // },
   methods: {
     SellerShopP(data) {
       this.isSellerShop = data;
@@ -816,13 +811,12 @@ export default {
         this.$route.query.broker_id = this.$route.query.visitor_id;
       }
       let param = {
-        // robot_id: 33,
-        // broker_id: 33,
-        // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
-
-        robot_id: this.$route.query.robot_id,
-        broker_id: this.$route.query.broker_id,
-        token: this.$route.query.token
+ robot_id: 33,
+        broker_id: 33,
+        token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
+        // robot_id: this.$route.query.robot_id,
+        // broker_id: this.$route.query.broker_id,
+        // token: this.$route.query.token
       };
       console.log(param);
       let result = reqHomeInit(param);
@@ -926,7 +920,6 @@ export default {
     //     // 别的业务逻辑
     // }
     this.getHomeInit();
-
     this.getDetail();
     //定时获取粉丝数据
     this.getFensi();

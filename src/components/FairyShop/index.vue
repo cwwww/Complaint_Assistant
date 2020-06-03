@@ -10,7 +10,7 @@
     >
       <img class="img1" :src="shop" alt />
       <div class="title">
-        {{$route.query.Othername}}精灵商店
+        {{Othername}}精灵商店
         <div class="active"></div>
       </div>
       <div class="wrap" v-if="goodsList.status!=''">
@@ -45,7 +45,7 @@
             <div class="top">
               <span>花费</span>
               <img style="width:16px;height:16px;" :src="money" alt />
-              <span>{{this.goodsList.price}}</span>
+              <span>{{goodsList.price}}</span>
             </div>
             <div style="margin-bottom:25px;">购买Josen的知识库吗？</div>
             <div class="isOk">
@@ -104,10 +104,10 @@
             >提交</van-button>
           </div>
         </van-popup>
-        <div class="rightLogin2" v-show="this.fairyStatus == 1" @click="toEvaluate">
+        <div class="rightLogin2" v-show="fairyStatus == 1" @click="toEvaluate">
           <div>评价</div>
         </div>
-        <div class="rightLogin3" v-show="this.fairyStatus == 2">
+        <div class="rightLogin3" v-show="fairyStatus == 2">
           <div>交易完成</div>
         </div>
       </div>
@@ -188,7 +188,8 @@ export default {
     "broker_id",
     "robot_id",
     "token",
-    "robot_visitId"
+    "robot_visitId",
+    "Othername"
   ],
   created() {
     this.show1 = this.fairyShop;
