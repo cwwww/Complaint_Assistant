@@ -3,7 +3,7 @@
   <div>
     <div class="main">
       <div v-for="(item, idx) in theglobalLists" :key="idx">
-        <div class="wrap" @click="clickThis(index)">
+        <div class="wrap" @click="clickThis(item.broker_id,item.robot_id)">
           <div class="left">
             <div class="leftLittleLogon">
               <img v-if="idx == 0" :src="img" alt />
@@ -87,20 +87,20 @@ export default {
       });
   },
   methods:{
-	  clickThis(index){
+	  clickThis:function(broker_id,robot_id,token){
      if(robot_id == this.robot_id_prop){
        this.$emit("rankgohome",false);
      }else{
-       alert(JSON.stringify(this.theglobalLists))
-       this.$router.push({
-         path:'/HomeOther',
-         query:{
-           robot_id: this.theglobalLists[index].robot_id,
-           broker_id:this.theglobalLists[index].broker_id,
-          //  robot_visitId:robot_id,
-           token:this.theglobalLists[index].token
-         }
-       })
+       alert({broker_id,robot_id,token})
+      //  this.$router.push({
+      //    path:'/HomeOther',
+      //    query:{
+      //      robot_id: robot_id,
+      //      broker_id:broker_id,
+      //      robot_visitId:robot_id,
+      //      token:token
+      //    }
+      //  })
      }
 	  }
   }
