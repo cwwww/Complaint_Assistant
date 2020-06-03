@@ -94,6 +94,7 @@ export default {
          path:'/HomeOther',
          query:{
            type:'listType',
+           broker_id:broker_id,
            robot_id: robot_id,
            customer_id:this.broker_id_prop,
            customer_robot_id:this.robot_id_prop,
