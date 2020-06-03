@@ -711,7 +711,7 @@ export default {
     }
     if(this.$route.query.type == "listType"){
       alert(222)
-        param = {
+        let param = {
           customer_id: this.$route.query.customer_id,
           customer_robot_id: this.$route.query.customer_id,
           customer_type: 1,
