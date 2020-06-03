@@ -49,15 +49,18 @@
         </div>
       </div>
       <div class="fansAndFriend">
-        <div class="friend">
+        <div class="friend" @click="frang(curIndex)">
           <span class="num">{{homeInit.friends_num}}</span>
           <img src="../assets/images/friends@2x.png" alt />
           <span class="design">好友</span>
         </div>
-        <div class="fan">
+        <div class="fan" @click="lists(curIndex)">
           <span class="num">{{homeInit.fans_num}}</span>
           <img src="../assets/images/fans@2x.png" alt />
           <span class="design">粉丝</span>
+          <div>
+            <img class="new" v-show="showNewFans" src="../assets/images/new@2x.png" alt />
+          </div>
         </div>
       </div>
     </div>
@@ -149,26 +152,34 @@
       :visitHead="homeInit.headimgurl"
       :val="ques"
     />
-    <!-- :customer_id="visitList.customer_id" -->
     <FairyShop
       v-show="fairyShop"
       @fairyShopC="FairyShopP"
       :fairyShop="showACChat"
-      :broker_id="visitList.broker_id"
-      :robot_id="visitList.robot_id"
-      :token="visitList.token"
-      :robot_visitId="$route.query.robot_visitId"
+      :broker_id="registers.visitor_id"
+      :robot_id="customer_robot_id"
+      :token="registers.token"
+      :robot_visitId="$route.query.robot_id"
       :Othername="homeInit.name"
-      v-if="visitList.Othername"
+      v-if="registers.token"
     />
     <CancelFollow
       v-show="CancelFollow"
       @cancelfollowC="CancelFollowP"
-      :broker_id="visitList.broker_id"
-      :robot_id="visitList.robot_id"
-      :token="visitList.token"
+      :broker_id="registers.visitor_id"
+      :robot_id="customer_robot_id"
+      :token="registers.token"
       :cancelfollow="CancelFollow"
-      :robot_visitId="$route.query.robot_visitId"
+      :robot_visitId="$route.query.robot_id"
+    />
+    <List
+      v-show="isList"
+      @listc="ListP"
+      :list_show="isList"
+      :broker_id="registers.visitor_id"
+      :robot_id="customer_robot_id"
+      :token="registers.token"
+      :curIndex="curIndex"
     />
   </div>
 </template>
@@ -177,6 +188,7 @@ import { Popup, Toast } from "vant";
 import ACVisitor from "../components/ACVisitor";
 import FairyShop from "../components/FairyShop";
 import CancelFollow from "../components/CancelFollow";
+import List from "../components/List";
 import {
   reqHomeInit,
   reqCusayrob,
@@ -192,10 +204,13 @@ export default {
   components: {
     ACVisitor,
     FairyShop,
-    CancelFollow
+    CancelFollow,
+    List
   },
   data() {
     return {
+      isList: false,
+      showNewFans: false,
       ques: "",
       vipNotification: false,
       CancelFollow: false,
@@ -261,6 +276,9 @@ export default {
     };
   },
   methods: {
+    ListP(data) {
+      this.isList = data;
+    },
     cancelfollowC(data) {
       this.CancelFollow = data;
     },
@@ -274,6 +292,19 @@ export default {
     toPlan() {
       window.parent.location.href =
         "https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16";
+    },
+    frang(curIndex) {
+      // 好友
+      this.curIndex = 0;
+      this.isList = true;
+      this.destoryTimer();
+    },
+    lists(curIndex) {
+      // 粉丝
+      this.curIndex = 1;
+      this.showNewFans = false;
+      this.isList = true;
+      // this.destoryTimer();
     },
     FairyShop() {
       //买家精灵商店
@@ -483,18 +514,18 @@ export default {
       //     token: this.$route.query.token
       //   };
       // } else {
-        let param = {
-          // customer_id: 33,
-          // customer_robot_id: 33,
-          // customer_type: 1,
-          // visited_robot_id: 93,
-          // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
-          customer_id: that.registers.visitor_id,
-          customer_robot_id: that.customer_robot_id,
-          customer_type: that.customer_type,
-          visited_robot_id: that.$route.query.robot_id,
-          token: that.registers.token
-        };
+      let param = {
+        // customer_id: 33,
+        // customer_robot_id: 33,
+        // customer_type: 1,
+        // visited_robot_id: 93,
+        // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
+        customer_id: that.registers.visitor_id,
+        customer_robot_id: that.customer_robot_id,
+        customer_type: that.customer_type,
+        visited_robot_id: that.$route.query.robot_id,
+        token: that.registers.token
+      };
       // }
       alert("请求参数" + JSON.stringify(param));
       let result = reqVisitedInit(param);
@@ -1095,13 +1126,11 @@ export default {
       }
 
       .btn {
-        width: 50px;
+        float: right;
+        width: 16.7%;
         height: 42px;
         line-height: 42px;
         color: #2de2e6;
-        position: fixed;
-        right: 24px;
-        bottom: 15px;
         text-align: center;
         font-size: 13px;
         font-family: PingFangSC-Semibold, PingFang SC;
