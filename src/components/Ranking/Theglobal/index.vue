@@ -3,7 +3,7 @@
   <div>
     <div class="main">
       <div v-for="(item, idx) in theglobalLists" :key="idx">
-        <div class="wrap" @click="clickThis(item.broker_id,item.robot_id,item.token)">
+        <div class="wrap" @click="clickThis(item.broker_id,item.robot_id)">
           <div class="left">
             <div class="leftLittleLogon">
               <img v-if="idx == 0" :src="img" alt />
@@ -73,7 +73,6 @@ export default {
       broker_id: this.broker_id_prop,
       robot_id: this.robot_id_prop ,
       token:  this.token_prop
-
     };
     console.log(param);
     let result = RanlingDatas(param);
@@ -87,20 +86,20 @@ export default {
       });
   },
   methods:{
-	  clickThis:function(broker_id,robot_id,token){
+	  clickThis:function(broker_id,robot_id){
      if(robot_id == this.robot_id_prop){
        this.$emit("rankgohome",false);
      }else{
-       alert(JSON.stringify({broker_id,robot_id,token}))
-      //  this.$router.push({
-      //    path:'/HomeOther',
-      //    query:{
-      //      robot_id: robot_id,
-      //      broker_id:broker_id,
-      //      robot_visitId:robot_id,
-      //      token:token
-      //    }
-      //  })
+       this.$router.push({
+         path:'/HomeOther',
+         query:{
+           type:'listType',
+           robot_id: robot_id,
+           customer_id:this.broker_id_prop,
+           customer_robot_id:this.robot_id_prop,
+           token:this.token_prop
+         }
+       })
      }
 	  }
   }

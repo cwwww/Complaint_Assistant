@@ -514,6 +514,15 @@ export default {
           token: that.$route.query.token
         };
         alert("初始化otherLogin" + JSON.stringify(param));
+      } else if(that.$route.query.type == "listType"){
+        param = {
+          customer_id: that.$route.query.customer_id,
+          customer_robot_id: that.$route.query.customer_id,
+          customer_type: 1,
+          visited_robot_id: that.$route.query.robot_id,
+          token: that.$route.query.token
+        };
+        alert("初始化listType" + JSON.stringify(param));
       } else {
         param = {
           // customer_id: 33,
