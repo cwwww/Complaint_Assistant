@@ -365,6 +365,11 @@ export default {
       success: require("../assets/images/success@2x.png")
     };
   },
+  created(){
+    if(this.$route.query.broker_id ==  undefined){
+      this.$router.push('/Login')
+    }
+  },
   methods: {
     SellerShopP(data) {
       this.isSellerShop = data;
