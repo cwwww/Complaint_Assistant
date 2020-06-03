@@ -166,7 +166,6 @@ export default {
         });
     },
     submit() {
-      alert(111);
       if (this.dialogMark == "1") {
         alert(2222);
         if (this.ques == "") {
