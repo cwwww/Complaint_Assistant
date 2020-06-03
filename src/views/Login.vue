@@ -150,21 +150,21 @@ export default {
         res
           .then(res => {
             that.messages = res.result;
-            if (this.$route.query.type == "otherLogin") {
-            this.$router.push({
+            if (that.$route.query.type == "otherLogin") {
+            that.$router.push({
             path: "/HomeOther",
             query: {
               type: "otherLogin",
-              customer_id: this.$route.query.customer_id,
-              customer_robot_id: this.$route.query.customer_robot_id,
-              customer_type: this.$route.query.customer_type,
-              visited_robot_id: this.$route.query.visited_robot_id,
-              token: this.$route.query.token
+              customer_id: that.$route.query.customer_id,
+              customer_robot_id: that.$route.query.customer_robot_id,
+              customer_type: that.$route.query.customer_type,
+              visited_robot_id: that.$route.query.visited_robot_id,
+              token: that.$route.query.token
             }
             });
-            alert('query'+JSON.stringify(this.$route.query))
+            alert('query'+JSON.stringify(that.$route.query))
             } else {
-            this.$router.push({
+            that.$router.push({
               path: "/",
               query: {
                 broker_id: that.messages.ID,

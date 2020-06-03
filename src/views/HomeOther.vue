@@ -372,11 +372,11 @@ export default {
         path: "/login",
         query: {
           type: "otherLogin",
-          customer_id: this.visitList.customer_id,
+          customer_id: this.registers.customer_id,
           customer_robot_id: this.customer_robot_id,
           customer_type: this.customer_type,
           visited_robot_id: this.$route.query.broker_id,
-          token: this.visitList.token
+          token: this.registers.token
         }
       });
     },
@@ -503,13 +503,14 @@ export default {
         that.customer_type = 0;
         that.customer_robot_id = "";
       }
+      alert(JSON.stringify(that.registers.visitor_type))
       alert(JSON.stringify(that.$route.query.type))
       let param
       if (that.$route.query.type == "otherLogin") {
         param = {
           customer_id: that.$route.query.customer_id,
-          customer_robot_id: that.$route.query.customer_robot_id,
-          customer_type: that.$route.query.customer_type,
+          customer_robot_id: that.customer_robot_id,
+          customer_type: 1,
           visited_robot_id: that.$route.query.visited_robot_id,
           token: that.$route.query.token
         };
