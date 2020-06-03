@@ -1426,9 +1426,6 @@ export default {
       height: 42px;
       line-height: 42px;
       color: #2de2e6;
-      // position: fixed;
-      // right: 24px;
-      // bottom: 15px;
       text-align: center;
       font-size: 13px;
       font-family: PingFangSC-Semibold, PingFang SC;
