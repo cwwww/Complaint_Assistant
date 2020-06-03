@@ -116,7 +116,7 @@
         <li style="visibility:hidden">
           <img :src="home_browse" alt />
         </li>
-        <li @click="FairyShop">
+        <li @click="Fairy">
           <img :src="home_store" alt />
           <span>精灵商店</span>
         </li>
@@ -155,7 +155,7 @@
     <FairyShop
       v-show="fairyShop"
       @fairyShopC="FairyShopP"
-      :fairyShop="fairyShop"
+      :fairyShop_show="fairyShop"
       :broker_id="registers.visitor_id"
       :robot_id="customer_robot_id"
       :token="registers.token"
@@ -306,19 +306,9 @@ export default {
       this.isList = true;
       // this.destoryTimer();
     },
-    FairyShop() {
+    Fairy() {
       //买家精灵商店
       this.fairyShop = true;
-      // this.$router.push({
-      //   path: "/FairyShop",
-      //   query: {
-      //     robot_id: this.$route.query.robot_id,
-      //     broker_id: this.$route.query.broker_id,
-      //     robot_visitId: this.$route.query.robot_visitId,
-      //     Othername: this.homeInit.name,
-      //     token: this.$route.query.token
-      //   }
-      // });
     },
     toGet() {
       this.vipNotification = false;

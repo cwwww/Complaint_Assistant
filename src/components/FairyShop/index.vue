@@ -183,7 +183,7 @@ export default {
     };
   },
   props: [
-    "fairyShop",
+    "fairyShop_show",
     "broker_id",
     "robot_id",
     "token",
@@ -191,10 +191,11 @@ export default {
     "Othername"
   ],
   created() {
-    this.show1 = this.fairyShop;
+    this.show1 = this.fairyShop_show;
+    alert('created')
   },
   watch: {
-    fairyShop(newValue) {
+    fairyShop_show(newValue) {
       this.show1 = newValue;
     }
   },
@@ -301,6 +302,7 @@ export default {
     }
   },
   mounted() {
+    alert('mounted')
     var that = this;
     let param = {
       seller_id: that.robot_visitId,
