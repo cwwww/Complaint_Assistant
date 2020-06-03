@@ -431,10 +431,12 @@ export default {
           broker_id: that.registers.visitor_id,
           token: that.registers.token
         };
+        alert('关注请求参数'+JSON.stringify(param))
         let result = guanZhu(param);
         result
           .then(res => {
-            console.log("guanzhu:" + res);
+            alert('关注返回'+JSON.stringify(param))
+
             if (res.result.info == "关注成功") {
               that.guanzhuContent = "已关注";
               //更新关注任务状态，领取经验和金币

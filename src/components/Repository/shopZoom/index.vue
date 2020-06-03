@@ -308,7 +308,6 @@ export default {
         broker_id: this.$route.query.broker_id,
         token: this.$route.query.token
       };
-      console.log(param);
       let res = reqknowledgeList(param);
       res
         .then(res => {
