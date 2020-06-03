@@ -504,12 +504,11 @@ export default {
         that.customer_robot_id = "";
       }
       alert(JSON.stringify(that.registers.visitor_type))
-      alert(JSON.stringify(that.$route.query.type))
       let param
       if (that.$route.query.type == "otherLogin") {
         param = {
           customer_id: that.$route.query.customer_id,
-          customer_robot_id: that.customer_robot_id,
+          customer_robot_id: that.$route.query.customer_id,
           customer_type: 1,
           visited_robot_id: that.$route.query.visited_robot_id,
           token: that.$route.query.token
