@@ -1,6 +1,5 @@
 <template>
   <div class="warp">
-    <keep-alive>
     <van-popup
       class="content"
       v-model="show"
@@ -43,7 +42,6 @@
         :token_prop="token_prop"
       />
     </van-popup>
-    </keep-alive>
   </div>
 </template>
 <script>
@@ -110,7 +108,7 @@ export default {
     // }
   },
   beforeUpdate(){
-alert(this.broker_id)
+    alert(this.broker_id)
   }
 };
 </script>

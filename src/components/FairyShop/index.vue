@@ -13,7 +13,7 @@
         {{Othername}}精灵商店
         <div class="active"></div>
       </div>
-      <div class="wrap" v-if="goodsList.status!=''">
+      <div class="wrap" v-if="goodsList.status">
         <div class="left">
           <!-- <div class="leftLittleLogon">
               <img :src=home_mytask alt />
@@ -192,7 +192,7 @@ export default {
   ],
   created() {
     this.show1 = this.fairyShop_show;
-    alert('created')
+    alert(this.show1)
   },
   watch: {
     fairyShop_show(newValue) {
