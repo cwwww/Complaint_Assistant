@@ -298,9 +298,10 @@ export default {
     },
     Fairy() {
       //买家精灵商店
-      this.fairyShop = true;
       if (this.registers.visitor_type != 1) {
         this.vipNotification = true;
+      } else {
+        this.fairyShop = true;
       }
     },
     toGet() {
@@ -368,7 +369,7 @@ export default {
       this.isOwn = false;
     },
     toRegister() {
-      this.$router.push({
+      this.$router.replace({
         path: "/login",
         query: {
           type: "otherLogin",
@@ -503,8 +504,8 @@ export default {
         that.customer_type = 0;
         that.customer_robot_id = "";
       }
-      alert(JSON.stringify(that.registers.visitor_type))
-      let param
+      alert(JSON.stringify(that.registers.visitor_type));
+      let param;
       if (that.$route.query.type == "otherLogin") {
         param = {
           customer_id: that.$route.query.customer_id,
@@ -513,9 +514,8 @@ export default {
           visited_robot_id: that.$route.query.visited_robot_id,
           token: that.$route.query.token
         };
-        alert('初始化'+JSON.stringify(param))
+        alert("初始化otherLogin" + JSON.stringify(param));
       } else {
-        alert(33333)
         param = {
           // customer_id: 33,
           // customer_robot_id: 33,
@@ -528,9 +528,9 @@ export default {
           visited_robot_id: that.$route.query.robot_id,
           token: that.registers.token
         };
-        alert('初始化'+JSON.stringify(param))
+        alert("初始化" + JSON.stringify(param));
       }
-      
+
       let result = reqVisitedInit(param);
       result
         .then(res => {
