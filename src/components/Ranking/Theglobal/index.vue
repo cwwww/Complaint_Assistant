@@ -101,7 +101,7 @@ export default {
            token:this.token_prop
          }
        })
-        alert('global'+JSON.stringify(query))
+        alert('global'+JSON.stringify(this.query))
      }
 	  }
   }
