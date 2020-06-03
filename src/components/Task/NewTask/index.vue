@@ -242,7 +242,9 @@ export default {
       level: "",
       bxmove: false,
       showTitle: true,
-      itemSelected: ""
+      itemSelected: "",
+      newTaskNotification : false
+
     };
   },
   props: ["broker_id_prop", "robot_id_prop", "token_prop"],
@@ -382,7 +384,8 @@ export default {
           });
       }
     },
-    getTaskStatus() {
+    getTaskStatus(){
+      this.newTaskNotification = false;
       let param = {
         broker_id: this.broker_id_prop,
         robot_id: this.robot_id_prop,
@@ -394,6 +397,8 @@ export default {
         // "token": "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
       };
       let result = taskStatusUpdate(param);
+      console.log("get newplayer task status")
+
       result
         .then(res => {
           console.log(res, "任务列表");
@@ -404,6 +409,7 @@ export default {
           } else if (this.np1 == "1") {
             this.status = "领取";
             this.statusWar = "";
+            this.newTaskNotification = true;
           } else if (this.np1 == "2") {
             this.status = "已完成";
             this.statusWar = "threes";
@@ -415,6 +421,7 @@ export default {
           } else if (this.np2 == "1") {
             this.status2 = "领取";
             this.status1War = "";
+            this.newTaskNotification = true;
           } else if (this.np2 == "2") {
             this.status2 = "已完成";
             this.status1War = "threes";
@@ -426,6 +433,7 @@ export default {
           } else if (this.np3 == "1") {
             this.status3 = "领取";
             this.status2War = "";
+            this.newTaskNotification = true;
           } else if (this.np3 == "2") {
             this.status3 = "已完成";
             this.status2War = "threes";
@@ -437,6 +445,7 @@ export default {
           } else if (this.np4 == "1") {
             this.status4 = "领取";
             this.status3War = "";
+            this.newTaskNotification = true;
           } else if (this.np4 == "2") {
             this.status4 = "已完成";
             this.status3War = "threes";
@@ -448,6 +457,7 @@ export default {
           } else if (this.np5 == "1") {
             this.status5 = "领取";
             this.status4War = "";
+            this.newTaskNotification = true;
           } else if (this.np5 == "2") {
             this.status5 = "已完成";
             this.status4War = "threes";
@@ -457,6 +467,8 @@ export default {
         .catch(reslove => {
           console.log("error");
         });
+      this.$emit('npNotification',this.newTaskNotification)
+      console.log("in np component: ",this.newTaskNotification)
     }
   }
 };

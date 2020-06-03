@@ -29,13 +29,15 @@
         :token_prop="token_prop"
         :dailyTaskList="DailyTaskList"
         ref="dailyTask"
+        @dailyNotification="dailyNotification"
       />
       <NewTask
         v-show="curIndex == 0"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
-        ref = "npTask"
+        ref ="npTask"
+        @npNotification="npNotification"
       />
       <ProfessionTask
         v-show="curIndex == 2"
@@ -86,7 +88,9 @@ export default {
       np2: "",
       np3: "",
       np4: "",
-      np5: ""
+      np5: "",
+      npNtn: false,
+      dailyNtn:false
     };
   },
   props: ["task_show", "broker_id", "robot_id", "token"],
@@ -110,12 +114,25 @@ export default {
     },
     close() {
       this.$emit("taskc", false);
+      this.$emit('taskNotification',this.npNtn||this.dailyNtn)
+      alert("NTN:",this.npNtn,this.dailyNtn)
     },
     queryTaskStatus(){
       alert("queryTask");
       this.$refs.npTask.getTaskStatus();
       this.$refs.dailyTask.queryDailyTask();
+    },
+    npNotification(data){
+      this.npNtn=data
+      alert("npNTN:",data)
+
+    },
+    dailyNotification(data){
+      this.dailyNtn = data
+      alert("dailyNTN:",data)
+
     }
+
   },
   mounted() {
     //获取任务所有的状态

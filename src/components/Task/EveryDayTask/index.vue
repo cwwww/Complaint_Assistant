@@ -63,8 +63,8 @@
           <div class="bottomButton twos" v-if="item.status == '0'">
             <p v-if="item.status == '0'">未完成</p>
           </div>
-          <div class="bottomButton"  v-if="item.status == '1'">
-            <p 
+          <div class="bottomButton" v-if="item.status == '1'">
+            <p
               v-if="item.status == '1'"
               @click="getTaskStatus(broker_id,robot_id,item.task_id,token,item.index)"
             >领取</p>
@@ -97,7 +97,8 @@ export default {
       img2: require("../../../assets/images/jignhangs.png"),
       bxmove: false,
       showTitle: true,
-      itemSelected: ""
+      itemSelected: "",
+      newTaskNotification: false
     };
   },
   props: ["broker_id_prop", "robot_id_prop", "token_prop"],
@@ -136,6 +137,7 @@ export default {
     },
 
     queryDailyTask() {
+      this.newTaskNotification = false;
       let param2 = {
         broker_id: this.broker_id,
         robot_id: this.robot_id,
@@ -144,25 +146,37 @@ export default {
         // "broker_id":33,
         // "token":"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
       };
-      console.log("getDailyTaskList!!")
+      console.log("getDailyTaskList!!");
       let res2 = getTaskList(param2);
       res2
         .then(res => {
           console.log("每日工作领取：" + res);
           this.EverydayList = res.result;
           console.log("EverydayList", this.EverydayList);
+          for (var task_id in this.EverydayList) {
+            console.log("status: ",task_id,":",this.EverydayList[task_id].status);
+            if (this.EverydayList[task_id].status == 1) {
+              this.newTaskNotification = true;
+              break;
+            }
+          }
+          this.$emit("dailyNotification", this.newTaskNotification);
+          console.log("in daily component: ", this.newTaskNotification);
         })
         .catch(reslove => {
           console.log("error");
         });
-      alert("query_dailytask")
-    },
-    addcoins() {
-      // this.bxmove = !this.bxmove;
-      // setTimeout(() => {
-      //   this.bxmove=false;
-      // }, 1200);
+
+      
+      // alert("query_dailytask")
     }
+
+    // addcoins() {
+    //   // this.bxmove = !this.bxmove;
+    //   // setTimeout(() => {
+    //   //   this.bxmove=false;
+    //   // }, 1200);
+    // }
   },
   mounted() {
     this.robot_id = this.robot_id_prop;
@@ -173,7 +187,6 @@ export default {
     //   this.token = "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1";
     this.queryDailyTask();
   }
-  
 };
 </script>
 <style lang="scss" scoped>
@@ -201,7 +214,6 @@ export default {
     &:nth-child(2) {
       background: rgba(76, 208, 105, 1);
       color: rgba(76, 208, 105, 1);
-      
     }
     &:nth-child(3) {
       background: rgba(246, 94, 94, 1);
@@ -213,7 +225,7 @@ export default {
     }
     &:last-child {
       background: rgba(99, 117, 254, 1);
-      color:rgba(99, 117, 254, 1);
+      color: rgba(99, 117, 254, 1);
     }
     > .leftBox {
       display: flex;

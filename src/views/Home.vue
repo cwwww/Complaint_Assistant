@@ -227,6 +227,7 @@
     <Task
       v-show="isTask"
       @taskc="TaskP"
+      @taskNotification = "newTaskNtn"
       :task_show="isTask"
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
@@ -372,6 +373,9 @@ export default {
     },
     TaskP(data) {
       this.isTask = data;
+    },
+    newTaskNtn(data){
+      this.showNewIcon = data;
     },
     rankgohome(data) {
       this.isRanking = data;
