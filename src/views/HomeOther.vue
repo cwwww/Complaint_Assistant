@@ -493,7 +493,6 @@ export default {
     },
     getHomeInit() {
       var that = this;
-      alert(2222)
       if (that.registers.visitor_type == "0") {
         that.customer_type = 0;
         that.customer_robot_id = "";
@@ -505,16 +504,19 @@ export default {
         that.customer_robot_id = "";
       }
       alert(JSON.stringify(that.$route.query.type))
+      let param
       if (that.$route.query.type == "otherLogin") {
-        let param = {
+        param = {
           customer_id: that.$route.query.customer_id,
           customer_robot_id: that.$route.query.customer_robot_id,
           customer_type: that.$route.query.customer_type,
           visited_robot_id: that.$route.query.visited_robot_id,
           token: that.$route.query.token
         };
+        alert('初始化'+JSON.stringify(param))
       } else {
-        let param = {
+        alert(33333)
+        param = {
           // customer_id: 33,
           // customer_robot_id: 33,
           // customer_type: 1,
@@ -526,8 +528,9 @@ export default {
           visited_robot_id: that.$route.query.robot_id,
           token: that.registers.token
         };
+        alert('初始化'+JSON.stringify(param))
       }
-      alert('初始化'+JSON.stringify(param))
+      
       let result = reqVisitedInit(param);
       result
         .then(res => {
