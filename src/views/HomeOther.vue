@@ -494,10 +494,10 @@ export default {
     },
     getHomeInit() {
       var that = this;
-      if (that.registers.visitor_type == "0") {
+      if (that.registers.visitor_type == "1") {
         that.customer_type = 0;
         that.customer_robot_id = "";
-      } else if (that.registers.visitor_type == "1") {
+      } else if (that.registers.visitor_type == "0") {
         that.customer_type = 1;
         that.customer_robot_id = that.registers.robot_id;
       } else if (that.registers.visitor_type == "-1") {
@@ -1109,7 +1109,7 @@ export default {
       z-index: 999;
       margin: 0 auto 15px;
       justify-content: space-between;
-
+      position: relative;
       input {
         width: 78.3%;
         font-size: 15px;
@@ -1125,8 +1125,10 @@ export default {
       }
 
       .btn {
-        float: right;
-        width: 16.7%;
+        position: absolute;
+        right: 0;
+        top: 1px;
+        width: 15.7%;
         height: 42px;
         line-height: 42px;
         color: #2de2e6;
