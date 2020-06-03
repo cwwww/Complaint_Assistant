@@ -154,6 +154,7 @@ export default {
             this.$router.push({
             path: "/HomeOther",
             query: {
+              type: "otherLogin",
               customer_id: this.$route.query.customer_id,
               customer_robot_id: this.$route.query.customer_robot_id,
               customer_type: this.$route.query.customer_type,

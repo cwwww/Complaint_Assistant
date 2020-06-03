@@ -474,18 +474,28 @@ export default {
         that.customer_type = 0;
         that.customer_robot_id = "";
       }
-      let param = {
-        // customer_id: 33,
-        // customer_robot_id: 33,
-        // customer_type: 1,
-        // visited_robot_id: 93,
-        // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
-        customer_id: that.registers.visitor_id,
-        customer_robot_id: that.customer_robot_id,
-        customer_type: that.customer_type,
-        visited_robot_id: that.$route.query.robot_id,
-        token: that.registers.token
-      };
+      if (this.$route.query.type == "otherLogin") {
+        let param = {
+          customer_id: this.$route.query.customer_id,
+          customer_robot_id: this.$route.query.customer_robot_id,
+          customer_type: this.$route.query.customer_type,
+          visited_robot_id: this.$route.query.visited_robot_id,
+          token: this.$route.query.token
+        };
+      } else {
+        let param = {
+          // customer_id: 33,
+          // customer_robot_id: 33,
+          // customer_type: 1,
+          // visited_robot_id: 93,
+          // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
+          customer_id: that.registers.visitor_id,
+          customer_robot_id: that.customer_robot_id,
+          customer_type: that.customer_type,
+          visited_robot_id: that.$route.query.robot_id,
+          token: that.registers.token
+        };
+      }
       alert("请求参数" + JSON.stringify(param));
       let result = reqVisitedInit(param);
       result
