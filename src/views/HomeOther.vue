@@ -49,12 +49,12 @@
         </div>
       </div>
       <div class="fansAndFriend">
-        <div class="friend" @click="frang(curIndex)">
+        <div class="friend">
           <span class="num">{{homeInit.friends_num}}</span>
           <img src="../assets/images/friends@2x.png" alt />
           <span class="design">好友</span>
         </div>
-        <div class="fan" @click="lists(curIndex)">
+        <div class="fan">
           <span class="num">{{homeInit.fans_num}}</span>
           <img src="../assets/images/fans@2x.png" alt />
           <span class="design">粉丝</span>
@@ -102,7 +102,6 @@
       </div>
       <ul class="bottomList">
         <li @click="toHome" v-if="isRegister">
-          >
           <img :src="back" alt />
           <span>回家</span>
         </li>
@@ -136,9 +135,9 @@
       </div>
     </div>
     <!-- </div> -->
-    <!-- <div v-if="this.registers.visitor_type == '0'">
-			<img :src=share alt="">
-    </div>-->
+    <div v-if="this.registers.visitor_type == '0'">
+      <img :src="share" alt />
+    </div>
     <ACVisitor
       v-show="showACChat"
       @closeACchat="closeACchat"
@@ -150,6 +149,7 @@
       :customer_type="customer_type"
       :token="registers.token"
       :visitHead="homeInit.headimgurl"
+      :visitimgurl="visitimgurl"
       :val="ques"
     />
     <FairyShop
@@ -157,17 +157,18 @@
       @fairyShopC="FairyShopP"
       :fairyShop_show="fairyShop"
       :broker_id="registers.visitor_id"
-      :robot_id="customer_robot_id"
+      :robot_id="registers.robot_id"
       :token="registers.token"
       :robot_visitId="$route.query.robot_id"
       :Othername="homeInit.name"
+      :user_type="registers.visitor_type"
       v-if="registers.token"
     />
     <CancelFollow
       v-show="CancelFollow"
       @cancelfollowC="CancelFollowP"
       :broker_id="registers.visitor_id"
-      :robot_id="customer_robot_id"
+      :robot_id="registers.robot_id"
       :token="registers.token"
       :cancelfollow="CancelFollow"
       :robot_visitId="$route.query.robot_id"
@@ -177,7 +178,7 @@
       @listc="ListP"
       :list_show="isList"
       :broker_id="registers.visitor_id"
-      :robot_id="customer_robot_id"
+      :robot_id="registers.robot_id"
       :token="registers.token"
       :curIndex="curIndex"
     />
@@ -209,6 +210,7 @@ export default {
   },
   data() {
     return {
+      visitimgurl: "",
       isList: false,
       showNewFans: false,
       ques: "",
@@ -293,26 +295,27 @@ export default {
       window.parent.location.href =
         "https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16";
     },
-    frang(curIndex) {
-      // 好友
-      this.curIndex = 0;
-      this.isList = true;
-      this.destoryTimer();
-    },
-    lists(curIndex) {
-      // 粉丝
-      this.curIndex = 1;
-      this.showNewFans = false;
-      this.isList = true;
-      // this.destoryTimer();
-    },
     Fairy() {
       //买家精灵商店
-      this.fairyShop = true;
+      if (this.registers.visitor_type != 1) {
+        this.vipNotification = true;
+      } else {
+        this.fairyShop = true;
+      }
     },
     toGet() {
       this.vipNotification = false;
-      this.$router.push("/Login");
+      this.$router.push({
+        path: "/login",
+        query: {
+          type: "otherLogin",
+          customer_id: this.visitList.customer_id,
+          customer_robot_id: this.customer_robot_id,
+          customer_type: this.customer_type,
+          visited_robot_id: this.$route.query.broker_id,
+          token: this.visitList.token
+        }
+      });
     },
     noGet() {
       this.vipNotification = false;
@@ -351,8 +354,8 @@ export default {
         path: "/",
         query: {
           robot_id: this.customer_robot_id,
-          broker_id: this.visitList.customer_id,
-          token: this.visitList.token
+          broker_id: this.registers.visitor_id,
+          token: this.registers.token
         }
       });
     },
@@ -365,15 +368,15 @@ export default {
       this.isOwn = false;
     },
     toRegister() {
-      this.$router.push({
+      this.$router.replace({
         path: "/login",
         query: {
           type: "otherLogin",
-          customer_id: this.visitList.customer_id,
+          customer_id: this.registers.visitor_id,
           customer_robot_id: this.customer_robot_id,
           customer_type: this.customer_type,
           visited_robot_id: this.$route.query.broker_id,
-          token: this.visitList.token
+          token: this.registers.token
         }
       });
     },
@@ -430,6 +433,9 @@ export default {
     },
     guanzhu() {
       var that = this;
+      if (that.registers.visitor_type != 1) {
+        that.vipNotification = true;
+      }
       if (that.guanzhuContent == "关注TA") {
         let param = {
           robot_id: that.customer_robot_id,
@@ -438,10 +444,12 @@ export default {
           broker_id: that.registers.visitor_id,
           token: that.registers.token
         };
+        alert("关注请求参数" + JSON.stringify(param));
         let result = guanZhu(param);
         result
           .then(res => {
-            console.log("guanzhu:" + res);
+            alert("关注返回" + JSON.stringify(param));
+
             if (res.result.info == "关注成功") {
               that.guanzhuContent = "已关注";
               //更新关注任务状态，领取经验和金币
@@ -452,8 +460,8 @@ export default {
           .catch(reslove => {
             console.log("error");
           });
-      } else if (this.guanzhuContent == "已关注") {
-        this.CancelFollow = true;
+      } else if (that.guanzhuContent == "已关注") {
+        that.CancelFollow = true;
       }
     },
     //关注好友
@@ -495,29 +503,33 @@ export default {
         that.customer_type = 0;
         that.customer_robot_id = "";
       }
-      // if (this.$route.query.type == "otherLogin") {
-      //   let param = {
-      //     customer_id: this.$route.query.customer_id,
-      //     customer_robot_id: this.$route.query.customer_robot_id,
-      //     customer_type: this.$route.query.customer_type,
-      //     visited_robot_id: this.$route.query.visited_robot_id,
-      //     token: this.$route.query.token
-      //   };
-      // } else {
-      let param = {
-        // customer_id: 33,
-        // customer_robot_id: 33,
-        // customer_type: 1,
-        // visited_robot_id: 93,
-        // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
-        customer_id: that.registers.visitor_id,
-        customer_robot_id: that.customer_robot_id,
-        customer_type: that.customer_type,
-        visited_robot_id: that.$route.query.robot_id,
-        token: that.registers.token
-      };
-      // }
-      alert("请求参数" + JSON.stringify(param));
+      alert(JSON.stringify(that.registers.visitor_type));
+      let param;
+      if (that.$route.query.type == "otherLogin") {
+        param = {
+          customer_id: that.$route.query.customer_id,
+          customer_robot_id: that.$route.query.customer_id,
+          customer_type: 1,
+          visited_robot_id: that.$route.query.visited_robot_id,
+          token: that.$route.query.token
+        };
+        alert("初始化otherLogin" + JSON.stringify(param));
+      } else {
+        param = {
+          // customer_id: 33,
+          // customer_robot_id: 33,
+          // customer_type: 1,
+          // visited_robot_id: 93,
+          // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
+          customer_id: that.registers.visitor_id,
+          customer_robot_id: that.customer_robot_id,
+          customer_type: that.customer_type,
+          visited_robot_id: that.$route.query.robot_id,
+          token: that.registers.token
+        };
+        alert("初始化" + JSON.stringify(param));
+      }
+
       let result = reqVisitedInit(param);
       result
         .then(res => {
@@ -587,8 +599,10 @@ export default {
       let res = reqbebotCode(param);
       res
         .then(res => {
-          console.log("授权回来的" + res);
           that.messages = res.result;
+          if (res.result.headimgurl != null) {
+            that.visitimgurl = res.result.headimgurl;
+          }
           let param = {
             openid: that.messages.openid
             //           "NICKNAME": this.messages.nickname,
@@ -603,15 +617,27 @@ export default {
           result
             .then(res => {
               that.registers = res.result;
+              if (that.$route.query.broker_id == that.registers.visitor_id) {  //是否是本人点进
+                that.$router.push({
+                  path:"/",
+                  query:{
+                    robot_id:that.registers.robot_id,
+                    broker_id:that.registers.visitor_id,
+                    token:that.registers.token,
+                  }
+                });
+              }
               alert("register" + JSON.stringify(that.registers));
               if (that.registers.visitor_type == "0") {
                 that.customer_id = that.visitor_id;
+                that.registers.robot_id = -1;
                 that.isRegister = false;
               } else if (that.registers.visitor_type == "1") {
                 that.broker_id = that.visitor_id;
                 that.isRegister = true;
               } else if (that.registers.visitor_type == "-1") {
                 that.isRegister = false;
+                that.registers.robot_id = -1;
                 let param = {
                   openid: that.messages.openid,
                   nickname: that.messages.nickname,
@@ -1092,7 +1118,7 @@ export default {
       z-index: 999;
       margin: 0 auto 15px;
       justify-content: space-between;
-
+      position: relative;
       input {
         width: 78.3%;
         font-size: 15px;
@@ -1108,8 +1134,10 @@ export default {
       }
 
       .btn {
-        float: right;
-        width: 16.7%;
+        position: absolute;
+        right: 0;
+        top: -1px;
+        width: 15.7%;
         height: 42px;
         line-height: 42px;
         color: #2de2e6;

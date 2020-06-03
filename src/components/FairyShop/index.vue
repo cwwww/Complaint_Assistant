@@ -47,7 +47,7 @@
               <img style="width:16px;height:16px;" :src="money" alt />
               <span>{{goodsList.price}}</span>
             </div>
-            <div style="margin-bottom:25px;">购买Josen的知识库吗？</div>
+            <div style="margin-bottom:25px;">购买{{goodsList.name}}的知识库吗？</div>
             <div class="isOk">
               <div class="isNo" @click="isNo">
                 <span style="color:#666;">取消</span>
@@ -188,11 +188,11 @@ export default {
     "robot_id",
     "token",
     "robot_visitId",
+    "user_type",
     "Othername"
   ],
   created() {
     this.show1 = this.fairyShop_show;
-    alert(this.show1)
   },
   watch: {
     fairyShop_show(newValue) {
@@ -302,13 +302,16 @@ export default {
     }
   },
   mounted() {
-    alert('mounted')
     var that = this;
+    // if(that.robot_id == ''){
+    //   that.robot_id = -1
+    // }
     let param = {
       seller_id: that.robot_visitId,
       buyer_id: that.robot_id,
       user_id: that.broker_id,
-      token:that.token
+      token:that.token,
+      user_type:that.user_type
     };
     alert('请求参数'+JSON.stringify(param))
     let res = reqFairyShop(param);
