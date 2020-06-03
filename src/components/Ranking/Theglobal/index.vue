@@ -91,15 +91,16 @@ export default {
      if(robot_id == this.robot_id_prop){
        this.$emit("rankgohome",false);
      }else{
-       this.$router.push({
-         path:'/HomeOther',
-         query:{
-           robot_id: this.robot_id_prop,
-           broker_id:this.broker_id_prop,
-           robot_visitId:robot_id,
-           token:this.token_prop
-         }
-       })
+       alert(this.robot_id)
+      //  this.$router.push({
+      //    path:'/HomeOther',
+      //    query:{
+      //      robot_id: this.robot_id_prop,
+      //      broker_id:this.broker_id_prop,
+      //      robot_visitId:robot_id,
+      //      token:this.token_prop
+      //    }
+      //  })
      }
 	  }
   }

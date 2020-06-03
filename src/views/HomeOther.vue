@@ -617,7 +617,7 @@ export default {
           result
             .then(res => {
               that.registers = res.result;
-              if (that.$route.query.broker_id == that.registers.visitor_id) {
+              if (that.$route.query.broker_id == that.registers.visitor_id) {  //是否是本人点进
                 that.$router.push({
                   path:"/",
                   query:{
