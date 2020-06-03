@@ -91,7 +91,7 @@ export default {
      if(robot_id == this.robot_id_prop){
        this.$emit("rankgohome",false);
      }else{
-       alert(this.robot_id)
+       alert(robot_id)
       //  this.$router.push({
       //    path:'/HomeOther',
       //    query:{
