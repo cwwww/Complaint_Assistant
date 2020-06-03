@@ -599,8 +599,8 @@ export default {
             });
             // 分享给朋友
             wx.onMenuShareAppMessage({
-              title: "bebot朋友", // 分享标题
-              desc: "描述yiuy朋友", // 分享描述
+              title: "来和我的BeBot聊聊吧", // 分享标题
+              desc: "看看BeBot今天又学会了什么", // 分享描述
               // link: window.location.href,
               link:
                 "https://test-bebot-web.baoxianxia.com.cn/#/" +
