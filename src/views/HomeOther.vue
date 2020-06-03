@@ -493,6 +493,7 @@ export default {
     },
     getHomeInit() {
       var that = this;
+      alert(2222)
       if (that.registers.visitor_type == "0") {
         that.customer_type = 0;
         that.customer_robot_id = "";
@@ -503,6 +504,7 @@ export default {
         that.customer_type = 0;
         that.customer_robot_id = "";
       }
+      alert(JSON.stringify(that.$route.query.type))
       if (that.$route.query.type == "otherLogin") {
         let param = {
           customer_id: that.$route.query.customer_id,
