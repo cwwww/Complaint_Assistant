@@ -157,7 +157,7 @@
       @fairyShopC="FairyShopP"
       :fairyShop_show="fairyShop"
       :broker_id="registers.visitor_id"
-      :robot_id="customer_robot_id"
+      :robot_id="registers.robot_id"
       :token="registers.token"
       :robot_visitId="$route.query.robot_id"
       :Othername="homeInit.name"
@@ -167,7 +167,7 @@
       v-show="CancelFollow"
       @cancelfollowC="CancelFollowP"
       :broker_id="registers.visitor_id"
-      :robot_id="customer_robot_id"
+      :robot_id="registers.robot_id"
       :token="registers.token"
       :cancelfollow="CancelFollow"
       :robot_visitId="$route.query.robot_id"
@@ -177,7 +177,7 @@
       @listc="ListP"
       :list_show="isList"
       :broker_id="registers.visitor_id"
-      :robot_id="customer_robot_id"
+      :robot_id="registers.robot_id"
       :token="registers.token"
       :curIndex="curIndex"
     />
@@ -517,7 +517,6 @@ export default {
         token: that.registers.token
       };
       // }
-      alert("请求参数" + JSON.stringify(param));
       let result = reqVisitedInit(param);
       result
         .then(res => {
@@ -587,7 +586,6 @@ export default {
       let res = reqbebotCode(param);
       res
         .then(res => {
-          console.log("授权回来的" + res);
           that.messages = res.result;
           let param = {
             openid: that.messages.openid

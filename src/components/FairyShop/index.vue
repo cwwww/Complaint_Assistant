@@ -192,7 +192,6 @@ export default {
   ],
   created() {
     this.show1 = this.fairyShop_show;
-    alert(this.show1)
   },
   watch: {
     fairyShop_show(newValue) {
@@ -302,7 +301,6 @@ export default {
     }
   },
   mounted() {
-    alert('mounted')
     var that = this;
     let param = {
       seller_id: that.robot_visitId,
