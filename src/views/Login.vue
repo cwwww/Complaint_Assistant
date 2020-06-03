@@ -156,7 +156,7 @@ export default {
             query: {
               type: "otherLogin",
               customer_id: that.$route.query.customer_id,
-              customer_robot_id: that.$route.query.customer_robot_id,
+              customer_robot_id: that.$route.query.customer_id,
               customer_type: that.$route.query.customer_type,
               visited_robot_id: that.$route.query.visited_robot_id,
               token: that.$route.query.token
