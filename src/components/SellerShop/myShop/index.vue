@@ -102,11 +102,9 @@ export default {
     putaway() {
       let param = {
         goods_id: this.goodsList.id,
-        robot_id: 93 || this.robot_id_prop,
-        user_id: 93 || this.broker_id_prop,
-        token:
-          "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZXg3VDowZHo1d0pIQjVxbTh6WmI4MWhVVVhmNnV5Nkk.ZXlKUVNFOU9SU0k2SWpFNE1qRXdNRGt4T0Rnd0lpd2lTVVFpT2prekxDSnBZWFFpT2pFMU9UQTRNamd6TXpFdU56VXlORGd3TTMwOjFqZXg3VDpnQVJNdGhFYkZDM0I4ZXVTZ1lJN2w4QXN0Snc.7f927d6cc7ad46abb0be8e52483a6d02" ||
-          this.token_prop
+        robot_id:  this.robot_id_prop,
+        user_id: this.broker_id_prop,
+        token: this.token_prop
       };
       let res = reqPutOnShelves(param);
       res

@@ -117,7 +117,6 @@
         </center>
       </div>
       <div class="bottomLine" v-if="goodsList.status !=''"></div>
-      <router-view></router-view>
     </van-popup>
   </div>
 </template>
