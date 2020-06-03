@@ -720,69 +720,31 @@ export default {
         alert("初始化listType" + JSON.stringify(param));
         let result = reqVisitedInit(param);
       result
-        .then(result => {
+        .then(res => {
           this.homeInit = res.result;
           alert("展示" + JSON.stringify(this.homeInit));
           if (this.homeInit.followed) {
-              this.guanzhuContent = "已关注";
-            } else {
-              this.guanzhuContent = "关注TA";
-            }
+            this.guanzhuContent = "已关注";
+          } else {
+            this.guanzhuContent = "关注TA";
+          }
           if (this.homeInit.title == 1) {
             //保险等级
-              this.homeLevel = this.levelbx1;
-            } else if (this.homeInit.title == 2) {
-              this.homeLevel = this.levelbx2;
-            } else if (this.homeInit.level == 3) {
-              this.homeLevel = this.levelbx3;
-            } else if (this.homeInit.level == 4) {
-              this.homeLevel = this.levelbx4;
-            } else if (this.homeInit.level == 5) {
-              this.homeLevel = this.levelbx5;
-            } else if (this.homeInit.level == 6) {
-              this.homeLevel = this.levelbx6;
-            } else if (this.homeInit.level == 7) {
-              this.homeLevel = this.levelbx7;
-            }
-              
-      // this.question = this.inputcon;
-      // let param;
-      // if (this.flag) {
-      //   param = {
-      //     dialog_type: "0",
-      //     customer_id: this.$route.query.customer_id,
-      //     broker_id: this.$route.query.broker_id,
-      //     robot_id: this.$route.query.robot_id,
-      //     speaker: "1",
-      //     content: ".",
-      //     token: this.$route.query.token
-      //   };
-      //   this.flag = false;
-      // } else {
-      //   param = {
-      //     dialog_type: "1",
-      //     customer_id: this.$route.query.customer_id,
-      //     broker_id: this.$route.query.broker_id,
-      //     robot_id: this.$route.query.robot_id,
-      //     speaker: "1",
-      //     content: this.question,
-      //     token: this.$route.query.token
-      //   };
-      // }
-      // let res = reqCusayrob(param);
-      // res
-      //   .then(res => {
-      //     this.answer = res.result.dialog_history.content;
-      //     this.list.push(this.question);
-      //     this.list.push(this.answer);
-      //     this.list2 = that.list.slice(-4);
-      //     if (this.list2[0] == "") {
-      //     }
-      //     this.inputcon = "";
-      //   })
-      //   .catch(reslove => {
-      //     console.log("error");
-      //   });
+            this.homeLevel = this.levelbx1;
+          } else if (this.homeInit.title == 2) {
+            this.homeLevel = this.levelbx2;
+          } else if (this.homeInit.level == 3) {
+            this.homeLevel = this.levelbx3;
+          } else if (this.homeInit.level == 4) {
+            this.homeLevel = this.levelbx4;
+          } else if (this.homeInit.level == 5) {
+            this.homeLevel = this.levelbx5;
+          } else if (this.homeInit.level == 6) {
+            this.homeLevel = this.levelbx6;
+          } else if (this.homeInit.level == 7) {
+            this.homeLevel = this.levelbx7;
+          }
+          // this.getCusayrob();
           //串门成功后，增加金币和经验
           this.chuanmen();
         })
