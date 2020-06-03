@@ -169,7 +169,7 @@ export default {
           if (res.result.status == 0) {
             Toast("下架成功");
             this.isStatus = false;
-            // this.initShop();
+            this.initShop();
           }
         })
         .catch(reslove => {
