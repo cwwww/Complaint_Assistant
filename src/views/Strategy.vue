@@ -25,11 +25,11 @@
       </div>
       <div class="right">
         <ul>
-          <li>和精灵聊天</li>
+          <li>和机器人聊天</li>
           <li>增加你的粉丝数量</li>
           <li>在你的知识库里新增知识</li>
-          <li>到朋友的事务所去串门</li>
-          <li>在商店上架你的知识库供顾客购买</li>
+          <li>去朋友的事务所串门</li>
+          <li>在精灵商店上架你的知识库供顾客购买</li>
         </ul>
       </div>
     </div>
@@ -53,9 +53,11 @@ export default {
 .warp {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 101%;
+  // height:100%;
   // height: 777px;
   background-image: url("../assets/images/bg@2x.png");
+  background-position: -1px,0;
   background-size: cover;
   > .topTitle {
     font-size: 41px;
@@ -88,7 +90,7 @@ export default {
   }
   .content {
     width: 335px;
-    height: 438px;
+    height: 380px;
     background: rgba(255, 255, 255, 1);
     border-radius: 15px;
     margin: 38px auto 75px auto;
@@ -99,13 +101,13 @@ export default {
         > li {
           width: 40px;
           height: 35px;
-          margin-top: 40px;
+          margin-top: 33px;
           > img {
             width: 40px;
             height: 35px;
           }
           &:first-child {
-            margin-top: 45px;
+            margin-top: 40px;
           }
         }
       }
@@ -120,13 +122,15 @@ export default {
           font-weight: 500;
           color: rgba(0, 0, 0, 1);
           line-height: 24px;
-          margin-top: 51px;
-
+          margin-top: 45px;
+          &:first-child {
+            margin-top: 45px;
+          }
           &:nth-child(4) {
-            margin-top: 49px;
+            margin-top: 45px;
           }
           &:last-child {
-            margin-top: 46px;
+            margin-top: 35px;
           }
         }
       }
