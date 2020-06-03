@@ -355,8 +355,8 @@ export default {
         path: "/",
         query: {
           robot_id: this.customer_robot_id,
-          broker_id: this.visitList.customer_id,
-          token: this.visitList.token
+          broker_id: this.registers.visitor_id,
+          token: this.registers.token
         }
       });
     },
@@ -494,10 +494,10 @@ export default {
     },
     getHomeInit() {
       var that = this;
-      if (that.registers.visitor_type == "1") {
+      if (that.registers.visitor_type == "0") {
         that.customer_type = 0;
         that.customer_robot_id = "";
-      } else if (that.registers.visitor_type == "0") {
+      } else if (that.registers.visitor_type == "1") {
         that.customer_type = 1;
         that.customer_robot_id = that.registers.robot_id;
       } else if (that.registers.visitor_type == "-1") {
