@@ -302,6 +302,9 @@ export default {
   },
   mounted() {
     var that = this;
+    if(that.robot_id == ''){
+      that.robot_id = -1
+    }
     let param = {
       seller_id: that.robot_visitId,
       buyer_id: that.robot_id,
