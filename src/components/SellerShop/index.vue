@@ -106,6 +106,9 @@ export default {
     //   this.curIndex = 1;
     //   console.log(this.class);
     // }
+  },
+  activated(){
+    alert(111)
   }
 };
 </script>
