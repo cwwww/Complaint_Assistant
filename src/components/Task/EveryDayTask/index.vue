@@ -155,6 +155,7 @@ export default {
         .catch(reslove => {
           console.log("error");
         });
+      alert("query_dailytask")
     },
     addcoins() {
       // this.bxmove = !this.bxmove;
@@ -171,7 +172,7 @@ export default {
     //   this.broker_id = 33;
     //   this.token = "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1";
     this.queryDailyTask();
-  },
+  }
   
 };
 </script>

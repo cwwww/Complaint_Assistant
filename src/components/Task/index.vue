@@ -27,18 +27,22 @@
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
+        :dailyTaskList="DailyTaskList"
+        ref="dailyTask"
       />
       <NewTask
         v-show="curIndex == 0"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
+        ref = "npTask"
       />
       <ProfessionTask
         v-show="curIndex == 2"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
+        ref = "proTask"
       />
     </van-popup>
   </div>
@@ -47,7 +51,7 @@
 import EveryDayTask from "./EveryDayTask";
 import NewTask from "./NewTask";
 import ProfessionTask from "./ProfessionTask";
-import { taskStatusUpdate } from "../../axios/axios-api";
+import { taskStatusUpdate,getTaskList } from "../../axios/axios-api";
 export default {
   name: "Task",
   components: {
@@ -58,6 +62,7 @@ export default {
   data() {
     return {
       curIndex: 0,
+      DailyTaskList:[],
       show: true,
       broker_id_prop: "",
       robot_id_prop: "",
@@ -103,9 +108,13 @@ export default {
     changeIndex(i) {
       this.curIndex = i;
     },
-
     close() {
       this.$emit("taskc", false);
+    },
+    queryTaskStatus(){
+      alert("queryTask");
+      this.$refs.npTask.getTaskStatus();
+      this.$refs.dailyTask.queryDailyTask();
     }
   },
   mounted() {
@@ -134,6 +143,7 @@ export default {
         console.log("error");
       });
   }
+  
 };
 </script>
 <style lang="scss" scoped>

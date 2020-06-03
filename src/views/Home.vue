@@ -231,6 +231,7 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
+      ref="task"
     />
     <SellerShop
       v-show="isSellerShop"
@@ -473,6 +474,7 @@ export default {
     Task() {
       // 任务
       this.isTask = true;
+      this.$refs.task.queryTaskStatus();
       this.destoryTimer();
     },
     strategy() {
@@ -920,6 +922,7 @@ export default {
     this.getDetail();
     //定时获取粉丝数据
     this.getFensi();
+    this.getReqtaskStatus();
     this.timer = setInterval(this.getFensi, 60000); //定时间隔，
   }
 };
