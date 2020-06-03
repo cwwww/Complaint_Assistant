@@ -618,8 +618,14 @@ export default {
             .then(res => {
               that.registers = res.result;
               if (that.$route.query.broker_id == that.registers.visitor_id) {
-                alert('ninini')
-                that.$router.replace("/");
+                that.$router.push({
+                  path:"/",
+                  query:{
+                    robot_id:that.registers.robot_id,
+                    broker_id:that.registers.visitor_id,
+                    token:that.registers.token,
+                  }
+                });
               }
               alert("register" + JSON.stringify(that.registers));
               if (that.registers.visitor_type == "0") {
