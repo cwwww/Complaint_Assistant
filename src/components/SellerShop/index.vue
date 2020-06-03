@@ -110,10 +110,7 @@ export default {
     // }
   },
   beforeUpdate(){
-alert(2222)
-  },
-  activated(){
-    alert(111)
+alert(this.broker_id)
   }
 };
 </script>
