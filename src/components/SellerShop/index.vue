@@ -109,6 +109,9 @@ export default {
     //   console.log(this.class);
     // }
   },
+  beforeUpdate(){
+alert(2222)
+  },
   activated(){
     alert(111)
   }
