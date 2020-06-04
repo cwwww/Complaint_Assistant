@@ -17,7 +17,7 @@
             <div class="question">
               <div class="q_content" id="q_content">{{i.content}}</div>
               <div class="photo">
-                <img :src="user" v-show="right" alt />
+                <img :src="homeImg" v-show="right" alt />
               </div>
             </div>
           </div>
@@ -86,7 +86,7 @@ export default {
       smallBebot: require("../../assets/images/smallBebot.png")
     };
   },
-  props: ["broker_id", "robot_id", "token", "show_chat", "val"],
+  props: ["broker_id", "robot_id", "token", "show_chat", "val","homeImg"],
   created() {
     this.chat = this.show_chat;
   },

@@ -529,8 +529,8 @@ export default {
             if (res.result.info == "关注成功") {
               that.guanzhuContent = "已关注";
               //更新关注任务状态，领取经验和金币
-              that.guanzhuUpdateTask();
-              that.getHomeInit();
+              this.guanzhuUpdateTask();
+              // that.getHomeInit();
             }
           })
           .catch(reslove => {
@@ -549,9 +549,10 @@ export default {
     },
     //关注好友
     guanzhuUpdateTask() {
-      console.log("[guanzhuUpdateTask]:",this.registers.visited_id)
-      console.log("[guanzhuUpdateTask2]:",this.$router.query.customer_id)
-
+      // console.log(22)
+      this.registers["visitor_id"] = this.$route.query.customer_id;
+      console.log("[guanzhuUpdateTask]:",JSON.stringify(this.registers.visitor_id))
+      // console.log("[guanzhuUpdateTask2]:",this.$router.query.customer_id)
       let param = {
         broker_id: this.registers.visited_id,
         robot_id: this.registers.robot_id,
