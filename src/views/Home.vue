@@ -754,7 +754,7 @@ export default {
         operation_type: 1,
         token: this.$route.query.token
       };
-      // console.log("任务的param:" + JSON.stringify(param));
+      console.log("任务的param:" + JSON.stringify(param));
 
       let result = reqtaskStatus(param);
       result
@@ -786,7 +786,7 @@ export default {
         operation_type: 99,
         token: this.$route.query.token
       };
-      // console.log("updateRobotStatus:" + JSON.stringify(param));
+      console.log("updateRobotStatus:" + JSON.stringify(param));
       let result = reqtaskStatus(param);
       result
         .then(res => {
