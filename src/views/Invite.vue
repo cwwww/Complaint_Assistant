@@ -74,7 +74,7 @@
 		</div>
 		<div class="threeCentent">
 			<span>成功邀请</span>
-			<div class="content" v-for="(recommender,index) in yaoqList.recommendedlist" :key="recommender.id">
+			<div class="content" v-for="(recommender,index) in reverseData "  :key="recommender.id">
 				<div class="left">
 					<p>{{index+1}}</p>
 					<div class="loginImg">
@@ -223,6 +223,13 @@
 			    });
 			}
 		},
+		 computed: {
+
+                reverseData() {
+
+					return this.yaoqList.recommendedlist.reverse();
+				}
+		 },
 		mounted() {
 			let param = {
 				broker_id: this.$route.query.broker_id
