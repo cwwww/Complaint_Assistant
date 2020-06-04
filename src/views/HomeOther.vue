@@ -499,6 +499,7 @@ export default {
     },
     guanzhu() {
       var that = this;
+      alert(that.registers.visitor_type)
       if (that.registers.visitor_type != 1) {
         that.vipNotification = true;
       }
