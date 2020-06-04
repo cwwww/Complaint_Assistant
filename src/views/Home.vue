@@ -103,7 +103,9 @@
           class="talkContent"
           id="talkContent"
           :class="{active:isOwn}"
-        >{{HistoryList.slice(-1)[0].content}}</div>
+        >
+        {{HistoryList.slice(-1)[0].content}}
+        </div>
         <div class="btnTalk">
           <img @click="previousPage" class="leftBtn" :src="nextpage2" alt />
           <img class="rightBtn" @click="nextPage" :src="nextpage" alt />
@@ -223,16 +225,16 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
-    />
-    <Task
-      v-show="isTask"
-      @taskc="TaskP"
-      @taskNotification = "newTaskNtn"
-      :task_show="isTask"
-      :broker_id="$route.query.broker_id"
-      :robot_id="$route.query.robot_id"
-      :token="$route.query.token"
-      ref="task"
+    /><Task
+    v-show="isTask"
+    @taskc="TaskP"
+    @taskNotification ="newTaskNtn"
+    @updateStatus="updateRobotStatus"
+    :task_show="isTask"
+    :broker_id="$route.query.broker_id"
+    :robot_id="$route.query.robot_id"
+    :token="$route.query.token"
+    ref="task"
     />
     <SellerShop
       v-show="isSellerShop"
@@ -374,7 +376,7 @@ export default {
     TaskP(data) {
       this.isTask = data;
     },
-    newTaskNtn(data){
+    newTaskNtn(data) {
       this.showNewIcon = data;
     },
     rankgohome(data) {
@@ -395,7 +397,7 @@ export default {
     toInvite() {
       this.$router.push({
         path: "/invite",
-        query: { 
+        query: {
           broker_id: this.$route.query.broker_id,
           robot_id: this.$route.query.robot_id,
           token: this.$route.query.token
@@ -771,7 +773,34 @@ export default {
           console.log("error");
         });
     },
-
+    updateRobotStatus() {
+      let param = {
+        broker_id: this.$route.query.broker_id,
+        robot_id: this.$route.query.robot_id,
+        operation_type: 99,
+        token: this.$route.query.token
+      };
+      console.log("任务的param:" + param);
+      let result = reqtaskStatus(param);
+      result
+        .then(res => {
+          //更新金币
+          this.homeInit.bcoin = res.result.bcoin;
+          //更新等级
+          this.homeInit.level = res.result.level;
+          //更新“我的”经验
+          this.homeInit.exp = res.result.exp;
+          //更新总经验
+          this.homeInit.level_exp = res.result.level_exp;
+          //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
+          this.showNewIcon = res.result.task_notification;
+          
+          console.log("Robot Status Updated!!")
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
+    },
     getACchat() {
       let param;
       if (this.isInput) {
@@ -1000,7 +1029,7 @@ export default {
         left: -62px;
         position: absolute;
         .invitationicon {
-          width:60px;
+          width: 60px;
         }
       }
       .headPortrait {

@@ -374,10 +374,9 @@ export default {
               } else if (task_id == "np5") {
                 this.status5 = "已完成";
               }
-              if (res.result.level > this.level) {
-                this.$alert("恭喜你升级了！", "提示");
-              }
+              
             }
+            this.$emit('updateStatus');
           })
           .catch(reslove => {
             console.log("error");
@@ -385,7 +384,6 @@ export default {
       }
     },
     getTaskStatus(){
-      this.newTaskNotification = false;
       let param = {
         broker_id: this.broker_id_prop,
         robot_id: this.robot_id_prop,
@@ -463,12 +461,14 @@ export default {
             this.status4War = "threes";
           }
           this.level = res.result.level;
+          this.$emit('npNotification',this.newTaskNotification)
+          console.log("in np component: ",this.newTaskNotification)
         })
         .catch(reslove => {
           console.log("error");
         });
-      this.$emit('npNotification',this.newTaskNotification)
-      console.log("in np component: ",this.newTaskNotification)
+      
+      
     }
   }
 };
