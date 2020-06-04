@@ -536,7 +536,7 @@ export default {
               that.registers["robot_id"] = that.$route.query.customer_id;
               that.registers["token"] = that.$route.query.token;
               that.guanzhuUpdateTask();
-              // that.getHomeInit();
+              that.getHomeInit();
             }
           })
           .catch(reslove => {
@@ -556,16 +556,12 @@ export default {
     //关注好友
     guanzhuUpdateTask() {
       let param = {
-        broker_id: this.registers.visited_id,
+        broker_id: this.registers.visitor_id,
         robot_id: this.registers.robot_id,
         operation_type: 6,
-        followed_robot_id: this.$route.query.robot_visitId,
+        followed_robot_id: this.$route.query.robot_id,
         token: this.registers.token
       };
-      console.log(
-        "[guanzhuUpdateTask]:",
-        JSON.stringify(param)
-      );
       let result = reqtaskStatus(param);
       result
         .then(res => {

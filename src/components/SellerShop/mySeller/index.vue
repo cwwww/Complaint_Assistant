@@ -5,7 +5,7 @@
         class="wrap"
         v-for="(i, index) in list"
         :key="index"
-        @click="toHomeOther(i.broker_id,i.robot_id)"
+        @click="toHomeOther(i.buyer_broker_id,i.buyer_robot_id)"
       >
         <div class="left">
           <div class="leftBigLogon">
@@ -71,11 +71,7 @@ export default {
       robot_id: this.robot_id_prop,
       user_id: this.broker_id_prop,
       token: this.token_prop
-      // robot_id: 33,
-      // user_id: 33,
-      // token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZmZrVToyNk1NajVuOW1RSVpkU1dkRXdxbEY3NkxKRUU.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9UQTVPVGs0T0RZdU5UWXdNREF5Tm4wOjFqZmZrVTpFV0UxcTFiLVM3VXpFWnFub0ZWbmtxX2N1NG8.8ac7a581223587bff27fb3370b9d16a3"
-    };
-
+     };
     let res = reqShowHistory(param);
     res
       .then(res => {

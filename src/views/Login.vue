@@ -244,8 +244,12 @@ export default {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
       this.getCode();
       this.impower();
+<<<<<<< HEAD
       this.putStorge();
       this.getStorge();
+=======
+      
+>>>>>>> ea5206366b08799e15a2c71915e14607bb0ce7a7
     } else {
       // 别的业务逻辑
     }
