@@ -201,6 +201,7 @@
     <Repository
       v-show="isRep"
       @RepositoryC="RepositoryP"
+      @repgohome="repgohome"
       :Repository_show="isRep"
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
@@ -210,6 +211,7 @@
       v-show="isList"
       @listc="ListP"
       :list_show="isList"
+      @listgohome="listgohome"
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
@@ -380,6 +382,12 @@ export default {
     },
     rankgohome(data) {
       this.isRanking = data;
+    },
+    listgohome(data) {
+      this.isList = data;
+    },
+    repgohome(data) {
+      this.isList = data;
     },
     RankingP(data) {
       this.isRanking = data;

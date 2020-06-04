@@ -21,26 +21,41 @@
           </li>
         </ul>
       </div>
-         <Bean v-show='curIndex == 1'  :broker_id_prop='broker_id_prop' :robot_id_prop="robot_id_prop" :token_prop="token_prop"/>
-         <Friend v-show='curIndex == 0' :broker_id_prop='broker_id_prop' :robot_id_prop="robot_id_prop" :token_prop="token_prop"/>
+      <Bean
+        v-show="curIndex == 1"
+        :broker_id_prop="broker_id_prop"
+        :robot_id_prop="robot_id_prop"
+        :token_prop="token_prop"
+             v-bind="$attrs"
+        v-on="$listeners"
+      />
+      <Friend
+        v-show="curIndex == 0"
+        :broker_id_prop="broker_id_prop"
+        :robot_id_prop="robot_id_prop"
+        :token_prop="token_prop"
+             v-bind="$attrs"
+        v-on="$listeners"
+      />
     </van-popup>
   </div>
 </template>
 <script>
-import Bean from './Bean'
-import Friend from './Friend'
+import Bean from "./Bean";
+import Friend from "./Friend";
 export default {
-    components:{
-        Bean,Friend
-    },
+  components: {
+    Bean,
+    Friend
+  },
   name: "List",
-  
+
   data() {
     return {
       show1: true,
-      broker_id_prop:'',
-      robot_id_prop:'',
-      token_prop:'',
+      broker_id_prop: "",
+      robot_id_prop: "",
+      token_prop: "",
       lists: [
         {
           name: "Friend",
@@ -53,21 +68,21 @@ export default {
       ]
     };
   },
-  props: ["list_show", "broker_id", "robot_id", "token",'curIndex'],
+  props: ["list_show", "broker_id", "robot_id", "token", "curIndex"],
+  inheritAttrs: false,
   created() {
     this.show1 = this.list_show;
-    this.broker_id_prop=this.broker_id;
-    this.robot_id_prop=this.robot_id;
-    this.token_prop=this.token;
+    this.broker_id_prop = this.broker_id;
+    this.robot_id_prop = this.robot_id;
+    this.token_prop = this.token;
   },
   watch: {
     list_show(newValue) {
       this.show1 = newValue;
     }
   },
-  mounted() {
-  },
-  
+  mounted() {},
+
   methods: {
     changeIndex(i) {
       this.curIndex = i;

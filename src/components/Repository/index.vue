@@ -138,6 +138,8 @@
         :token_prop="token_prop"
         :type="type"
       />
+                <!-- v-bind="$attrs"
+        v-on="$listeners" -->
     </van-popup>
   </div>
 </template>
@@ -194,6 +196,7 @@ export default {
     };
   },
   props: ["broker_id", "robot_id", "token", "Repository_show"],
+  // inheritAttrs: false,
   created() {
     Bus.$on("teachyou", data => {
       alert(JSON.stringify(data));
@@ -345,13 +348,15 @@ export default {
     },
     tovisit: function(broker_id, robot_id) {
       this.$router.push({
-        path: "/HomeOther",
-        query: {
-          robot_id: this.robot_id_prop,
-          broker_id: this.broker_id_prop,
-          robot_visitId: robot_id,
-          token: this.token_prop
-        }
+         path:'/HomeOther',
+         query:{
+           type:'listType',
+           broker_id:broker_id,
+           robot_id: robot_id,
+           customer_id:this.broker_id_prop,
+           customer_robot_id:this.robot_id_prop,
+           token:this.token_prop
+         }
       });
     },
     toInvite() {

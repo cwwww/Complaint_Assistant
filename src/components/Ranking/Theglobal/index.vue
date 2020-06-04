@@ -90,8 +90,6 @@ export default {
      if(robot_id == this.robot_id_prop){
        this.$emit("rankgohome",false);
      }else{
-       alert('global'+JSON.stringify(this.token_prop))
-       alert('global'+JSON.stringify(this.token_prop))
        this.$router.push({
          path:'/HomeOther',
          query:{
@@ -103,7 +101,6 @@ export default {
            token:this.token_prop
          }
        })
-        alert('global'+JSON.stringify(query))
      }
 	  }
   }
