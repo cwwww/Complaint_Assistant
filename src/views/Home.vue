@@ -498,7 +498,7 @@ export default {
     },
     toPlan() {
       window.parent.location.href =
-        "https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=4a68acc421cf419084a3017af9730379&token=b4cb258a-b569-445b-b297-34d9f1503c16";
+        "https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=0c5ffe9625204158b19b173b593408ae&token=0bd5266c-a788-463f-aa35-674ef252a058";
       this.destoryTimer();
     },
     frang(curIndex) {
