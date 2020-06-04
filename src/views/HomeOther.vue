@@ -500,7 +500,7 @@ export default {
     guanzhu() {
       var that = this;
       alert(that.registers.visitor_type)
-      if (that.registers.visitor_type != 1) {
+      if (that.registers.visitor_type != 1 && this.$route.query.type != "listType") {
         that.vipNotification = true;
       }
       if (that.guanzhuContent == "关注TA") {

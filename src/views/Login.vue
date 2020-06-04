@@ -150,19 +150,6 @@ export default {
         res
           .then(res => {
             that.messages = res.result;
-            if (that.$route.query.type == "otherLogin") {
-            that.$router.push({
-            path: "/HomeOther",
-            query: {
-              type: "otherLogin",
-              customer_id: that.$route.query.customer_id,
-              customer_robot_id: that.$route.query.customer_robot_id,
-              customer_type: that.$route.query.customer_type,
-              visited_robot_id: that.$route.query.visited_robot_id,
-              token: that.$route.query.token      
-            }
-            });
-            } else {
             that.$router.push({
               path: "/",
               query: {
@@ -171,7 +158,6 @@ export default {
                 token: that.messages.token
               }
             });
-            }
           })
           .catch(reslove => {
             console.log("error");
