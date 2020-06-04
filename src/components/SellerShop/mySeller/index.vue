@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="main" v-if="list.length>0">
-      <div class="wrap" v-for="(i, index) in list" :key="index">
+      <div
+        class="wrap"
+        v-for="(i, index) in list"
+        :key="index"
+        @click="toHomeOther(i.broker_id,i.robot_id)"
+      >
         <div class="left">
           <div class="leftBigLogon">
             <img :src="i.head_icon" v-show="i.head_icon != null" alt />
@@ -19,7 +24,7 @@
           <img :src="money" alt />
           <div>{{i.goods_price}}</div>
         </div>
-        <div class="rightLogin" @click="toHomeOther(item.robot_id)">
+        <div class="rightLogin">
           <img :src="img1" alt />
         </div>
       </div>
@@ -47,13 +52,15 @@ export default {
   },
   props: ["broker_id_prop", "robot_id_prop", "token_prop"],
   methods: {
-    toHomeOther(robot_id) {
+    toHomeOther:function(broker_id, robot_id) {
       this.$router.push({
         path: "/HomeOther",
         query: {
-          robot_id: this.robot_id_prop,
-          broker_id: this.broker_id_prop,
-          robot_visitId: robot_id,
+          type: "listType",
+          broker_id: broker_id,
+          robot_id: robot_id,
+          customer_id: this.broker_id_prop,
+          customer_robot_id: this.robot_id_prop,
           token: this.token_prop
         }
       });

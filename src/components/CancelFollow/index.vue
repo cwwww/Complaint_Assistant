@@ -6,7 +6,7 @@
       closeable
       round
       position="bottom"
-      :style="{ height: '28%',color:'black'}"
+      :style="{ height: '36%',color:'black'}"
       @close="close"
     >
       <div class="centerContent">
