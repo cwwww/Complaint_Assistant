@@ -299,8 +299,10 @@ export default {
     Fairy() {
       //买家精灵商店
       if (this.registers.visitor_type == -1) {
+        alert('买家精灵商店')
         this.vipNotification = true;
       } else {
+        alert('买家精灵商店打开')
         this.fairyShop = true;
       }
     },
