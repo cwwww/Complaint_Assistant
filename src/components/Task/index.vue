@@ -28,23 +28,25 @@
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
         :dailyTaskList="DailyTaskList"
-        ref="dailyTask"
-        @dailyNotification="dailyNotification"
+        ref="dailytask"
+        v-bind="$attrs"
+        v-on="$listeners"
       />
       <NewTask
         v-show="curIndex == 0"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
-        ref ="npTask"
-        @npNotification="npNotification"
+        ref="nptask"
+        v-bind="$attrs"
+        v-on="$listeners"
       />
       <ProfessionTask
         v-show="curIndex == 2"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
-        ref = "proTask"
+        ref="proTask"
       />
     </van-popup>
   </div>
@@ -53,7 +55,7 @@
 import EveryDayTask from "./EveryDayTask";
 import NewTask from "./NewTask";
 import ProfessionTask from "./ProfessionTask";
-import { taskStatusUpdate,getTaskList } from "../../axios/axios-api";
+import { taskStatusUpdate, getTaskList } from "../../axios/axios-api";
 export default {
   name: "Task",
   components: {
@@ -64,7 +66,7 @@ export default {
   data() {
     return {
       curIndex: 0,
-      DailyTaskList:[],
+      DailyTaskList: [],
       show: true,
       broker_id_prop: "",
       robot_id_prop: "",
@@ -89,8 +91,7 @@ export default {
       np3: "",
       np4: "",
       np5: "",
-      npNtn: false,
-      dailyNtn:false
+      newTaskNtn:false
     };
   },
   props: ["task_show", "broker_id", "robot_id", "token"],
@@ -114,25 +115,27 @@ export default {
     },
     close() {
       this.$emit("taskc", false);
-      this.$emit('taskNotification',this.npNtn||this.dailyNtn)
-      alert("NTN:",this.npNtn,this.dailyNtn)
+      this.allTaskStatus()      
     },
-    queryTaskStatus(){
-      alert("queryTask");
-      this.$refs.npTask.getTaskStatus();
-      this.$refs.dailyTask.queryDailyTask();
+    queryTaskStatus() {
+      this.$refs.nptask.getTaskStatus();
+      this.$refs.dailytask.queryDailyTask();
     },
-    npNotification(data){
-      this.npNtn=data
-      alert("npNTN:",data)
-
-    },
-    dailyNotification(data){
-      this.dailyNtn = data
-      alert("dailyNTN:",data)
-
+    allTaskStatus() {
+      let param = {
+        broker_id: this.broker_id_prop,
+        robot_id: this.robot_id_prop,
+        operation_type: 99,
+        token: this.token_prop
+      };
+      let result = taskStatusUpdate(param);
+      console.log("get all task status");
+      result.then(res => {
+        this.newTaskNtn = res.result.task_notification;
+        this.$emit("taskNotification",this.newTaskNtn);
+        console.log("[allTaskStatus]:this.newTaskNtn= ",this.newTaskNtn)
+      });
     }
-
   },
   mounted() {
     //获取任务所有的状态
@@ -160,7 +163,6 @@ export default {
         console.log("error");
       });
   }
-  
 };
 </script>
 <style lang="scss" scoped>

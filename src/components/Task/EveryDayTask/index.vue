@@ -153,15 +153,16 @@ export default {
           console.log("每日工作领取：" + res);
           this.EverydayList = res.result;
           console.log("EverydayList", this.EverydayList);
-          for (var task_id in this.EverydayList) {
-            console.log("status: ",task_id,":",this.EverydayList[task_id].status);
-            if (this.EverydayList[task_id].status == 1) {
-              this.newTaskNotification = true;
-              break;
-            }
-          }
-          this.$emit("dailyNotification", this.newTaskNotification);
-          console.log("in daily component: ", this.newTaskNotification);
+          // for (var task_id in this.EverydayList) {
+          //   console.log("status: ",task_id,":",this.EverydayList[task_id].status);
+          //   if (this.EverydayList[task_id].status == 1) {
+          //     this.newTaskNotification = true;
+          //     break;
+          //   }
+          // }
+          // this.$emit("dailyNotification", this.newTaskNotification);
+          // console.log("in daily component: ", this.newTaskNotification);
+          this.$emit('updateStatus')
         })
         .catch(reslove => {
           console.log("error");
