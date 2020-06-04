@@ -27,11 +27,8 @@
           <div class="infor">
             <div class="swsName">{{homeInit.name}}&nbsp;事务所</div>
             <img class="line" :src="line" alt />
-
             <div class="linebg" :style="{'width': linewidthData}"></div>
-
             <img class="experience" :src="experience" alt />
-
             <div class="ArticleExperience">{{homeInit.exp}}/{{homeInit.level_exp}}</div>
             <div class="level">Lv.{{homeInit.level}}</div>
             <div class="invitation" @click="toInvite">
@@ -284,6 +281,7 @@ export default {
   },
   data() {
     return {
+      content: "",
       HistoryList: [],
       toget: "",
       showoverlay: true,
@@ -698,7 +696,7 @@ export default {
       res
         .then(res => {
           this.HistoryList = res.result;
-          this.list2 = this.HistoryList.slice(-5);
+          this.list2 = this.HistoryList.slice(-3);
           // console.log("error1"+JSON.stringify(this.list2[0]));
         })
         .catch(reslove => {

@@ -162,7 +162,7 @@
       :robot_visitId="$route.query.robot_id"
       :Othername="homeInit.name"
       :user_type="registers.visitor_type"
-      v-if="registers.token"
+      v-if="$route.query.robot_id"
     />
     <CancelFollow
       v-show="CancelFollow"
@@ -302,7 +302,12 @@ export default {
         alert('买家精灵商店')
         this.vipNotification = true;
       } else {
-        alert('买家精灵商店打开')
+        alert( this.$route.query.customer_id)
+        // this.registers.visitor_id = this.$route.query.customer_id
+        // this.registers.robot_id = this.$route.query.customer_id
+        // this.registers.token = this.$route.query.token
+        // this.$route.query.robot_id = this.$route.query.robot_id
+        // this.registers.visitor_type = 1
         this.fairyShop = true;
       }
     },
@@ -345,7 +350,7 @@ export default {
           that.answer = res.result.dialog_history.content;
           that.list.push(this.question);
           that.list.push(this.answer);
-          that.list2 = that.list.slice(-4);
+          that.list2 = that.list.slice(-3);
           if (that.list2[0] == "") {
           }
           that.inputcon = "";
@@ -435,7 +440,7 @@ export default {
               that.answer = res.result.dialog_history.content;
               that.list.push(this.question);
               that.list.push(this.answer);
-              that.list2 = that.list.slice(-4);
+              that.list2 = that.list.slice(-3);
               if (that.list2[0] == "") {
               }
               that.inputcon = "";
@@ -488,7 +493,7 @@ export default {
           that.answer = res.result.dialog_history.content;
           that.list.push(this.question);
           that.list.push(this.answer);
-          that.list2 = that.list.slice(-4);
+          that.list2 = that.list.slice(-3);
           if (that.list2[0] == "") {
           }
           that.inputcon = "";
@@ -782,6 +787,7 @@ export default {
       // 别的逻辑
     }
     if (this.$route.query.type == "listType") {
+
       let param = {
         customer_id: this.$route.query.customer_id,
         customer_robot_id: this.$route.query.customer_id,
@@ -789,12 +795,14 @@ export default {
         visited_robot_id: this.$route.query.robot_id,
         token: this.$route.query.token
       };
+      window.localStorage.setItem('customer_id',this.$route.query.customer_id)
+      alert(window.localStorage.getItem('customer_id'))
       alert("初始化listType" + JSON.stringify(param));
       let result = reqVisitedInit(param);
       result
         .then(resolve => {
           this.homeInit = resolve.result;
-          alert("展示" + JSON.stringify(this.homeInit));
+          // alert("展示" + JSON.stringify(this.homeInit));
           if (this.homeInit.followed) {
             this.guanzhuContent = "已关注";
           } else {
@@ -817,6 +825,7 @@ export default {
             this.homeLevel = this.levelbx7;
           }
           this.question = this.inputcon;
+          
           let param;
           if (this.flag) {
             param = {
@@ -842,14 +851,14 @@ export default {
               customer_type: 1
             };
           }
-          alert(JSON.stringify(param));
+          // alert(JSON.stringify(param));
           let res = reqCusayrob(param);
           res
             .then(res => {
               this.answer = res.result.dialog_history.content;
               this.list.push(this.question);
               this.list.push(this.answer);
-              this.list2 = this.list.slice(-4);
+              this.list2 = this.list.slice(-3);
               if (this.list2[0] == "") {
               }
               this.inputcon = "";

@@ -45,53 +45,22 @@ export default {
       vipShop: require("../../../assets/images/包月会员@2x.png")
     };
   },
+  props: ["broker_id_prop", "robot_id_prop", "token_prop"],
+  created(){
+// console.log(this.broker_id_prop)
+  },
   methods: {
     toInvite() {
-      this.$router.replace("/Invite");
+      this.$router.push({
+        path:"/Invite",
+        query:{
+          broker_id:this.broker_id_prop
+        }
+      });
     }
   },
   mounted() {
-    let param = {
-      robot_id: this.robot_id_prop,
-      user_id: this.broker_id_prop,
-      token: this.token_prop
-    };
-
-    let res = reqMyShop(param);
-    res
-      .then(res => {
-        console.log(res);
-        var that = this;
-        that.goodsList = res.result.goods_list[0];
-        console.log(that.goodsList);
-        if (that.goodsList.status == 1) {
-          that.goodsList.status = "上架";
-          this.isStatus = false;
-        } else {
-          that.goodsList.status = "下架";
-          this.isStatus = true;
-        }
-        if (that.goodsList.level == 1) {
-          //保险等级
-          that.levelbx = this.levelbx1;
-        } else if (that.goodsList.level == 2) {
-          that.levelbx = this.levelbx2;
-        } else if (that.goodsList.level == 3) {
-          that.levelbx = this.levelbx3;
-        } else if (that.goodsList.level == 4) {
-          that.levelbx = this.levelbx4;
-        } else if (that.goodsList.level == 5) {
-          that.levelbx = this.levelbx5;
-        } else if (that.goodsList.level == 6) {
-          that.levelbx = this.levelbx6;
-        } else if (that.goodsList.level == 7) {
-          that.levelbx = this.levelbx7;
-        }
-        this.star = that.goodsList.score;
-      })
-      .catch(reslove => {
-        console.log("error");
-      });
+    
   }
 };
 </script>

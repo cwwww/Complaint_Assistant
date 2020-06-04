@@ -313,7 +313,6 @@ export default {
       token:that.token,
       user_type:that.user_type
     };
-    alert('请求参数'+JSON.stringify(param))
     let res = reqFairyShop(param);
     res
       .then(res => {
