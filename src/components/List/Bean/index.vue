@@ -1,7 +1,7 @@
 <template>
   <div class="main" v-if="baenstList.length>0">
     <div v-for="(item, idx) in baenstList" :key="idx">
-      <div class="warp" @click="visitFollower(item.robot_id)">
+      <div class="warp" @click="visitFollower(item.broker_id,item.robot_id)">
         <div class="left">
           <div class="littleLeft">
             <img :src="item.headimgurl === null ? img4 : item.headimgurl" alt="error" />
@@ -84,18 +84,24 @@ export default {
   },
 
   methods: {
-    visitFollower: function(robot_id) {
-      this.$router.push({
-        path: "/HomeOther",
-        query: {
-          robot_id: this.robot_id_prop,
-          broker_id: this.broker_id_prop,
-          robot_visitId: robot_id,
-          token: this.token_prop
-        }
-      });
+    visitFollower: function(broker_id, robot_id) {
+      if (robot_id == this.robot_id_prop) {
+        this.$emit("listgohome", false);
+      } else {
+        this.$router.push({
+          path: "/HomeOther",
+          query: {
+            type: "listType",
+            broker_id: broker_id,
+            robot_id: robot_id,
+            customer_id: this.broker_id_prop,
+            customer_robot_id: this.robot_id_prop,
+            token: this.token_prop
+          }
+        });
+      }
     },
-    follow: function(followed_robot_id,item) {
+    follow: function(followed_robot_id, item) {
       let param = {
         operation_type: 0,
         robot_id: this.robot_id_prop,
@@ -103,11 +109,9 @@ export default {
         followed_robot_id: followed_robot_id,
         token: this.token_prop
       };
-      guanZhu(param)
-      item.followed = !item.followed
-
+      guanZhu(param);
+      item.followed = !item.followed;
     }
-
   }
 };
 </script>

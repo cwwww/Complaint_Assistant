@@ -88,21 +88,23 @@ props: ["broker_id_prop", "robot_id_prop", "token_prop"],
   },
   methods:{
 	 clickThis:function(broker_id,robot_id){
-     if(robot_id = this.robot_id_prop){
+     if(robot_id == this.robot_id_prop){
         this.$emit("rankgohome",false);
      }else{
-
        this.$router.push({
          path:'/HomeOther',
          query:{
-           robot_id: this.robot_id_prop,
-           broker_id:this.broker_id_prop,
-           robot_visitId:robot_id,
+           type:'listType',
+           broker_id:broker_id,
+           robot_id: robot_id,
+           customer_id:this.broker_id_prop,
+           customer_robot_id:this.robot_id_prop,
            token:this.token_prop
          }
        })
      }
-	 },
+   },
+   
   }
 };
 </script>
