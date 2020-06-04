@@ -802,20 +802,8 @@ export default {
         visited_robot_id: this.$route.query.robot_id,
         token: this.$route.query.token
       };
-<<<<<<< HEAD
-      // Initialize register info
-      this.registers['robot_id'] = this.$route.query.customer_id;
-      this.registers['visitor_id'] =this.$route.query.customer_id;
-      this.registers['token'] = this.$route.query.token
-      console.log("[registers info1!]:",this.$route.query.customer_robot_id)
-      console.log("[registers info2!]:",this.registers['robot_id'] )
-      console.log("[registers info2!]:",this.registers.token )
-
-
-=======
       window.localStorage.setItem('customer_id',this.$route.query.customer_id)
       alert(window.localStorage.getItem('customer_id'))
->>>>>>> 321654ab69ade8d295c55dda3e8ec4451e45172e
       alert("初始化listType" + JSON.stringify(param));
       let result = reqVisitedInit(param);
       result
