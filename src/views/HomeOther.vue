@@ -304,6 +304,10 @@ export default {
         alert("买家精灵商店");
         this.vipNotification = true;
       } else {
+      this.registers["visitor_id"] = this.$route.query.customer_id;
+      this.registers["robot_id"] = this.$route.query.customer_id;
+      this.registers["token"] = this.$route.query.token;
+      this.registers["visitor_type"] = 1
         this.fairyShop = true;
       }
     },
@@ -538,8 +542,6 @@ export default {
         this.$refs.cancelFollow.followName = this.homeInit.name
         console.log("[cancelFollow img:]",this.homeInit.headimgurl)
         console.log("[Register info]",JSON.stringify(this.registers))
-
-        
       }
     },
     changeFollowStatus(){
