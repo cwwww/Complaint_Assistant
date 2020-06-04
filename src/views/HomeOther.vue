@@ -766,7 +766,8 @@ export default {
               speaker: "1",
               content: ".",
               customer_id: this.$route.query.customer_id,
-              token: this.$route.query.token
+              token: this.$route.query.token,
+              customer_type:1
             };
             this.flag = false;
           } else {
@@ -777,7 +778,8 @@ export default {
               robot_id: this.$route.query.robot_id,
               speaker: "1",
               content: this.question,
-              token: this.$route.query.token
+              token: this.$route.query.token,
+              customer_type:1
             };
           }
           alert(JSON.stringify(param))
