@@ -103,9 +103,7 @@
           class="talkContent"
           id="talkContent"
           :class="{active:isOwn}"
-        >
-        {{HistoryList.slice(-1)[0].content}}
-        </div>
+        >{{HistoryList.slice(-1)[0].content}}</div>
         <div class="btnTalk">
           <img @click="previousPage" class="leftBtn" :src="nextpage2" alt />
           <img class="rightBtn" @click="nextPage" :src="nextpage" alt />
@@ -225,16 +223,17 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
-    /><Task
-    v-show="isTask"
-    @taskc="TaskP"
-    @taskNotification ="newTaskNtn"
-    @updateStatus="updateRobotStatus"
-    :task_show="isTask"
-    :broker_id="$route.query.broker_id"
-    :robot_id="$route.query.robot_id"
-    :token="$route.query.token"
-    ref="task"
+    />
+    <Task
+      v-show="isTask"
+      @taskc="TaskP"
+      @taskNotification="newTaskNtn"
+      @updateStatus="updateRobotStatus"
+      :task_show="isTask"
+      :broker_id="$route.query.broker_id"
+      :robot_id="$route.query.robot_id"
+      :token="$route.query.token"
+      ref="task"
     />
     <SellerShop
       v-show="isSellerShop"
@@ -766,7 +765,7 @@ export default {
           var expLine = 0;
           //99为进度条px值
           expLine = (this.homeInit.exp / this.homeInit.level_exp) * 99;
-          (this.linewidthData = expLine + "px");
+          this.linewidthData = expLine + "px";
         })
         .catch(reslove => {
           console.log("[ERROR] in getReqtaskStatus function");
@@ -798,8 +797,7 @@ export default {
           //99为进度条px值
           expLine = (this.homeInit.exp / this.homeInit.level_exp) * 99;
           (this.linewidthData = expLine + "px"),
-          
-          console.log("Robot Status Updated!!");
+            console.log("Robot Status Updated!!");
         })
         .catch(reslove => {
           console.log("[ERROR] in updateRobotStatus function");
@@ -876,8 +874,8 @@ export default {
           var expLine = 0;
           //99为进度条px值
           expLine = (this.homeInit.exp / this.homeInit.level_exp) * 99;
-          (this.linewidthData = expLine + "px");
-            // console.log("this.linewidthData", this.linewidthData);
+          this.linewidthData = expLine + "px";
+          // console.log("this.linewidthData", this.linewidthData);
           // alert(JSON.stringify(this.homeInit))
           if (this.homeInit.title == 1) {
             //保险等级
@@ -955,9 +953,9 @@ export default {
     //   token:this.$route.query.token,
     // }
     // window.localStorage.setItem('personal',JSON.stringify(personalData))
-    
+
     // alert(JSON.stringify(JSON.parse(window.localStorage.getItem("personal"))))
-    
+
     this.getHomeInit();
     this.getDetail();
     //定时获取粉丝数据
@@ -973,9 +971,9 @@ export default {
   overflow: visible;
 }
 .m_xstrat {
-  position: fixed;
-  left: 20px;
-  top: 210px;
+  position: absolute;
+  top: 190px;
+  left: -60px;
   text-align: center;
   cursor: pointer;
 }
@@ -1103,7 +1101,7 @@ export default {
         .level {
           position: absolute;
           top: 26px;
-          right: -33px;
+          right: -50px;
           font-size: 11px;
           font-family: DINAlternate-Bold, DINAlternate;
           font-weight: bold;
