@@ -743,19 +743,19 @@ export default {
           if (this.homeInit.title == 1) {
             //保险等级
             this.homeLevel = this.levelbx1;
-          } else if (this.homeInit.title == 2) {
-            this.homeLevel = this.levelbx2;
-          } else if (this.homeInit.level == 3) {
-            this.homeLevel = this.levelbx3;
-          } else if (this.homeInit.level == 4) {
-            this.homeLevel = this.levelbx4;
-          } else if (this.homeInit.level == 5) {
-            this.homeLevel = this.levelbx5;
-          } else if (this.homeInit.level == 6) {
-            this.homeLevel = this.levelbx6;
-          } else if (this.homeInit.level == 7) {
-            this.homeLevel = this.levelbx7;
-          }
+            } else if (this.homeInit.title == 2) {
+              this.homeLevel = this.levelbx2;
+            } else if (this.homeInit.level == 3) {
+              this.homeLevel = this.levelbx3;
+            } else if (this.homeInit.level == 4) {
+              this.homeLevel = this.levelbx4;
+            } else if (this.homeInit.level == 5) {
+              this.homeLevel = this.levelbx5;
+            } else if (this.homeInit.level == 6) {
+              this.homeLevel = this.levelbx6;
+            } else if (this.homeInit.level == 7) {
+              this.homeLevel = this.levelbx7;
+            }
           this.question = this.inputcon;
           let param;
           if (this.flag) {
@@ -780,6 +780,7 @@ export default {
               token: this.registers.token
             };
           }
+          alert(JSON.stringify(param))
           let res = reqCusayrob(param);
           res
             .then(res => {
