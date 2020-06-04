@@ -747,6 +747,11 @@ export default {
         operation_type: 1,
         token: this.$route.query.token
       };
+<<<<<<< HEAD
+      console.log("任务的param:" + JSON.stringify(param));
+
+=======
+>>>>>>> 89c1b69d82b1dc74637841b95f2edd349f7d125d
       let result = reqtaskStatus(param);
       result
         .then(res => {
@@ -760,9 +765,18 @@ export default {
           this.homeInit.level_exp = res.result.level_exp;
           //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
           this.showNewIcon = res.result.task_notification;
+          //
+          var expLine = 0;
+          //99为进度条px值
+          expLine = (this.homeInit.exp / this.homeInit.level_exp) * 99;
+          (this.linewidthData = expLine + "px");
         })
         .catch(reslove => {
+<<<<<<< HEAD
+          console.log("[ERROR] in getReqtaskStatus function");
+=======
           // console.log("error");
+>>>>>>> 89c1b69d82b1dc74637841b95f2edd349f7d125d
         });
     },
     updateRobotStatus() {
@@ -772,6 +786,10 @@ export default {
         operation_type: 99,
         token: this.$route.query.token
       };
+<<<<<<< HEAD
+      console.log("updateRobotStatus:" + JSON.stringify(param));
+=======
+>>>>>>> 89c1b69d82b1dc74637841b95f2edd349f7d125d
       let result = reqtaskStatus(param);
       result
         .then(res => {
@@ -785,10 +803,22 @@ export default {
           this.homeInit.level_exp = res.result.level_exp;
           //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
           this.showNewIcon = res.result.task_notification;
+
+          var expLine = 0;
+          //99为进度条px值
+          expLine = (this.homeInit.exp / this.homeInit.level_exp) * 99;
+          (this.linewidthData = expLine + "px"),
           
+<<<<<<< HEAD
+          console.log("Robot Status Updated!!");
+        })
+        .catch(reslove => {
+          console.log("[ERROR] in updateRobotStatus function");
+=======
         })
         .catch(reslove => {
           // console.log("error");
+>>>>>>> 89c1b69d82b1dc74637841b95f2edd349f7d125d
         });
     },
     getACchat() {
