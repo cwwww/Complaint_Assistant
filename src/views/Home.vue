@@ -931,7 +931,7 @@ export default {
     localStorage.setItem("personal",personal)
 
     let curpersonal = localStorage.getItem("personal");
-    console.log(curpersonal)
+    console.log('personal'+curpersonal)
 //     if(t.curpersonal){
 //      let item=JSON.parse(t.curpersonal);
 //      console.log("broker_id="+item.broker_id+",robot_id="+item.robot_id);
