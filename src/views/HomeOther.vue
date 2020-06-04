@@ -761,26 +761,26 @@ export default {
           if (this.flag) {
             param = {
               dialog_type: "0",
-              customer_id: this.$route.query.robot_id,
-              broker_id: this.$route.query.customer_id,
-              robot_id: this.$route.query.customer_id,
+              broker_id: this.$route.query.robot_id,
+              robot_id: this.$route.query.robot_id,
               speaker: "1",
               content: ".",
+              customer_id: this.$route.query.customer_id,
               token: this.$route.query.token
             };
             this.flag = false;
           } else {
             param = {
               dialog_type: "1",
-              customer_id: this.registers.visitor_id,
-              broker_id: this.$route.query.broker_id,
+              customer_id: this.$route.query.customer_id,
+              broker_id: this.$route.query.robot_id,
               robot_id: this.$route.query.robot_id,
               speaker: "1",
               content: this.question,
-              token: this.registers.token
+              token: this.$route.query.token
             };
           }
-          alert(JSON.stringify())
+          alert(JSON.stringify(param))
           let res = reqCusayrob(param);
           res
             .then(res => {
