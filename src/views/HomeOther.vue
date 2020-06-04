@@ -304,10 +304,10 @@ export default {
         alert("买家精灵商店");
         this.vipNotification = true;
       } else {
-      this.registers["visitor_id"] = this.$route.query.customer_id;
-      this.registers["robot_id"] = this.$route.query.customer_id;
-      this.registers["token"] = this.$route.query.token;
-      this.registers["visitor_type"] = 1
+        this.registers["visitor_id"] = this.$route.query.customer_id;
+        this.registers["robot_id"] = this.$route.query.customer_id;
+        this.registers["token"] = this.$route.query.token;
+        this.registers["visitor_type"] = 1;
         this.fairyShop = true;
       }
     },
@@ -504,13 +504,16 @@ export default {
     },
     guanzhu() {
       var that = this;
-      alert("[visitor type]",that.registers.visitor_type);
+      alert("[visitor type]", that.registers.visitor_type);
       // if (
       //   that.registers.visitor_type != 1 &&
       //   this.$route.query.type != "listType"
       // ) {
-      alert("[in guanzhu]:",that.registers.visitor_type)
-      if (that.registers.visitor_type != 1 && this.$route.query.type != "listType") {
+      alert("[in guanzhu]:", that.registers.visitor_type);
+      if (
+        that.registers.visitor_type != 1 &&
+        this.$route.query.type != "listType"
+      ) {
         that.vipNotification = true;
       }
       if (that.guanzhuContent == "关注TA") {
@@ -529,7 +532,10 @@ export default {
             if (res.result.info == "关注成功") {
               that.guanzhuContent = "已关注";
               //更新关注任务状态，领取经验和金币
-              this.guanzhuUpdateTask();
+              that.registers["visitor_id"] = that.$route.query.customer_id;
+              that.registers["robot_id"] = that.$route.query.customer_id;
+              that.registers["token"] = that.$route.query.token;
+              that.guanzhuUpdateTask();
               // that.getHomeInit();
             }
           })
@@ -538,21 +544,17 @@ export default {
           });
       } else if (that.guanzhuContent == "已关注") {
         that.CancelFollow = true;
-        this.$refs.cancelFollow.followImg = this.homeInit.headimgurl
-        this.$refs.cancelFollow.followName = this.homeInit.name
-        console.log("[cancelFollow img:]",this.homeInit.headimgurl)
-        console.log("[Register info]",JSON.stringify(this.registers))
+        this.$refs.cancelFollow.followImg = this.homeInit.headimgurl;
+        this.$refs.cancelFollow.followName = this.homeInit.name;
+        console.log("[cancelFollow img:]", this.homeInit.headimgurl);
+        console.log("[Register info]", JSON.stringify(this.registers));
       }
     },
-    changeFollowStatus(){
-      this.guanzhuContent = "关注TA"
+    changeFollowStatus() {
+      this.guanzhuContent = "关注TA";
     },
     //关注好友
     guanzhuUpdateTask() {
-      // console.log(22)
-      this.registers["visitor_id"] = this.$route.query.customer_id;
-      console.log("[guanzhuUpdateTask]:",JSON.stringify(this.registers.visitor_id))
-      // console.log("[guanzhuUpdateTask2]:",this.$router.query.customer_id)
       let param = {
         broker_id: this.registers.visited_id,
         robot_id: this.registers.robot_id,
@@ -560,6 +562,10 @@ export default {
         followed_robot_id: this.$route.query.robot_visitId,
         token: this.registers.token
       };
+      console.log(
+        "[guanzhuUpdateTask]:",
+        JSON.stringify(param)
+      );
       let result = reqtaskStatus(param);
       result
         .then(res => {
@@ -580,7 +586,7 @@ export default {
     },
     getHomeInit() {
       var that = this;
-      console.log("[register_visitor_type]",that.registers.visitor_type)
+      console.log("[register_visitor_type]", that.registers.visitor_type);
       if (that.registers.visitor_type == "0") {
         that.customer_type = 0;
         that.customer_robot_id = "";
@@ -591,7 +597,10 @@ export default {
         that.customer_type = 0;
         that.customer_robot_id = "";
       }
-      alert('[Home Init] visitor_type:',JSON.stringify(that.registers.visitor_type));
+      alert(
+        "[Home Init] visitor_type:",
+        JSON.stringify(that.registers.visitor_type)
+      );
       let param;
       if (that.$route.query.type == "otherLogin") {
         param = {
@@ -807,8 +816,8 @@ export default {
       this.registers["visitor_id"] = this.$route.query.customer_id;
       this.registers["robot_id"] = this.$route.query.customer_robot_id;
       this.registers["token"] = this.$route.query.token;
-      this.registers["visitor_type"] = 1
-      this.customer_type = 1
+      this.registers["visitor_type"] = 1;
+      this.customer_type = 1;
       let param = {
         customer_id: this.$route.query.customer_id,
         customer_robot_id: this.$route.query.customer_id,
@@ -816,8 +825,8 @@ export default {
         visited_robot_id: this.$route.query.robot_id,
         token: this.$route.query.token
       };
-      window.localStorage.setItem('customer_id',this.$route.query.customer_id)
-      alert(window.localStorage.getItem('customer_id'))
+      window.localStorage.setItem("customer_id", this.$route.query.customer_id);
+      alert(window.localStorage.getItem("customer_id"));
       alert("初始化listType" + JSON.stringify(param));
       let result = reqVisitedInit(param);
       result
