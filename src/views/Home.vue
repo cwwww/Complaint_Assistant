@@ -539,7 +539,6 @@ export default {
         let res = reqHomeName(param);
         res
           .then(res => {
-            console.log(res);
             //this.list = res.result.dialog_history
             if (res.result.robot_name == "") {
               this.showIimit = true;
@@ -551,7 +550,7 @@ export default {
             this.getHomeInit();
           })
           .catch(reslove => {
-            console.log("error");
+            // console.log("error");
           });
       }
     },
@@ -560,7 +559,6 @@ export default {
       let res = reqwxconfig(param);
       res
         .then(res => {
-          console.log(res);
           this.shareMessages = res.result;
           // alert($route.query.visitor_id)
           var that = this;
@@ -575,7 +573,7 @@ export default {
           });
           //处理验证失败的信息
           wx.error(function(res) {
-            console.log("验证失败返回的信息:", res);
+            // console.log("验证失败返回的信息:", res);
           });
           //处理验证成功的信息
           wx.ready(function() {
@@ -593,11 +591,11 @@ export default {
               // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
               success: function(res) {
                 // 用户确认分享后执行的回调函数
-                console.log("分享给朋友成功返回的信息为:", res);
+                // console.log("分享给朋友成功返回的信息为:", res);
               },
               cancel: function(res) {
                 // 用户取消分享后执行的回调函数
-                console.log("取消分享给朋友返回的信息为:", res);
+                // console.log("取消分享给朋友返回的信息为:", res);
               }
             });
             // 分享给朋友
@@ -613,17 +611,17 @@ export default {
               // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
               success: function(res) {
                 // 用户确认分享后执行的回调函数
-                console.log("分享给朋友成功返回的信息为:", res);
+                // console.log("分享给朋友成功返回的信息为:", res);
               },
               cancel: function(res) {
                 // 用户取消分享后执行的回调函数
-                console.log("取消分享给朋友返回的信息为:", res);
+                // console.log("取消分享给朋友返回的信息为:", res);
               }
             });
           });
         })
         .catch(reslove => {
-          console.log("error");
+          // console.log("error");
         });
     },
     // 授权
@@ -632,12 +630,11 @@ export default {
       let res = reqbebotCode(param);
       res
         .then(res => {
-          console.log(res);
           this.messages = res.result;
           this.customerLogin();
         })
         .catch(reslove => {
-          console.log("error");
+          // console.log("error");
         });
     },
     //   customerLogin(){
@@ -662,14 +659,13 @@ export default {
       let res = BeanList(param);
       res
         .then(res => {
-          console.log(res);
           let showNotification = res.result.notification;
           if (showNotification) {
             this.showNewFans = true;
           }
         })
         .catch(reslove => {
-          console.log("error");
+          // console.log("error");
         });
     },
     submit(numIndex) {
@@ -699,7 +695,7 @@ export default {
           // console.log("error1"+JSON.stringify(this.list2[0]));
         })
         .catch(reslove => {
-          console.log("error");
+          // console.log("error");
         });
     },
     getDetail() {
@@ -728,11 +724,9 @@ export default {
           token: this.$route.query.token
         };
       }
-      console.log(param);
       let res = reqRobotDetail(param);
       res
         .then(res => {
-          console.log(res);
           // this.answer = res.result.content;
           // this.list.push(this.question);
           // this.list.push(this.answer);
@@ -742,7 +736,7 @@ export default {
           this.question = "";
         })
         .catch(reslove => {
-          console.log("error");
+          // console.log("error");
         });
     },
     //与机器人聊天任务
@@ -753,8 +747,6 @@ export default {
         operation_type: 1,
         token: this.$route.query.token
       };
-      console.log("任务的param:" + param);
-
       let result = reqtaskStatus(param);
       result
         .then(res => {
@@ -770,7 +762,7 @@ export default {
           this.showNewIcon = res.result.task_notification;
         })
         .catch(reslove => {
-          console.log("error");
+          // console.log("error");
         });
     },
     updateRobotStatus() {
@@ -780,7 +772,6 @@ export default {
         operation_type: 99,
         token: this.$route.query.token
       };
-      console.log("任务的param:" + param);
       let result = reqtaskStatus(param);
       result
         .then(res => {
@@ -795,10 +786,9 @@ export default {
           //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
           this.showNewIcon = res.result.task_notification;
           
-          console.log("Robot Status Updated!!")
         })
         .catch(reslove => {
-          console.log("error");
+          // console.log("error");
         });
     },
     getACchat() {
@@ -827,16 +817,14 @@ export default {
           token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
         };
       }
-      console.log(param);
       let res = reqCusayrob(param);
       res
         .then(res => {
-          console.log(res);
           this.list = res.result.dialog_history;
           this.$refs.input.value = "";
         })
         .catch(reslove => {
-          console.log("error");
+          // console.log("error");
         });
     },
 
@@ -850,17 +838,13 @@ export default {
         broker_id: this.$route.query.broker_id,
         token: this.$route.query.token
       };
-      console.log(param);
       let result = reqHomeInit(param);
       result
         .then(res => {
-          console.log(res);
           this.homeInit = res.result;
-
           if (this.homeInit.name == "") {
             this.showName = true;
           }
-          console.log(this.homeInit);
           if (this.vipNotification == true) {
           } else {
             this.vipNotification = this.homeInit.vip_notification;
@@ -878,8 +862,8 @@ export default {
           var expLine = 0;
           //99为进度条px值
           expLine = (this.homeInit.exp / this.homeInit.level_exp) * 99;
-          (this.linewidthData = expLine + "px"),
-            console.log("this.linewidthData", this.linewidthData);
+          (this.linewidthData = expLine + "px");
+            // console.log("this.linewidthData", this.linewidthData);
           // alert(JSON.stringify(this.homeInit))
           if (this.homeInit.title == 1) {
             //保险等级
@@ -899,7 +883,7 @@ export default {
           }
         })
         .catch(reslove => {
-          console.log("error");
+          // console.log("error");
         });
     },
 
@@ -941,7 +925,7 @@ export default {
     var start = this.url.indexOf("=");
     var end = this.url.indexOf("&");
     this.code = this.url.substring(start + 1, end);
-    console.log(this.url);
+    // console.log(this.url);
     this.impower();
     this.wxconfig();
   },
