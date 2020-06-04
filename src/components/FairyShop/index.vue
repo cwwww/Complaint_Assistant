@@ -246,7 +246,7 @@ export default {
         user_id: this.broker_id,
         token: this.token
       };
-      alert('精灵商店'+JSON.stringify(param))
+      
       let res = reqFairyBuy(param);
       res
         .then(res => {
@@ -312,8 +312,8 @@ export default {
       buyer_id: that.robot_id,
       user_id: that.broker_id,
       token:that.token,
-      user_type:that.user_type
     };
+    alert('精灵商店'+JSON.stringify(param))
     let res = reqFairyShop(param);
     res
       .then(res => {
