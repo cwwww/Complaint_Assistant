@@ -753,7 +753,7 @@ export default {
         operation_type: 1,
         token: this.$route.query.token
       };
-      console.log("任务的param:" + param);
+      console.log("任务的param:" + JSON.stringify(param));
 
       let result = reqtaskStatus(param);
       result
@@ -768,9 +768,14 @@ export default {
           this.homeInit.level_exp = res.result.level_exp;
           //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
           this.showNewIcon = res.result.task_notification;
+          //
+          var expLine = 0;
+          //99为进度条px值
+          expLine = (this.homeInit.exp / this.homeInit.level_exp) * 99;
+          (this.linewidthData = expLine + "px");
         })
         .catch(reslove => {
-          console.log("error");
+          console.log("[ERROR] in getReqtaskStatus function");
         });
     },
     updateRobotStatus() {
@@ -780,7 +785,7 @@ export default {
         operation_type: 99,
         token: this.$route.query.token
       };
-      console.log("任务的param:" + param);
+      console.log("updateRobotStatus:" + JSON.stringify(param));
       let result = reqtaskStatus(param);
       result
         .then(res => {
@@ -794,11 +799,16 @@ export default {
           this.homeInit.level_exp = res.result.level_exp;
           //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
           this.showNewIcon = res.result.task_notification;
+
+          var expLine = 0;
+          //99为进度条px值
+          expLine = (this.homeInit.exp / this.homeInit.level_exp) * 99;
+          (this.linewidthData = expLine + "px"),
           
-          console.log("Robot Status Updated!!")
+          console.log("Robot Status Updated!!");
         })
         .catch(reslove => {
-          console.log("error");
+          console.log("[ERROR] in updateRobotStatus function");
         });
     },
     getACchat() {
