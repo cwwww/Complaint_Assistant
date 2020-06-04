@@ -452,6 +452,12 @@ export default {
       var that = this;
       that.question = that.inputcon;
       let param;
+      if(that.registers.visitor_type != 1){
+        that.customer_type = 0
+      }else{
+        that.customer_type = 1
+      }
+      alert(that.customer_type)
       if (that.flag) {
         param = {
           dialog_type: "0",
@@ -461,7 +467,7 @@ export default {
           speaker: "1",
           content: ".",
           token: that.registers.token,
-          customer_type: customer_type
+          customer_type: that.customer_type
         };
         that.flag = false;
       } else {
@@ -473,7 +479,7 @@ export default {
           speaker: "1",
           content: that.question,
           token: that.registers.token,
-          customer_type: customer_type
+          customer_type: that.customer_type
         };
       }
       let res = reqCusayrob(param);
