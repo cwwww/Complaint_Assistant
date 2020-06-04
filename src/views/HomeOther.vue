@@ -357,9 +357,9 @@ export default {
         this.$router.push({
           path: "/",
           query: {
-            broker_id: this.$route.query.broker_id_prop,
-            robot_id: this.$route.query.robot_id_prop,
-            token: this.$route.query.token_prop
+            broker_id: this.$route.query.customer_id,
+            robot_id: this.$route.query.customer_id,
+            token: this.$route.query.token
           }
         });
         alert("1221" + JSON.stringify(query));
