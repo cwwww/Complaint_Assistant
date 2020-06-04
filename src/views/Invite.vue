@@ -221,9 +221,18 @@
 			    .catch(reslove => {
 			      console.log("error");
 			    });
+			},
+			getStorge(){
+			var data1 = JSON.parse(localStorage.getItem('hou'));
+			var data2 = localStorage.getItem('zheng');
+			alert(data1);
+			alert(data2);
 			}
 		},
-		 computed: {
+		created() {
+			this.getStorge();
+		},
+		computed: {
 
                 reverseData() {
 
@@ -240,26 +249,50 @@
 				.then(res => {
 					this.yaoqList = res.result;
 					let recommenders = this.yaoqList.recommendedlist.length;
-					if (recommenders == 1) {
-						this.img1 = require("../assets/images/one@2x.png");
-						this.paddingLeft = 285 * 0.1 +"px";
-						this.img1Show = false;
-					} else if (recommenders == 3) {
-						this.paddingLeft = 285 * 0.3 +"px";
-						this.img3 = require("../assets/images/three@2x.png");
-						this.img3Show = false;
+					// if (recommenders == 1) {
+					// 	this.img1 = require("../assets/images/one@2x.png");
+					// 	this.paddingLeft = 285 * 0.1 +"px";
+					// 	this.img1Show = false;
+					// } else if (recommenders == 3) {
+					// 	this.paddingLeft = 285 * 0.3 +"px";
+					// 	this.img3 = require("../assets/images/three@2x.png");
+					// 	this.img3Show = false;
+					// } else if (recommenders == 5) {
+					// 	this.paddingLeft = 285 * 0.5 +"px";
+					// 	this.img5 = require("../assets/images/five@2x.png");
+					// 	this.img5Show = false;
+					// } else if (recommenders == 6) {
+					// 	this.paddingLeft = 285 * 0.8 +"px";
+					// 	this.img6 = require("../assets/images/six@2x.png");
+					// 	this.img6Show = false;
+					// } else {
+					// 	this.paddingLeft = 285 * 1 +"px";
+					// 	this.img10 = require("../assets/images/ten@2x.png");
+					// 	this.img10Show = false;
+					// }
+					if (recommenders >= 10) {
+						this.paddingLeft = 285 * 1 +"px";
+						this.img10 = require("../assets/images/ten@2x.png");
+						this.img10Show = false;
+					} else if (recommenders >= 6) {
+						this.paddingLeft = 285 * 0.8 +"px";
+						this.img6 = require("../assets/images/six@2x.png");
+						this.img6Show = false;
 					} else if (recommenders == 5) {
 						this.paddingLeft = 285 * 0.5 +"px";
 						this.img5 = require("../assets/images/five@2x.png");
 						this.img5Show = false;
-					} else if (recommenders == 6) {
-						this.paddingLeft = 285 * 0.8 +"px";
-						this.img6 = require("../assets/images/six@2x.png");
-						this.img6Show = false;
-					} else {
-						this.paddingLeft = 285 * 1 +"px";
-						this.img10 = require("../assets/images/ten@2x.png");
-						this.img10Show = false;
+					} else if (recommenders >= 3) {
+						this.paddingLeft = 285 * 0.3 +"px";
+						this.img3 = require("../assets/images/three@2x.png");
+						this.img3Show = false;
+					} else if (recommenders >= 1){
+						this.img1 = require("../assets/images/one@2x.png");
+						this.paddingLeft = 285 * 0.1 +"px";
+						this.img1Show = false;
+					}
+					else{
+						//其他
 					}
 					console.log(this.yaoqList, "邀请好友");
 					// alert(this.paddingLeft)
