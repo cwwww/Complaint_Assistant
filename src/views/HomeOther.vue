@@ -242,7 +242,7 @@ export default {
       isStatus: "",
       fairyStatus: "",
       inputcon: "",
-      customer_type:'',
+      customer_type: "",
       share: require("../assets/images/share@2x.png"),
       img: require("../assets/images/icon.png"),
       register: require("../assets/images/register@2x.png"),
@@ -399,10 +399,48 @@ export default {
         Toast("请输入聊天内容");
       } else {
         if (this.$route.query.type == "listType") {
-          this.customer_type = 1
-          this.registers.token = this.$route.query.token
-          this.registers.visitor_id = this.$route.query.customer_id
-          this.getCusayrob();
+          alert(2222);
+          var that = this;
+          that.question = that.inputcon;
+          let param;
+          if (that.flag) {
+            param = {
+              dialog_type: "0",
+              customer_id: that.$route.query.customer_id,
+              broker_id: that.$route.query.broker_id,
+              robot_id: that.$route.query.robot_id,
+              speaker: "1",
+              content: ".",
+              token: that.$route.query.token,
+              customer_type: 1
+            };
+            that.flag = false;
+          } else {
+            param = {
+              dialog_type: "1",
+              customer_id: that.$route.query.customer_id,
+              broker_id: that.$route.query.broker_id,
+              robot_id: that.$route.query.robot_id,
+              speaker: "1",
+              content: that.question,
+              token: that.$route.query.token,
+              customer_type: 1
+            };
+          }
+          let res = reqCusayrob(param);
+          res
+            .then(res => {
+              that.answer = res.result.dialog_history.content;
+              that.list.push(this.question);
+              that.list.push(this.answer);
+              that.list2 = that.list.slice(-4);
+              if (that.list2[0] == "") {
+              }
+              that.inputcon = "";
+            })
+            .catch(reslove => {
+              console.log("error");
+            });
         } else {
           this.getCusayrob();
         }
@@ -652,15 +690,15 @@ export default {
                 that.customer_id = that.visitor_id;
                 that.registers.robot_id = -1;
                 that.isRegister = false;
-                that.customer_type = 0
+                that.customer_type = 0;
               } else if (that.registers.visitor_type == "1") {
                 that.broker_id = that.visitor_id;
                 that.isRegister = true;
-                that.customer_type = 1
+                that.customer_type = 1;
               } else if (that.registers.visitor_type == "-1") {
                 that.isRegister = false;
                 that.registers.robot_id = -1;
-                that.customer_type = 0
+                that.customer_type = 0;
                 let param = {
                   openid: that.messages.openid,
                   nickname: that.messages.nickname,
@@ -676,7 +714,6 @@ export default {
                   .then(res => {
                     that.visitList = res.result;
                     that.registers.customer_id = that.visitList.customer_id;
-                    
                   })
                   .catch(reslove => {
                     console.log("error");
