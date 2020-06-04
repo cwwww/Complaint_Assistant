@@ -1,7 +1,7 @@
 <template>
   <div class="main" v-if="baenstList.length>0">
     <div v-for="(item, idx) in baenstList" :key="idx">
-      <div class="warp" @click="visitFollower(item.robot_id)">
+      <div class="warp" @click="visitFollower(item.broker_id,item.robot_id)">
         <div class="left">
           <div class="littleLeft">
             <img :src="item.headimgurl === null ? img4 : item.headimgurl" alt="error" />

@@ -88,7 +88,7 @@ props: ["broker_id_prop", "robot_id_prop", "token_prop"],
   },
   methods:{
 	 clickThis:function(broker_id,robot_id){
-     if(robot_id = this.robot_id_prop){
+     if(robot_id == this.robot_id_prop){
         this.$emit("rankgohome",false);
      }else{
        this.$router.push({
@@ -103,7 +103,8 @@ props: ["broker_id_prop", "robot_id_prop", "token_prop"],
          }
        })
      }
-	 },
+   },
+   
   }
 };
 </script>

@@ -11,7 +11,7 @@
     </div>
     <div class="main" v-if="friendListe.length>0">
       <div v-for="(item,idx) in friendListe" :key="idx">
-        <div class="warp" @click="clickThis(item.robot_id)">
+        <div class="warp" @click="clickThis(item.broker_id,item.robot_id)">
           <div class="left">
             <div class="littleLeft">
               <img :src="item.headimgurl === null ? img4 : item.headimgurl" alt="error" />
