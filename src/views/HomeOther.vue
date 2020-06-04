@@ -763,7 +763,7 @@ export default {
               dialog_type: "0",
               customer_id: this.$route.query.robot_id,
               broker_id: this.$route.query.customer_id,
-              robot_id: this.$route.query.customer_id,
+              robot_id: this.$route.query.visitor_id,
               speaker: "1",
               content: ".",
               token: this.$route.query.token
@@ -774,10 +774,10 @@ export default {
               dialog_type: "1",
               customer_id: this.registers.visitor_id,
               broker_id: this.$route.query.broker_id,
-              robot_id: this.$route.query.robot_id,
+              robot_id: this.$route.query.visitor_id,
               speaker: "1",
               content: this.question,
-              token: this.registers.token
+              token: this.$route.query.token
             };
           }
           alert(JSON.stringify(param))
