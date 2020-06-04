@@ -242,6 +242,7 @@ export default {
       isStatus: "",
       fairyStatus: "",
       inputcon: "",
+      customer_type:'',
       share: require("../assets/images/share@2x.png"),
       img: require("../assets/images/icon.png"),
       register: require("../assets/images/register@2x.png"),
@@ -397,7 +398,14 @@ export default {
       if (this.inputcon == "") {
         Toast("请输入聊天内容");
       } else {
-        this.getCusayrob();
+        if (this.$route.query.type == "listType") {
+          this.customer_type = 1
+          this.registers.token = this.$route.query.token
+          this.registers.visitor_id = this.$route.query.customer_id
+          this.getCusayrob();
+        } else {
+          this.getCusayrob();
+        }
       }
     },
     getCusayrob() {
@@ -412,7 +420,8 @@ export default {
           robot_id: that.$route.query.robot_id,
           speaker: "1",
           content: ".",
-          token: that.registers.token
+          token: that.registers.token,
+          customer_type: customer_type
         };
         that.flag = false;
       } else {
@@ -423,7 +432,8 @@ export default {
           robot_id: that.$route.query.robot_id,
           speaker: "1",
           content: that.question,
-          token: that.registers.token
+          token: that.registers.token,
+          customer_type: customer_type
         };
       }
       let res = reqCusayrob(param);
@@ -642,12 +652,15 @@ export default {
                 that.customer_id = that.visitor_id;
                 that.registers.robot_id = -1;
                 that.isRegister = false;
+                that.customer_type = 0
               } else if (that.registers.visitor_type == "1") {
                 that.broker_id = that.visitor_id;
                 that.isRegister = true;
+                that.customer_type = 1
               } else if (that.registers.visitor_type == "-1") {
                 that.isRegister = false;
                 that.registers.robot_id = -1;
+                that.customer_type = 0
                 let param = {
                   openid: that.messages.openid,
                   nickname: that.messages.nickname,
@@ -663,6 +676,7 @@ export default {
                   .then(res => {
                     that.visitList = res.result;
                     that.registers.customer_id = that.visitList.customer_id;
+                    
                   })
                   .catch(reslove => {
                     console.log("error");
@@ -743,19 +757,19 @@ export default {
           if (this.homeInit.title == 1) {
             //保险等级
             this.homeLevel = this.levelbx1;
-            } else if (this.homeInit.title == 2) {
-              this.homeLevel = this.levelbx2;
-            } else if (this.homeInit.level == 3) {
-              this.homeLevel = this.levelbx3;
-            } else if (this.homeInit.level == 4) {
-              this.homeLevel = this.levelbx4;
-            } else if (this.homeInit.level == 5) {
-              this.homeLevel = this.levelbx5;
-            } else if (this.homeInit.level == 6) {
-              this.homeLevel = this.levelbx6;
-            } else if (this.homeInit.level == 7) {
-              this.homeLevel = this.levelbx7;
-            }
+          } else if (this.homeInit.title == 2) {
+            this.homeLevel = this.levelbx2;
+          } else if (this.homeInit.level == 3) {
+            this.homeLevel = this.levelbx3;
+          } else if (this.homeInit.level == 4) {
+            this.homeLevel = this.levelbx4;
+          } else if (this.homeInit.level == 5) {
+            this.homeLevel = this.levelbx5;
+          } else if (this.homeInit.level == 6) {
+            this.homeLevel = this.levelbx6;
+          } else if (this.homeInit.level == 7) {
+            this.homeLevel = this.levelbx7;
+          }
           this.question = this.inputcon;
           let param;
           if (this.flag) {
@@ -767,7 +781,7 @@ export default {
               content: ".",
               customer_id: this.$route.query.customer_id,
               token: this.$route.query.token,
-              customer_type:1
+              customer_type: 1
             };
             this.flag = false;
           } else {
@@ -779,10 +793,10 @@ export default {
               speaker: "1",
               content: this.question,
               token: this.$route.query.token,
-              customer_type:1
+              customer_type: 1
             };
           }
-          alert(JSON.stringify(param))
+          alert(JSON.stringify(param));
           let res = reqCusayrob(param);
           res
             .then(res => {
