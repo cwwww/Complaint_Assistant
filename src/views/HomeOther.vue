@@ -137,7 +137,7 @@
     <!-- </div> -->
     <!-- <div v-if="this.registers.visitor_type == '0'">
       <img :src="share" alt />
-    </div> -->
+    </div>-->
     <ACVisitor
       v-show="showACChat"
       @closeACchat="closeACchat"
@@ -359,7 +359,7 @@ export default {
             token: this.$route.query.token_prop
           }
         });
-        alert('1221'+JSON.stringify(query))
+        alert("1221" + JSON.stringify(query));
       } else {
         this.$router.push({
           path: "/",
@@ -539,7 +539,6 @@ export default {
         };
         alert("初始化" + JSON.stringify(param));
       }
-
       let result = reqVisitedInit(param);
       result
         .then(res => {
@@ -713,7 +712,7 @@ export default {
     }
   },
   mounted() {
-    alert(JSON.stringify(JSON.parse(window.localStorage.getItem("personal2"))))
+    // alert(JSON.stringify(JSON.parse(window.localStorage.getItem("personal2"))))
   },
   created() {
     if (!window.localStorage.getItem("openId")) {
@@ -733,8 +732,8 @@ export default {
       alert("初始化listType" + JSON.stringify(param));
       let result = reqVisitedInit(param);
       result
-        .then(res => {
-          this.homeInit = res.result;
+        .then(resolve => {
+          this.homeInit = resolve.result;
           alert("展示" + JSON.stringify(this.homeInit));
           if (this.homeInit.followed) {
             this.guanzhuContent = "已关注";
@@ -757,7 +756,44 @@ export default {
           } else if (this.homeInit.level == 7) {
             this.homeLevel = this.levelbx7;
           }
-          // this.getCusayrob();
+          this.question = this.inputcon;
+          let param;
+          if (this.flag) {
+            param = {
+              dialog_type: "0",
+              customer_id: this.$route.query.robot_id,
+              broker_id: this.$route.query.customer_id,
+              robot_id: this.$route.query.customer_id,
+              speaker: "1",
+              content: ".",
+              token: this.$route.query.token
+            };
+            this.flag = false;
+          } else {
+            param = {
+              dialog_type: "1",
+              customer_id: this.registers.visitor_id,
+              broker_id: this.$route.query.broker_id,
+              robot_id: this.$route.query.robot_id,
+              speaker: "1",
+              content: this.question,
+              token: this.registers.token
+            };
+          }
+          let res = reqCusayrob(param);
+          res
+            .then(res => {
+              this.answer = res.result.dialog_history.content;
+              this.list.push(this.question);
+              this.list.push(this.answer);
+              this.list2 = this.list.slice(-4);
+              if (this.list2[0] == "") {
+              }
+              this.inputcon = "";
+            })
+            .catch(reslove => {
+              console.log("error");
+            });
           //串门成功后，增加金币和经验
           this.chuanmen();
         })
