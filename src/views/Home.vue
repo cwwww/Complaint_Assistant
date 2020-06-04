@@ -951,20 +951,15 @@ export default {
     // } else {
     //     // 别的业务逻辑
     // }
-    let personalData = {
-      broker_id: this.$route.query.broker_id,
-      robot_id: this.$route.query.broker_id,
-      token: this.$route.query.token
-    };
-    let personal = JSON.stringify(personalData);
-    localStorage.setItem("personal", personal);
-
-    let curpersonal = localStorage.getItem("personal");
-    console.log("personal" + curpersonal);
-    //     if(t.curpersonal){
-    //      let item=JSON.parse(t.curpersonal);
-    //      console.log("broker_id="+item.broker_id+",robot_id="+item.robot_id);
-    //  }
+    // let personalData = {
+    //   broker_id:this.$route.query.broker_id,
+    //   robot_id:this.$route.query.broker_id,
+    //   token:this.$route.query.token,
+    // }
+    // window.localStorage.setItem('personal',JSON.stringify(personalData))
+    
+    // alert(JSON.stringify(JSON.parse(window.localStorage.getItem("personal"))))
+    
     this.getHomeInit();
     this.getDetail();
     //定时获取粉丝数据

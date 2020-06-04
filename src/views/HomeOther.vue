@@ -135,9 +135,9 @@
       </div>
     </div>
     <!-- </div> -->
-    <div v-if="this.registers.visitor_type == '0'">
+    <!-- <div v-if="this.registers.visitor_type == '0'">
       <img :src="share" alt />
-    </div>
+    </div>-->
     <ACVisitor
       v-show="showACChat"
       @closeACchat="closeACchat"
@@ -242,6 +242,7 @@ export default {
       isStatus: "",
       fairyStatus: "",
       inputcon: "",
+      customer_type: "",
       share: require("../assets/images/share@2x.png"),
       img: require("../assets/images/icon.png"),
       register: require("../assets/images/register@2x.png"),
@@ -298,8 +299,10 @@ export default {
     Fairy() {
       //买家精灵商店
       if (this.registers.visitor_type == -1) {
+        alert('买家精灵商店')
         this.vipNotification = true;
       } else {
+        alert('买家精灵商店打开')
         this.fairyShop = true;
       }
     },
@@ -359,7 +362,7 @@ export default {
             token: this.$route.query.token_prop
           }
         });
-        alert('1221'+JSON.stringify(query))
+        alert("1221" + JSON.stringify(query));
       } else {
         this.$router.push({
           path: "/",
@@ -397,13 +400,64 @@ export default {
       if (this.inputcon == "") {
         Toast("请输入聊天内容");
       } else {
-        this.getCusayrob();
+        if (this.$route.query.type == "listType") {
+          alert(2222);
+          var that = this;
+          that.question = that.inputcon;
+          let param;
+          if (that.flag) {
+            param = {
+              dialog_type: "0",
+              customer_id: that.$route.query.customer_id,
+              broker_id: that.$route.query.broker_id,
+              robot_id: that.$route.query.robot_id,
+              speaker: "1",
+              content: ".",
+              token: that.$route.query.token,
+              customer_type: 1
+            };
+            that.flag = false;
+          } else {
+            param = {
+              dialog_type: "1",
+              customer_id: that.$route.query.customer_id,
+              broker_id: that.$route.query.broker_id,
+              robot_id: that.$route.query.robot_id,
+              speaker: "1",
+              content: that.question,
+              token: that.$route.query.token,
+              customer_type: 1
+            };
+          }
+          let res = reqCusayrob(param);
+          res
+            .then(res => {
+              that.answer = res.result.dialog_history.content;
+              that.list.push(this.question);
+              that.list.push(this.answer);
+              that.list2 = that.list.slice(-4);
+              if (that.list2[0] == "") {
+              }
+              that.inputcon = "";
+            })
+            .catch(reslove => {
+              console.log("error");
+            });
+        } else {
+          this.getCusayrob();
+        }
       }
     },
     getCusayrob() {
       var that = this;
       that.question = that.inputcon;
       let param;
+      if(that.registers.visitor_type != 1){
+        that.customer_type = 0
+      }else{
+        that.customer_type = 1
+      }
+      alert(that.customer_type)
       if (that.flag) {
         param = {
           dialog_type: "0",
@@ -412,7 +466,8 @@ export default {
           robot_id: that.$route.query.robot_id,
           speaker: "1",
           content: ".",
-          token: that.registers.token
+          token: that.registers.token,
+          customer_type: that.customer_type
         };
         that.flag = false;
       } else {
@@ -423,7 +478,8 @@ export default {
           robot_id: that.$route.query.robot_id,
           speaker: "1",
           content: that.question,
-          token: that.registers.token
+          token: that.registers.token,
+          customer_type: that.customer_type
         };
       }
       let res = reqCusayrob(param);
@@ -443,6 +499,7 @@ export default {
     },
     guanzhu() {
       var that = this;
+      alert(that.registers.visitor_type)
       if (that.registers.visitor_type != 1) {
         that.vipNotification = true;
       }
@@ -539,7 +596,6 @@ export default {
         };
         alert("初始化" + JSON.stringify(param));
       }
-
       let result = reqVisitedInit(param);
       result
         .then(res => {
@@ -643,12 +699,15 @@ export default {
                 that.customer_id = that.visitor_id;
                 that.registers.robot_id = -1;
                 that.isRegister = false;
+                that.customer_type = 0;
               } else if (that.registers.visitor_type == "1") {
                 that.broker_id = that.visitor_id;
                 that.isRegister = true;
+                that.customer_type = 1;
               } else if (that.registers.visitor_type == "-1") {
                 that.isRegister = false;
                 that.registers.robot_id = -1;
+                that.customer_type = 0;
                 let param = {
                   openid: that.messages.openid,
                   nickname: that.messages.nickname,
@@ -712,7 +771,9 @@ export default {
       return theRequest;
     }
   },
-  mounted() {},
+  mounted() {
+    // alert(JSON.stringify(JSON.parse(window.localStorage.getItem("personal2"))))
+  },
   created() {
     if (!window.localStorage.getItem("openId")) {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
@@ -731,8 +792,8 @@ export default {
       alert("初始化listType" + JSON.stringify(param));
       let result = reqVisitedInit(param);
       result
-        .then(res => {
-          this.homeInit = res.result;
+        .then(resolve => {
+          this.homeInit = resolve.result;
           alert("展示" + JSON.stringify(this.homeInit));
           if (this.homeInit.followed) {
             this.guanzhuContent = "已关注";
@@ -755,7 +816,47 @@ export default {
           } else if (this.homeInit.level == 7) {
             this.homeLevel = this.levelbx7;
           }
-          // this.getCusayrob();
+          this.question = this.inputcon;
+          let param;
+          if (this.flag) {
+            param = {
+              dialog_type: "0",
+              broker_id: this.$route.query.robot_id,
+              robot_id: this.$route.query.robot_id,
+              speaker: "1",
+              content: ".",
+              customer_id: this.$route.query.customer_id,
+              token: this.$route.query.token,
+              customer_type: 1
+            };
+            this.flag = false;
+          } else {
+            param = {
+              dialog_type: "1",
+              customer_id: this.$route.query.customer_id,
+              broker_id: this.$route.query.robot_id,
+              robot_id: this.$route.query.robot_id,
+              speaker: "1",
+              content: this.question,
+              token: this.$route.query.token,
+              customer_type: 1
+            };
+          }
+          alert(JSON.stringify(param));
+          let res = reqCusayrob(param);
+          res
+            .then(res => {
+              this.answer = res.result.dialog_history.content;
+              this.list.push(this.question);
+              this.list.push(this.answer);
+              this.list2 = this.list.slice(-4);
+              if (this.list2[0] == "") {
+              }
+              this.inputcon = "";
+            })
+            .catch(reslove => {
+              console.log("error");
+            });
           //串门成功后，增加金币和经验
           this.chuanmen();
         })
