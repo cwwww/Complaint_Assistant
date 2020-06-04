@@ -88,6 +88,7 @@ export default {
           let content = res.result.info;
           if (content == "已取消关注") {
             this.$emit('cancelfollowC',false)
+            this.$emit('changeStatus')
           }
         })
         .catch(reslove => {
