@@ -13,7 +13,7 @@
         {{Othername}}精灵商店
         <div class="active"></div>
       </div>
-      <div class="wrap" v-if="goodsList.status !=''">
+      <div class="wrap" v-if="goods_list.length >0">
         <div class="left">
           <!-- <div class="leftLittleLogon">
               <img :src=home_mytask alt />
@@ -116,7 +116,7 @@
           <font size="3px">商品还没有上架，请稍后再来吧！</font>
         </center>
       </div>
-      <div class="bottomLine" v-if="goodsList.status !=''"></div>
+      <div class="bottomLine" v-if="goods_list.length >0"></div>
     </van-popup>
   </div>
 </template>
