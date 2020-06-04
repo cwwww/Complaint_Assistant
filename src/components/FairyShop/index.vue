@@ -13,7 +13,7 @@
         {{Othername}}精灵商店
         <div class="active"></div>
       </div>
-      <div class="wrap" v-if="goodsList.length >0">
+      <div class="wrap" v-if="length >0">
         <div class="left">
           <!-- <div class="leftLittleLogon">
               <img :src=home_mytask alt />
@@ -116,7 +116,7 @@
           <font size="3px">商品还没有上架，请稍后再来吧！</font>
         </center>
       </div>
-      <div class="bottomLine" v-if="goodsList.length >0"></div>
+      <div class="bottomLine" v-if="length >0"></div>
     </van-popup>
   </div>
 </template>
@@ -133,6 +133,7 @@ export default {
   name: "FairyShop",
   data() {
     return {
+      that:'',
       show1: true,
       name: "",
       show2: false, // 购买弹框
@@ -318,7 +319,7 @@ export default {
     res
       .then(res => {
         alert('返回'+JSON.stringify(res.result.goods_list))
-        let length = res.result.goods_list.length;
+        that.length = res.result.goods_list.length;
         if (length > 0) {
           that.goodsList = res.result.goods_list[0];
           that.fairyStatus = that.goodsList.status;
