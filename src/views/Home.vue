@@ -747,11 +747,8 @@ export default {
         operation_type: 1,
         token: this.$route.query.token
       };
-<<<<<<< HEAD
-      console.log("任务的param:" + JSON.stringify(param));
+      // console.log("任务的param:" + JSON.stringify(param));
 
-=======
->>>>>>> 89c1b69d82b1dc74637841b95f2edd349f7d125d
       let result = reqtaskStatus(param);
       result
         .then(res => {
@@ -772,11 +769,7 @@ export default {
           (this.linewidthData = expLine + "px");
         })
         .catch(reslove => {
-<<<<<<< HEAD
           console.log("[ERROR] in getReqtaskStatus function");
-=======
-          // console.log("error");
->>>>>>> 89c1b69d82b1dc74637841b95f2edd349f7d125d
         });
     },
     updateRobotStatus() {
@@ -786,10 +779,7 @@ export default {
         operation_type: 99,
         token: this.$route.query.token
       };
-<<<<<<< HEAD
-      console.log("updateRobotStatus:" + JSON.stringify(param));
-=======
->>>>>>> 89c1b69d82b1dc74637841b95f2edd349f7d125d
+      // console.log("updateRobotStatus:" + JSON.stringify(param));
       let result = reqtaskStatus(param);
       result
         .then(res => {
@@ -809,16 +799,10 @@ export default {
           expLine = (this.homeInit.exp / this.homeInit.level_exp) * 99;
           (this.linewidthData = expLine + "px"),
           
-<<<<<<< HEAD
           console.log("Robot Status Updated!!");
         })
         .catch(reslove => {
           console.log("[ERROR] in updateRobotStatus function");
-=======
-        })
-        .catch(reslove => {
-          // console.log("error");
->>>>>>> 89c1b69d82b1dc74637841b95f2edd349f7d125d
         });
     },
     getACchat() {
