@@ -67,7 +67,7 @@ const routes = [
         name: 'bebotAgree',
         component: bebotAgree,
         meta: {
-            title: "《保险侠服务协议》"
+            title: "《必保机器人服务协议》"
         }
     },
     {
@@ -75,7 +75,7 @@ const routes = [
         name: 'bebotSecret',
         component: bebotSecret,
         meta: {
-            title: "《保险侠服务协议》"
+            title: "《必保机器人服务协议》"
         }
     },
     {
