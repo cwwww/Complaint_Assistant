@@ -184,6 +184,7 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
+      :homeImg="homeInit.headimgurl"
       :val="question"
     />
     <WhoLookMe
