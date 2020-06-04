@@ -246,6 +246,7 @@ export default {
         user_id: this.broker_id,
         token: this.token
       };
+      alert('精灵商店'+JSON.stringify(param))
       let res = reqFairyBuy(param);
       res
         .then(res => {
