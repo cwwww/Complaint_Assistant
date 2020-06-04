@@ -50,13 +50,13 @@ export default {
   name: "Repository",
   data() {
     return {
-      robot_id: "",
+      // robot_id: "",
       followed_robot_id: "",
-      broker_id: "",
+      // broker_id: "",
       followName: "",
       show: true,
       followImg: "",
-      token: ""
+      // token: ""
     };
   },
     props: ['cancelfollow','robot_visitId','broker_id','robot_id','token'],
@@ -81,6 +81,7 @@ export default {
         token:this.token
       };
       let result = guanZhu(param);
+      console.log("[cancelFollow param]:",JSON.stringify(param))
       result
         .then(res => {
           console.log("guanzhu:" + res);
@@ -95,11 +96,11 @@ export default {
     }
   },
   mounted() {
-    this.followName = this.$route.query.follow_name;
-    this.followImg = this.$route.query.follow_img;
-    this.robot_id = this.$route.query.robot_id;
-    this.followed_robot_id = this.$route.query.followed_robot_id;
-    this.broker_id = this.$route.query.broker_id;
+    // this.followName = this.$route.query.follow_name;
+    // this.followImg = this.$route.query.follow_img;
+    // this.robot_id = this.$route.query.customer_robot_id;
+    // this.followed_robot_id = this.$route.query.followed_robot_id;
+    // this.broker_id = this.$route.query.customer_robot_id;
   }
 };
 </script>
@@ -112,11 +113,12 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: PingFangSC-Medium, PingFang SC;
   width: 100%;
   height: 100%;
   .cancelFollow {
     font-size: 12px;
-    font-family: SFUIText-Regular, SFUIText;
+    font-family: PingFangSC-Medium, PingFang SC;
     font-weight: 400;
     // color: rgba(155, 155, 155, 1);
     color: #666666;
@@ -132,7 +134,7 @@ export default {
     align-items: center;
     justify-content: center;
     font-size: 15px;
-    font-family: SFUIText-Regular, SFUIText;
+    font-family: PingFangSC-Medium, PingFang SC;
     font-weight: 400;
     color: rgba(155, 155, 155, 1);
     line-height: 22px;
