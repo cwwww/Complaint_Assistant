@@ -50,13 +50,13 @@ export default {
   name: "Repository",
   data() {
     return {
-      robot_id: "",
+      // robot_id: "",
       followed_robot_id: "",
-      broker_id: "",
+      // broker_id: "",
       followName: "",
       show: true,
       followImg: "",
-      token: ""
+      // token: ""
     };
   },
     props: ['cancelfollow','robot_visitId','broker_id','robot_id','token'],
@@ -81,6 +81,7 @@ export default {
         token:this.token
       };
       let result = guanZhu(param);
+      console.log("[cancelFollow param]:",JSON.stringify(param))
       result
         .then(res => {
           console.log("guanzhu:" + res);
@@ -112,11 +113,12 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: PingFangSC-Medium, PingFang SC;
   width: 100%;
   height: 100%;
   .cancelFollow {
     font-size: 12px;
-    font-family: SFUIText-Regular, SFUIText;
+    font-family: PingFangSC-Medium, PingFang SC;
     font-weight: 400;
     // color: rgba(155, 155, 155, 1);
     color: #666666;
@@ -132,7 +134,7 @@ export default {
     align-items: center;
     justify-content: center;
     font-size: 15px;
-    font-family: SFUIText-Regular, SFUIText;
+    font-family: PingFangSC-Medium, PingFang SC;
     font-weight: 400;
     color: rgba(155, 155, 155, 1);
     line-height: 22px;

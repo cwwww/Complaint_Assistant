@@ -172,6 +172,7 @@
       :token="registers.token"
       :cancelfollow="CancelFollow"
       :robot_visitId="$route.query.robot_id"
+      ref="cancelFollow"
     />
     <List
       v-show="isList"
@@ -499,10 +500,12 @@ export default {
     guanzhu() {
       var that = this;
       alert(that.registers.visitor_type);
-      if (
-        that.registers.visitor_type != 1 &&
-        this.$route.query.type != "listType"
-      ) {
+      // if (
+      //   that.registers.visitor_type != 1 &&
+      //   this.$route.query.type != "listType"
+      // ) {
+      alert("[in guanzhu]:",that.registers.visitor_type)
+      if (that.registers.visitor_type != 1 && this.$route.query.type != "listType") {
         that.vipNotification = true;
       }
       if (that.guanzhuContent == "关注TA") {
@@ -530,6 +533,12 @@ export default {
           });
       } else if (that.guanzhuContent == "已关注") {
         that.CancelFollow = true;
+        this.$refs.cancelFollow.followImg = this.homeInit.headimgurl
+        this.$refs.cancelFollow.followName = this.homeInit.name
+        console.log("[cancelFollow img:]",this.homeInit.headimgurl)
+        console.log("[Register info]",JSON.stringify(this.registers))
+
+        
       }
     },
     //关注好友
@@ -571,7 +580,7 @@ export default {
         that.customer_type = 0;
         that.customer_robot_id = "";
       }
-      alert(JSON.stringify(that.registers.visitor_type));
+      alert('[Home Init] visitor_type:',JSON.stringify(that.registers.visitor_type));
       let param;
       if (that.$route.query.type == "otherLogin") {
         param = {
@@ -581,7 +590,7 @@ export default {
           visited_robot_id: that.$route.query.visited_robot_id,
           token: that.$route.query.token
         };
-        alert("初始化otherLogin" + JSON.stringify(param));
+        alert("[初始化otherLogin]" + JSON.stringify(param));
       } else {
         param = {
           // customer_id: 33,
@@ -795,6 +804,18 @@ export default {
         visited_robot_id: this.$route.query.robot_id,
         token: this.$route.query.token
       };
+      // Initialize register info
+      this.registers['robot_id'] = this.$route.query.customer_id;
+      this.registers['visitor_id'] =this.$route.query.customer_id;
+      this.registers['token'] = this.$route.query.token
+      console.log("[registers info1!]:",this.$route.query.customer_robot_id)
+      console.log("[registers info2!]:",this.registers['robot_id'] )
+      console.log("[registers info2!]:",this.registers.token )
+
+
+      window.localStorage.setItem('customer_id',this.$route.query.customer_id)
+      alert(window.localStorage.getItem('customer_id'))
+      alert("初始化listType" + JSON.stringify(param));
       let result = reqVisitedInit(param);
       result
         .then(resolve => {
