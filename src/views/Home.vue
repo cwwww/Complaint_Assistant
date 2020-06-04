@@ -928,7 +928,9 @@ export default {
       token:this.$route.query.token,
     }
     window.localStorage.setItem('personal',JSON.stringify(personalData))
+
     alert(JSON.stringify(JSON.parse(window.localStorage.getItem("personal"))))
+    
     // let personal = JSON.stringify(personalData)
     // localStorage.setItem("personal",personal)
 

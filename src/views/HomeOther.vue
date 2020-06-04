@@ -135,9 +135,9 @@
       </div>
     </div>
     <!-- </div> -->
-    <div v-if="this.registers.visitor_type == '0'">
+    <!-- <div v-if="this.registers.visitor_type == '0'">
       <img :src="share" alt />
-    </div>
+    </div> -->
     <ACVisitor
       v-show="showACChat"
       @closeACchat="closeACchat"
@@ -712,7 +712,9 @@ export default {
       return theRequest;
     }
   },
-  mounted() {},
+  mounted() {
+    alert(JSON.stringify(JSON.parse(window.localStorage.getItem("personal2"))))
+  },
   created() {
     if (!window.localStorage.getItem("openId")) {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
