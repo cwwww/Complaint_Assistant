@@ -220,7 +220,7 @@ export default {
       showACChat: false,
       visitList: "",
       mes: "",
-      registers: "",
+      registers: Object,
       isRegister: Boolean,
       show1: false,
       goodsList: [],
@@ -299,15 +299,9 @@ export default {
     Fairy() {
       //买家精灵商店
       if (this.registers.visitor_type == -1) {
-        alert('买家精灵商店')
+        alert("买家精灵商店");
         this.vipNotification = true;
       } else {
-        alert( this.$route.query.customer_id)
-        // this.registers.visitor_id = this.$route.query.customer_id
-        // this.registers.robot_id = this.$route.query.customer_id
-        // this.registers.token = this.$route.query.token
-        // this.$route.query.robot_id = this.$route.query.robot_id
-        // this.registers.visitor_type = 1
         this.fairyShop = true;
       }
     },
@@ -457,12 +451,12 @@ export default {
       var that = this;
       that.question = that.inputcon;
       let param;
-      if(that.registers.visitor_type != 1){
-        that.customer_type = 0
-      }else{
-        that.customer_type = 1
+      if (that.registers.visitor_type != 1) {
+        that.customer_type = 0;
+      } else {
+        that.customer_type = 1;
       }
-      alert(that.customer_type)
+      alert(that.customer_type);
       if (that.flag) {
         param = {
           dialog_type: "0",
@@ -504,8 +498,11 @@ export default {
     },
     guanzhu() {
       var that = this;
-      alert(that.registers.visitor_type)
-      if (that.registers.visitor_type != 1 && this.$route.query.type != "listType") {
+      alert(that.registers.visitor_type);
+      if (
+        that.registers.visitor_type != 1 &&
+        this.$route.query.type != "listType"
+      ) {
         that.vipNotification = true;
       }
       if (that.guanzhuContent == "关注TA") {
@@ -521,7 +518,6 @@ export default {
         result
           .then(res => {
             alert("关注返回" + JSON.stringify(param));
-
             if (res.result.info == "关注成功") {
               that.guanzhuContent = "已关注";
               //更新关注任务状态，领取经验和金币
@@ -779,6 +775,7 @@ export default {
   mounted() {
     // alert(JSON.stringify(JSON.parse(window.localStorage.getItem("personal2"))))
   },
+  beforeCreate() {},
   created() {
     if (!window.localStorage.getItem("openId")) {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
@@ -787,7 +784,10 @@ export default {
       // 别的逻辑
     }
     if (this.$route.query.type == "listType") {
-
+      this.registers["visitor_id"] = this.$route.query.customer_id;
+      this.registers["robot_id"] = this.$route.query.customer_id;
+      this.registers["token"] = this.$route.query.token;
+      this.customer_type = 1
       let param = {
         customer_id: this.$route.query.customer_id,
         customer_robot_id: this.$route.query.customer_id,
@@ -795,9 +795,6 @@ export default {
         visited_robot_id: this.$route.query.robot_id,
         token: this.$route.query.token
       };
-      window.localStorage.setItem('customer_id',this.$route.query.customer_id)
-      alert(window.localStorage.getItem('customer_id'))
-      alert("初始化listType" + JSON.stringify(param));
       let result = reqVisitedInit(param);
       result
         .then(resolve => {
@@ -825,7 +822,6 @@ export default {
             this.homeLevel = this.levelbx7;
           }
           this.question = this.inputcon;
-          
           let param;
           if (this.flag) {
             param = {
@@ -851,7 +847,6 @@ export default {
               customer_type: 1
             };
           }
-          // alert(JSON.stringify(param));
           let res = reqCusayrob(param);
           res
             .then(res => {

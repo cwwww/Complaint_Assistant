@@ -3,7 +3,7 @@
     <van-popup
       v-model="show1"
       closeable
-      roundimg
+      round
       position="bottom"
       :style="{ height: '70%' }"
       @close="close"
@@ -13,7 +13,7 @@
         {{Othername}}精灵商店
         <div class="active"></div>
       </div>
-      <div class="wrap" >
+      <div class="wrap" v-if="goodsList.status !=''">
         <div class="left">
           <!-- <div class="leftLittleLogon">
               <img :src=home_mytask alt />
@@ -62,7 +62,7 @@
         <van-popup class="cont3" v-model="show3" click_overlay>
           <div class="contwrap">
             <img :src="success" alt />
-            <div style="margin:20px 0 3px 0;">获得Josen的知识库</div>
+            <div style="margin:20px 0 3px 0;">获得{{goodsList.name}}的知识库</div>
             <div>请前往知识库查看</div>
           </div>
         </van-popup>
@@ -111,11 +111,11 @@
           <div>交易完成</div>
         </div>
       </div>
-      <!-- <div v-else style="margin-top:40px">
+      <div v-else style="margin-top:40px">
         <center>
           <font size="3px">商品还没有上架，请稍后再来吧！</font>
         </center>
-      </div> -->
+      </div>
       <div class="bottomLine" v-if="goodsList.status !=''"></div>
     </van-popup>
   </div>

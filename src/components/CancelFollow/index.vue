@@ -95,11 +95,11 @@ export default {
     }
   },
   mounted() {
-    this.followName = this.$route.query.follow_name;
-    this.followImg = this.$route.query.follow_img;
-    this.robot_id = this.$route.query.robot_id;
-    this.followed_robot_id = this.$route.query.followed_robot_id;
-    this.broker_id = this.$route.query.broker_id;
+    // this.followName = this.$route.query.follow_name;
+    // this.followImg = this.$route.query.follow_img;
+    // this.robot_id = this.$route.query.robot_id;
+    // this.followed_robot_id = this.$route.query.followed_robot_id;
+    // this.broker_id = this.$route.query.broker_id;
   }
 };
 </script>

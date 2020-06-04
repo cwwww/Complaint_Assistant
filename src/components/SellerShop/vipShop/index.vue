@@ -30,7 +30,7 @@
 import { reqMyShop } from "../../../axios/axios-api";
 
 export default {
-  name: "myShop",
+  name: "vipShop",
   data() {
     return {
       goodsList: [],
@@ -60,7 +60,7 @@ export default {
     }
   },
   mounted() {
-    
+    // dddddd
   }
 };
 </script>
