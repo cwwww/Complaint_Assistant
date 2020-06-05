@@ -8,10 +8,10 @@
       :style="{ height: '80%' }"
       @close="close"
     >
-      <span>知识库</span>
+      <span>{{name}}知识库</span>
       <div class="line"></div>
       <p>
-        10-29 08:23
+        {{list[0].update_time}}
         <span class="add" @click="toAdd">添加+</span>
       </p>
       <div class="contain">
@@ -50,8 +50,23 @@
           <div style="height:20px;"></div>
         </div>
       </div>
-      <router-view />
     </van-popup>
+          <!-- <van-popup class="cont2" v-model="toPulish">
+            <div class="contwrap">
+              <div class="top">
+                <span>{{vipExpiryTime}}</span>
+              </div>
+              <div style="margin-bottom:25px;">您是否要发布到问答广场</div>
+              <div class="isOk">
+                <div class="isNo" ]>
+                  <span style="color:#666;">取消</span>
+                </div>
+                <div class="isYes" ]>
+                  <span style="color:#FFF;">确定</span>
+                </div>
+              </div>
+            </div>
+          </van-popup> -->
   </div>
 </template>
 <script>
@@ -76,6 +91,7 @@ export default {
       showIndex: 0,
       isEdit: false,
       flag: true,
+      toPulish: false,
       img: require("../../../assets/images/Q_small_icon@2x.png"),
       img1: require("../../../assets/images/A_small_icon@2x.png"),
       img2: require("../../../assets/images/biajide.png"),
@@ -89,7 +105,8 @@ export default {
     "robot_id_prop",
     "token_prop",
     "shopZoomC_show",
-    "type"
+    "type",
+    "name"
   ],
   created() {
     Bus.$on("teachyou", data => {
@@ -98,22 +115,21 @@ export default {
       let answer = data.Answer;
     });
     this.show = this.shopZoomC_show;
-    this.broker_id_prop = this.broker_id;
-    this.robot_id_prop = this.robot_id;
-    this.token_prop = this.token;
-    this.type_prop = this.type;
+    this.broker_id = this.broker_id_prop;
+    this.robot_id = this.robot_id_prop;
+    this.token = this.token_prop;
   },
   watch: {
     shopZoomC_show(newValue) {
       this.show = newValue;
     },
-    data(newValue){
+    data(newValue) {
       this.show = newValue;
     }
   },
   methods: {
     close() {
-      if (this.$route.query.type == "type") {
+      if (this.type == "1") {
         this.$emit("shopZoomC", false);
         // this.$router.push({
         //   path: "/Repository",
@@ -138,27 +154,28 @@ export default {
       // }
     },
     listPage(index) {
-      console.log(this.list[index]);
-      if (this.list[index].online_data_id == "") {
-        Toast("请编辑保存后再发布！");
-      } else {
-        let param = {
-          online_data_id: this.list[index].online_data_id,
-          broker_id: this.$route.query.broker_id,
-          question: this.$route.query.Qusetion,
-          answer: this.$route.query.Answer,
-          token: this.$route.query.token
-        };
-        console.log(param);
-        let res = reqlistPage(param);
-        res
-          .then(res => {
-            Toast(res.msg);
-          })
-          .catch(reslove => {
-            console.log("error");
-          });
-      }
+      alert(111);
+      this.toPulish = true;
+      // if (this.list[index].online_data_id == "") {
+      //   Toast("请编辑保存后再发布！");
+      // } else {
+      //   let param = {
+      //     online_data_id: this.list[index].online_data_id,
+      //     broker_id: this.$route.query.broker_id,
+      //     question: this.$route.query.Qusetion,
+      //     answer: this.$route.query.Answer,
+      //     token: this.$route.query.token
+      //   };
+      //   console.log(param);
+      //   let res = reqlistPage(param);
+      //   res
+      //     .then(res => {
+      //       Toast(res.msg);
+      //     })
+      //     .catch(reslove => {
+      //       console.log("error");
+      //     });
+      // }
     },
     toAdd() {
       if (this.flag) {
@@ -170,10 +187,10 @@ export default {
         this.Answer = "";
       }
       let param = {
-        broker_id: this.$route.query.broker_id,
+        broker_id: this.broker_id,
         question: this.Qusetion,
         answer: this.Answer,
-        token: this.$route.query.token
+        token: this.token
       };
       console.log(param);
       //   let res = reqaddledgeList(param)
@@ -194,9 +211,9 @@ export default {
     },
     remove(index) {
       let param = {
-        broker_id: this.$route.query.broker_id,
+        broker_id: this.broker_id,
         online_data_id: this.list[index].online_data_id,
-        token: this.$route.query.token
+        token: this.token
       };
       console.log(param);
       let res = reqdeleteList(param);
@@ -237,14 +254,13 @@ export default {
         this.showIndex = index;
         canSave = false;
       }
-
       if (this.list[index].online_data_id != "") {
         let param = {
           modified_data_id: this.list[index].online_data_id,
-          broker_id: this.$route.query.broker_id,
+          broker_id: this.broker_id,
           question: this.$route.query.Qusetion,
           answer: this.$route.query.Answer,
-          token: this.$route.query.token
+          token: this.token
         };
         let res = reqeditList(param);
         res
@@ -259,15 +275,14 @@ export default {
       } else {
         if (canSave) {
           let param2 = {
-            broker_id: this.$route.query.broker_id,
+            broker_id: this.broker_id,
             question: this.$route.query.Qusetion,
             answer: this.$route.query.Answer,
-            token: this.$route.query.token
+            token: this.token
           };
           let res = reqaddledgeList(param2);
           res
             .then(res => {
-              console.log(res);
               this.list = res.result.data;
               this.ShoWList();
             })
@@ -282,14 +297,13 @@ export default {
     showListAdd(question, answer) {
       this.showIndex = -1;
       let param = {
-        broker_id: this.$route.query.broker_id,
-        token: this.$route.query.token
+        broker_id: this.broker_id,
+        token: this.token
       };
       console.log(param);
       let res = reqknowledgeList(param);
       res
         .then(res => {
-          console.log(res);
           this.list = res.result.data;
           this.list.splice(0, 0, {
             question: question,
@@ -305,8 +319,8 @@ export default {
     ShoWList() {
       this.showIndex = -1;
       let param = {
-        broker_id: this.$route.query.broker_id,
-        token: this.$route.query.token
+        broker_id: this.broker_id,
+        token: this.token
       };
       let res = reqknowledgeList(param);
       res
@@ -324,13 +338,12 @@ export default {
     //与机器人聊天任务
     getReqtaskStatus() {
       let param = {
-        broker_id: 1,
-        robot_id: 1,
+        broker_id: this.broker_id,
+        robot_id: this.robot_id,
         operation_type: 2,
-        token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2Np"
+        token: this.token
       };
       console.log("任务的param:" + param);
-
       let result = reqtaskStatus(param);
       result
         .then(res => {})
@@ -345,11 +358,12 @@ export default {
   mounted() {
     // let question = this.$route.query.Question;
     // let answer = this.$route.query.Answer;
-    if (question != "") {
-      this.showListAdd(question, answer);
-    } else {
-      this.ShoWList();
-    }
+    // if (question != "") {
+    //   console.log(22)
+    //   this.showListAdd(question, answer);
+    // } else {
+    this.ShoWList();
+    // }
   }
 };
 </script>
@@ -398,6 +412,9 @@ export default {
       font-size: 14px;
     }
     .contain {
+      overflow-y: hidden;
+      overflow: scroll;
+      height: 370px;
       > .centercontent {
         width: 345px;
         height: auto;
@@ -489,8 +506,92 @@ export default {
             }
           }
         }
+        .cont2 {
+          width: 305px;
+          height: 174px;
+          background: rgba(255, 255, 255, 1);
+          border-radius: 15px;
+          .contwrap {
+            font-size: 17px;
+            font-family: PingFangSC-Medium, PingFang SC;
+            font-weight: 500;
+            color: rgba(51, 51, 51, 1);
+            line-height: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+            .top {
+              margin-bottom: 7px;
+            }
+            .isOk {
+              display: flex;
+              // align-items: center;
+              // justify-content: center;
+              .isNo {
+                width: 125px;
+                height: 42px;
+                background: rgba(234, 234, 234, 1);
+                border-radius: 4px;
+                text-align: center;
+                line-height: 42px;
+              }
+              .isYes {
+                width: 125px;
+                height: 42px;
+                background: rgba(0, 147, 253, 1);
+                border-radius: 4px;
+                text-align: center;
+                line-height: 42px;
+                margin-left: 20px;
+              }
+            }
+          }
+        }
       }
     }
   }
 }
+  .cont2 {
+    width: 305px;
+    height: 174px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 15px;
+    .contwrap {
+      font-size: 17px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(51, 51, 51, 1);
+      line-height: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+      .top {
+        margin-bottom: 7px;
+      }
+      .isOk {
+        display: flex;
+        // align-items: center;
+        // justify-content: center;
+        .isNo {
+          width: 125px;
+          height: 42px;
+          background: rgba(234, 234, 234, 1);
+          border-radius: 4px;
+          text-align: center;
+          line-height: 42px;
+        }
+        .isYes {
+          width: 125px;
+          height: 42px;
+          background: rgba(0, 147, 253, 1);
+          border-radius: 4px;
+          text-align: center;
+          line-height: 42px;
+          margin-left: 20px;
+        }
+      }
+    }
+  }
 </style>

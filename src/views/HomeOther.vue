@@ -609,18 +609,12 @@ export default {
         alert("[初始化otherLogin]" + JSON.stringify(param));
       } else {
         param = {
-          // customer_id: 33,
-          // customer_robot_id: 33,
-          // customer_type: 1,
-          // visited_robot_id: 93,
-          // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
           customer_id: that.registers.visitor_id,
           customer_robot_id: that.customer_robot_id,
           customer_type: that.customer_type,
           visited_robot_id: that.$route.query.robot_id,
           token: that.registers.token
         };
-        alert("初始化" + JSON.stringify(param));
       }
       let result = reqVisitedInit(param);
       result
