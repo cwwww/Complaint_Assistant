@@ -195,6 +195,7 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :myHeadImg="homeInit.headimgurl"
+      ref = "myVisitors"
     />
     <Repository
       v-show="isRep"
@@ -226,6 +227,7 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
+      ref = "ranks"
     />
     <Task
       v-show="isTask"
@@ -479,10 +481,12 @@ export default {
     WhoLookMe() {
       // 谁看过我
       this.WhoLook = true;
+      this.$refs.myVisitors.updateVisitors();
       this.destoryTimer();
     },
     Ranking() {
       this.isRanking = true;
+      this.$refs.ranks.updateRanks();
       this.destoryTimer();
     },
     Task() {
