@@ -163,6 +163,7 @@
       :Othername="homeInit.name"
       :user_type="registers.visitor_type"
       v-if="$route.query.robot_id"
+      ref="fairyShop"
     />
     <CancelFollow
       v-show="CancelFollow"
@@ -245,6 +246,7 @@ export default {
       fairyStatus: "",
       inputcon: "",
       customer_type: "",
+      customer_robot_id:"",
       share: require("../assets/images/share@2x.png"),
       img: require("../assets/images/icon.png"),
       register: require("../assets/images/register@2x.png"),
@@ -308,6 +310,7 @@ export default {
         this.registers["token"] = this.$route.query.token;
         this.registers["visitor_type"] = 1;
         this.fairyShop = true;
+        this.$refs.fairyShop.getGoodsList();
       }
     },
     toGet() {
