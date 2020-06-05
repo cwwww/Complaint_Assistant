@@ -552,6 +552,7 @@ export default {
     },
     changeFollowStatus() {
       this.guanzhuContent = "关注TA";
+      
     },
     //关注好友
     guanzhuUpdateTask() {
@@ -631,15 +632,15 @@ export default {
             that.homeLevel = that.levelbx1;
           } else if (that.homeInit.title == 2) {
             that.homeLevel = that.levelbx2;
-          } else if (that.homeInit.level == 3) {
+          } else if (that.homeInit.title == 3) {
             that.homeLevel = that.levelbx3;
-          } else if (that.homeInit.level == 4) {
+          } else if (that.homeInit.title == 4) {
             that.homeLevel = that.levelbx4;
-          } else if (that.homeInit.level == 5) {
+          } else if (that.homeInit.title == 5) {
             that.homeLevel = that.levelbx5;
-          } else if (that.homeInit.level == 6) {
+          } else if (that.homeInit.title == 6) {
             that.homeLevel = that.levelbx6;
-          } else if (that.homeInit.level == 7) {
+          } else if (that.homeInit.title == 7) {
             that.homeLevel = that.levelbx7;
           }
           that.getCusayrob();
