@@ -363,6 +363,13 @@ export const taskStatusUpdate = data => { // 机器人状态更新接口
   });
 };
 
+export const validateToken = data => { // 机器人状态更新接口
+  return axiosService({
+    url: "https://test-bebot-api.baoxianxia.com.cn/isTureToken/",
+    method: "post",
+    data
+  });
+};
 
 // 下面是GET形式
 // export const userInfo = params => {

@@ -41,7 +41,7 @@ import {
   reqsendMsmCode,
   reqwxconfig,
   reqisregistered,
-  reqRobotHistory
+  validateToken
 } from "../axios/axios-api";
 // import {debounce} from '../assets/js/common'
 import { Toast, Checkbox } from "vant";
@@ -263,9 +263,9 @@ export default {
     // alert(this.info);
 
     let VlidateToken = infosto.token || '';
-    let VlidateBrokerid = 33;
+    let VlidateBrokerid = infosto.broker_id || '';
     let param = { token: VlidateToken,broker_id: VlidateBrokerid};
-    let result = await reqRobotHistory(param);
+    let result = await validateToken(param);
     var msg = result.msg;
     if (msg == "token错误!") {
       //
