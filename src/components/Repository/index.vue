@@ -200,7 +200,6 @@ export default {
   // inheritAttrs: false,
   created() {
     Bus.$on("teachyou", data => {
-      alert(JSON.stringify(data));
       let question = data.Question;
       let answer = data.Answer;
     });
@@ -214,7 +213,6 @@ export default {
       this.show = newValue;
     },
     data(newValue) {
-      alert(newValue);
       this.show = newValue;
     }
   },
@@ -278,7 +276,6 @@ export default {
     },
     toget(index) {
       this.goods = this.list[index].goods_id;
-      alert(this.robot_id_prop);
       let param = {
         robot_id: this.robot_id_prop,
         goods_id: this.goods,

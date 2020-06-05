@@ -250,7 +250,6 @@
 			getStorge(){
 			var data1 = JSON.parse(localStorage.getItem('hou'));
 			var data2 = localStorage.getItem('zheng');
-			alert(data1);
 			// alert(data2);
 			}
 		},

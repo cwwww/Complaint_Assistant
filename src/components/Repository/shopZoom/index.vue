@@ -110,7 +110,6 @@ export default {
   ],
   created() {
     Bus.$on("teachyou", data => {
-      alert(JSON.stringify(data));
       let question = data.Question;
       let answer = data.Answer;
     });
@@ -154,7 +153,6 @@ export default {
       // }
     },
     listPage(index) {
-      alert(111);
       this.toPulish = true;
       // if (this.list[index].online_data_id == "") {
       //   Toast("请编辑保存后再发布！");

@@ -167,7 +167,6 @@ export default {
     },
     submit() {
       if (this.dialogMark == "1") {
-        alert(2222);
         if (this.ques == "") {
           Toast("请输入聊天内容");
         } else {
