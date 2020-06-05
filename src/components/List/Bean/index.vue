@@ -51,6 +51,7 @@ export default {
   data() {
     return {
       baenstList: [],
+      followers_num: 0,
       img: require("../../../assets/images/金牌@2x.png"),
       img2: require("../../../assets/images/等级-保险配置王@2x.png"),
       img4: require("../../../assets/images/默认头像@2x.png"),
@@ -66,21 +67,7 @@ export default {
   },
   props: ["broker_id_prop", "robot_id_prop", "token_prop"],
   mounted() {
-    let param = {
-      operation_type: 1,
-      robot_id: this.robot_id_prop,
-      broker_id: this.broker_id_prop,
-      token: this.token_prop
-    };
-    let result = BeanList(param);
-    result
-      .then(res => {
-        this.baenstList = res.result.followers;
-        console.log(this.baenstList, "粉丝");
-      })
-      .catch(reslove => {
-        console.log("error");
-      });
+    this.followerList();
   },
 
   methods: {
@@ -109,8 +96,34 @@ export default {
         followed_robot_id: followed_robot_id,
         token: this.token_prop
       };
-      guanZhu(param);
-      item.followed = !item.followed;
+      guanZhu(param).then(res => {
+        this.followerList();
+        this.$emit("updateFriendList");
+      })
+      .catch(reslove => {
+          console.log("error");
+        });
+
+      // item.followed = !item.followed;
+    },
+    followerList() {
+      let param = {
+        operation_type: 1,
+        robot_id: this.robot_id_prop,
+        broker_id: this.broker_id_prop,
+        token: this.token_prop
+      };
+      let result = BeanList(param);
+      result
+        .then(res => {
+          this.baenstList = res.result.followers;
+          this.followers_num = res.result.followers_num;
+          this.$emit("updateFollowersNum", this.followers_num);
+          console.log(this.baenstList, "粉丝");
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     }
   }
 };

@@ -214,6 +214,9 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :curIndex="curIndex"
+      @updateFollowersNum="updateFollowersNum"
+      @updateFriendsNum="updateFriendsNum"
+      ref='friendsFollowers'
     />
     <Ranking
       v-show="isRanking"
@@ -506,12 +509,19 @@ export default {
       this.curIndex = 0;
       this.isList = true;
       this.destoryTimer();
+      this.$refs.friendsFollowers.changeIndex(0);
+      this.$refs.friendsFollowers.updateFriendList();
+      this.$refs.friendsFollowers.updateFollowrsList();
     },
     lists(curIndex) {
       // 粉丝
       this.curIndex = 1;
       this.showNewFans = false;
       this.isList = true;
+      this.$refs.friendsFollowers.changeIndex(1);
+      this.$refs.friendsFollowers.updateFriendList();
+      this.$refs.friendsFollowers.updateFollowrsList();
+
       // this.destoryTimer();
     },
     previousPage() {
@@ -665,6 +675,7 @@ export default {
       res
         .then(res => {
           let showNotification = res.result.notification;
+          this.homeInit.fans_num = res.result.followers_num;
           if (showNotification) {
             this.showNewFans = true;
           }
@@ -672,6 +683,14 @@ export default {
         .catch(reslove => {
           // console.log("error");
         });
+    },
+    updateFollowersNum(data){
+      console.log("[updateFollowersNum]:",data)
+      this.homeInit.fans_num = data;
+    },
+    updateFriendsNum(data){
+      console.log("[updateFriendsNum]:",data)
+      this.homeInit.friends_num = data;
     },
     submit(numIndex) {
       this.numIndex += 1;
