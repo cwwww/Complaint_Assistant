@@ -166,7 +166,7 @@ export default {
     },
     impower() {
       this.getCode();
-      alert(JSON.stringify("code" + this.code));
+      // alert(JSON.stringify("code" + this.code));
       let param = { code: this.code };
       let res = reqbebotCode(param);
       res
@@ -235,8 +235,6 @@ export default {
     getStorge(){
     var data1 = JSON.parse(localStorage.getItem('hou'));
     var data2 = localStorage.getItem('zheng');
-    alert(data1);
-    alert(data2);
     }
   },
   created() {

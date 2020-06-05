@@ -108,7 +108,6 @@ export default {
     // }
   },
   beforeUpdate(){
-    alert(this.broker_id)
   }
 };
 </script>

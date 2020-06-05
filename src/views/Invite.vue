@@ -127,6 +127,7 @@
 			<span><img src="../assets/images/share_2.png" v-on:click="close" /></span>
 		</div>
 	</div>
+	
 </template>
 <script>
 	import { yaoQing } from "../axios/axios-api";
@@ -222,16 +223,40 @@
 			      console.log("error");
 			    });
 			},
+			shareFriend: function() {
+				var that = this;
+				that.isInviter = true;
+				// wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
+				//   wx.updateAppMessageShareData({ 
+				//     title: '分享', // 分享标题
+				//     desc: '分享内容', // 分享描述
+				//     link: 'http://api-bebot.baoxianxia.com.cn/api/callback/wxconfig/bebot/', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+				//     imgUrl: '', // 分享图标
+				//     success: function () {
+				//       // 设置成功
+				//     }
+				//   })
+				// }); 
+			},
+			close : function(){
+				this.isInviter = false;
+			},
+			putStorge(){
+			const info = { name: 'hou', age: 24, id: '001' };
+			const str="haha";
+			localStorage.setItem('hou', JSON.stringify(info));
+			localStorage.setItem('zheng', str);
+			},
 			getStorge(){
 			var data1 = JSON.parse(localStorage.getItem('hou'));
 			var data2 = localStorage.getItem('zheng');
-			alert(data1);
-			alert(data2);
+			// alert(data2);
 			}
 		},
-		created() {
-			this.getStorge();
-		},
+		// created() {
+		// 	this.putStorge();
+      	// 	this.getStorge();
+		// },
 		computed: {
 
                 reverseData() {
@@ -300,26 +325,6 @@
 				.catch(reslove => {
 					console.log("error");
 				});
-		},
-		methods: {
-			shareFriend: function() {
-				var that = this;
-				that.isInviter = true;
-				// wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
-				//   wx.updateAppMessageShareData({ 
-				//     title: '分享', // 分享标题
-				//     desc: '分享内容', // 分享描述
-				//     link: 'http://api-bebot.baoxianxia.com.cn/api/callback/wxconfig/bebot/', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-				//     imgUrl: '', // 分享图标
-				//     success: function () {
-				//       // 设置成功
-				//     }
-				//   })
-				// }); 
-			},
-			close : function(){
-				this.isInviter = false;
-			}
 		}
 	};
 </script>

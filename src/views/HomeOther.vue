@@ -301,7 +301,6 @@ export default {
     Fairy() {
       //买家精灵商店
       if (this.registers.visitor_type == -1) {
-        alert("买家精灵商店");
         this.vipNotification = true;
       } else {
         this.registers["visitor_id"] = this.$route.query.customer_id;
@@ -367,7 +366,6 @@ export default {
             token: this.$route.query.token
           }
         });
-        alert("1221" + JSON.stringify(query));
       } else {
         this.$router.push({
           path: "/",
@@ -406,7 +404,6 @@ export default {
         Toast("请输入聊天内容");
       } else {
         if (this.$route.query.type == "listType") {
-          alert(2222);
           var that = this;
           that.question = that.inputcon;
           let param;
@@ -462,7 +459,6 @@ export default {
       } else {
         that.customer_type = 1;
       }
-      alert(that.customer_type);
       if (that.flag) {
         param = {
           dialog_type: "0",
@@ -504,12 +500,10 @@ export default {
     },
     guanzhu() {
       var that = this;
-      alert("[visitor type]", that.registers.visitor_type);
       // if (
       //   that.registers.visitor_type != 1 &&
       //   this.$route.query.type != "listType"
       // ) {
-      alert("[in guanzhu]:", that.registers.visitor_type);
       if (
         that.registers.visitor_type != 1 &&
         this.$route.query.type != "listType"
@@ -524,11 +518,9 @@ export default {
           broker_id: that.registers.visitor_id,
           token: that.registers.token
         };
-        alert("关注请求参数" + JSON.stringify(param));
         let result = guanZhu(param);
         result
           .then(res => {
-            alert("关注返回" + JSON.stringify(param));
             if (res.result.info == "关注成功") {
               that.guanzhuContent = "已关注";
               //更新关注任务状态，领取经验和金币
@@ -594,10 +586,6 @@ export default {
         that.customer_type = 0;
         that.customer_robot_id = "";
       }
-      alert(
-        "[Home Init] visitor_type:",
-        JSON.stringify(that.registers.visitor_type)
-      );
       let param;
       if (that.$route.query.type == "otherLogin") {
         param = {
@@ -607,27 +595,19 @@ export default {
           visited_robot_id: that.$route.query.visited_robot_id,
           token: that.$route.query.token
         };
-        alert("[初始化otherLogin]" + JSON.stringify(param));
       } else {
         param = {
-          // customer_id: 33,
-          // customer_robot_id: 33,
-          // customer_type: 1,
-          // visited_robot_id: 93,
-          // token:"ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqZndwWTpsR19ISDR1QWowemJycVowYVBUaThlN2U3Rjg.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9URXdOalUxTkRndU5EYzBNell3TW4wOjFqZndwWTpNTy1oOFEwT0YzREN0ZjRRUWpkclZraDN1VVU.d741224d1f1eedf4938d51d4961c56b3"
           customer_id: that.registers.visitor_id,
           customer_robot_id: that.customer_robot_id,
           customer_type: that.customer_type,
           visited_robot_id: that.$route.query.robot_id,
           token: that.registers.token
         };
-        alert("初始化" + JSON.stringify(param));
       }
       let result = reqVisitedInit(param);
       result
         .then(res => {
           that.homeInit = res.result;
-          alert("展示" + JSON.stringify(that.homeInit));
           if (that.homeInit.followed) {
             that.guanzhuContent = "已关注";
           } else {
@@ -721,7 +701,6 @@ export default {
                   }
                 });
               }
-              alert("register" + JSON.stringify(that.registers));
               if (that.registers.visitor_type == "0") {
                 that.customer_id = that.visitor_id;
                 that.registers.robot_id = -1;
@@ -823,8 +802,6 @@ export default {
         token: this.$route.query.token
       };
       window.localStorage.setItem("customer_id", this.$route.query.customer_id);
-      alert(window.localStorage.getItem("customer_id"));
-      alert("初始化listType" + JSON.stringify(param));
       let result = reqVisitedInit(param);
       result
         .then(resolve => {
