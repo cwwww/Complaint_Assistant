@@ -495,7 +495,7 @@ export default {
           that.inputcon = "";
         })
         .catch(reslove => {
-          console.log("error");
+          console.log("[reqCusayrob error!]");
         });
     },
     guanzhu() {
@@ -528,11 +528,11 @@ export default {
               that.registers["robot_id"] = that.$route.query.customer_id;
               that.registers["token"] = that.$route.query.token;
               that.guanzhuUpdateTask();
-              that.getHomeInit();
+              that.updateHomeInfo();
             }
           })
           .catch(reslove => {
-            console.log("error");
+            console.log("[guanzhu error]");
           });
       } else if (that.guanzhuContent == "已关注") {
         that.CancelFollow = true;
@@ -544,7 +544,7 @@ export default {
     },
     changeFollowStatus() {
       this.guanzhuContent = "关注TA";
-      
+      this.updateHomeInfo();
     },
     //关注好友
     guanzhuUpdateTask() {
@@ -637,12 +637,74 @@ export default {
           console.log("error");
         });
     },
+    updateHomeInfo(){
+      var that = this;
+      console.log("[register_visitor_type]", that.registers.visitor_type);
+      if (that.registers.visitor_type == "0") {
+        that.customer_type = 0;
+        that.customer_robot_id = "";
+      } else if (that.registers.visitor_type == "1") {
+        that.customer_type = 1;
+        that.customer_robot_id = that.registers.robot_id;
+      } else if (that.registers.visitor_type == "-1") {
+        that.customer_type = 0;
+        that.customer_robot_id = "";
+      }
+      let param;
+      if (that.$route.query.type == "otherLogin") {
+        param = {
+          customer_id: that.$route.query.customer_id,
+          customer_robot_id: that.$route.query.customer_id,
+          customer_type: 1,
+          visited_robot_id: that.$route.query.visited_robot_id,
+          token: that.$route.query.token
+        };
+      } else {
+        param = {
+          customer_id: that.registers.visitor_id,
+          customer_robot_id: that.customer_robot_id,
+          customer_type: that.customer_type,
+          visited_robot_id: that.$route.query.robot_id,
+          token: that.registers.token
+        };
+      }
+      let result = reqVisitedInit(param);
+      result
+        .then(res => {
+          that.homeInit = res.result;
+          if (that.homeInit.followed) {
+            that.guanzhuContent = "已关注";
+          } else {
+            that.guanzhuContent = "关注TA";
+          }
+          if (that.homeInit.title == 1) {
+            //保险等级
+            that.homeLevel = that.levelbx1;
+          } else if (that.homeInit.title == 2) {
+            that.homeLevel = that.levelbx2;
+          } else if (that.homeInit.title == 3) {
+            that.homeLevel = that.levelbx3;
+          } else if (that.homeInit.title == 4) {
+            that.homeLevel = that.levelbx4;
+          } else if (that.homeInit.title == 5) {
+            that.homeLevel = that.levelbx5;
+          } else if (that.homeInit.title == 6) {
+            that.homeLevel = that.levelbx6;
+          } else if (that.homeInit.title == 7) {
+            that.homeLevel = that.levelbx7;
+          }
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
+
+    },
     //串门成功调更新任务接口
     chuanmen() {
       var that = this;
       let param = {
-        broker_id: that.registers.customer_id,
-        robot_id: that.registers.customer_robot_id,
+        broker_id: that.registers.visitor_id,
+        robot_id: that.registers.robot_id,
         operation_type: 4,
         visited_robot_id: that.$route.query.robot_id,
         token: that.registers.token
