@@ -238,10 +238,10 @@ export default {
     // const str="0001";
     // localStorage.setItem('hou', JSON.stringify(info));
     // localStorage.setItem('zheng', str);
-    localStorage.setItem('info', info);
+    localStorage.setItem('info', JSON.stringify(info));
     },
     getStorge(){
-      var info = localStorage.getItem('info');
+      var info =  JSON.parse(localStorage.getItem('info'));
       return info;
     // var data1 = JSON.parse(localStorage.getItem('hou'));
     // var data2 = localStorage.getItem('zheng');
@@ -257,14 +257,14 @@ export default {
     } else {
       // 别的业务逻辑
     };
-    this.info= this.getStorge();
-    console.log(info);
+    let infosto= this.getStorge();
+    console.log(infosto);
     // alert(this.info);
-    if(info!=undefined){
-      broker_id=this.info.broker_id,
-      robot_id=this.info.robot_id,
-      token= this.info.token,
-      that.$router.push({
+    if(infosto.token!=""){
+      broker_id=infosto.broker_id,
+      robot_id=infosto.robot_id,
+      token= infosto.token,
+      this.$router.push({
           path: "/",
           query: {
             broker_id: broker_id,
