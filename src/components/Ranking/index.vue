@@ -30,6 +30,7 @@
         :token_prop="token_prop"
         v-bind="$attrs"
         v-on="$listeners"
+        ref="friendsRank"
       />
       <Sentiment
         v-show="curIndex == 2"
@@ -38,6 +39,7 @@
         :token_prop="token_prop"
         v-bind="$attrs"
         v-on="$listeners"
+        ref='fansRank'
       />
       <Theglobal
         v-show="curIndex == 0"
@@ -46,6 +48,7 @@
         :token_prop="token_prop"
         v-bind="$attrs"
         v-on="$listeners"
+        ref="globalRank"
       />
     </van-popup>
   </div>
@@ -108,6 +111,11 @@ export default {
     },
     close() {
       this.$emit("rankingc", false);
+    },
+    updateRanks(){
+      this.$refs.globalRank.updateGlobalRank();
+      this.$refs.fansRank.updateFansRank();
+      this.$refs.friendsRank.updateFriendsRank();
     }
   }
 };

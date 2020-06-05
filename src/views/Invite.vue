@@ -86,11 +86,11 @@
 
 				</div>
 				<div class="right">
-					<div class="rightFontColor" v-if="recommender.member_day >0">
-						<p>{{recommender.member_day}}天会员</p>
-					</div>
 					<div class="rightFontColor" v-if="recommender.lexicon >0">
 						<p>{{recommender.lexicon}}万词库</p>
+					</div>
+					<div class="rightFontColor" v-if="recommender.member_day >0">
+						<p>{{recommender.member_day}}天会员</p>
 					</div>
 				</div>
 				<!-- <div >

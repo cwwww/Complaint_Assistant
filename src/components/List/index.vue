@@ -12,7 +12,7 @@
       <div class="title" id="title">
         <ul>
           <li
-            :class="{'active': index === curIndex}"
+            :class="{'active': index === tagIndex}"
             class="bigBox"
             v-for="(item, index) in lists"
             :key="index"
@@ -22,20 +22,23 @@
         </ul>
       </div>
       <Bean
-        v-show="curIndex == 1"
+        v-show="tagIndex == 1"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
-             v-bind="$attrs"
+        v-bind="$attrs"
         v-on="$listeners"
+        @updateFriendList="updateFriendList"
+        ref="followerslist"
       />
       <Friend
-        v-show="curIndex == 0"
+        v-show="tagIndex == 0"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
-             v-bind="$attrs"
+        v-bind="$attrs"
         v-on="$listeners"
+        ref="friendslist"
       />
     </van-popup>
   </div>
@@ -52,6 +55,7 @@ export default {
 
   data() {
     return {
+      tagIndex:0,
       show1: true,
       broker_id_prop: "",
       robot_id_prop: "",
@@ -68,7 +72,7 @@ export default {
       ]
     };
   },
-  props: ["list_show", "broker_id", "robot_id", "token", "curIndex"],
+  props: ["list_show", "broker_id", "robot_id", "token"],
   inheritAttrs: false,
   created() {
     this.show1 = this.list_show;
@@ -85,10 +89,17 @@ export default {
 
   methods: {
     changeIndex(i) {
-      this.curIndex = i;
+      this.tagIndex = i;
     },
     close1() {
       this.$emit("listc", false);
+    },
+    updateFriendList() {
+      console.log("[updateFriendList]:completed")
+      this.$refs.friendslist.updateFriendList();
+    },
+    updateFollowrsList(){
+      this.$refs.followerslist.followerList();
     }
   }
 };

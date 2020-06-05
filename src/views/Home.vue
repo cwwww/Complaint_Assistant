@@ -197,6 +197,7 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :myHeadImg="homeInit.headimgurl"
+      ref = "myVisitors"
     />
     <Repository
       v-show="isRep"
@@ -217,7 +218,13 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :curIndex="curIndex"
+<<<<<<< HEAD
       :visitimgurl="visitimgurl"
+=======
+      @updateFollowersNum="updateFollowersNum"
+      @updateFriendsNum="updateFriendsNum"
+      ref='friendsFollowers'
+>>>>>>> 68232cb841406e9e7449adb0833fcd5ac57ae04f
     />
     <Ranking
       v-show="isRanking"
@@ -227,7 +234,11 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
+<<<<<<< HEAD
       :visitimgurl="visitimgurl"
+=======
+      ref = "ranks"
+>>>>>>> 68232cb841406e9e7449adb0833fcd5ac57ae04f
     />
     <Task
       v-show="isTask"
@@ -248,6 +259,7 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :type="toget"
+      ref = "sellerShop"
     />
   </div>
 </template>
@@ -453,6 +465,7 @@ export default {
       // 买家精灵商店
       this.toget = 0;
       this.isSellerShop = true;
+      this.$refs.sellerShop.updateShop();
       // this.destoryTimer();
     },
     isNo() {
@@ -475,6 +488,7 @@ export default {
       this.toget = 1;
       this.isSellerShop = true;
       this.vipNotification = false;
+      
     },
     noGet() {
       this.vipNotification = false;
@@ -490,10 +504,12 @@ export default {
     WhoLookMe() {
       // 谁看过我
       this.WhoLook = true;
+      this.$refs.myVisitors.updateVisitors();
       this.destoryTimer();
     },
     Ranking() {
       this.isRanking = true;
+      this.$refs.ranks.updateRanks();
       this.destoryTimer();
     },
     Task() {
@@ -529,12 +545,19 @@ export default {
       this.curIndex = 0;
       this.isList = true;
       this.destoryTimer();
+      this.$refs.friendsFollowers.changeIndex(0);
+      this.$refs.friendsFollowers.updateFriendList();
+      this.$refs.friendsFollowers.updateFollowrsList();
     },
     lists(curIndex) {
       // 粉丝
       this.curIndex = 1;
       this.showNewFans = false;
       this.isList = true;
+      this.$refs.friendsFollowers.changeIndex(1);
+      this.$refs.friendsFollowers.updateFriendList();
+      this.$refs.friendsFollowers.updateFollowrsList();
+
       // this.destoryTimer();
     },
     previousPage() {
@@ -688,6 +711,7 @@ export default {
       res
         .then(res => {
           let showNotification = res.result.notification;
+          this.homeInit.fans_num = res.result.followers_num;
           if (showNotification) {
             this.showNewFans = true;
           }
@@ -695,6 +719,14 @@ export default {
         .catch(reslove => {
           // console.log("error");
         });
+    },
+    updateFollowersNum(data){
+      console.log("[updateFollowersNum]:",data)
+      this.homeInit.fans_num = data;
+    },
+    updateFriendsNum(data){
+      console.log("[updateFriendsNum]:",data)
+      this.homeInit.friends_num = data;
     },
     submit(numIndex) {
       this.numIndex += 1;

@@ -4,7 +4,7 @@
   <div>
     <div class="main">
       <div v-for="(item, idx) in theglobalList" :key="idx">
-        <div class="wrap"  @click="clickThis(item.broker_id,item.robot_id)">
+        <div class="wrap" @click="clickThis(item.broker_id,item.robot_id)">
           <div class="left">
             <div class="leftLittleLogon">
               <img v-if="idx == 0" :src="img" alt />
@@ -71,19 +71,7 @@ export default {
   props: ["broker_id_prop", "robot_id_prop", "token_prop","visitimgurl"],
   mounted() {
     // alert(this.)
-    let param = {
-      broker_id: this.broker_id_prop,
-      robot_id: this.robot_id_prop,
-      token:this.token_prop
-    };
-    let result = RanlingDatasFriend(param);
-    result
-      .then(res => {
-        this.theglobalList = res.result.friends;
-      })
-      .catch(reslove => {
-        console.log("error");
-      });
+    this.updateFriendsRank();
   },
   methods:{
 	  clickThis:function(broker_id,robot_id){

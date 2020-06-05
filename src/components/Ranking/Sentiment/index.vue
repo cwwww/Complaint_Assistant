@@ -71,20 +71,7 @@ export default {
   },
 props: ["broker_id_prop", "robot_id_prop", "token_prop","visitimgurl"],
   mounted() {
-    let param = {
-      broker_id: this.broker_id_prop,
-      robot_id: this.robot_id_prop ,
-      token:this.token_prop
-    };
-    console.log(param);
-    let result = RanlingDatasQi(param);
-    result
-      .then(res => {
-        this.theglobalListe = res.result.fans;
-      })
-      .catch(reslove => {
-        console.log("error");
-      });
+    this.updateFansRank();
   },
   methods:{
 	 clickThis:function(broker_id,robot_id){
@@ -105,6 +92,22 @@ props: ["broker_id_prop", "robot_id_prop", "token_prop","visitimgurl"],
        })
      }
    },
+   updateFansRank(){
+     let param = {
+      broker_id: this.broker_id_prop,
+      robot_id: this.robot_id_prop ,
+      token:this.token_prop
+    };
+    console.log(param);
+    let result = RanlingDatasQi(param);
+    result
+      .then(res => {
+        this.theglobalListe = res.result.fans;
+      })
+      .catch(reslove => {
+        console.log("[fans rank update error]");
+      });
+   }
    
   }
 };

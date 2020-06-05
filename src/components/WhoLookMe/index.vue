@@ -41,7 +41,7 @@
       :titleName="titleName"
       :customer_type="customer_type"
       :customerImg="customerImg"
-      :customer_id="customer_id" 
+      :customer_id="customer_id"
       :myHeadImg="myHeadImg"
       v-if="customer_id"
     />
@@ -64,10 +64,10 @@ export default {
       robot_id_prop: "",
       token_prop: "",
       list: [],
-      titleName:'',
-      customer_type:'',
-      customerImg:'',
-      customer_id:'',
+      titleName: "",
+      customer_type: "",
+      customerImg: "",
+      customer_id: "",
       img: require("../../assets/images/Group@2x.png")
     };
   },
@@ -82,7 +82,7 @@ export default {
       this.show = newValue;
     }
   },
-  props: ["broker_id", "robot_id", "token", "Who_Look","myHeadImg"],
+  props: ["broker_id", "robot_id", "token", "Who_Look", "myHeadImg"],
   // watch:{
   //   titleName(){
   //     this.titleName = this.list[index].name
@@ -97,27 +97,30 @@ export default {
       this.$emit("WhoLookC", false);
     },
     toACchat(index) {
-      this.titleName = this.list[index].name
-      this.customer_type = this.list[index].customer_type
-      this.customerImg = this.list[index].headimgurl
-      this.customer_id = this.list[index].customer_id
+      this.titleName = this.list[index].name;
+      this.customer_type = this.list[index].customer_type;
+      this.customerImg = this.list[index].headimgurl;
+      this.customer_id = this.list[index].customer_id;
       this.isACChat = true;
+    },
+    updateVisitors() {
+      let param = {
+        broker_id: this.broker_id_prop,
+        robot_id: this.robot_id_prop,
+        token: this.token_prop
+      };
+      let result = reqLookMe(param);
+      result
+        .then(res => {
+          this.list = res.result;
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     }
   },
   mounted() {
-    let param = {
-      broker_id:  this.broker_id_prop,
-      robot_id: this.robot_id_prop,
-      token:this.token_prop
-    };
-    let result = reqLookMe(param);
-    result
-      .then(res => {
-        this.list = res.result;
-      })
-      .catch(reslove => {
-        console.log("error");
-      });
+    this.updateVisitors();
   }
 };
 </script>

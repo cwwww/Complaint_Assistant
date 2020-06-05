@@ -40,7 +40,8 @@ import {
   reqbebotCode,
   reqsendMsmCode,
   reqwxconfig,
-  reqisregistered
+  reqisregistered,
+  reqRobotHistory
 } from "../axios/axios-api";
 // import {debounce} from '../assets/js/common'
 import { Toast, Checkbox } from "vant";
@@ -150,6 +151,13 @@ export default {
         res
           .then(res => {
             that.messages = res.result;
+            var broker_id = that.messages.ID;
+            var robot_id = that.messages.ROBOT_ID;
+            var token = that.messages.token;
+            var info={broker_id:broker_id,robot_id:robot_id,token:token};
+            alert(info.broker_id);
+            console.log('iii'+info.token)
+            this.setStorge(info);
             that.$router.push({
               path: "/",
               query: {
@@ -226,26 +234,70 @@ export default {
       }
       return theRequest;
     },
-    putStorge(){
-    const info = { name: 'hou', age: 24, id: '001' };
-    const str="haha";
-    localStorage.setItem('hou', JSON.stringify(info));
-    localStorage.setItem('zheng', str);
+    setStorge(info){
+    // const info = { name: 'hou', age: 24, id: '001' };
+    // const str="0001";
+    // localStorage.setItem('hou', JSON.stringify(info));
+    // localStorage.setItem('zheng', str);
+    localStorage.setItem('info', JSON.stringify(info));
     },
     getStorge(){
-    var data1 = JSON.parse(localStorage.getItem('hou'));
-    var data2 = localStorage.getItem('zheng');
+      var info =  JSON.parse(localStorage.getItem('info'));
+      return info;
+    // var data1 = JSON.parse(localStorage.getItem('hou'));
+    // var data2 = localStorage.getItem('zheng');
+    // alert(data1);
+    // alert(data2);
     }
   },
-  created() {
+  async created() {
     if (!window.localStorage.getItem("openId")) {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
       this.getCode();
       this.impower();
-      this.putStorge();
-      this.getStorge();
     } else {
       // 别的业务逻辑
+    };
+    let infosto= this.getStorge();
+    console.log(infosto);
+    // alert(this.info);
+
+    let VlidateToken = infosto.token || '';
+    let VlidateBrokerid = 33;
+    let param = { token: VlidateToken,broker_id: VlidateBrokerid};
+    let result = await reqRobotHistory(param);
+    var msg = result.msg;
+    if (msg == "token错误!") {
+      //
+      // this.$router.push({
+      //   path: "/",
+      //   query: {
+      //     visitor_id: this.loginMeg.visitor_id,
+      //     robot_id: this.loginMeg.robot_id,
+      //     token: this.loginMeg.token
+      //   }
+      // });
+    }
+    if(infosto.token!="" && msg=="请求成功"){
+      broker_id=infosto.broker_id;
+      robot_id=infosto.robot_id;
+      token= infosto.token;
+      this.$router.push({
+          path: "/",
+          query: {
+            broker_id: broker_id,
+            robot_id: robot_id,
+            token: token
+          }
+        });
+    } 
+    else{
+      var broker_id = "";
+      var robot_id = "";
+      var token = "";
+      var info={broker_id:broker_id,robot_id:robot_id,token:token};
+      console.log(info);
+      this.setStorge(info);
     }
   },
   mounted() {

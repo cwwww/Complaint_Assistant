@@ -133,7 +133,7 @@ export default {
   name: "FairyShop",
   data() {
     return {
-      that:'',
+      that: "",
       show1: true,
       name: "",
       show2: false, // 购买弹框
@@ -212,7 +212,7 @@ export default {
         broker_id: this.broker_id,
         robot_id: this.robot_id,
         operation_type: 5,
-        seller_robot_id:this.robot_visitId,
+        seller_robot_id: this.robot_visitId,
         token: this.token
       };
       console.log("任务的param:" + param);
@@ -220,16 +220,16 @@ export default {
       let result = reqtaskStatus(param);
       result
         .then(res => {
-        //   //更新金币
-        //   this.homeInit.bcoin = res.result.bcoin;
-        //   //更新等级
-        //   this.homeInit.level = res.result.level;
-        //   //更新“我的”经验
-        //   this.homeInit.exp = res.result.exp;
-        //   //更新总经验
-        //   this.homeInit.level_exp = res.result.level_exp;
-        //   //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
-        //   this.showNewIcon = res.result.task_notification;
+          //   //更新金币
+          //   this.homeInit.bcoin = res.result.bcoin;
+          //   //更新等级
+          //   this.homeInit.level = res.result.level;
+          //   //更新“我的”经验
+          //   this.homeInit.exp = res.result.exp;
+          //   //更新总经验
+          //   this.homeInit.level_exp = res.result.level_exp;
+          //   //任务状态为“1”表示任务已经完成，可以领取奖励，任务图标右上角有个“新”字
+          //   this.showNewIcon = res.result.task_notification;
         })
         .catch(reslove => {
           console.log("error");
@@ -247,11 +247,11 @@ export default {
         user_id: this.broker_id,
         token: this.token
       };
-      
+
       let res = reqFairyBuy(param);
       res
         .then(res => {
-          this.getReqtaskStatus()
+          this.getReqtaskStatus();
           if (res.result.status == 0) {
             this.show2 = false;
             this.show3 = true;
@@ -301,48 +301,51 @@ export default {
     },
     konw() {
       this.show5 = false;
+    },
+    getGoodsList() {
+      var that = this;
+      // if(that.robot_id == ''){
+      //   that.robot_id = -1
+      // }
+      let param = {
+        seller_id: that.robot_visitId,
+        buyer_id: that.robot_id,
+        user_id: that.broker_id,
+        token: that.token
+      };
+      let res = reqFairyShop(param);
+      res
+        .then(res => {
+          that.length = res.result.goods_list.length;
+          if (length > 0) {
+            that.goodsList = res.result.goods_list[0];
+            that.fairyStatus = that.goodsList.status;
+            if (that.goodsList.level == 1) {
+              //保险等级
+              that.levelbx = that.levelbx1;
+            } else if (that.goodsList.level == 2) {
+              that.levelbx = that.levelbx2;
+            } else if (that.goodsList.level == 3) {
+              that.levelbx = that.levelbx3;
+            } else if (that.goodsList.level == 4) {
+              that.levelbx = ththatis.levelbx4;
+            } else if (that.goodsList.level == 5) {
+              that.levelbx = that.levelbx5;
+            } else if (that.goodsList.level == 6) {
+              that.levelbx = that.levelbx6;
+            } else if (that.goodsList.level == 7) {
+              that.levelbx = that.levelbx7;
+            }
+            that.star = that.goodsList.score;
+          }
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     }
   },
   mounted() {
-    var that = this;
-    // if(that.robot_id == ''){
-    //   that.robot_id = -1
-    // }
-    let param = {
-      seller_id: that.robot_visitId,
-      buyer_id: that.robot_id,
-      user_id: that.broker_id,
-      token:that.token,
-    };
-    let res = reqFairyShop(param);
-    res
-      .then(res => {
-        that.length = res.result.goods_list.length;
-        if (length > 0) {
-          that.goodsList = res.result.goods_list[0];
-          that.fairyStatus = that.goodsList.status;
-          if (that.goodsList.level == 1) {
-            //保险等级
-            that.levelbx = that.levelbx1;
-          } else if (that.goodsList.level == 2) {
-            that.levelbx = that.levelbx2;
-          } else if (that.goodsList.level == 3) {
-            that.levelbx = that.levelbx3;
-          } else if (that.goodsList.level == 4) {
-            that.levelbx = ththatis.levelbx4;
-          } else if (that.goodsList.level == 5) {
-            that.levelbx = that.levelbx5;
-          } else if (that.goodsList.level == 6) {
-            that.levelbx = that.levelbx6;
-          } else if (that.goodsList.level == 7) {
-            that.levelbx = that.levelbx7;
-          }
-          that.star = that.goodsList.score;
-        }
-      })
-      .catch(reslove => {
-        console.log("error");
-      });
+    this.getGoodsList();
   }
 };
 </script>
