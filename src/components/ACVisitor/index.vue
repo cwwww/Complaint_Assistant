@@ -17,7 +17,8 @@
             <div class="question">
               <div class="q_content">{{i.content}}</div>
               <div class="photo">
-                <img :src="visitimgurl" v-show="right" alt />
+                <img :src="visitimgurl" v-show="right" v-if="visitimgurl" alt />
+                <img :src="fkuser" v-show="right" v-else alt />
               </div>
             </div>
           </div>
@@ -112,9 +113,6 @@ export default {
   ],
   created() {
     this.chat = this.showACChat;
-    if (!visitimgurl) {
-      this.visitimgurl = this.fkuser
-    }
   },
   watch: {
     showACChat(newValue) {

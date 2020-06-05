@@ -4,6 +4,7 @@
     <van-popup
       v-model="chat"
       closeable
+      round
       position="bottom"
       :style="{ height: '77.2%' }"
       @closed="close"
@@ -21,7 +22,6 @@
               </div>
             </div>
           </div>
-
           <div class="content-top" v-show="i.speaker == 0">
             <div class="topTime" v-show="i.create_time != null">{{i.create_time}}</div>
             <div style="margin-top: 10px;" v-show="i.create_time == null"></div>
@@ -172,12 +172,15 @@ export default {
         });
     },
     teachYou(index) {
+      this.chat = false
       let params = {
         Answer: this.list[index].content,
-        Question: this.list[index - 1].content
+        Question: this.list[index - 1].content,
+        data:true,
+        data2:true
       };
       Bus.$emit("teachyou", params);
-
+      this.$emit('controlRep',true)
       // let param = {
       //   broker_id: this.broker_id,
       //   question: this.list[index - 1].content,

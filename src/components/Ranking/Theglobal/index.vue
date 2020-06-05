@@ -67,7 +67,7 @@ export default {
       gradeSeven: require("../../../assets/images/等级-保险名人堂@2x.png")
     };
   },
-  props: ["broker_id_prop", "robot_id_prop", "token_prop"],
+  props: ["broker_id_prop", "robot_id_prop", "token_prop","visitimgurl"],
   mounted() {
     let param = {
       broker_id: this.broker_id_prop,
@@ -94,6 +94,7 @@ export default {
          path:'/HomeOther',
          query:{
            type:'listType',
+           visitimgurl:this.visitimgurl,
            broker_id:broker_id,
            robot_id: robot_id,
            customer_id:this.broker_id_prop,

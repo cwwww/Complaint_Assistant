@@ -806,7 +806,7 @@ export default {
       result
         .then(resolve => {
           this.homeInit = resolve.result;
-          // alert("展示" + JSON.stringify(this.homeInit));
+          this.visitimgurl = this.$route.query.visitimgurl;
           if (this.homeInit.followed) {
             this.guanzhuContent = "已关注";
           } else {

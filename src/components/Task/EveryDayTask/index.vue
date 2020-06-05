@@ -196,6 +196,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 330px;
   .main {
     height: 350px;
     overflow-y: auto;

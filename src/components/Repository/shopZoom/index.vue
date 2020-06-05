@@ -4,14 +4,18 @@
       class="content"
       v-model="show"
       closeable
+      round
       position="bottom"
       :style="{ height: '80%' }"
       @close="close"
     >
       <span>{{name}}知识库</span>
       <div class="line"></div>
-      <p>
-        {{list[0].update_time}}
+      <p v-if="list.length > 0">
+        {{list[0].update_time}} 
+        <span class="add" @click="toAdd">添加+</span>
+      </p>
+      <p v-else>
         <span class="add" @click="toAdd">添加+</span>
       </p>
       <div class="contain">
@@ -21,7 +25,7 @@
               <img :src="img" alt />
               <textarea class="text" v-show="index == showIndex ?true:false" id="myText">
               {{item.question}}
-            </textarea>
+              </textarea>
               <div class="text2" v-show="index != showIndex ?true:false">{{item.question}}</div>
               <img
                 @click="remove(index)"
@@ -51,22 +55,22 @@
         </div>
       </div>
     </van-popup>
-          <!-- <van-popup class="cont2" v-model="toPulish">
-            <div class="contwrap">
-              <div class="top">
+        <van-popup class="cont2" v-model="toPulish">
+      <div class="contwrap">
+        <!-- <div class="top">
                 <span>{{vipExpiryTime}}</span>
-              </div>
-              <div style="margin-bottom:25px;">您是否要发布到问答广场</div>
-              <div class="isOk">
-                <div class="isNo" ]>
-                  <span style="color:#666;">取消</span>
-                </div>
-                <div class="isYes" ]>
-                  <span style="color:#FFF;">确定</span>
-                </div>
-              </div>
-            </div>
-          </van-popup> -->
+        </div>-->
+        <div style="margin-bottom:25px;">您是否要发布到问答广场</div>
+        <div class="isOk">
+          <div class="isNo" @click="cancel">
+            <span style="color:#666;">取消</span>
+          </div>
+          <div class="isYes" @click="confirm">
+            <span style="color:#FFF;">确定</span>
+          </div>
+        </div>
+      </div>
+    </van-popup>
   </div>
 </template>
 <script>
@@ -78,12 +82,14 @@ import {
   reqeditList,
   reqdeleteList,
   reqaddledgeList,
-  reqtaskStatus
+  reqtaskStatus,
+  reqhisknowledgeList
 } from "../../../axios/axios-api";
 export default {
   name: "shopZoom",
   data() {
     return {
+      ques: "",
       list: [],
       curIndex: 0,
       show: true,
@@ -106,13 +112,11 @@ export default {
     "token_prop",
     "shopZoomC_show",
     "type",
-    "name"
+    "name",
+    "Answer",
+    "Question"
   ],
   created() {
-    Bus.$on("teachyou", data => {
-      let question = data.Question;
-      let answer = data.Answer;
-    });
     this.show = this.shopZoomC_show;
     this.broker_id = this.broker_id_prop;
     this.robot_id = this.robot_id_prop;
@@ -124,6 +128,16 @@ export default {
     },
     data(newValue) {
       this.show = newValue;
+    }
+  },
+  mounted() {
+    let questionT = this.Question;
+    let answerT = this.Answer;
+    if (questionT != "") {
+      console.log('questionT:'+questionT)
+      this.showListAdd(questionT, answerT);
+    } else {
+    this.ShoWList();
     }
   },
   methods: {
@@ -152,30 +166,85 @@ export default {
       //   });
       // }
     },
+    //显示
+    ShoWList() {
+      this.showIndex = -1;
+      let param = {
+        broker_id: this.broker_id,
+        token: this.token
+      };
+      let res = reqknowledgeList(param);
+      res
+        .then(res => {
+          console.log(res);
+          this.list = res.result.data;
+          // if(this.list.length == 0){
+          //   Toast('请添加您得知识库哦')
+          // }
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
+    },
+    cancel() {
+      this.toPulish = false;
+    },
+    confirm() {
+      if (this.online_data_id == "" ) {
+        Toast("请编辑保存后再发布！");
+      } else {
+        let param = {
+          online_data_id: this.online_data_id,
+          broker_id: this.$route.query.broker_id,
+          question: this.Question,
+          answer: this.Answer,
+          token: this.$route.query.token
+        };
+        let res = reqlistPage(param);
+        res
+          .then(res => {
+            Toast(res.msg);
+            this.toPulish = false;
+          })
+          .catch(reslove => {
+            Toast(res.msg);
+          });
+      }
+    },
     listPage(index) {
-      this.toPulish = true;
-      // if (this.list[index].online_data_id == "") {
+      this.online_data_id = this.list[index].online_data_id;
+      this.Question =  document.getElementById("myText").value
+      this.Answer =  document.getElementById("myText2").value
+      // if (this.online_data_id == "" && this.questionT == undefined) {
+      //   alert(this.questionT)
       //   Toast("请编辑保存后再发布！");
       // } else {
+      //   alert(22222)
       //   let param = {
-      //     online_data_id: this.list[index].online_data_id,
+      //     online_data_id: this.online_data_id,
       //     broker_id: this.$route.query.broker_id,
       //     question: this.$route.query.Qusetion,
       //     answer: this.$route.query.Answer,
       //     token: this.$route.query.token
       //   };
-      //   console.log(param);
       //   let res = reqlistPage(param);
       //   res
       //     .then(res => {
       //       Toast(res.msg);
       //     })
       //     .catch(reslove => {
-      //       console.log("error");
+      //       Toast(res.msg);
       //     });
       // }
+      this.toPulish = true;
     },
+    //添加
     toAdd() {
+      // 不为0时置空文本框
+      if(this.list.length > 0){
+        document.getElementById("myText").value = "";
+        document.getElementById("myText2").value = "";
+      }
       if (this.flag) {
         this.Qusetion = this.$route.query.Qusetion;
         this.Answer = this.$route.query.Answer;
@@ -184,13 +253,13 @@ export default {
         this.Qusetion = "";
         this.Answer = "";
       }
-      let param = {
-        broker_id: this.broker_id,
-        question: this.Qusetion,
-        answer: this.Answer,
-        token: this.token
-      };
-      console.log(param);
+      // let param = {
+      //   broker_id: this.broker_id,
+      //   question: this.Qusetion,
+      //   answer: this.Answer,
+      //   token: this.token
+      // };
+      // console.log(param);
       //   let res = reqaddledgeList(param)
       //     res.then(res=>{
       // debugger;
@@ -199,7 +268,6 @@ export default {
       //     }).catch(reslove=>{
       //        console.log('error')
       //     })
-
       this.showListAdd("", "");
       // this.$set(this.list, this.list.length,{
       // question : null,
@@ -207,6 +275,7 @@ export default {
       //    online_data_id:"",
       //    });
     },
+    //删除
     remove(index) {
       let param = {
         broker_id: this.broker_id,
@@ -227,11 +296,13 @@ export default {
     showPopup() {
       this.show = true;
     },
+    //编辑
     toEdit(index) {
       this.showIndex = index;
       //this.isShow = true
       this.isEdit = true;
     },
+    // 保存
     toSave(index) {
       //this.isShow = false
       this.showIndex = -1;
@@ -263,7 +334,6 @@ export default {
         let res = reqeditList(param);
         res
           .then(res => {
-            console.log(res);
             this.list = res.result.data;
             this.ShoWList();
           })
@@ -292,7 +362,8 @@ export default {
         }
       }
     },
-    showListAdd(question, answer) {
+
+    showListAdd(questionT, answerT) {
       this.showIndex = -1;
       let param = {
         broker_id: this.broker_id,
@@ -304,8 +375,8 @@ export default {
         .then(res => {
           this.list = res.result.data;
           this.list.splice(0, 0, {
-            question: question,
-            answer: answer,
+            question: questionT,
+            answer: answerT,
             online_data_id: ""
           });
           //this.list.push();
@@ -314,22 +385,7 @@ export default {
           console.log("error");
         });
     },
-    ShoWList() {
-      this.showIndex = -1;
-      let param = {
-        broker_id: this.broker_id,
-        token: this.token
-      };
-      let res = reqknowledgeList(param);
-      res
-        .then(res => {
-          console.log(res);
-          this.list = res.result.data;
-        })
-        .catch(reslove => {
-          console.log("error");
-        });
-    },
+
     trim(data) {
       return data.replace(/(^\s*)|(\s*$)/g, "");
     },
@@ -341,7 +397,6 @@ export default {
         operation_type: 2,
         token: this.token
       };
-      console.log("任务的param:" + param);
       let result = reqtaskStatus(param);
       result
         .then(res => {})
@@ -349,19 +404,6 @@ export default {
           console.log("error");
         });
     }
-  },
-  // watch(){
-  //   console.log(document.getElementById("myText").value)
-  // },
-  mounted() {
-    // let question = this.$route.query.Question;
-    // let answer = this.$route.query.Answer;
-    // if (question != "") {
-    //   console.log(22)
-    //   this.showListAdd(question, answer);
-    // } else {
-    this.ShoWList();
-    // }
   }
 };
 </script>
@@ -412,7 +454,7 @@ export default {
     .contain {
       overflow-y: hidden;
       overflow: scroll;
-      height: 370px;
+      height: 390px;
       > .centercontent {
         width: 345px;
         height: auto;
@@ -550,46 +592,46 @@ export default {
     }
   }
 }
-  .cont2 {
-    width: 305px;
-    height: 174px;
-    background: rgba(255, 255, 255, 1);
-    border-radius: 15px;
-    .contwrap {
-      font-size: 17px;
-      font-family: PingFangSC-Medium, PingFang SC;
-      font-weight: 500;
-      color: rgba(51, 51, 51, 1);
-      line-height: 24px;
+.cont2 {
+  width: 305px;
+  height: 174px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 15px;
+  .contwrap {
+    font-size: 17px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: rgba(51, 51, 51, 1);
+    line-height: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    .top {
+      margin-bottom: 7px;
+    }
+    .isOk {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 30px;
-      .top {
-        margin-bottom: 7px;
+      // align-items: center;
+      // justify-content: center;
+      .isNo {
+        width: 125px;
+        height: 42px;
+        background: rgba(234, 234, 234, 1);
+        border-radius: 4px;
+        text-align: center;
+        line-height: 42px;
       }
-      .isOk {
-        display: flex;
-        // align-items: center;
-        // justify-content: center;
-        .isNo {
-          width: 125px;
-          height: 42px;
-          background: rgba(234, 234, 234, 1);
-          border-radius: 4px;
-          text-align: center;
-          line-height: 42px;
-        }
-        .isYes {
-          width: 125px;
-          height: 42px;
-          background: rgba(0, 147, 253, 1);
-          border-radius: 4px;
-          text-align: center;
-          line-height: 42px;
-          margin-left: 20px;
-        }
+      .isYes {
+        width: 125px;
+        height: 42px;
+        background: rgba(0, 147, 253, 1);
+        border-radius: 4px;
+        text-align: center;
+        line-height: 42px;
+        margin-left: 20px;
       }
     }
   }
+}
 </style>

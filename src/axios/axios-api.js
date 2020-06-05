@@ -214,6 +214,13 @@ export const reqAgentInput = data => {
     data
   });
 };
+export const reqhisknowledgeList = data => {
+  return axiosService({
+    url: BASE + `/common/show_his_knowledge_base/`, // 知识库显示其他人接口
+    method: "post",
+    data
+  });
+};
 export const reqknowledgeList = data => {
   return axiosService({
     url: BASE + `/common/show_knowledge_base/`, // 知识库显示接口

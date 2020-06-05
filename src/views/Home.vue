@@ -180,12 +180,14 @@
     <HomeChat
       v-show="homeChat"
       @showChatC="showChatP"
+      @controlRep="isResp"
       :show_chat="homeChat"
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :homeImg="homeInit.headimgurl"
       :val="question"
+      ref="borther"
     />
     <WhoLookMe
       v-show="WhoLook"
@@ -204,6 +206,7 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
+      :visitimgurl="visitimgurl"
     />
     <List
       v-show="isList"
@@ -214,6 +217,7 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :curIndex="curIndex"
+      :visitimgurl="visitimgurl"
     />
     <Ranking
       v-show="isRanking"
@@ -223,6 +227,7 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
+      :visitimgurl="visitimgurl"
     />
     <Task
       v-show="isTask"
@@ -334,6 +339,7 @@ export default {
       messages: "",
       shareMessages: "",
       showNewIcon: false,
+      vipValid: Boolean,
       ezgif: require("../assets/images/ezgif.gif"),
       bebot_head: require("../assets/images/bebot_head@2x.png"),
       bebot_hand: require("../assets/images/bebot_hand@2x.png"),
@@ -370,6 +376,10 @@ export default {
     };
   },
   methods: {
+    triggerBrotherMethods() {
+      // 父组件通过$ref调用子组件1中的事件方法
+      this.$refs.borther[0].bortherMethods();
+    },
     SellerShopP(data) {
       this.isSellerShop = data;
     },
@@ -399,6 +409,10 @@ export default {
       if (!this.homeChat) {
         this.getHistory();
       }
+    },
+    isResp(data) {
+      console.log("知识库是否打开：" + data);
+      this.isRep = data;
     },
     toInvite() {
       this.$router.push({
@@ -492,13 +506,22 @@ export default {
       this.$router.push("/Strategy");
     },
     toFXCP() {
-      window.parent.location.href =
-        "https://m.baoxianxia.com.cn/risk/index.html";
+      alert(this.vipValid);
+      if (this.vipValid == false) {
+        this.vipNotification = true;
+      } else {
+        window.parent.location.href =
+          "https://m.baoxianxia.com.cn/risk/index.html";
+      }
       this.destoryTimer();
     },
     toPlan() {
-      window.parent.location.href =
-        "https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=0c5ffe9625204158b19b173b593408ae&token=0bd5266c-a788-463f-aa35-674ef252a058";
+      if (this.vipValid == false) {
+        this.vipNotification = true;
+      } else {
+        window.parent.location.href =
+          "https://h5.baoxianxia.com.cn/app/businessList.html?brokerId=0c5ffe9625204158b19b173b593408ae&token=0bd5266c-a788-463f-aa35-674ef252a058";
+      }
       this.destoryTimer();
     },
     frang(curIndex) {
@@ -704,10 +727,6 @@ export default {
         });
     },
     getDetail() {
-      // if(this.val != ''){
-      //   alert('val')
-      //   this.flag = false
-      // }
       let param;
       if (this.flag) {
         param = {
@@ -809,42 +828,6 @@ export default {
           console.log("[ERROR] in updateRobotStatus function");
         });
     },
-    getACchat() {
-      let param;
-      if (this.isInput) {
-        param = {
-          dialog_type: "2",
-          customer_id: 1,
-          customer_type: 0,
-          broker_id: 33,
-          robot_id: 33,
-          speaker: "1",
-          content: ".",
-          token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
-        };
-        this.isInput = false;
-      } else {
-        param = {
-          dialog_type: "2",
-          customer_id: 1,
-          customer_type: 2,
-          broker_id: 33,
-          robot_id: 33,
-          speaker: "1",
-          content: "第二版测试",
-          token: "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT"
-        };
-      }
-      let res = reqCusayrob(param);
-      res
-        .then(res => {
-          this.list = res.result.dialog_history;
-          this.$refs.input.value = "";
-        })
-        .catch(reslove => {
-          // console.log("error");
-        });
-    },
 
     // 初始化页面
     getHomeInit() {
@@ -860,12 +843,14 @@ export default {
       result
         .then(res => {
           this.homeInit = res.result;
+          this.visitimgurl = this.homeInit.headimgurl;
           if (this.homeInit.name == "") {
             this.showName = true;
           }
           if (this.vipNotification == true) {
           } else {
             this.vipNotification = this.homeInit.vip_notification;
+            this.vipValid = this.homeInit.vip_valid;
             if (this.homeInit.vip_valid == false) {
               this.vipExpiryTime = "您的会员已到期";
               // this.vipExpiryTime ='您的会员将于'+times+'到期'
@@ -959,9 +944,7 @@ export default {
     //   token:this.$route.query.token,
     // }
     // window.localStorage.setItem('personal',JSON.stringify(personalData))
-
     // alert(JSON.stringify(JSON.parse(window.localStorage.getItem("personal"))))
-
     this.getHomeInit();
     this.getDetail();
     //定时获取粉丝数据

@@ -136,8 +136,9 @@
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
-        :name="name"
         :type="type"
+        :Answer="Question"
+        :Question="Answer"
       />
       <!-- v-bind="$attrs"
       v-on="$listeners"-->
@@ -159,12 +160,14 @@ import {
 } from "../../axios/axios-api";
 export default {
   name: "Repository",
-
   components: {
     shopZoom
   },
   data() {
     return {
+      showMyshopData:Boolean,
+      Question:'', //我教你带得值
+      Answer:'',
       showMyshop: false,
       show: true,
       show3: false,
@@ -196,20 +199,30 @@ export default {
       success: require("../../assets/images/success@2x.png")
     };
   },
-  props: ["broker_id", "robot_id", "token", "Repository_show"],
+  props: ["broker_id", "robot_id", "token", "Repository_show","visitimgurl"],
   // inheritAttrs: false,
   created() {
-    Bus.$on("teachyou", data => {
-      let question = data.Question;
-      let answer = data.Answer;
-    });
-    this.show = this.Repository_show;
     this.broker_id_prop = this.broker_id;
     this.robot_id_prop = this.robot_id;
     this.token_prop = this.token;
+    Bus.$on("teachyou", (res) => {
+      console.log('我教你信息：'+JSON.stringify(res))
+      console.log('编辑页是否打开:'+this.showMyshop)
+      this.showMyshopData = res.data;
+      this.show = res.data2
+      this.Repository_show = true
+      this.Question = res.Question;
+      this.Answer = res.Answer;
+    });
+    this.show = this.Repository_show;
   },
   watch: {
+    showMyshopData(newValue){
+      this.showMyshop = newValue
+      // this.$refs.shopZoom.show()
+    },
     Repository_show(newValue) {
+      alert(newValue)
       this.show = newValue;
     },
     data(newValue) {
@@ -349,6 +362,7 @@ export default {
         path: "/HomeOther",
         query: {
           type: "listType",
+          visitimgurl:this.visitimgurl,
           broker_id: broker_id,
           robot_id: robot_id,
           customer_id: this.broker_id_prop,
@@ -503,6 +517,7 @@ export default {
               text-align: center;
               margin-top: 20px;
               line-height: 32;
+              margin-right: 20px;
               > p {
                 font-size: 15px;
                 font-family: PingFangSC-Medium, PingFang SC;
@@ -520,6 +535,7 @@ export default {
               text-align: center;
               margin-top: 20px;
               line-height: 32;
+              margin-right: 20px;
               > p {
                 font-size: 15px;
                 font-family: PingFangSC-Medium, PingFang SC;
@@ -540,6 +556,7 @@ export default {
               text-align: center;
               margin-top: 20px;
               line-height: 32;
+              margin-right: 20px;
               > p {
                 font-size: 15px;
                 font-family: PingFangSC-Medium, PingFang SC;
@@ -557,6 +574,7 @@ export default {
               text-align: center;
               margin-top: 20px;
               line-height: 32;
+              margin-right: 20px;
               > p {
                 font-size: 15px;
                 font-family: PingFangSC-Medium, PingFang SC;
