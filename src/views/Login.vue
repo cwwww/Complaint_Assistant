@@ -150,6 +150,13 @@ export default {
         res
           .then(res => {
             that.messages = res.result;
+            var broker_id = that.messages.ID;
+            var robot_id = that.messages.ROBOT_ID;
+            var token = that.messages.token;
+            var info={broker_id:broker_id,robot_id:robot_id,token:token};
+            alert(info.broker_id);
+            console.log('iii'+info.token)
+            this.setStorge(info);
             that.$router.push({
               path: "/",
               query: {
@@ -226,15 +233,20 @@ export default {
       }
       return theRequest;
     },
-    putStorge(){
-    const info = { name: 'hou', age: 24, id: '001' };
-    const str="haha";
-    localStorage.setItem('hou', JSON.stringify(info));
-    localStorage.setItem('zheng', str);
+    setStorge(info){
+    // const info = { name: 'hou', age: 24, id: '001' };
+    // const str="0001";
+    // localStorage.setItem('hou', JSON.stringify(info));
+    // localStorage.setItem('zheng', str);
+    localStorage.setItem('info', info);
     },
     getStorge(){
-    var data1 = JSON.parse(localStorage.getItem('hou'));
-    var data2 = localStorage.getItem('zheng');
+      var info = localStorage.getItem('info');
+      return info;
+    // var data1 = JSON.parse(localStorage.getItem('hou'));
+    // var data2 = localStorage.getItem('zheng');
+    // alert(data1);
+    // alert(data2);
     }
   },
   created() {
@@ -242,10 +254,32 @@ export default {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
       this.getCode();
       this.impower();
-      this.putStorge();
-      this.getStorge();
     } else {
       // 别的业务逻辑
+    };
+    this.info= this.getStorge();
+    console.log(info);
+    // alert(this.info);
+    if(info!=undefined){
+      broker_id=this.info.broker_id,
+      robot_id=this.info.robot_id,
+      token= this.info.token,
+      that.$router.push({
+          path: "/",
+          query: {
+            broker_id: broker_id,
+            robot_id: robot_id,
+            token: token
+          }
+        });
+    } 
+    else{
+      var broker_id = "";
+      var robot_id = "";
+      var token = "";
+      var info={broker_id:broker_id,robot_id:robot_id,token:token};
+      console.log(info);
+      this.setStorge(info);
     }
   },
   mounted() {
