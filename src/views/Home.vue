@@ -248,6 +248,7 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :type="toget"
+      ref = "sellerShop"
     />
   </div>
 </template>
@@ -444,6 +445,7 @@ export default {
       // 买家精灵商店
       this.toget = 0;
       this.isSellerShop = true;
+      this.$refs.sellerShop.updateShop();
       // this.destoryTimer();
     },
     isNo() {
@@ -466,6 +468,7 @@ export default {
       this.toget = 1;
       this.isSellerShop = true;
       this.vipNotification = false;
+      
     },
     noGet() {
       this.vipNotification = false;

@@ -16,7 +16,7 @@
             <div class="topTitle">
               <!-- <span>{{i.buyer_name}}</span> -->
               <span>{{i.buyer_name}}</span>
-              <div class="lelve">购买了你的{{i.goods_name}}</div>
+              <div class="level">购买了你的{{i.goods_name}}</div>
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@ export default {
   },
   props: ["broker_id_prop", "robot_id_prop", "token_prop"],
   methods: {
-    toHomeOther:function(broker_id, robot_id) {
+    toHomeOther: function(broker_id, robot_id) {
       this.$router.push({
         path: "/HomeOther",
         query: {
@@ -64,23 +64,26 @@ export default {
           token: this.token_prop
         }
       });
+    },
+    updateSalesHistory() {
+      let param = {
+        robot_id: this.robot_id_prop,
+        user_id: this.broker_id_prop,
+        token: this.token_prop
+      };
+      let res = reqShowHistory(param);
+      res
+        .then(res => {
+          this.list = res.result.sales_history;
+          console.log(this.list);
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     }
   },
   mounted() {
-    let param = {
-      robot_id: this.robot_id_prop,
-      user_id: this.broker_id_prop,
-      token: this.token_prop
-     };
-    let res = reqShowHistory(param);
-    res
-      .then(res => {
-        this.list = res.result.sales_history;
-        console.log(this.list);
-      })
-      .catch(reslove => {
-        console.log("error");
-      });
+    this.updateSalesHistory();
   }
 };
 </script>
@@ -128,7 +131,7 @@ export default {
           color: rgba(51, 51, 51, 1);
           line-height: 21px;
         }
-        > .lelve {
+        > .level {
           white-space: nowrap;
           margin-left: 10px;
           color: #999;

@@ -28,18 +28,21 @@
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
+        ref='myshop'
       />
       <vipShop
         v-show="curIndex == 1"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
+        ref='vipShop'
       />
       <mySeller
         v-show="curIndex == 2"
         :broker_id_prop="broker_id_prop"
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
+        ref='mySeller'
       />
     </van-popup>
   </div>
@@ -99,6 +102,10 @@ export default {
     close() {
       this.$emit("sellershopc", false);
       this.curIndex = 0;
+    },
+    updateShop(){
+      this.$refs.mySeller.updateSalesHistory();
+      console.log('[update sales History]')
     }
   },
   mounted() {
