@@ -40,7 +40,8 @@ import {
   reqbebotCode,
   reqsendMsmCode,
   reqwxconfig,
-  reqisregistered
+  reqisregistered,
+  reqRobotHistory
 } from "../axios/axios-api";
 // import {debounce} from '../assets/js/common'
 import { Toast, Checkbox } from "vant";
@@ -260,18 +261,42 @@ export default {
     let infosto= this.getStorge();
     console.log(infosto);
     // alert(this.info);
-    if(infosto.token!=""){
-      broker_id=infosto.broker_id,
-      robot_id=infosto.robot_id,
-      token= infosto.token,
-      this.$router.push({
-          path: "/",
-          query: {
-            broker_id: broker_id,
-            robot_id: robot_id,
-            token: token
-          }
-        });
+
+    VlidateToken = infosto.token;
+    let VlidateBrokerid = 33;
+    let param = { token: VlidateToken,broker_id: VlidateBrokerid};
+          let result = reqRobotHistory(param);
+          result
+            .then(result => {
+              var msg = result.msg;
+              if (msg == "token错误!") {
+                //
+                // this.$router.push({
+                //   path: "/",
+                //   query: {
+                //     visitor_id: this.loginMeg.visitor_id,
+                //     robot_id: this.loginMeg.robot_id,
+                //     token: this.loginMeg.token
+                //   }
+                // });
+              }
+            })
+            .catch(reslove => {
+              console.log("error");
+            });
+
+    if(infosto.token!="" && mag=="111"){
+      broker_id=infosto.broker_id;
+      robot_id=infosto.robot_id;
+      token= infosto.token;
+      // this.$router.push({
+      //     path: "/",
+      //     query: {
+      //       broker_id: broker_id,
+      //       robot_id: robot_id,
+      //       token: token
+      //     }
+      //   });
     } 
     else{
       var broker_id = "";
