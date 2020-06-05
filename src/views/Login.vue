@@ -225,6 +225,18 @@ export default {
         }
       }
       return theRequest;
+    },
+    putStorge(){
+    const info = { name: 'hou', age: 24, id: '001' };
+    const str="haha";
+    localStorage.setItem('hou', JSON.stringify(info));
+    localStorage.setItem('zheng', str);
+    },
+    getStorge(){
+    var data1 = JSON.parse(localStorage.getItem('hou'));
+    var data2 = localStorage.getItem('zheng');
+    alert(data1);
+    alert(data2);
     }
   },
   created() {
@@ -232,6 +244,12 @@ export default {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
       this.getCode();
       this.impower();
+<<<<<<< HEAD
+      this.putStorge();
+      this.getStorge();
+=======
+      
+>>>>>>> ea5206366b08799e15a2c71915e14607bb0ce7a7
     } else {
       // 别的业务逻辑
     }
