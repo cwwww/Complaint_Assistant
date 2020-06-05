@@ -314,11 +314,9 @@ export default {
       user_id: that.broker_id,
       token:that.token,
     };
-    alert('精灵商店'+JSON.stringify(param))
     let res = reqFairyShop(param);
     res
       .then(res => {
-        alert('返回'+JSON.stringify(res.result.goods_list))
         that.length = res.result.goods_list.length;
         if (length > 0) {
           that.goodsList = res.result.goods_list[0];

@@ -99,7 +99,6 @@ export default {
     },
     val(newValue) {
       this.val = newValue;
-      alert(JSON.stringify(this.val));
     }
   },
   mounted() {
@@ -177,7 +176,6 @@ export default {
         Answer: this.list[index].content,
         Question: this.list[index - 1].content
       };
-      alert(JSON.stringify("我教你" + params));
       Bus.$emit("teachyou", params);
 
       // let param = {

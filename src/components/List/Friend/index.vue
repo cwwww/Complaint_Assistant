@@ -9,8 +9,8 @@
       <div class="show isShow"></div>
       <p>不在线</p>
     </div>
-    <div class="main" v-if="friendListe.length>0">
-      <div v-for="(item,idx) in friendListe" :key="idx">
+    <div class="main" v-if="friendList.length>0">
+      <div v-for="(item,idx) in friendList" :key="idx">
         <div class="warp" @click="clickThis(item.broker_id,item.robot_id)">
           <div class="left">
             <div class="littleLeft">
@@ -60,7 +60,8 @@ export default {
   name: "Bean",
   data() {
     return {
-      friendListe: [],
+      friendList: [],
+      friendsnum:0,
       img: require("../../../assets/images/金牌@2x.png"),
       img1: require("../../../assets/images/next@2x.png"),
       img2: require("../../../assets/images/等级-保险配置王@2x.png"),
@@ -78,21 +79,7 @@ export default {
   },
   props: ["broker_id_prop", "robot_id_prop", "token_prop"],
   mounted() {
-    let param = {
-      robot_id: this.robot_id_prop,
-      broker_id: this.broker_id_prop,
-      token: this.token_prop
-    };
-    console.log(param);
-    let result = freandaList(param);
-    result
-      .then(res => {
-        this.friendListe = res.result.friends;
-        console.log(this.friendListe, "好友列表");
-      })
-      .catch(reslove => {
-        console.log("error");
-      });
+    this.updateFriendList();
   },
   methods: {
     goInvite() {
@@ -114,6 +101,25 @@ export default {
           }
         });
       }
+    },
+    updateFriendList() {
+      let param = {
+        robot_id: this.robot_id_prop,
+        broker_id: this.broker_id_prop,
+        token: this.token_prop
+      };
+      console.log("[updateFriendList param]:",JSON.stringify(param) );
+      let result = freandaList(param);
+      result
+        .then(res => {
+          this.friendList = res.result.friends;
+          this.friendsnum = res.result.friends_num;
+          console.log(this.friendList, "好友列表");
+          this.$emit('updateFriendsNum',this.friendsnum)
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     }
   }
 };
