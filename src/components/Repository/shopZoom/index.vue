@@ -83,7 +83,8 @@ import {
   reqdeleteList,
   reqaddledgeList,
   reqtaskStatus,
-  reqhisknowledgeList
+  reqhisknowledgeList,
+  reqChathist
 } from "../../../axios/axios-api";
 export default {
   name: "shopZoom",
@@ -114,7 +115,9 @@ export default {
     "type",
     "name",
     "Answer",
-    "Question"
+    "Question",
+    "sentence_id",
+    "teach"
   ],
   created() {
     this.show = this.shopZoomC_show;
@@ -214,28 +217,28 @@ export default {
       this.online_data_id = this.list[index].online_data_id;
       this.Question =  document.getElementById("myText").value
       this.Answer =  document.getElementById("myText2").value
-      // if (this.online_data_id == "" && this.questionT == undefined) {
-      //   alert(this.questionT)
-      //   Toast("请编辑保存后再发布！");
-      // } else {
-      //   alert(22222)
-      //   let param = {
-      //     online_data_id: this.online_data_id,
+      this.toPulish = true;
+      // alert(this.Question)
+      //  if (this.teach == 'teach') {
+      //    let param = {
+      //     sentence_id: this.sentence_id,
       //     broker_id: this.$route.query.broker_id,
-      //     question: this.$route.query.Qusetion,
-      //     answer: this.$route.query.Answer,
+      //     question: this.Question,
+      //     answer: this.Answer,
       //     token: this.$route.query.token
       //   };
-      //   let res = reqlistPage(param);
+      //   console.log(JSON.stringify(param))
+      //   let res = reqChathist(param);
       //   res
       //     .then(res => {
       //       Toast(res.msg);
       //     })
       //     .catch(reslove => {
-      //       Toast(res.msg);
+      //       // Toast(res.msg);
       //     });
-      // }
-      this.toPulish = true;
+      //  }else{
+      //    this.toPulish = true;
+      //  }
     },
     //添加
     toAdd() {

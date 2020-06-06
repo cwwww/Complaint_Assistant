@@ -139,6 +139,8 @@
         :type="type"
         :Answer="Question"
         :Question="Answer"
+        :sentence_id="sentence_id"
+        :teach="teach"
       />
       <!-- v-bind="$attrs"
       v-on="$listeners"-->
@@ -206,13 +208,15 @@ export default {
     this.robot_id_prop = this.robot_id;
     this.token_prop = this.token;
     Bus.$on("teachyou", (res) => {
-      console.log('我教你信息：'+JSON.stringify(res))
-      console.log('编辑页是否打开:'+this.showMyshop)
+      // console.log('我教你信息：'+JSON.stringify(res))
+      // console.log('编辑页是否打开:'+this.showMyshop)
       this.showMyshopData = res.data;
       this.show = res.data2
       this.Repository_show = true
       this.Question = res.Question;
       this.Answer = res.Answer;
+      this.sentence_id = res.sentence_id
+      this.teach = res.teach
     });
     this.show = this.Repository_show;
   },

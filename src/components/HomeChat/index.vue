@@ -176,6 +176,8 @@ export default {
       let params = {
         Answer: this.list[index].content,
         Question: this.list[index - 1].content,
+        sentence_id:this.list[index].sentence_id,
+        teach:'teach',
         data:true,
         data2:true
       };
