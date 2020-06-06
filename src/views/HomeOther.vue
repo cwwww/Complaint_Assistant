@@ -128,7 +128,7 @@
         <input
           type="text"
           v-model="inputcon"
-          placeholder="输入“风险测评”试试"
+          placeholder="有什么可以帮您？尽快发来问题吧"
           style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"
         />
         <div class="btn" @click="submit">发送</div>
@@ -1050,15 +1050,14 @@ export default {
 
     .bottomHalfPart {
       position: relative;
-
       .leftPart {
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 0 1px 0 1px;
         flex-direction: column;
-        width: 20%;
-        height: 20px;
+        width: 22%;
+        // height: 20px;
         line-height: 18px;
         // background: rgba(252, 106, 82, 1);
         background-color: #fc6a52;

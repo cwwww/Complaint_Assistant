@@ -164,19 +164,13 @@
           <input
             type="text"
             v-model="question"
-            placeholder="输入“风险测评”试试"
+            placeholder="有什么可以帮您？尽快发来问题吧"
             style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"
           />
           <div class="btn" @click="submit(numIndex)">发送</div>
-          <!-- <div class="btn"  @click="open7">发送</div> -->
         </div>
       </div>
     </div>
-    <!-- <van-overlay :showoverlay="showoverlay" v-show="showoverlay" @click="showoverlay = false">
-      <div class="wrapper" @click.stop>
-        <div class="block" />ffe
-      </div>
-    </van-overlay>-->
     <HomeChat
       v-show="homeChat"
       @showChatC="showChatP"
@@ -197,7 +191,7 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :myHeadImg="homeInit.headimgurl"
-      ref = "myVisitors"
+      ref="myVisitors"
     />
     <Repository
       v-show="isRep"
@@ -221,7 +215,7 @@
       :visitimgurl="visitimgurl"
       @updateFollowersNum="updateFollowersNum"
       @updateFriendsNum="updateFriendsNum"
-      ref='friendsFollowers'
+      ref="friendsFollowers"
     />
     <Ranking
       v-show="isRanking"
@@ -232,7 +226,7 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :visitimgurl="visitimgurl"
-      ref = "ranks"
+      ref="ranks"
     />
     <Task
       v-show="isTask"
@@ -253,7 +247,7 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :type="toget"
-      ref = "sellerShop"
+      ref="sellerShop"
     />
   </div>
 </template>
@@ -482,7 +476,6 @@ export default {
       this.toget = 1;
       this.isSellerShop = true;
       this.vipNotification = false;
-      
     },
     noGet() {
       this.vipNotification = false;
@@ -714,12 +707,12 @@ export default {
           // console.log("error");
         });
     },
-    updateFollowersNum(data){
-      console.log("[updateFollowersNum]:",data)
+    updateFollowersNum(data) {
+      console.log("[updateFollowersNum]:", data);
       this.homeInit.fans_num = data;
     },
-    updateFriendsNum(data){
-      console.log("[updateFriendsNum]:",data)
+    updateFriendsNum(data) {
+      console.log("[updateFriendsNum]:", data);
       this.homeInit.friends_num = data;
     },
     submit(numIndex) {
@@ -774,20 +767,25 @@ export default {
           token: this.$route.query.token
         };
       }
-      let res = reqRobotDetail(param);
-      res
-        .then(res => {
-          // this.answer = res.result.content;
-          // this.list.push(this.question);
-          // this.list.push(this.answer);
-          // if (this.list2[0] == "") {
-          // }
-          this.getHistory();
-          this.question = "";
-        })
-        .catch(reslove => {
-          // console.log("error");
-        });
+      if (this.flag == true && this.content == ".") {
+        alert('return')
+        return;
+      } else {
+        let res = reqRobotDetail(param);
+        res
+          .then(res => {
+            // this.answer = res.result.content;
+            // this.list.push(this.question);
+            // this.list.push(this.answer);
+            // if (this.list2[0] == "") {
+            // }
+            this.getHistory();
+            this.question = "";
+          })
+          .catch(reslove => {
+            // console.log("error");
+          });
+      }
     },
     //与机器人聊天任务
     getReqtaskStatus() {

@@ -12,7 +12,7 @@
       <span>{{name}}知识库</span>
       <div class="line"></div>
       <p v-if="list.length > 0">
-        {{list[0].update_time}} 
+        {{list[0].update_time}}
         <span class="add" @click="toAdd">添加+</span>
       </p>
       <p v-else>
@@ -55,7 +55,7 @@
         </div>
       </div>
     </van-popup>
-        <van-popup class="cont2" v-model="toPulish">
+    <van-popup class="cont2" v-model="toPulish">
       <div class="contwrap">
         <!-- <div class="top">
                 <span>{{vipExpiryTime}}</span>
@@ -139,7 +139,7 @@ export default {
     if (questionT != "") {
       this.showListAdd(questionT, answerT);
     } else {
-    this.ShoWList();
+      this.ShoWList();
     }
   },
   methods: {
@@ -192,7 +192,7 @@ export default {
       this.toPulish = false;
     },
     confirm() {
-      if (this.online_data_id == "" ) {
+      if (this.online_data_id == "") {
         Toast("请编辑保存后再发布！");
       } else {
         let param = {
@@ -215,8 +215,8 @@ export default {
     },
     listPage(index) {
       this.online_data_id = this.list[index].online_data_id;
-      this.Question =  document.getElementById("myText").value
-      this.Answer =  document.getElementById("myText2").value
+      this.Question = document.getElementById("myText").value;
+      this.Answer = document.getElementById("myText2").value;
       this.toPulish = true;
       // alert(this.Question)
       //  if (this.teach == 'teach') {
@@ -243,7 +243,7 @@ export default {
     //添加
     toAdd() {
       // 不为0时置空文本框
-      if(this.list.length > 0){
+      if (this.list.length > 0) {
         document.getElementById("myText").value = "";
         document.getElementById("myText2").value = "";
       }

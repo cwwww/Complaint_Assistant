@@ -210,7 +210,7 @@ export default {
     Bus.$on("teachyou", (res) => {
       // console.log('我教你信息：'+JSON.stringify(res))
       // console.log('编辑页是否打开:'+this.showMyshop)
-      this.showMyshopData = res.data;
+      // this.showMyshopData = res.data;
       this.show = res.data2
       this.Repository_show = true
       this.Question = res.Question;
@@ -221,10 +221,10 @@ export default {
     this.show = this.Repository_show;
   },
   watch: {
-    showMyshopData(newValue){
-      this.showMyshop = newValue
-      // this.$refs.shopZoom.show()
-    },
+    // showMyshopData(newValue){
+    //   this.showMyshop = newValue
+    //   // this.$refs.shopZoom.show()
+    // },
     Repository_show(newValue) {
       this.show = newValue;
     },

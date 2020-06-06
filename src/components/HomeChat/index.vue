@@ -55,6 +55,22 @@
       </div>
       <router-view v-if="$route.path==='/home'"></router-view>
     </van-popup>
+    <van-popup class="cont2" v-model="toPulish">
+      <div class="contwrap">
+        <!-- <div class="top">
+                <span>{{vipExpiryTime}}</span>
+        </div>-->
+        <div style="margin-bottom:25px;">您是否要发布到问答广场</div>
+        <div class="isOk">
+          <div class="isNo" @click="cancel">
+            <span style="color:#666;">取消</span>
+          </div>
+          <div class="isYes" @click="confirm">
+            <span style="color:#FFF;">确定</span>
+          </div>
+        </div>
+      </div>
+    </van-popup>
   </div>
 </template>
 <script>
@@ -79,6 +95,7 @@ export default {
       right: true,
       question: "",
       input: "",
+      toPulish: false,
       placeholder: "有什么可以帮您？尽快发来问题吧",
       user: require("../../assets/images/头像@2x.png"),
       edit: require("../../assets/images/edit.png"),
@@ -86,7 +103,7 @@ export default {
       smallBebot: require("../../assets/images/smallBebot.png")
     };
   },
-  props: ["broker_id", "robot_id", "token", "show_chat", "val","homeImg"],
+  props: ["broker_id", "robot_id", "token", "show_chat", "val", "homeImg"],
   created() {
     this.chat = this.show_chat;
   },
@@ -151,38 +168,50 @@ export default {
           });
       }
     },
+    cancel() {
+      this.toPulish = false;
+    },
+    confirm() {
+      alert(222)
+        let param = {
+        broker_id: this.broker_id,
+        sentence_id: this.sentence_id,
+        question: this.question,
+        answer: this.answer,
+        token: this.token
+        };
+        // alert(JSON.stringify(param))
+        let res = reqChathist(param);
+        res
+          .then(res => {
+            Toast(res.msg);
+            this.toPulish = false;
+          })
+          .catch(reslove => {
+            Toast(res.msg);
+          });
+      
+    },
     chathist(index) {
       //发布
-      console.log(this.list[index]);
-      let param = {
-        broker_id: this.broker_id,
-        sentence_id: this.list[index].sentence_id,
-        question: this.question,
-        answer: "",
-        token: this.token
-      };
-      console.log(param);
-      let res = reqChathist(param);
-      res
-        .then(res => {
-          Toast(res.msg);
-        })
-        .catch(reslove => {
-          console.log("error");
-        });
+      console.log(this.list[index])
+      this.answer = this.list[index].content
+      this.question = this.list[index-1].content
+      this.sentence_id = this.list[index].sentence_id;
+      this.toPulish = true;
     },
     teachYou(index) {
-      this.chat = false
+      this.chat = false;
       let params = {
         Answer: this.list[index].content,
         Question: this.list[index - 1].content,
-        sentence_id:this.list[index].sentence_id,
-        teach:'teach',
-        data:true,
-        data2:true
+        sentence_id: this.list[index].sentence_id,
+        teach: "teach",
+        data: true,
+        data2: true
       };
       Bus.$emit("teachyou", params);
-      this.$emit('controlRep',true)
+      this.$emit("controlRep", true);
       // let param = {
       //   broker_id: this.broker_id,
       //   question: this.list[index - 1].content,
@@ -376,6 +405,48 @@ export default {
     position: fixed;
     left: 0;
     bottom: 44px;
+  }
+}
+.cont2 {
+  width: 305px;
+  height: 174px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 15px;
+  .contwrap {
+    font-size: 17px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: rgba(51, 51, 51, 1);
+    line-height: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    .top {
+      margin-bottom: 7px;
+    }
+    .isOk {
+      display: flex;
+      // align-items: center;
+      // justify-content: center;
+      .isNo {
+        width: 125px;
+        height: 42px;
+        background: rgba(234, 234, 234, 1);
+        border-radius: 4px;
+        text-align: center;
+        line-height: 42px;
+      }
+      .isYes {
+        width: 125px;
+        height: 42px;
+        background: rgba(0, 147, 253, 1);
+        border-radius: 4px;
+        text-align: center;
+        line-height: 42px;
+        margin-left: 20px;
+      }
+    }
   }
 }
 </style>
