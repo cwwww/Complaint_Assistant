@@ -218,13 +218,10 @@
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
       :curIndex="curIndex"
-<<<<<<< HEAD
       :visitimgurl="visitimgurl"
-=======
       @updateFollowersNum="updateFollowersNum"
       @updateFriendsNum="updateFriendsNum"
       ref='friendsFollowers'
->>>>>>> 68232cb841406e9e7449adb0833fcd5ac57ae04f
     />
     <Ranking
       v-show="isRanking"
@@ -234,11 +231,8 @@
       :broker_id="$route.query.broker_id"
       :robot_id="$route.query.robot_id"
       :token="$route.query.token"
-<<<<<<< HEAD
       :visitimgurl="visitimgurl"
-=======
       ref = "ranks"
->>>>>>> 68232cb841406e9e7449adb0833fcd5ac57ae04f
     />
     <Task
       v-show="isTask"
