@@ -3,7 +3,7 @@
   <!-- 好友 -->
   <div>
     <div class="main">
-      <div v-for="(item, idx) in theglobalList" :key="idx">
+      <div v-for="(item, idx) in friendsRank" :key="idx">
         <div class="wrap" @click="clickThis(item.broker_id,item.robot_id)">
           <div class="left">
             <div class="leftLittleLogon">
@@ -53,7 +53,7 @@ export default {
   name: "Friends",
   data() {
     return {
-      theglobalList: [],
+      friendsRank: [],
       img: require("../../../assets/images/金牌@2x.png"),
       img1: require("../../../assets/images/next@2x.png"),
       img2: require("../../../assets/images/银牌@2x.png"),
@@ -91,8 +91,28 @@ export default {
          }
        })
      }
-	  }
+    },
+    updateFriendsRank(){
+      let param = {
+      broker_id: this.broker_id_prop,
+      robot_id: this.robot_id_prop ,
+      token:  this.token_prop
+    };
+    console.log(param);
+    let result = RanlingDatasFriend(param);
+    result
+      .then(res => {
+        console.log(res);
+        this.friendsRank = res.result.friends;
+      })
+      .catch(reslove => {
+        console.log("[friends rank error]");
+      });
+
+    }
   }
+  
+
 };
 </script>
 <style lang="scss" scoped>

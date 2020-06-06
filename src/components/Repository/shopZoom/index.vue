@@ -134,7 +134,6 @@ export default {
     let questionT = this.Question;
     let answerT = this.Answer;
     if (questionT != "") {
-      console.log('questionT:'+questionT)
       this.showListAdd(questionT, answerT);
     } else {
     this.ShoWList();

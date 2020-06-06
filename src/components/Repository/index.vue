@@ -222,7 +222,6 @@ export default {
       // this.$refs.shopZoom.show()
     },
     Repository_show(newValue) {
-      alert(newValue)
       this.show = newValue;
     },
     data(newValue) {

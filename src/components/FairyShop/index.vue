@@ -317,7 +317,7 @@ export default {
       res
         .then(res => {
           that.length = res.result.goods_list.length;
-          if (length > 0) {
+          if (that.length > 0) {
             that.goodsList = res.result.goods_list[0];
             that.fairyStatus = that.goodsList.status;
             if (that.goodsList.level == 1) {

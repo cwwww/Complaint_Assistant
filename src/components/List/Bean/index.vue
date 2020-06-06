@@ -131,7 +131,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main {
-  height: 410px;
+  height: 320px;
   overflow-y: auto;
   margin-top: 12px;
   .warp {

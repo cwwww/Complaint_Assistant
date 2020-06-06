@@ -41,7 +41,7 @@ import {
   reqsendMsmCode,
   reqwxconfig,
   reqisregistered,
-  reqRobotHistory
+  validateToken
 } from "../axios/axios-api";
 // import {debounce} from '../assets/js/common'
 import { Toast, Checkbox } from "vant";
@@ -155,7 +155,7 @@ export default {
             var robot_id = that.messages.ROBOT_ID;
             var token = that.messages.token;
             var info={broker_id:broker_id,robot_id:robot_id,token:token};
-            alert(info.broker_id);
+            // alert(info.broker_id);
             console.log('iii'+info.token)
             this.setStorge(info);
             that.$router.push({
@@ -263,9 +263,9 @@ export default {
     // alert(this.info);
 
     let VlidateToken = infosto.token || '';
-    let VlidateBrokerid = 33;
+    let VlidateBrokerid = infosto.broker_id || '';
     let param = { token: VlidateToken,broker_id: VlidateBrokerid};
-    let result = await reqRobotHistory(param);
+    let result = await validateToken(param);
     var msg = result.msg;
     if (msg == "token错误!") {
       //

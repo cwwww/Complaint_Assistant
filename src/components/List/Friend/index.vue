@@ -218,10 +218,9 @@ export default {
     }
   }
   .main {
-    height: 320px;
+    height: 280px;
     overflow-y: auto;
     margin-top: 12px;
-
     .warp {
       width: 335px;
       height: 80px;

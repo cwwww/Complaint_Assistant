@@ -516,7 +516,7 @@ export default {
       this.$router.push("/Strategy");
     },
     toFXCP() {
-      alert(this.vipValid);
+      // alert(this.vipValid);
       if (this.vipValid == false) {
         this.vipNotification = true;
       } else {
