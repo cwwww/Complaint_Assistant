@@ -56,7 +56,6 @@ export default {
   name: "Login",
   data() {
     return {
-      invite: "",
       loginMeg: "", //查询是否注册返回信息
       checkNum: true,
       check: false,
@@ -153,7 +152,6 @@ export default {
           COUNTRY: that.mes.country,
           PRIVILEGE: that.mes.privilege
         };
-        alert(JSON.stringify(param))
         let res = reqlogin(param);
         res
           .then(res => {
@@ -161,15 +159,14 @@ export default {
             var broker_id = that.messages.ID;
             var robot_id = that.messages.ROBOT_ID;
             var token = that.messages.token;
-            let info = {
+            var info = {
               broker_id: broker_id,
               robot_id: robot_id,
               token: token
             };
+            // alert(info.broker_id);
+            console.log("iii" + info.token);
             this.setStorge(info);
-            // if (that.loginMeg.visitor_type != 1) {
-            //   this.FriendYQ();
-            // }
             that.$router.push({
               path: "/",
               query: {
@@ -184,23 +181,24 @@ export default {
           });
       }
     },
-    // FriendYQ() {
-    //   let param = {
-    //     RECOMMEND_ID: this.invite,
-    //     RECOMMENDED_ID: this.messages.ID,
-    //     token: this.messages.token
-    //   };
-    //   let res = FriendyaoQing(param);
-    //   res
-    //     .then(res => {
-    //       console.log(JSON.stringify(res.result));
-    //     })
-    //     .catch(reslove => {
-    //       console.log("error");
-    //     });
-    // },
+    FriendYQ() {
+      let param = {
+        RECOMMEND_ID: this.invite,
+        RECOMMENDED_ID: this.messages.ID,
+        token: this.messages.token
+      };
+      let res = FriendyaoQing(param);
+      res
+        .then(res => {
+          console.log(JSON.stringify(res.result));
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
+    },
     impower() {
       this.getCode();
+      // alert(JSON.stringify("code" + this.code));
       let param = { code: this.code };
       let res = reqbebotCode(param);
       res
@@ -211,7 +209,16 @@ export default {
           result
             .then(result => {
               this.loginMeg = result.result;
-              // alert("邀请人的id" + this.invite);
+              if (this.loginMeg.visitor_type == 1) {
+                // this.$router.push({
+                //   path: "/",
+                //   query: {
+                //     visitor_id: this.loginMeg.visitor_id,
+                //     robot_id: this.loginMeg.robot_id,
+                //     token: this.loginMeg.token
+                //   }
+                // });
+              }
             })
             .catch(reslove => {
               console.log("error");
@@ -268,7 +275,6 @@ export default {
     }
   },
   async created() {
-    // this.invite = this.$route.query.share_broker_id;
     if (!window.localStorage.getItem("openId")) {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
       this.getCode();
@@ -277,11 +283,24 @@ export default {
       // 别的业务逻辑
     }
     let infosto = this.getStorge();
+    console.log(infosto);
+    // alert(this.info);
     let VlidateToken = infosto.token || "";
     let VlidateBrokerid = infosto.broker_id || "";
     let param = { token: VlidateToken, broker_id: VlidateBrokerid };
     let result = await validateToken(param);
     var msg = result.msg;
+    if (msg == "token错误!") {
+      //
+      // this.$router.push({
+      //   path: "/",
+      //   query: {
+      //     visitor_id: this.loginMeg.visitor_id,
+      //     robot_id: this.loginMeg.robot_id,
+      //     token: this.loginMeg.token
+      //   }
+      // });
+    }
     if (infosto.token != "" && msg == "请求成功") {
       broker_id = infosto.broker_id;
       robot_id = infosto.robot_id;
@@ -299,16 +318,17 @@ export default {
       var robot_id = "";
       var token = "";
       var info = { broker_id: broker_id, robot_id: robot_id, token: token };
+      console.log(info);
       this.setStorge(info);
     }
   },
   mounted() {
-      // this.invite = this.$route.query.share_broker_id;
-      // alert('mounted'+this.invite)
+    // this.wxconfig()
     this.url = window.location.href.split("#")[0];
     var start = this.url.indexOf("=");
     var end = this.url.indexOf("&");
     this.code = this.url.substring(start + 1, end);
+    console.log(this.url);
   }
 };
 </script>
