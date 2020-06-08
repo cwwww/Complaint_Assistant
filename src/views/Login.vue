@@ -166,16 +166,17 @@ export default {
             };
             this.setStorge(info);
             if (that.loginMeg.visitor_type == 1) {
+              alert(2222)
               this.FriendYQ();
             }
-            that.$router.push({
-              path: "/",
-              query: {
-                broker_id: that.messages.ID,
-                robot_id: that.messages.ROBOT_ID,
-                token: that.messages.token
-              }
-            });
+            // that.$router.push({
+            //   path: "/",
+            //   query: {
+            //     broker_id: that.messages.ID,
+            //     robot_id: that.messages.ROBOT_ID,
+            //     token: that.messages.token
+            //   }
+            // });
           })
           .catch(reslove => {
             console.log("error");
