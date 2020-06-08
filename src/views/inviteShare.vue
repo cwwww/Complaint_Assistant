@@ -50,6 +50,7 @@ import InviteVue from './Invite.vue';
 				linkArr.push(value)
 			}
 			this.broker = linkArr[0].split("=")[1]
+			alert(linkArr[0].split("=")[1])
 			let param = {
 				broker_id: this.broker,
 				robot_id: linkArr[1],
