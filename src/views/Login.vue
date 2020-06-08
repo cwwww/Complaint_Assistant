@@ -151,13 +151,13 @@ export default {
         res
           .then(res => {
             that.messages = res.result;
-            var broker_id = that.messages.ID;
-            var robot_id = that.messages.ROBOT_ID;
-            var token = that.messages.token;
-            var info={broker_id:broker_id,robot_id:robot_id,token:token};
-            // alert(info.broker_id);
-            console.log('iii'+info.token)
-            this.setStorge(info);
+            // var broker_id = that.messages.ID;
+            // var robot_id = that.messages.ROBOT_ID;
+            // var token = that.messages.token;
+            // var info={broker_id:broker_id,robot_id:robot_id,token:token};
+            // // alert(info.broker_id);
+            // console.log('iii'+info.token)
+            // this.setStorge(info);
             that.$router.push({
               path: "/",
               query: {
