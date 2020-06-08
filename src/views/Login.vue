@@ -153,6 +153,7 @@ export default {
           COUNTRY: that.mes.country,
           PRIVILEGE: that.mes.privilege
         };
+        alert(JSON.stringify(param))
         let res = reqlogin(param);
         res
           .then(res => {
@@ -183,21 +184,21 @@ export default {
           });
       }
     },
-    FriendYQ() {
-      let param = {
-        RECOMMEND_ID: this.invite,
-        RECOMMENDED_ID: this.messages.ID,
-        token: this.messages.token
-      };
-      let res = FriendyaoQing(param);
-      res
-        .then(res => {
-          console.log(JSON.stringify(res.result));
-        })
-        .catch(reslove => {
-          console.log("error");
-        });
-    },
+    // FriendYQ() {
+    //   let param = {
+    //     RECOMMEND_ID: this.invite,
+    //     RECOMMENDED_ID: this.messages.ID,
+    //     token: this.messages.token
+    //   };
+    //   let res = FriendyaoQing(param);
+    //   res
+    //     .then(res => {
+    //       console.log(JSON.stringify(res.result));
+    //     })
+    //     .catch(reslove => {
+    //       console.log("error");
+    //     });
+    // },
     impower() {
       this.getCode();
       let param = { code: this.code };
@@ -302,7 +303,7 @@ export default {
     }
   },
   mounted() {
-      this.invite = this.$route.query.share_broker_id;
+      // this.invite = this.$route.query.share_broker_id;
       // alert('mounted'+this.invite)
     this.url = window.location.href.split("#")[0];
     var start = this.url.indexOf("=");
