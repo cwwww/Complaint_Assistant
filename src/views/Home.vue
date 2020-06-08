@@ -101,7 +101,7 @@
           id="talkContent"
           :class="{active:isOwn}"
         >{{HistoryList.slice(-1)[0].content}}</div>
-        <div class="btnTalk" id="btnTalk">
+        <div class="btnTalk" >
           <img @click="previousPage" class="leftBtn" :src="nextpage2" alt />
           <img class="rightBtn" @click="nextPage" :src="nextpage" alt />
         </div>
@@ -637,7 +637,7 @@ export default {
             // wx.onMenu
             wx.onMenuShareTimeline({
               title: "朋友圈", // 分享标题
-              desc: "描述yiuy朋友", // 分享描述
+              desc: "看看BeBot今天又学会了什么", // 分享描述
               // link: window.location.href,
               link:
                 "https://test-bebot-web.baoxianxia.com.cn/#/" +
@@ -735,8 +735,6 @@ export default {
             this.bxmove = false;
           }, 1000);
         }
-        if (this.question !="."){
-        this.getReqtaskStatus(1);}
       }
     },
     getHistory() {
@@ -802,11 +800,11 @@ export default {
       }
     },
     //与机器人聊天任务
-    getReqtaskStatus(operation_type) {
+    getReqtaskStatus() {
       let param = {
         broker_id: this.$route.query.broker_id,
         robot_id: this.$route.query.robot_id,
-        operation_type: operation_type,
+        operation_type: 1,
         token: this.$route.query.token
       };
       let result = reqtaskStatus(param);
@@ -922,8 +920,6 @@ export default {
           } else if (this.goodsList.title == 7) {
             this.homeLevel = this.levelbx7;
           }
-          var o =  document.getElementsByClassName("btnTalk")
-          console.log('文本框高度'+ o.offsetHeight)
         })
         .catch(reslove => {
           // console.log("error");
@@ -985,12 +981,11 @@ export default {
     // }
     // window.localStorage.setItem('personal',JSON.stringify(personalData))
     // alert(JSON.stringify(JSON.parse(window.localStorage.getItem("personal"))))
-    
     this.getHomeInit();
     this.getDetail();
     //定时获取粉丝数据
     this.getFensi();
-    this.getReqtaskStatus(99);
+    this.getReqtaskStatus();
     this.timer = setInterval(this.getFensi, 60000); //定时间隔，
   }
 };

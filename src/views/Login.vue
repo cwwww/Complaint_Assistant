@@ -11,7 +11,13 @@
     </div>
     <div class="passWord">
       <div class="leftPassword">
-        <input class="input research" type="text" placeholder="请输入验证码" v-model="research" maxlength="6" />
+        <input
+          class="input research"
+          type="text"
+          placeholder="请输入验证码"
+          v-model="research"
+          maxlength="6"
+        />
         <img :src="img3" alt />
       </div>
       <div class="rightSend" id="box">
@@ -41,7 +47,8 @@ import {
   reqsendMsmCode,
   reqwxconfig,
   reqisregistered,
-  validateToken
+  validateToken,
+  FriendyaoQing
 } from "../axios/axios-api";
 // import {debounce} from '../assets/js/common'
 import { Toast, Checkbox } from "vant";
@@ -75,14 +82,12 @@ export default {
     checked() {
       this.check = false;
     },
-    //
     GetQueryString(name) {
       var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
       var r = window.location.search.substr(1).match(reg);
       if (r != null) return decodeURIComponent(r[2]);
       return null;
     },
-
     loginResearch() {
       if (this.phone == "") {
         Toast("请输入手机号");
@@ -154,9 +159,13 @@ export default {
             var broker_id = that.messages.ID;
             var robot_id = that.messages.ROBOT_ID;
             var token = that.messages.token;
-            var info={broker_id:broker_id,robot_id:robot_id,token:token};
+            var info = {
+              broker_id: broker_id,
+              robot_id: robot_id,
+              token: token
+            };
             // alert(info.broker_id);
-            console.log('iii'+info.token)
+            console.log("iii" + info.token);
             this.setStorge(info);
             that.$router.push({
               path: "/",
@@ -171,6 +180,22 @@ export default {
             console.log("error");
           });
       }
+    },
+    FriendYQ() {
+      let param = {
+        RECOMMEND_ID: this.$route.query.broker_id,
+        RECOMMENDED_ID: 55,
+        token:
+          "ZXlKMGVYQWlPaUpLVjFBaUxDSmhiR2NpT2lKa1pXWmhkV3gwSW4wOjFqVzlDcDpsal9zdVlrR0V6T3lMY1dSTnFkcXdWc2Z3V00.ZXlKUVNFOU9SU0k2SWpFM05qRXdNREkzT0Rjeklpd2lTVVFpT2pNekxDSnBZWFFpT2pFMU9EZzNNams0TXprdU1UWTVPRFF4TTMwOjFqVzlDcDptdDVjeWExajBWSG9XMzlOMVN2WGhVQ1otQzQ.0ee1173f3a6a0489b64ec92e22c60cd1"
+      };
+      let res = FriendyaoQing(param);
+      res
+        .then(res => {
+          console.log(JSON.stringify(res.result))
+        })
+        .catch(reslove => {
+          console.log("error");
+        });
     },
     impower() {
       this.getCode();
@@ -234,20 +259,20 @@ export default {
       }
       return theRequest;
     },
-    setStorge(info){
-    // const info = { name: 'hou', age: 24, id: '001' };
-    // const str="0001";
-    // localStorage.setItem('hou', JSON.stringify(info));
-    // localStorage.setItem('zheng', str);
-    localStorage.setItem('info', JSON.stringify(info));
+    setStorge(info) {
+      // const info = { name: 'hou', age: 24, id: '001' };
+      // const str="0001";
+      // localStorage.setItem('hou', JSON.stringify(info));
+      // localStorage.setItem('zheng', str);
+      localStorage.setItem("info", JSON.stringify(info));
     },
-    getStorge(){
-      var info =  JSON.parse(localStorage.getItem('info'));
+    getStorge() {
+      var info = JSON.parse(localStorage.getItem("info"));
       return info;
-    // var data1 = JSON.parse(localStorage.getItem('hou'));
-    // var data2 = localStorage.getItem('zheng');
-    // alert(data1);
-    // alert(data2);
+      // var data1 = JSON.parse(localStorage.getItem('hou'));
+      // var data2 = localStorage.getItem('zheng');
+      // alert(data1);
+      // alert(data2);
     }
   },
   async created() {
@@ -257,14 +282,13 @@ export default {
       this.impower();
     } else {
       // 别的业务逻辑
-    };
-    let infosto= this.getStorge();
+    }
+    let infosto = this.getStorge();
     console.log(infosto);
     // alert(this.info);
-
-    let VlidateToken = infosto.token || '';
-    let VlidateBrokerid = infosto.broker_id || '';
-    let param = { token: VlidateToken,broker_id: VlidateBrokerid};
+    let VlidateToken = infosto.token || "";
+    let VlidateBrokerid = infosto.broker_id || "";
+    let param = { token: VlidateToken, broker_id: VlidateBrokerid };
     let result = await validateToken(param);
     var msg = result.msg;
     if (msg == "token错误!") {
@@ -278,24 +302,23 @@ export default {
       //   }
       // });
     }
-    if(infosto.token!="" && msg=="请求成功"){
-      broker_id=infosto.broker_id;
-      robot_id=infosto.robot_id;
-      token= infosto.token;
+    if (infosto.token != "" && msg == "请求成功") {
+      broker_id = infosto.broker_id;
+      robot_id = infosto.robot_id;
+      token = infosto.token;
       this.$router.push({
-          path: "/",
-          query: {
-            broker_id: broker_id,
-            robot_id: robot_id,
-            token: token
-          }
-        });
-    } 
-    else{
+        path: "/",
+        query: {
+          broker_id: broker_id,
+          robot_id: robot_id,
+          token: token
+        }
+      });
+    } else {
       var broker_id = "";
       var robot_id = "";
       var token = "";
-      var info={broker_id:broker_id,robot_id:robot_id,token:token};
+      var info = { broker_id: broker_id, robot_id: robot_id, token: token };
       console.log(info);
       this.setStorge(info);
     }

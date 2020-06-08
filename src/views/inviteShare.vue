@@ -50,8 +50,9 @@
 				}
 				linkArr.push(value)
 			}
+			this.broker_id = linkArr[0]
 			let param = {
-				broker_id: linkArr[0],
+				broker_id: this.broker_id,
 				robot_id: linkArr[1],
 				token: linkArr[2]
 			};
@@ -69,7 +70,10 @@
 		methods: {
 			draw : function(){
 				this.$router.push({
-				  path: "/Login"
+				  path: "/Login",
+				  query:{
+					broker_id:this.broker_id
+				  }
 				});
 			}
 		}
