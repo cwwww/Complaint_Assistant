@@ -49,6 +49,7 @@ import InviteVue from './Invite.vue';
 				linkArr.push(value)
 			}
 			this.broker_id = linkArr[0].indexOf("=")
+			alert(linkArr[0])
 			alert(this.broker_id)
 			let param = {
 				broker_id: this.broker_id,
