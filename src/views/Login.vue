@@ -302,6 +302,8 @@ export default {
     }
   },
   mounted() {
+    this.invite = this.$route.query.share_broker_id;
+    alert('mounted'+this.invite)
     this.url = window.location.href.split("#")[0];
     var start = this.url.indexOf("=");
     var end = this.url.indexOf("&");
