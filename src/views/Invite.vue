@@ -208,7 +208,7 @@ export default {
               desc:
                 "我拥有2万+保险条款，覆盖上千类病种分析，24h在线，有事没事都来找我聊聊吧！", // 分享描述
               link:
-                "test-bebot-web.baoxianxia.com.cn/#/" +
+                "https://test-bebot-web.baoxianxia.com.cn/#/" +
                 `inviteShare?broker_id=${that.$route.query.broker_id}&robot_id=${that.$route.query.robot_id}&token=${that.$route.query.token}`,
               imgUrl: "https://img.baoxianxia.com.cn/share/spotShare.png", // 分享图标
               success: function(res) {
