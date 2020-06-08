@@ -30,7 +30,8 @@ import InviteVue from './Invite.vue';
 		data() {
 			return {
 				hadeurl : '',
-				name : ''
+				name : '',
+				broker:''
 			};
 		},
 		mounted() {
@@ -48,9 +49,9 @@ import InviteVue from './Invite.vue';
 				}
 				linkArr.push(value)
 			}
-			this.broker_id = linkArr[0].split("=")[1]
+			this.broker = linkArr[0].split("=")[1]
 			let param = {
-				broker_id: this.broker_id,
+				broker_id: this.broker,
 				robot_id: linkArr[1],
 				token: linkArr[2]
 			};
@@ -71,7 +72,7 @@ import InviteVue from './Invite.vue';
 				this.$router.push({
 				  path: "/Login",
 				  query:{
-					share_broker_id:this.broker_id
+					share_broker_id:this.broker
 				  }
 				});
 			}
