@@ -34,7 +34,6 @@ import InviteVue from './Invite.vue';
 			};
 		},
 		mounted() {
-			alert('InviteVue')
 			let name, value, str = location.href,
 			num = str.indexOf("?"); //取得整个地址栏
 			str = str.substr(num + 1); //取得所有参数 stringvar.substr(start [, length ]
@@ -49,6 +48,7 @@ import InviteVue from './Invite.vue';
 				}
 				linkArr.push(value)
 			}
+			alert(linkArr[0])
 			this.broker_id = linkArr[0]
 			let param = {
 				broker_id: this.broker_id,
