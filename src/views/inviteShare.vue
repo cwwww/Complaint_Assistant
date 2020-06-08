@@ -69,6 +69,7 @@ import InviteVue from './Invite.vue';
 		},
 		methods: {
 			draw : function(){
+				alert(this.broker)
 				this.$router.push({
 				  path: "/Login",
 				  query:{
