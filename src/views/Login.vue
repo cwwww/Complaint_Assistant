@@ -165,9 +165,7 @@ export default {
               token: token
             };
             this.setStorge(info);
-            alert(JSON.stringify(that.loginMeg))
             if (that.loginMeg.visitor_type == 1) {
-              alert(2222)
               this.FriendYQ();
             }
             that.$router.push({
@@ -213,7 +211,7 @@ export default {
           result
             .then(result => {
               this.loginMeg = result.result;
-              alert(JSON.stringify(this.loginMeg))
+              alert('自己的id'+this.$route.query.broker_id)
             })
             .catch(reslove => {
               console.log("error");
