@@ -49,19 +49,15 @@ import InviteVue from './Invite.vue';
 				}
 				linkArr.push(value)
 			}
-		      let getCode = linkArr[0].indexOf("=")
-		      this.broker = linkArr[0].substring(Number(getCode+1),linkArr[0].length)
-
-
+		    let getCode = linkArr[0].indexOf("=")
+		    this.broker = linkArr[0].substring(Number(getCode+1),linkArr[0].length)
 			// alert(linkArr[0].split("="))
 			// this.broker = linkArr[0].split("=")[1]
-			alert(this.broker)
 			let param = {
 				broker_id: this.broker,
 				robot_id: linkArr[1],
 				token: linkArr[2]
 			};
-			alert(JSON.stringify(param))
 			let result = reqHomeInit(param);
 			result
 				.then(result => {
@@ -75,7 +71,6 @@ import InviteVue from './Invite.vue';
 		},
 		methods: {
 			draw : function(){
-				alert(this.broker)
 				this.$router.push({
 				  path: "/Login",
 				  query:{

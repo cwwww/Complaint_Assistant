@@ -184,17 +184,14 @@ export default {
       }
     },
     FriendYQ() {
-      alert(this.invite);
       let param = {
         RECOMMEND_ID: this.invite,
         RECOMMENDED_ID: this.messages.ID,
         token: this.messages.token
       };
-      alert("邀请好友参数" + JSON.stringify(param));
       let res = FriendyaoQing(param);
       res
         .then(res => {
-          alert("被邀请人ID" + JSON.stringify(res.result));
           console.log(JSON.stringify(res.result));
         })
         .catch(reslove => {
@@ -213,7 +210,7 @@ export default {
           result
             .then(result => {
               this.loginMeg = result.result;
-              alert("自己的id" + this.invite);
+              alert("邀请人的id" + this.invite);
             })
             .catch(reslove => {
               console.log("error");
