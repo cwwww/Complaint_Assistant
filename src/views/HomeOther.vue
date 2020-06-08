@@ -18,6 +18,21 @@
         </div>
       </div>
     </van-popup>
+    <div
+      class="topTitle start"
+      v-if="bxmove"
+      :class="{movetransition: bxmove ? 'movetransition':'' }"
+    >
+      <p>串门成功</p>
+      <div class="leftImg">
+        <img :src="money" alt />
+      </div>
+      <p>+{{addStatus.award_bcoin}}</p>
+      <div class="rightImg">
+        <img :src="experience" alt />
+      </div>
+      <span>+{{addStatus.award_exp}}</span>
+    </div>
     <div class="information">
       <div class="mes">
         <div class="topHalfPart">
@@ -213,6 +228,8 @@ export default {
   },
   data() {
     return {
+      addStatus: Object,
+      bxmove: false,
       visitimgurl: "",
       isList: false,
       showNewFans: false,
@@ -246,7 +263,7 @@ export default {
       fairyStatus: "",
       inputcon: "",
       customer_type: "",
-      customer_robot_id:"",
+      customer_robot_id: "",
       share: require("../assets/images/share@2x.png"),
       img: require("../assets/images/icon.png"),
       register: require("../assets/images/register@2x.png"),
@@ -640,7 +657,7 @@ export default {
           console.log("error");
         });
     },
-    updateHomeInfo(){
+    updateHomeInfo() {
       var that = this;
       console.log("[register_visitor_type]", that.registers.visitor_type);
       if (that.registers.visitor_type == "0") {
@@ -700,7 +717,6 @@ export default {
         .catch(reslove => {
           console.log("error");
         });
-
     },
     //串门成功调更新任务接口
     chuanmen() {
@@ -716,6 +732,7 @@ export default {
       let result = reqtaskStatus(param);
       result
         .then(res => {
+          this.addStatus = res.result;
           // //更新金币
           // this.homeInit.bcoin = res.result.bcoin;
           // //更新等级
@@ -935,6 +952,12 @@ export default {
             });
           //串门成功后，增加金币和经验
           this.chuanmen();
+          if (this.addStatus.award_bcoin > 0) {
+            this.bxmove = true;
+            setTimeout(() => {
+              this.bxmove = false;
+            }, 1000);
+          }
         })
         .catch(reslove => {
           console.log("error");
@@ -951,7 +974,51 @@ export default {
 /deep/ .van-popup {
   overflow: visible;
 }
+.m_xbtns {
+  position: relative;
+  // margin-top: 100px;
+}
+.m_xbtns span {
+  display: block;
+  font-size: 17px;
+  color: #fff;
+  background: #1977f6;
+  border-radius: 50%;
+  height: 48px;
+  line-height: 48px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 10px 15px 20px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+.m_xbtns .start {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 15px;
+  color: red;
+}
 
+.movetransition {
+  animation: iconmove 3s linear infinite;
+  animation-iteration-count: 1;
+}
+
+@keyframes iconmove {
+  0% {
+    top: 100px;
+    opacity: 1;
+  }
+  100% {
+    top: 60px;
+    opacity: 0;
+  }
+}
 .contain {
   height: 100vh;
   display: flex;
@@ -962,7 +1029,47 @@ export default {
   background-position: 0 100%;
   justify-content: space-between;
   flex-direction: column;
-
+  .topTitle {
+    display: flex;
+    position: absolute;
+    margin-left: 24%;
+    top: 20%;
+    z-index: 999;
+    > .leftImg {
+      width: 18px;
+      height: 18px;
+      margin-right: 1px;
+      > img {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    > p {
+      font-size: 12px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      line-height: 17px;
+      margin-right: 7px;
+      color: white;
+    }
+    > .rightImg {
+      width: 15px;
+      height: 20px;
+      margin-right: 1px;
+      > img {
+        width: 15px;
+        height: 20px;
+      }
+    }
+    > span {
+      display: block;
+      font-size: 12px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      line-height: 17px;
+      color: white;
+    }
+  }
   .information {
     height: 90px;
     margin: 18px 0 0 20px;

@@ -64,8 +64,6 @@
           <span>发送</span>
         </div>
       </div>
-
-      <router-view v-if="$route.path==='/home'"></router-view>
     </van-popup>
   </div>
 </template>
@@ -216,11 +214,11 @@ export default {
     this.scrollToBottom();
   },
   mounted() {
-    this.scrollToBottom();
+    // this.scrollToBottom();
     // this.getDialogAgent();
     window.setInterval(() => {
       setTimeout(this.getDialogAgent(), 0);
-    }, 2000);
+    }, 1000);
   }
 };
 </script>

@@ -165,7 +165,6 @@
 			    .then(res => {
 			      console.log(res);
 			      this.shareMessages = res.result;
-			      // alert($route.query.visitor_id)
 			      var that = this;
 			      wx.config({
 			        debug: false,

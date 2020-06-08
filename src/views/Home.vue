@@ -101,7 +101,7 @@
           id="talkContent"
           :class="{active:isOwn}"
         >{{HistoryList.slice(-1)[0].content}}</div>
-        <div class="btnTalk">
+        <div class="btnTalk" id="btnTalk">
           <img @click="previousPage" class="leftBtn" :src="nextpage2" alt />
           <img class="rightBtn" @click="nextPage" :src="nextpage" alt />
         </div>
@@ -159,15 +159,39 @@
             >确定</van-button>
           </div>
         </van-popup>
+          <div class="topTitle start" v-if="bxmove" :class="{movetransition: bxmove ? 'movetransition':'' }">
+            <p>和精灵聊天</p>
+            <div class="leftImg">
+              <img :src="money" alt />
+            </div>
+            <p>+{{addStatus.award_bcoin}}</p>
 
-        <div class="input-bottom">
+            <div class="rightImg">
+              <img :src="experience" alt />
+            </div>
+            <span>+{{addStatus.award_exp}}</span>
+          </div>
+        <div class="input-bottom m_xbtns fixed" id="app">
           <input
             type="text"
             v-model="question"
             placeholder="有什么可以帮您？尽快发来问题吧"
             style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"
           />
-          <div class="btn" @click="submit(numIndex)">发送</div>
+          <!-- <div class="m_xbtns fixed" id="app"> -->
+          <!-- <div v-if="bxmove" class="start" :class="{movetransition: bxmove ? 'movetransition':'' }">
+            <div class="leftImg">
+              <img :src="money" alt />
+            </div>
+            <p>+{{addStatus.awarded_bcoin}}</p>
+
+            <div class="rightImg">
+              <img :src="experience" alt />
+            </div>
+            <span>+{{addStatus.awarded_exp}}</span>
+          </div> -->
+          <div class="btn J_xsubmit" @click="submit(numIndex)">发送</div>
+          <!-- </div> -->
         </div>
       </div>
     </div>
@@ -262,6 +286,7 @@ import List from "../components/List";
 import Ranking from "../components/Ranking";
 import Task from "../components/Task";
 import SellerShop from "../components/SellerShop";
+import project from "../assets/js/common/project";
 import {
   reqHomeInit,
   reqCusayrob,
@@ -287,6 +312,8 @@ export default {
   },
   data() {
     return {
+      addStatus:Object,
+      bxmove: false,
       content: "",
       HistoryList: [],
       toget: "",
@@ -445,7 +472,6 @@ export default {
     },
     Repository() {
       // 知识库
-
       this.isRep = true;
       // this.destoryTimer();
     },
@@ -463,14 +489,6 @@ export default {
     isYes() {
       //买家精灵商店确定购买
       this.vipNotification = false;
-      // this.$router.push({
-      //   path: "/sellerShop/vipShop",
-      //   query: {
-      //     broker_id: this.$route.query.visitor_id,
-      //     robot_id: this.$route.query.robot_id,
-      //     token: this.$route.query.token
-      //   }
-      // });
     },
     toGet() {
       this.toget = 1;
@@ -481,7 +499,7 @@ export default {
       this.vipNotification = false;
     },
     toHope() {
-      Toast("施工中,敬请期待");
+      Toast("施工中,敬请期待");
     },
     HomeChat() {
       // 聊天记录
@@ -675,18 +693,6 @@ export default {
           // console.log("error");
         });
     },
-    //   customerLogin(){
-    //         let param = {
-    //           "OPENID": this.messages.openid,
-    //           "NICKNAME": this.messages.nickname,
-    //           "HEADIMGURL":  this.messages.headimgurl,
-    //           "SEX":  this.messages.sex,
-    //           "PROVINCE":  this.messages.province,
-    //           "CITY": this.messages.city,
-    //           "COUNTRY": this.messages.country,
-    //           "PRIVILEGE":  this.messages.privilege,
-    //         }
-    // },
     getFensi() {
       let param = {
         robot_id: this.$route.query.robot_id,
@@ -723,6 +729,12 @@ export default {
         this.getDetail();
         // this.getHistory();
         this.getReqtaskStatus();
+        if(this.addStatus.award_bcoin > 0){
+          this.bxmove = true;
+          setTimeout(() => {
+            this.bxmove = false;
+          }, 1000);
+        }
       }
     },
     getHistory() {
@@ -768,7 +780,7 @@ export default {
         };
       }
       if (this.flag == true && this.content == ".") {
-        alert('return')
+        alert("return");
         return;
       } else {
         let res = reqRobotDetail(param);
@@ -795,11 +807,11 @@ export default {
         operation_type: 1,
         token: this.$route.query.token
       };
-      console.log("任务的param:" + JSON.stringify(param));
-
       let result = reqtaskStatus(param);
       result
         .then(res => {
+          this.addStatus = res.result
+          console.log(JSON.stringify(this.addStatus))
           //更新金币
           this.homeInit.bcoin = res.result.bcoin;
           //更新等级
@@ -908,6 +920,8 @@ export default {
           } else if (this.goodsList.title == 7) {
             this.homeLevel = this.levelbx7;
           }
+          var o =  document.getElementsByClassName("btnTalk")
+          console.log('文本框高度'+ o.offsetHeight)
         })
         .catch(reslove => {
           // console.log("error");
@@ -969,6 +983,7 @@ export default {
     // }
     // window.localStorage.setItem('personal',JSON.stringify(personalData))
     // alert(JSON.stringify(JSON.parse(window.localStorage.getItem("personal"))))
+    
     this.getHomeInit();
     this.getDetail();
     //定时获取粉丝数据
@@ -982,6 +997,51 @@ export default {
 @import url("//unpkg.com/element-ui@2.13.1/lib/theme-chalk/index.css");
 /deep/ .van-popup {
   overflow: visible;
+}
+.m_xbtns {
+  position: relative;
+  // margin-top: 100px;
+}
+.m_xbtns span {
+  display: block;
+  font-size: 17px;
+  color: #fff;
+  background: #1977f6;
+  border-radius: 50%;
+  height: 48px;
+  line-height: 48px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 10px 15px 20px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+.m_xbtns .start {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 15px;
+  color: red;
+}
+
+.movetransition {
+  animation: iconmove 1s linear infinite;
+  animation-iteration-count: 1;
+}
+
+@keyframes iconmove {
+  0% {
+    top: 200px;
+    opacity: 1;
+  }
+  100% {
+    top: 170px;
+    opacity: 0;
+  }
 }
 .m_xstrat {
   position: absolute;
@@ -1300,8 +1360,7 @@ export default {
     overflow: hidden;
     white-space: wrap;
     text-overflow: ellipsis;
-    // max-height: 22.7%;
-    // height: auto;
+    margin-bottom: -20px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 8;
@@ -1319,6 +1378,11 @@ export default {
   }
   .btnTalk {
     margin-top: 4px;
+    // position: absolute;
+    // bottom: 0;
+    // left: 0;
+    // margin-left: 20%;
+    // z-index: 9999;
     .leftBtn {
       width: 24px;
       height: 18px;
@@ -1435,7 +1499,46 @@ export default {
       }
     }
   }
-
+      .topTitle {
+        display: flex;
+        position: absolute;
+        // top: 200px;
+        // margin-top: 23px;
+        > .leftImg {
+          width: 18px;
+          height: 18px;
+          margin-right: 1px;
+          > img {
+            width: 18px;
+            height: 18px;
+          }
+        }
+        > p {
+          font-size: 12px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: rgba(255, 255, 255, 1);
+          line-height: 17px;
+          margin-right: 7px;
+        }
+        > .rightImg {
+          width: 15px;
+          height: 20px;
+          margin-right: 1px;
+          > img {
+            width: 15px;
+            height: 20px;
+          }
+        }
+        > span {
+          display: block;
+          font-size: 12px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: rgba(255, 255, 255, 1);
+          line-height: 17px;
+        }
+      }
   .input-bottom-content {
     display: flex;
     align-items: center;
@@ -1618,6 +1721,7 @@ export default {
     > .content {
       > .topTitle {
         margin-top: -3px;
+        
         // display: flex;
         > span {
           margin-left: 8px;

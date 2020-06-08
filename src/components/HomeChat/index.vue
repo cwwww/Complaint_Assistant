@@ -49,7 +49,22 @@
         <div class="content-bottom">
           <input type="text" :placeholder="placeholder" v-model="input" />
         </div>
-        <div class="btn" @click="submit">
+        <div
+          class="topTitle start"
+          v-if="bxmove"
+          :class="{movetransition: bxmove ? 'movetransition':'' }"
+        >
+        <p>和精灵聊天</p>
+          <div class="leftImg">
+            <img :src="money" alt />
+          </div>
+          <p>+{{addStatus.award_bcoin}}</p>
+          <div class="rightImg">
+            <img :src="experience" alt />
+          </div>
+          <span>+{{addStatus.award_exp}}</span>
+        </div>
+        <div class="btn J_xsubmit" @click="submit">
           <span>发送</span>
         </div>
       </div>
@@ -57,9 +72,6 @@
     </van-popup>
     <van-popup class="cont2" v-model="toPulish">
       <div class="contwrap">
-        <!-- <div class="top">
-                <span>{{vipExpiryTime}}</span>
-        </div>-->
         <div style="margin-bottom:25px;">您是否要发布到问答广场</div>
         <div class="isOk">
           <div class="isNo" @click="cancel">
@@ -81,13 +93,16 @@ import {
   reqRobotDetail,
   reqRobotHistory,
   reqChathist,
-  reqaddledgeList
+  reqaddledgeList,
+  reqtaskStatus
 } from "../../axios/axios-api";
 export default {
   inject: ["reload"], // 引入页面同步刷新的依赖
   name: "HomeChat",
   data() {
     return {
+      addStatus: Object,
+      bxmove: false,
       flag: false,
       list: [],
       chat: true,
@@ -96,6 +111,8 @@ export default {
       question: "",
       input: "",
       toPulish: false,
+      money: require("../../assets/images/money@2x.png"),
+      experience: require("../../assets/images/experience@2x.png"),
       placeholder: "有什么可以帮您？尽快发来问题吧",
       user: require("../../assets/images/头像@2x.png"),
       edit: require("../../assets/images/edit.png"),
@@ -143,6 +160,23 @@ export default {
           console.log("error");
         });
     },
+    getReqtaskStatus() {
+      let param = {
+        broker_id: this.broker_id,
+        robot_id: this.robot_id,
+        operation_type: 1,
+        token: this.token
+      };
+      let result = reqtaskStatus(param);
+      result
+        .then(res => {
+          this.addStatus = res.result;
+          console.log(JSON.stringify(this.addStatus));
+        })
+        .catch(reslove => {
+          console.log("[ERROR] in getReqtaskStatus function");
+        });
+    },
     submit() {
       if (this.input == "") {
         Toast("请输入聊天内容");
@@ -162,6 +196,13 @@ export default {
           .then(res => {
             this.getChatList();
             this.input = "";
+            this.getReqtaskStatus();
+            if (this.addStatus.award_bcoin > 0) {
+              this.bxmove = true;
+              setTimeout(() => {
+                this.bxmove = false;
+              }, 1000);
+            }
           })
           .catch(reslove => {
             console.log("error");
@@ -172,33 +213,33 @@ export default {
       this.toPulish = false;
     },
     confirm() {
-      alert(222)
-        let param = {
+      let param = {
         broker_id: this.broker_id,
         sentence_id: this.sentence_id,
         question: this.question,
         answer: this.answer,
         token: this.token
-        };
-        // alert(JSON.stringify(param))
-        let res = reqChathist(param);
-        res
-          .then(res => {
-            Toast(res.msg);
-            this.toPulish = false;
-          })
-          .catch(reslove => {
-            Toast(res.msg);
-          });
-      
+      };
+      // alert(JSON.stringify(param))
+      let res = reqChathist(param);
+      res
+        .then(res => {
+          Toast(res.msg);
+          this.toPulish = false;
+        })
+        .catch(reslove => {
+          Toast(res.msg);
+        });
     },
     chathist(index) {
       //发布
-      console.log(this.list[index])
-      this.answer = this.list[index].content
-      this.question = this.list[index-1].content
+      console.log(this.list[index]);
+      this.answer = this.list[index].content;
+      this.question = this.list[index - 1].content;
       this.sentence_id = this.list[index].sentence_id;
       this.toPulish = true;
+      window.parent.location.href =
+        "https://m.baoxianxia.com.cn/app/answers/index.html?brokerId=a0afe56ef17a4ea1b80a1629c7e828c6&token=feb91d31-a186-45a0-ba11-097075ebb041";
     },
     teachYou(index) {
       this.chat = false;
@@ -212,29 +253,6 @@ export default {
       };
       Bus.$emit("teachyou", params);
       this.$emit("controlRep", true);
-      // let param = {
-      //   broker_id: this.broker_id,
-      //   question: this.list[index - 1].content,
-      //   answer: this.list[index].content,
-      //   token: this.token
-      // };
-      // console.log(param);
-      // let res = reqaddledgeList(param);
-      // res
-      //   .then(res => {
-      //     // this.ShoWList()
-      //     console.log(res);
-      //   })
-      //   .catch(reslove => {
-      //     console.log("error");
-      //   });
-      // this.$router.push({   //跳到知识库编辑页面
-      //   path: "/shopZoom",
-      //   query: {
-      //     Answer: this.list[index].content,
-      //     Question: this.list[index - 1].content
-      //   }
-      // });
     },
     //  滚动条置底
     scrollToBottom() {
@@ -252,6 +270,51 @@ export default {
 <style lang="scss" scoped>
 /deep/ .van-popup {
   overflow: visible;
+}
+.m_xbtns {
+  position: relative;
+  // margin-top: 100px;
+}
+.m_xbtns span {
+  display: block;
+  font-size: 17px;
+  color: #fff;
+  background: #1977f6;
+  border-radius: 50%;
+  height: 48px;
+  line-height: 48px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 10px 15px 20px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+.m_xbtns .start {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 15px;
+  color: red;
+}
+
+.movetransition {
+  animation: iconmove 1s linear infinite;
+  animation-iteration-count: 1;
+}
+
+@keyframes iconmove {
+  0% {
+    top: 200px;
+    opacity: 1;
+  }
+  100% {
+    top: 170px;
+    opacity: 0;
+  }
 }
 .warp {
   display: flex;
@@ -340,6 +403,44 @@ export default {
           margin-left: 3px;
         }
       }
+    }
+  }
+  .topTitle {
+    display: flex;
+    position: absolute;
+    margin-left: 40%;
+    // top: 200px;
+    > .leftImg {
+      width: 18px;
+      height: 18px;
+      margin-right: 1px;
+      > img {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    > p {
+      font-size: 12px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      line-height: 17px;
+      margin-right: 7px;
+    }
+    > .rightImg {
+      width: 15px;
+      height: 20px;
+      margin-right: 1px;
+      > img {
+        width: 15px;
+        height: 20px;
+      }
+    }
+    > span {
+      display: block;
+      font-size: 12px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      line-height: 17px;
     }
   }
   .bottom {
