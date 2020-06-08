@@ -24,6 +24,7 @@
 <script>
 	import { reqHomeInit } from "../axios/axios-api";
 	import wx from 'weixin-js-sdk';
+import InviteVue from './Invite.vue';
 	export default {
 		name: "inviteShare",
 		data() {
@@ -33,9 +34,9 @@
 			};
 		},
 		mounted() {
-			alert('id'+this.$route.query.broker_id)
+			alert('InviteVue')
 			let name, value, str = location.href,
-				num = str.indexOf("?"); //取得整个地址栏
+			num = str.indexOf("?"); //取得整个地址栏
 			str = str.substr(num + 1); //取得所有参数 stringvar.substr(start [, length ]
 			let arr = str.split("&"); //各个参数放到数组里
 			var linkArr = [];
@@ -54,6 +55,7 @@
 				robot_id: linkArr[1],
 				token: linkArr[2]
 			};
+			alert(JSON.stringify(param))
 			let result = reqHomeInit(param);
 			result
 				.then(result => {
