@@ -150,6 +150,7 @@ export default {
         let res = reqlogin(param);
         res
           .then(res => {
+            alert(JSON.stringify(res.result))
             that.messages = res.result;
             // var broker_id = that.messages.ID;
             // var robot_id = that.messages.ROBOT_ID;
