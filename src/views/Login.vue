@@ -56,6 +56,7 @@ export default {
   name: "Login",
   data() {
     return {
+      invite:'',
       loginMeg: "", //查询是否注册返回信息
       checkNum: true,
       check: false,
@@ -184,9 +185,9 @@ export default {
       }
     },
     FriendYQ() {
-      alert(this.$route.query.broker_id)
+      alert(this.invite)
       let param = {
-        RECOMMEND_ID: this.$route.query.broker_id,
+        RECOMMEND_ID: this.invite,
         RECOMMENDED_ID: this.messages.ID,
         token: this.messages.token
       };
@@ -213,7 +214,7 @@ export default {
           result
             .then(result => {
               this.loginMeg = result.result;
-              alert('自己的id'+this.$route.query.share_broker_id)
+              alert('自己的id'+this.invite)
             })
             .catch(reslove => {
               console.log("error");
@@ -304,7 +305,7 @@ export default {
     }
   },
   mounted() {
-    alert(this.$route.query.share_broker_id)
+    this.invite = this.$route.query.share_broker_id
     this.url = window.location.href.split("#")[0];
     var start = this.url.indexOf("=");
     var end = this.url.indexOf("&");
