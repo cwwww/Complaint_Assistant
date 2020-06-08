@@ -213,7 +213,7 @@ export default {
           result
             .then(result => {
               this.loginMeg = result.result;
-              alert('自己的id'+this.$route.query.broker_id)
+              alert('自己的id'+this.$route.query.share_broker_id)
             })
             .catch(reslove => {
               console.log("error");
@@ -304,8 +304,7 @@ export default {
     }
   },
   mounted() {
-    // this.wxconfig()
-    alert(this.$route.query.broker_id)
+    alert(this.$route.query.share_broker_id)
     this.url = window.location.href.split("#")[0];
     var start = this.url.indexOf("=");
     var end = this.url.indexOf("&");

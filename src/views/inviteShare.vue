@@ -71,7 +71,7 @@ import InviteVue from './Invite.vue';
 				this.$router.push({
 				  path: "/Login",
 				  query:{
-					broker_id:this.broker_id
+					share_broker_id:this.broker_id
 				  }
 				});
 			}
