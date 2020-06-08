@@ -305,6 +305,7 @@ export default {
   },
   mounted() {
     // this.wxconfig()
+    alert(this.$route.query.broker_id)
     this.url = window.location.href.split("#")[0];
     var start = this.url.indexOf("=");
     var end = this.url.indexOf("&");
