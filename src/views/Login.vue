@@ -264,7 +264,6 @@ export default {
   //   console.log(infosto);
   //   // alert(this.info);
 
-
   created() {
     if (!window.localStorage.getItem("openId")) {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
@@ -273,50 +272,47 @@ export default {
     } else {
       // 别的业务逻辑
     };
-    let infosto= this.getStorge();
+    // let infosto= this.getStorge();
     console.log(infosto);
     // alert(this.info);
 
-
-
-    let VlidateToken = infosto.token || '';
-    let VlidateBrokerid = infosto.broker_id || '';
-    let param = { token: VlidateToken,broker_id: VlidateBrokerid};
+    // let VlidateToken = infosto.token || '';
+    // let VlidateBrokerid = infosto.broker_id || '';
+    // let param = { token: VlidateToken,broker_id: VlidateBrokerid};
     // let result = await validateToken(param);
-    let result = validateToken(param);
-    var msg = result.msg;
-    if (msg == "token错误!") {
-      //
-      // this.$router.push({
-      //   path: "/",
-      //   query: {
-      //     visitor_id: this.loginMeg.visitor_id,
-      //     robot_id: this.loginMeg.robot_id,
-      //     token: this.loginMeg.token
-      //   }
-      // });
-    }
-    if(infosto.token!="" && msg=="请求成功" && infosto.token!=null){
-      broker_id=infosto.broker_id;
-      robot_id=infosto.robot_id;
-      token= infosto.token;
-      this.$router.push({
-          path: "/",
-          query: {
-            broker_id: broker_id,
-            robot_id: robot_id,
-            token: token
-          }
-        });
-    } 
-    else{
-      var broker_id = "";
-      var robot_id = "";
-      var token = "";
-      var info={broker_id:broker_id,robot_id:robot_id,token:token};
-      console.log(info);
-      this.setStorge(info);
-    }
+    // var msg = result.msg;
+    // if (msg == "token错误!") {
+    //   //
+    //   // this.$router.push({
+    //   //   path: "/",
+    //   //   query: {
+    //   //     visitor_id: this.loginMeg.visitor_id,
+    //   //     robot_id: this.loginMeg.robot_id,
+    //   //     token: this.loginMeg.token
+    //   //   }
+    //   // });
+    // }
+    // if(infosto.token!="" && msg=="请求成功"){
+    //   broker_id=infosto.broker_id;
+    //   robot_id=infosto.robot_id;
+    //   token= infosto.token;
+    //   this.$router.push({
+    //       path: "/",
+    //       query: {
+    //         broker_id: broker_id,
+    //         robot_id: robot_id,
+    //         token: token
+    //       }
+    //     });
+    // } 
+    // else{
+    //   var broker_id = "";
+    //   var robot_id = "";
+    //   var token = "";
+    //   var info={broker_id:broker_id,robot_id:robot_id,token:token};
+    //   console.log(info);
+    //   this.setStorge(info);
+    // }
   },
   mounted() {
     // this.wxconfig()
