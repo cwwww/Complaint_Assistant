@@ -48,11 +48,10 @@ import InviteVue from './Invite.vue';
 				}
 				linkArr.push(value)
 			}
-			// this.broker_id = linkArr[0].slice(-2)
-			alert(linkArr[0])
+			this.broker_id = linkArr[0].split("=")[1]
 			alert(this.broker_id)
 			let param = {
-				broker_id: linkArr[0].indexOf('='),
+				broker_id: this.broker_id,
 				robot_id: linkArr[1],
 				token: linkArr[2]
 			};
