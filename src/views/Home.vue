@@ -722,7 +722,8 @@ export default {
       } else {
         this.getDetail();
         // this.getHistory();
-        this.getReqtaskStatus();
+        if (this.question !="."){
+        this.getReqtaskStatus(1);}
       }
     },
     getHistory() {
@@ -788,11 +789,11 @@ export default {
       }
     },
     //与机器人聊天任务
-    getReqtaskStatus() {
+    getReqtaskStatus(operation_type) {
       let param = {
         broker_id: this.$route.query.broker_id,
         robot_id: this.$route.query.robot_id,
-        operation_type: 1,
+        operation_type: operation_type,
         token: this.$route.query.token
       };
       console.log("任务的param:" + JSON.stringify(param));
@@ -973,7 +974,7 @@ export default {
     this.getDetail();
     //定时获取粉丝数据
     this.getFensi();
-    this.getReqtaskStatus();
+    this.getReqtaskStatus(99);
     this.timer = setInterval(this.getFensi, 60000); //定时间隔，
   }
 };
