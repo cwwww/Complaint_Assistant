@@ -48,8 +48,8 @@ import InviteVue from './Invite.vue';
 				}
 				linkArr.push(value)
 			}
-			alert(linkArr[0])
-			this.broker_id = linkArr[0]
+			this.broker_id = linkArr[0].indexOf("=")
+			alert(this.broker_id)
 			let param = {
 				broker_id: this.broker_id,
 				robot_id: linkArr[1],
@@ -72,7 +72,7 @@ import InviteVue from './Invite.vue';
 				this.$router.push({
 				  path: "/Login",
 				  query:{
-					broker_id:this.$route.query.broker_id
+					broker_id:this.broker_id
 				  }
 				});
 			}
