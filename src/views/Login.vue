@@ -165,6 +165,9 @@ export default {
               token: token
             };
             this.setStorge(info);
+            if (that.loginMeg.visitor_type != 1) {
+              this.FriendYQ();
+            }
             that.$router.push({
               path: "/",
               query: {
@@ -185,12 +188,12 @@ export default {
         RECOMMENDED_ID: this.messages.ID,
         token: this.messages.token
       };
-      alert('邀请好友参数'+JSON.stringify(param))
+      alert("邀请好友参数" + JSON.stringify(param));
       let res = FriendyaoQing(param);
       res
         .then(res => {
-          alert('被邀请人ID'+JSON.stringify(res.result))
-          console.log(JSON.stringify(res.result))
+          alert("被邀请人ID" + JSON.stringify(res.result));
+          console.log(JSON.stringify(res.result));
         })
         .catch(reslove => {
           console.log("error");
@@ -208,9 +211,6 @@ export default {
           result
             .then(result => {
               this.loginMeg = result.result;
-              if (this.loginMeg.visitor_type != 1) {
-                this.FriendYQ()
-              }
             })
             .catch(reslove => {
               console.log("error");
