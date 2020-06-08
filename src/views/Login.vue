@@ -302,7 +302,7 @@ export default {
     }
   },
   mounted() {
-    if(this.$route.query.type == 'share'){
+    if(this.$route.query.share){
       this.invite = this.$route.query.share_broker_id;
       alert('mounted'+this.invite)
     }
