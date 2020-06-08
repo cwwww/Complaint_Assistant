@@ -56,7 +56,7 @@ export default {
   name: "Login",
   data() {
     return {
-      invite:'',
+      invite: "",
       loginMeg: "", //查询是否注册返回信息
       checkNum: true,
       check: false,
@@ -167,7 +167,6 @@ export default {
             };
             this.setStorge(info);
             if (that.loginMeg.visitor_type == 1) {
-              alert(2222)
               this.FriendYQ();
             }
             // that.$router.push({
@@ -185,7 +184,7 @@ export default {
       }
     },
     FriendYQ() {
-      alert(this.invite)
+      alert(this.invite);
       let param = {
         RECOMMEND_ID: this.invite,
         RECOMMENDED_ID: this.messages.ID,
@@ -214,7 +213,7 @@ export default {
           result
             .then(result => {
               this.loginMeg = result.result;
-              alert('自己的id'+this.invite)
+              alert("自己的id" + this.invite);
             })
             .catch(reslove => {
               console.log("error");
@@ -271,6 +270,8 @@ export default {
     }
   },
   async created() {
+    this.invite = this.$route.query.share_broker_id;
+    alert("分享过来得id" + this.invite);
     if (!window.localStorage.getItem("openId")) {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
       this.getCode();
@@ -305,9 +306,6 @@ export default {
     }
   },
   mounted() {
-    alert('分享过来得id'+ this.$route.query.share_broker_id)
-    this.invite = this.$route.query.share_broker_id
-    alert(this.invite)
     this.url = window.location.href.split("#")[0];
     var start = this.url.indexOf("=");
     var end = this.url.indexOf("&");
