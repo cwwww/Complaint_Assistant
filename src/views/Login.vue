@@ -213,6 +213,8 @@ export default {
           result
             .then(result => {
               this.loginMeg = result.result;
+              alert('login')
+              alert(JSON.stringify(this.loginMeg))
             })
             .catch(reslove => {
               console.log("error");
