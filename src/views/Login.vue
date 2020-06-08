@@ -185,7 +185,7 @@ export default {
     },
     FriendYQ() {
       let param = {
-        RECOMMEND_ID: this.$route.query.share_broker_id,
+        RECOMMEND_ID: this.invite,
         RECOMMENDED_ID: this.messages.ID,
         token: this.messages.token
       };
@@ -210,7 +210,7 @@ export default {
           result
             .then(result => {
               this.loginMeg = result.result;
-              alert("邀请人的id" + this.$route.query.share_broker_id);
+              alert("邀请人的id" + this.invite);
             })
             .catch(reslove => {
               console.log("error");
@@ -302,8 +302,10 @@ export default {
     }
   },
   mounted() {
-    // this.invite = this.$route.query.share_broker_id;
-    // alert('mounted'+this.invite)
+    if(this.$route.query.type == 'share'){
+      this.invite = this.$route.query.share_broker_id;
+      alert('mounted'+this.invite)
+    }
     this.url = window.location.href.split("#")[0];
     var start = this.url.indexOf("=");
     var end = this.url.indexOf("&");
