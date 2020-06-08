@@ -267,7 +267,7 @@ export default {
     }
   },
   async created() {
-    this.invite = this.$route.query.share_broker_id;
+    // this.invite = this.$route.query.share_broker_id;
     if (!window.localStorage.getItem("openId")) {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
       this.getCode();
@@ -308,7 +308,6 @@ export default {
     var start = this.url.indexOf("=");
     var end = this.url.indexOf("&");
     this.code = this.url.substring(start + 1, end);
-    console.log(this.url);
   }
 };
 </script>
