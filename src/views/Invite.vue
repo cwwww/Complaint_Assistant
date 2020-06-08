@@ -585,15 +585,25 @@
 		}
 
 		.emptyList {
-			width: 150px;
-			height: 300px;
-			border-radius: 37.5px;
+			overflow-y: auto;
+			width: 325px;
+			height: 317px;
+			background: rgba(255, 255, 255, 1);
+			box-shadow: 0px 2px 10px 0px rgba(0, 83, 143, 0.15);
+			border-radius: 10px;
+			margin-top: 15px;
+			margin: 10 auto;
+
+			// width: 150px;
+			// height: 300px;
+			// border-radius: 37.5px;
 			text-align: center;
-			margin: 0 auto;
+			// margin: 0 auto;
 			> img {
 			//width: 150px;
 			height: 150px;
 			margin-top: 150px;
+			margin-top: 100px;
 			}
 			.emptyListFont {
 			font-size: 15px;
