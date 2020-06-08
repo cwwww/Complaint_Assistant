@@ -165,6 +165,8 @@ export default {
               token: token
             };
             this.setStorge(info);
+            alert('login')
+            alert(JSON.stringify(that.loginMeg))
             if (that.loginMeg.visitor_type != 1) {
               this.FriendYQ();
             }
