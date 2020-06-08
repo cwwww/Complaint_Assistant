@@ -184,6 +184,7 @@ export default {
       }
     },
     FriendYQ() {
+      alert(this.$route.query.broker_id)
       let param = {
         RECOMMEND_ID: this.$route.query.broker_id,
         RECOMMENDED_ID: this.messages.ID,
