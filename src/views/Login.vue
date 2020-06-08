@@ -305,7 +305,9 @@ export default {
     }
   },
   mounted() {
+    alert('分享过来得id'+this.$route.query.share_broker_id)
     this.invite = this.$route.query.share_broker_id
+    alert(this.invite)
     this.url = window.location.href.split("#")[0];
     var start = this.url.indexOf("=");
     var end = this.url.indexOf("&");
