@@ -169,14 +169,14 @@ export default {
             if (that.loginMeg.visitor_type == 1) {
               this.FriendYQ();
             }
-            // that.$router.push({
-            //   path: "/",
-            //   query: {
-            //     broker_id: that.messages.ID,
-            //     robot_id: that.messages.ROBOT_ID,
-            //     token: that.messages.token
-            //   }
-            // });
+            that.$router.push({
+              path: "/",
+              query: {
+                broker_id: that.messages.ID,
+                robot_id: that.messages.ROBOT_ID,
+                token: that.messages.token
+              }
+            });
           })
           .catch(reslove => {
             console.log("error");
@@ -271,7 +271,6 @@ export default {
   },
   async created() {
     this.invite = this.$route.query.share_broker_id;
-    alert("分享过来得id" + this.invite);
     if (!window.localStorage.getItem("openId")) {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
       this.getCode();
