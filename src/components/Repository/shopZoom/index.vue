@@ -24,7 +24,7 @@
           v-if="bxmove"
           :class="{movetransition: bxmove ? 'movetransition':'' }"
         >
-        <p>新增知识</p>
+          <p>新增知识</p>
           <div class="leftImg">
             <img :src="money" alt />
           </div>
@@ -148,6 +148,12 @@ export default {
     this.token = this.token_prop;
   },
   watch: {
+    Question(newValue) {
+      this.Question = newValue;
+    },
+    Answer(newValue) {
+      this.Answer = newValue;
+    },
     shopZoomC_show(newValue) {
       this.show = newValue;
     },
@@ -156,6 +162,9 @@ export default {
     }
   },
   mounted() {
+    // if(this.teach != ''){
+    //   this.isEdit = true;
+    // }
     let questionT = this.Question;
     let answerT = this.Answer;
     if (questionT != "") {

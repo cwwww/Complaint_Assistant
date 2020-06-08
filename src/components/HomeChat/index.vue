@@ -244,12 +244,11 @@ export default {
     teachYou(index) {
       this.chat = false;
       let params = {
-        Answer: this.list[index].content,
         Question: this.list[index - 1].content,
+        Answer: this.list[index].content,
         sentence_id: this.list[index].sentence_id,
         teach: "teach",
         data: true,
-        data2: true
       };
       Bus.$emit("teachyou", params);
       this.$emit("controlRep", true);
