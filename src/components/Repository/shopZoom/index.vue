@@ -163,7 +163,8 @@ export default {
   },
   mounted() {
     // if(this.teach != ''){
-    //   this.isEdit = true;
+    //   this.showIndex = 0
+    //   this.toEdit(0)
     // }
     let questionT = this.Question;
     let answerT = this.Answer;
@@ -314,7 +315,6 @@ export default {
     //编辑
     toEdit(index) {
       this.showIndex = index;
-      //this.isShow = true
       this.isEdit = true;
     },
     // 保存

@@ -166,9 +166,9 @@ export default {
               token: token
             };
             this.setStorge(info);
-            if (that.loginMeg.visitor_type == 1) {
-              this.FriendYQ();
-            }
+            // if (that.loginMeg.visitor_type != 1) {
+            //   this.FriendYQ();
+            // }
             that.$router.push({
               path: "/",
               query: {
@@ -210,7 +210,7 @@ export default {
           result
             .then(result => {
               this.loginMeg = result.result;
-              alert("邀请人的id" + this.invite);
+              // alert("邀请人的id" + this.invite);
             })
             .catch(reslove => {
               console.log("error");
@@ -303,7 +303,7 @@ export default {
   },
   mounted() {
       this.invite = this.$route.query.share_broker_id;
-      alert('mounted'+this.invite)
+      // alert('mounted'+this.invite)
     this.url = window.location.href.split("#")[0];
     var start = this.url.indexOf("=");
     var end = this.url.indexOf("&");

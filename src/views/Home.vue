@@ -101,7 +101,7 @@
           id="talkContent"
           :class="{active:isOwn}"
         >{{HistoryList.slice(-1)[0].content}}</div>
-        <div class="btnTalk" >
+        <div class="btnTalk">
           <img @click="previousPage" class="leftBtn" :src="nextpage2" alt />
           <img class="rightBtn" @click="nextPage" :src="nextpage" alt />
         </div>
@@ -159,18 +159,22 @@
             >确定</van-button>
           </div>
         </van-popup>
-          <div class="topTitle start" v-if="bxmove" :class="{movetransition: bxmove ? 'movetransition':'' }">
-            <p>和精灵聊天</p>
-            <div class="leftImg">
-              <img :src="money" alt />
-            </div>
-            <p>+{{addStatus.award_bcoin}}</p>
-
-            <div class="rightImg">
-              <img :src="experience" alt />
-            </div>
-            <span>+{{addStatus.award_exp}}</span>
+        <div
+          class="topTitle start"
+          v-if="bxmove"
+          :class="{movetransition: bxmove ? 'movetransition':'' }"
+        >
+          <p>和精灵聊天</p>
+          <div class="leftImg">
+            <img :src="money" alt />
           </div>
+          <p>+{{addStatus.award_bcoin}}</p>
+
+          <div class="rightImg">
+            <img :src="experience" alt />
+          </div>
+          <span>+{{addStatus.award_exp}}</span>
+        </div>
         <div class="input-bottom m_xbtns fixed" id="app">
           <input
             type="text"
@@ -189,7 +193,7 @@
               <img :src="experience" alt />
             </div>
             <span>+{{addStatus.awarded_exp}}</span>
-          </div> -->
+          </div>-->
           <div class="btn J_xsubmit" @click="submit(numIndex)">发送</div>
           <!-- </div> -->
         </div>
@@ -312,7 +316,7 @@ export default {
   },
   data() {
     return {
-      addStatus:Object,
+      addStatus: Object,
       bxmove: false,
       content: "",
       HistoryList: [],
@@ -357,6 +361,7 @@ export default {
       question: "",
       list: [],
       list2: [],
+      list3: [],
       answer: "",
       levelbx: "",
       homeLevel: "",
@@ -729,7 +734,7 @@ export default {
         this.getDetail();
         // this.getHistory();
         this.getReqtaskStatus();
-        if(this.addStatus.award_bcoin > 0){
+        if (this.addStatus.award_bcoin > 0) {
           this.bxmove = true;
           setTimeout(() => {
             this.bxmove = false;
@@ -750,8 +755,11 @@ export default {
       res
         .then(res => {
           this.HistoryList = res.result;
-          this.list2 = this.HistoryList.slice(-3);
-          // console.log("error1"+JSON.stringify(this.list2[0]));
+          console.log(this.list3);
+          this.list4 = this.HistoryList.slice(-3);
+          // this.list2 = 
+          this.list2 = this.list2.push(this.list3);
+          alert(JSOn.stringify(this.list2));
         })
         .catch(reslove => {
           // console.log("error");
@@ -779,25 +787,21 @@ export default {
           token: this.$route.query.token
         };
       }
-      if (this.flag == true && this.content == ".") {
-        alert("return");
-        return;
-      } else {
-        let res = reqRobotDetail(param);
-        res
-          .then(res => {
-            // this.answer = res.result.content;
-            // this.list.push(this.question);
-            // this.list.push(this.answer);
-            // if (this.list2[0] == "") {
-            // }
-            this.getHistory();
-            this.question = "";
-          })
-          .catch(reslove => {
-            // console.log("error");
-          });
-      }
+      // if (this.flag == true && this.content == ".") {
+      //   return;
+      // } else {
+      let res = reqRobotDetail(param);
+      res
+        .then(res => {
+          console.log(res.result.content);
+          this.list3 = res.result.content;
+          this.getHistory();
+          this.question = "";
+        })
+        .catch(reslove => {
+          // console.log("error");
+        });
+      // }
     },
     //与机器人聊天任务
     getReqtaskStatus() {
@@ -810,8 +814,8 @@ export default {
       let result = reqtaskStatus(param);
       result
         .then(res => {
-          this.addStatus = res.result
-          console.log(JSON.stringify(this.addStatus))
+          this.addStatus = res.result;
+          console.log(JSON.stringify(this.addStatus));
           //更新金币
           this.homeInit.bcoin = res.result.bcoin;
           //更新等级
@@ -929,7 +933,6 @@ export default {
     destoryTimer() {
       clearInterval(this.timer);
     }
-
     // getCode(){ // 非静默授权，第一次有弹框
     //     this.code = ''
     //     // var local = window.location.href // 获取页面url
@@ -986,6 +989,9 @@ export default {
     //定时获取粉丝数据
     this.getFensi();
     this.getReqtaskStatus();
+    // window.setInterval(() => {
+    //   setTimeout(this.getHistory(), 0);
+    // }, 1000);
     this.timer = setInterval(this.getFensi, 60000); //定时间隔，
   }
 };
@@ -1374,7 +1380,7 @@ export default {
     -webkit-line-clamp: 0;
   }
   .btnTalk {
-    margin-top: 4px;
+    margin-top: 20px;
     // position: absolute;
     // bottom: 0;
     // left: 0;
@@ -1496,46 +1502,46 @@ export default {
       }
     }
   }
-      .topTitle {
-        display: flex;
-        position: absolute;
-        // top: 200px;
-        // margin-top: 23px;
-        > .leftImg {
-          width: 18px;
-          height: 18px;
-          margin-right: 1px;
-          > img {
-            width: 18px;
-            height: 18px;
-          }
-        }
-        > p {
-          font-size: 12px;
-          font-family: PingFangSC-Medium, PingFang SC;
-          font-weight: 500;
-          color: rgba(255, 255, 255, 1);
-          line-height: 17px;
-          margin-right: 7px;
-        }
-        > .rightImg {
-          width: 15px;
-          height: 20px;
-          margin-right: 1px;
-          > img {
-            width: 15px;
-            height: 20px;
-          }
-        }
-        > span {
-          display: block;
-          font-size: 12px;
-          font-family: PingFangSC-Medium, PingFang SC;
-          font-weight: 500;
-          color: rgba(255, 255, 255, 1);
-          line-height: 17px;
-        }
+  .topTitle {
+    display: flex;
+    position: absolute;
+    // top: 200px;
+    // margin-top: 23px;
+    > .leftImg {
+      width: 18px;
+      height: 18px;
+      margin-right: 1px;
+      > img {
+        width: 18px;
+        height: 18px;
       }
+    }
+    > p {
+      font-size: 12px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      line-height: 17px;
+      margin-right: 7px;
+    }
+    > .rightImg {
+      width: 15px;
+      height: 20px;
+      margin-right: 1px;
+      > img {
+        width: 15px;
+        height: 20px;
+      }
+    }
+    > span {
+      display: block;
+      font-size: 12px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      line-height: 17px;
+    }
+  }
   .input-bottom-content {
     display: flex;
     align-items: center;
@@ -1718,7 +1724,7 @@ export default {
     > .content {
       > .topTitle {
         margin-top: -3px;
-        
+
         // display: flex;
         > span {
           margin-left: 8px;
