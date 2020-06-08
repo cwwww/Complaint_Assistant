@@ -147,6 +147,7 @@ export default {
           COUNTRY: that.mes.country,
           PRIVILEGE: that.mes.privilege
         };
+        alert(JSON.stringify(param))
         let res = reqlogin(param);
         res
           .then(res => {
