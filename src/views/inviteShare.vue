@@ -32,10 +32,8 @@
 				name : ''
 			};
 		},
-		methods: {
-			
-		},
 		mounted() {
+			alert('id'+this.$route.query.broker_id)
 			let name, value, str = location.href,
 				num = str.indexOf("?"); //取得整个地址栏
 			str = str.substr(num + 1); //取得所有参数 stringvar.substr(start [, length ]
@@ -72,7 +70,7 @@
 				this.$router.push({
 				  path: "/Login",
 				  query:{
-					broker_id:this.broker_id
+					broker_id:this.$route.query.broker_id
 				  }
 				});
 			}
