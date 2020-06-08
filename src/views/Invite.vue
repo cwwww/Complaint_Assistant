@@ -70,9 +70,9 @@
 				</ul>
 			</div>
 			<div class="jumpFriend" @click="shareFriend">去邀请好友</div>
-			<div class="footer">活动截止日期 2020/5/20</div>
+			<div class="footer">活动截止日期 2021/5/20</div>
 		</div>
-		<div class="threeCentent">
+		<div class="threeCentent"  v-if="yaoqList.recommendedlist.length>0">
 			<span>成功邀请</span>
 			<div class="content" v-for="(recommender,index) in reverseData "  :key="recommender.id">
 				<div class="left">
@@ -111,6 +111,10 @@
 		        </div> -->
 			</div>
 		</div>
+		<div class="emptyList" v-else>
+      		<img :src="emptyList" alt />
+      		<div class="emptyListFont">你还没有邀请好友哦</div>
+    	</div>
 		<div class="lastCentent">
 			<span>活动规则</span>
 			<ul>
@@ -154,7 +158,8 @@
 				img5Show: true,
 				img6Show: true,
 				img10Show: true,
-				isInviter: false
+				isInviter: false,
+				emptyList: require("@/assets/images/emptyList@2x.png")
 			};
 		},
 		methods: {
@@ -579,6 +584,25 @@
 			}
 		}
 
+		.emptyList {
+			width: 150px;
+			height: 300px;
+			border-radius: 37.5px;
+			text-align: center;
+			margin: 0 auto;
+			> img {
+			//width: 150px;
+			height: 150px;
+			margin-top: 150px;
+			}
+			.emptyListFont {
+			font-size: 15px;
+			font-family: PingFangSC-Regular, PingFang SC;
+			font-weight: 400;
+			color: rgba(153, 153, 153, 1);
+			line-height: 21px;
+			}
+		}
 		.checkOutFont {
 			font-size: 15px;
 			font-family: PingFangSC-Regular, PingFang SC;
