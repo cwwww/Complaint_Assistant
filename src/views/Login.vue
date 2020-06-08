@@ -208,7 +208,7 @@ export default {
           result
             .then(result => {
               this.loginMeg = result.result;
-              if (this.loginMeg.visitor_type == 1) {
+              if (this.loginMeg.visitor_type != 1) {
                 this.FriendYQ()
               }
             })
