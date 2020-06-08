@@ -159,15 +159,15 @@ export default {
             var broker_id = that.messages.ID;
             var robot_id = that.messages.ROBOT_ID;
             var token = that.messages.token;
-            var info = {
+            let info = {
               broker_id: broker_id,
               robot_id: robot_id,
               token: token
             };
             this.setStorge(info);
-            alert('login')
             alert(JSON.stringify(that.loginMeg))
-            if (that.loginMeg.visitor_type != 1) {
+            if (that.loginMeg.visitor_type == 1) {
+              alert(2222)
               this.FriendYQ();
             }
             that.$router.push({
@@ -213,7 +213,6 @@ export default {
           result
             .then(result => {
               this.loginMeg = result.result;
-              alert('login')
               alert(JSON.stringify(this.loginMeg))
             })
             .catch(reslove => {
