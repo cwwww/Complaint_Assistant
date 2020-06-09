@@ -159,15 +159,43 @@
             >确定</van-button>
           </div>
         </van-popup>
+        <div
+          class="topTitle start"
+          v-if="bxmove"
+          :class="{movetransition: bxmove ? 'movetransition':'' }"
+        >
+          <p>和精灵聊天</p>
+          <div class="leftImg">
+            <img :src="money" alt />
+          </div>
+          <p>+{{addStatus.award_bcoin}}</p>
 
-        <div class="input-bottom">
+          <div class="rightImg">
+            <img :src="experience" alt />
+          </div>
+          <span>+{{addStatus.award_exp}}</span>
+        </div>
+        <div class="input-bottom m_xbtns fixed" id="app">
           <input
             type="text"
             v-model="question"
             placeholder="有什么可以帮您？尽快发来问题吧"
             style="margin-top:11px;margin-left:15px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"
           />
-          <div class="btn" @click="submit(numIndex)">发送</div>
+          <!-- <div class="m_xbtns fixed" id="app"> -->
+          <!-- <div v-if="bxmove" class="start" :class="{movetransition: bxmove ? 'movetransition':'' }">
+            <div class="leftImg">
+              <img :src="money" alt />
+            </div>
+            <p>+{{addStatus.awarded_bcoin}}</p>
+
+            <div class="rightImg">
+              <img :src="experience" alt />
+            </div>
+            <span>+{{addStatus.awarded_exp}}</span>
+          </div>-->
+          <div class="btn J_xsubmit" @click="submit(numIndex)">发送</div>
+          <!-- </div> -->
         </div>
       </div>
     </div>
@@ -262,6 +290,7 @@ import List from "../components/List";
 import Ranking from "../components/Ranking";
 import Task from "../components/Task";
 import SellerShop from "../components/SellerShop";
+import project from "../assets/js/common/project";
 import {
   reqHomeInit,
   reqCusayrob,
@@ -287,6 +316,8 @@ export default {
   },
   data() {
     return {
+      addStatus: Object,
+      bxmove: false,
       content: "",
       HistoryList: [],
       toget: "",
@@ -330,6 +361,7 @@ export default {
       question: "",
       list: [],
       list2: [],
+      list3: [],
       answer: "",
       levelbx: "",
       homeLevel: "",
@@ -445,7 +477,6 @@ export default {
     },
     Repository() {
       // 知识库
-
       this.isRep = true;
       // this.destoryTimer();
     },
@@ -463,14 +494,6 @@ export default {
     isYes() {
       //买家精灵商店确定购买
       this.vipNotification = false;
-      // this.$router.push({
-      //   path: "/sellerShop/vipShop",
-      //   query: {
-      //     broker_id: this.$route.query.visitor_id,
-      //     robot_id: this.$route.query.robot_id,
-      //     token: this.$route.query.token
-      //   }
-      // });
     },
     toGet() {
       this.toget = 1;
@@ -481,7 +504,7 @@ export default {
       this.vipNotification = false;
     },
     toHope() {
-      Toast("施工中,敬请期待");
+      Toast("施工中,敬请期待");
     },
     HomeChat() {
       // 聊天记录
@@ -619,7 +642,7 @@ export default {
             // wx.onMenu
             wx.onMenuShareTimeline({
               title: "朋友圈", // 分享标题
-              desc: "描述yiuy朋友", // 分享描述
+              desc: "看看BeBot今天又学会了什么", // 分享描述
               // link: window.location.href,
               link:
                 "https://test-bebot-web.baoxianxia.com.cn/#/" +
@@ -675,18 +698,6 @@ export default {
           // console.log("error");
         });
     },
-    //   customerLogin(){
-    //         let param = {
-    //           "OPENID": this.messages.openid,
-    //           "NICKNAME": this.messages.nickname,
-    //           "HEADIMGURL":  this.messages.headimgurl,
-    //           "SEX":  this.messages.sex,
-    //           "PROVINCE":  this.messages.province,
-    //           "CITY": this.messages.city,
-    //           "COUNTRY": this.messages.country,
-    //           "PRIVILEGE":  this.messages.privilege,
-    //         }
-    // },
     getFensi() {
       let param = {
         robot_id: this.$route.query.robot_id,
@@ -722,8 +733,13 @@ export default {
       } else {
         this.getDetail();
         // this.getHistory();
-        if (this.question !="."){
-        this.getReqtaskStatus(1);}
+        this.getReqtaskStatus();
+        if (this.addStatus.award_bcoin > 0) {
+          this.bxmove = true;
+          setTimeout(() => {
+            this.bxmove = false;
+          }, 1000);
+        }
       }
     },
     getHistory() {
@@ -739,8 +755,11 @@ export default {
       res
         .then(res => {
           this.HistoryList = res.result;
-          this.list2 = this.HistoryList.slice(-3);
-          // console.log("error1"+JSON.stringify(this.list2[0]));
+          console.log(this.list3);
+          this.list4 = this.HistoryList.slice(-3);
+          // this.list2 = 
+          this.list2 = this.list2.push(this.list3);
+          alert(JSOn.stringify(this.list2));
         })
         .catch(reslove => {
           // console.log("error");
@@ -768,39 +787,35 @@ export default {
           token: this.$route.query.token
         };
       }
-      if (this.flag == true && this.content == ".") {
-        alert('return')
-        return;
-      } else {
-        let res = reqRobotDetail(param);
-        res
-          .then(res => {
-            // this.answer = res.result.content;
-            // this.list.push(this.question);
-            // this.list.push(this.answer);
-            // if (this.list2[0] == "") {
-            // }
-            this.getHistory();
-            this.question = "";
-          })
-          .catch(reslove => {
-            // console.log("error");
-          });
-      }
+      // if (this.flag == true && this.content == ".") {
+      //   return;
+      // } else {
+      let res = reqRobotDetail(param);
+      res
+        .then(res => {
+          console.log(res.result.content);
+          this.list3 = res.result.content;
+          this.getHistory();
+          this.question = "";
+        })
+        .catch(reslove => {
+          // console.log("error");
+        });
+      // }
     },
     //与机器人聊天任务
-    getReqtaskStatus(operation_type) {
+    getReqtaskStatus() {
       let param = {
         broker_id: this.$route.query.broker_id,
         robot_id: this.$route.query.robot_id,
-        operation_type: operation_type,
+        operation_type: 1,
         token: this.$route.query.token
       };
-      console.log("任务的param:" + JSON.stringify(param));
-
       let result = reqtaskStatus(param);
       result
         .then(res => {
+          this.addStatus = res.result;
+          console.log(JSON.stringify(this.addStatus));
           //更新金币
           this.homeInit.bcoin = res.result.bcoin;
           //更新等级
@@ -918,7 +933,6 @@ export default {
     destoryTimer() {
       clearInterval(this.timer);
     }
-
     // getCode(){ // 非静默授权，第一次有弹框
     //     this.code = ''
     //     // var local = window.location.href // 获取页面url
@@ -974,7 +988,10 @@ export default {
     this.getDetail();
     //定时获取粉丝数据
     this.getFensi();
-    this.getReqtaskStatus(99);
+    this.getReqtaskStatus();
+    // window.setInterval(() => {
+    //   setTimeout(this.getHistory(), 0);
+    // }, 1000);
     this.timer = setInterval(this.getFensi, 60000); //定时间隔，
   }
 };
@@ -983,6 +1000,51 @@ export default {
 @import url("//unpkg.com/element-ui@2.13.1/lib/theme-chalk/index.css");
 /deep/ .van-popup {
   overflow: visible;
+}
+.m_xbtns {
+  position: relative;
+  // margin-top: 100px;
+}
+.m_xbtns span {
+  display: block;
+  font-size: 17px;
+  color: #fff;
+  background: #1977f6;
+  border-radius: 50%;
+  height: 48px;
+  line-height: 48px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 10px 15px 20px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+.m_xbtns .start {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 15px;
+  color: red;
+}
+
+.movetransition {
+  animation: iconmove 1s linear infinite;
+  animation-iteration-count: 1;
+}
+
+@keyframes iconmove {
+  0% {
+    top: 200px;
+    opacity: 1;
+  }
+  100% {
+    top: 170px;
+    opacity: 0;
+  }
 }
 .m_xstrat {
   position: absolute;
@@ -1301,8 +1363,7 @@ export default {
     overflow: hidden;
     white-space: wrap;
     text-overflow: ellipsis;
-    // max-height: 22.7%;
-    // height: auto;
+    margin-bottom: -20px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 8;
@@ -1319,7 +1380,12 @@ export default {
     -webkit-line-clamp: 0;
   }
   .btnTalk {
-    margin-top: 4px;
+    margin-top: 20px;
+    // position: absolute;
+    // bottom: 0;
+    // left: 0;
+    // margin-left: 20%;
+    // z-index: 9999;
     .leftBtn {
       width: 24px;
       height: 18px;
@@ -1436,7 +1502,46 @@ export default {
       }
     }
   }
-
+  .topTitle {
+    display: flex;
+    position: absolute;
+    // top: 200px;
+    // margin-top: 23px;
+    > .leftImg {
+      width: 18px;
+      height: 18px;
+      margin-right: 1px;
+      > img {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    > p {
+      font-size: 12px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      line-height: 17px;
+      margin-right: 7px;
+    }
+    > .rightImg {
+      width: 15px;
+      height: 20px;
+      margin-right: 1px;
+      > img {
+        width: 15px;
+        height: 20px;
+      }
+    }
+    > span {
+      display: block;
+      font-size: 12px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      line-height: 17px;
+    }
+  }
   .input-bottom-content {
     display: flex;
     align-items: center;
@@ -1619,6 +1724,7 @@ export default {
     > .content {
       > .topTitle {
         margin-top: -3px;
+
         // display: flex;
         > span {
           margin-left: 8px;

@@ -27,12 +27,12 @@
               <img :src="img1" alt />
             </div>
             <div class="tanchutext" v-if="showTitle">+{{item.awarded_bcoin}}</div>
-
             <div class="rightImg">
               <img :src="img2" alt />
             </div>
             <div class="tanchutext" v-if="showTitle">+{{item.awarded_exp}}</div>
           </div>
+          
           <div class="topTitle" :class="{'moveTitle':itemSelected==item.task_id?'':'moveTitle'}">
             <div class="leftImg">
               <img :src="img1" alt />

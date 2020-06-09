@@ -24,20 +24,19 @@
 <script>
 	import { reqHomeInit } from "../axios/axios-api";
 	import wx from 'weixin-js-sdk';
+import InviteVue from './Invite.vue';
 	export default {
 		name: "inviteShare",
 		data() {
 			return {
-				headimgurl : '',
-				name : ''
+				hadeurl : '',
+				name : '',
+				broker:''
 			};
-		},
-		methods: {
-			
 		},
 		mounted() {
 			let name, value, str = location.href,
-				num = str.indexOf("?"); //取得整个地址栏
+			num = str.indexOf("?"); //取得整个地址栏
 			str = str.substr(num + 1); //取得所有参数 stringvar.substr(start [, length ]
 			let arr = str.split("&"); //各个参数放到数组里
 			var linkArr = [];
@@ -50,8 +49,12 @@
 				}
 				linkArr.push(value)
 			}
+		    let getCode = linkArr[0].indexOf("=")
+		    this.broker = linkArr[0].substring(Number(getCode+1),linkArr[0].length)
+			// alert(linkArr[0].split("="))
+			// this.broker = linkArr[0].split("=")[1]
 			let param = {
-				broker_id: linkArr[0],
+				broker_id: this.broker,
 				robot_id: linkArr[1],
 				token: linkArr[2]
 			};
@@ -59,7 +62,7 @@
 			result
 				.then(result => {
 					var res = result.result;
-					this.headimgurl = res.headimgurl;
+					this.hadeurl = res.headimgurl;
 					this.name = res.name;
 				})
 				.catch(reslove => {
@@ -69,7 +72,10 @@
 		methods: {
 			draw : function(){
 				this.$router.push({
-				  path: "/Login"
+				  path: "/Login",
+				  query:{
+					share_broker_id:this.broker
+				  }
 				});
 			}
 		}

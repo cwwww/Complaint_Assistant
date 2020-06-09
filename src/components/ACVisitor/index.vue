@@ -197,7 +197,7 @@ export default {
       let param;
       if (this.isInput) {
         param = {
-          dialog_type: "2",
+          dialog_type: "0",
           customer_id: this.customer_id,
           customer_type: this.customer_type,
           broker_id: this.visited_broker_id,
@@ -265,9 +265,9 @@ export default {
       this.getMarkrebot();
     }
     this.scrollToBottom();
-    // window.setInterval(() => {
-    //   setTimeout(this.getHistoryCustomer(), 0);
-    // }, 2000);
+    window.setInterval(() => {
+      setTimeout(this.getHistoryCustomer(), 0);
+    }, 1000);
   }
 };
 </script>

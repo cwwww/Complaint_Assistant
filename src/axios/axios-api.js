@@ -347,14 +347,20 @@ export const guanZhu = data => { // 关注/取消关注
     data
   });
 };
-export const yaoQing = data => { // 邀请好友页面
+export const yaoQing = data => { // 邀请好友列表
   return axiosService({
     url: "https://test-bebot-api.baoxianxia.com.cn/recommendlist/",
     method: "post",
     data
   });
 };
-
+export const FriendyaoQing = data => { // 好友邀请接口
+  return axiosService({
+    url: "https://api-bebot.baoxianxia.com.cn/recommend/",
+    method: "post",
+    data
+  });
+};
 export const taskStatusUpdate = data => { // 机器人状态更新接口
   return axiosService({
     url: "https://test-bebot-api.baoxianxia.com.cn/common/taskStatusUpdate/",
@@ -362,7 +368,6 @@ export const taskStatusUpdate = data => { // 机器人状态更新接口
     data
   });
 };
-
 export const validateToken = data => { // 机器人状态更新接口
   return axiosService({
     url: "https://test-bebot-api.baoxianxia.com.cn/isTureToken/",

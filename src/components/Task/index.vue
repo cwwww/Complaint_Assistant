@@ -6,7 +6,7 @@
       closeable
       round
       position="bottom"
-      :style="{ height: '75%' }"
+      :style="{ height: '78%' }"
       @close="close"
     >
       <img :src="img" alt />

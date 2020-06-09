@@ -137,13 +137,11 @@
         :robot_id_prop="robot_id_prop"
         :token_prop="token_prop"
         :type="type"
-        :Answer="Question"
-        :Question="Answer"
+        :Answer="Answer"
+        :Question="Question"
         :sentence_id="sentence_id"
         :teach="teach"
       />
-      <!-- v-bind="$attrs"
-      v-on="$listeners"-->
     </van-popup>
   </div>
 </template>
@@ -210,7 +208,8 @@ export default {
     Bus.$on("teachyou", (res) => {
       // console.log('我教你信息：'+JSON.stringify(res))
       // console.log('编辑页是否打开:'+this.showMyshop)
-      // this.showMyshopData = res.data;
+      console.log(res)
+      this.showMyshop = res.data;
       this.show = res.data2
       this.Repository_show = true
       this.Question = res.Question;
@@ -221,9 +220,14 @@ export default {
     this.show = this.Repository_show;
   },
   watch: {
+    Question(newValue){
+      this.Question = newValue
+    },
+    Answer(newValue){
+      this.Answer = newValue
+    },
     // showMyshopData(newValue){
     //   this.showMyshop = newValue
-    //   // this.$refs.shopZoom.show()
     // },
     Repository_show(newValue) {
       this.show = newValue;

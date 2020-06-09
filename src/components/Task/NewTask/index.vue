@@ -481,7 +481,7 @@ export default {
   align-items: center;
 
   .main {
-    height: 350px;
+    height: 380px;
     overflow-y: auto;
   }
 

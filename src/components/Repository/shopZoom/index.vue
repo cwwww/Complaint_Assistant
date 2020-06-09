@@ -19,6 +19,22 @@
         <span class="add" @click="toAdd">添加+</span>
       </p>
       <div class="contain">
+        <div
+          class="topTitle start"
+          v-if="bxmove"
+          :class="{movetransition: bxmove ? 'movetransition':'' }"
+        >
+          <p>新增知识</p>
+          <div class="leftImg">
+            <img :src="money" alt />
+          </div>
+          <p>+{{addStatus.award_bcoin}}</p>
+
+          <div class="rightImg">
+            <img :src="experience" alt />
+          </div>
+          <span>+{{addStatus.award_exp}}</span>
+        </div>
         <div class="centercontent" v-for="(item, index) in list" :key="index">
           <div class="question">
             <div class="topQ">
@@ -39,6 +55,7 @@
             <p>{{$route.query.Question}}</p>
             </div>-->
           </div>
+
           <div class="assets">
             <img :src="img1" alt />
             <textarea class="text" v-show="index == showIndex ?true:false" id="myText2">
@@ -46,6 +63,7 @@
             </textarea>
             <div class="text2" v-show="index != showIndex ?true:false">{{item.answer}}</div>
           </div>
+
           <div class="buttons">
             <img :src="img2" @click="toEdit(index)" alt />
             <img :src="img3" v-show="index == showIndex ?true:false" @click="toSave(index)" alt />
@@ -90,6 +108,8 @@ export default {
   name: "shopZoom",
   data() {
     return {
+      addStatus: Object,
+      bxmove: false,
       ques: "",
       list: [],
       curIndex: 0,
@@ -99,6 +119,8 @@ export default {
       isEdit: false,
       flag: true,
       toPulish: false,
+      money: require("../../../assets/images/money@2x.png"),
+      experience: require("../../../assets/images/experience@2x.png"),
       img: require("../../../assets/images/Q_small_icon@2x.png"),
       img1: require("../../../assets/images/A_small_icon@2x.png"),
       img2: require("../../../assets/images/biajide.png"),
@@ -126,6 +148,12 @@ export default {
     this.token = this.token_prop;
   },
   watch: {
+    Question(newValue) {
+      this.Question = newValue;
+    },
+    Answer(newValue) {
+      this.Answer = newValue;
+    },
     shopZoomC_show(newValue) {
       this.show = newValue;
     },
@@ -134,6 +162,10 @@ export default {
     }
   },
   mounted() {
+    // if(this.teach != ''){
+    //   this.showIndex = 0
+    //   this.toEdit(0)
+    // }
     let questionT = this.Question;
     let answerT = this.Answer;
     if (questionT != "") {
@@ -146,27 +178,7 @@ export default {
     close() {
       if (this.type == "1") {
         this.$emit("shopZoomC", false);
-        // this.$router.push({
-        //   path: "/Repository",
-        //   query: {
-        //     broker_id: this.$route.query.broker_id,
-        //     robot_id: this.$route.query.robotId,
-        //     token: this.$route.query.token,
-        //     type: "type"
-        //   }
-        // });
       }
-      // else {
-      // this.$emit('HomeChatC',false)
-      //   this.$router.push({
-      //     path: "/HomeChat",
-      //     query: {
-      //       broker_id: this.$route.query.broker_id,
-      //       robot_id: this.$route.query.robotId,
-      //       token: this.$route.query.token
-      //     }
-      //   });
-      // }
     },
     //显示
     ShoWList() {
@@ -207,6 +219,8 @@ export default {
           .then(res => {
             Toast(res.msg);
             this.toPulish = false;
+            window.parent.location.href =
+              "https://m.baoxianxia.com.cn/app/answers/index.html?brokerId=a0afe56ef17a4ea1b80a1629c7e828c6&token=feb91d31-a186-45a0-ba11-097075ebb041";
           })
           .catch(reslove => {
             Toast(res.msg);
@@ -301,7 +315,6 @@ export default {
     //编辑
     toEdit(index) {
       this.showIndex = index;
-      //this.isShow = true
       this.isEdit = true;
     },
     // 保存
@@ -361,10 +374,15 @@ export default {
             });
           //增加知识的任务
           this.getReqtaskStatus();
+          if (this.addStatus.award_bcoin > 0) {
+            this.bxmove = true;
+            setTimeout(() => {
+              this.bxmove = false;
+            }, 1000);
+          }
         }
       }
     },
-
     showListAdd(questionT, answerT) {
       this.showIndex = -1;
       let param = {
@@ -401,7 +419,9 @@ export default {
       };
       let result = reqtaskStatus(param);
       result
-        .then(res => {})
+        .then(res => {
+          this.addStatus = res.result;
+        })
         .catch(reslove => {
           console.log("error");
         });
@@ -410,6 +430,51 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.m_xbtns {
+  position: relative;
+  // margin-top: 100px;
+}
+.m_xbtns span {
+  display: block;
+  font-size: 17px;
+  color: #fff;
+  background: #1977f6;
+  border-radius: 50%;
+  height: 48px;
+  line-height: 48px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 10px 15px 20px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+.m_xbtns .start {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 15px;
+  color: red;
+}
+
+.movetransition {
+  animation: iconmove 1s linear infinite;
+  animation-iteration-count: 1;
+}
+
+@keyframes iconmove {
+  0% {
+    top: 120px;
+    opacity: 1;
+  }
+  100% {
+    top: 90px;
+    opacity: 0;
+  }
+}
 .warp {
   display: flex;
   flex-direction: column;
@@ -457,6 +522,46 @@ export default {
       overflow-y: hidden;
       overflow: scroll;
       height: 390px;
+      .topTitle {
+        display: flex;
+        position: absolute;
+        margin-left: 40%;
+        top: 180px;
+        z-index: 999;
+        // top: 200px;
+        > .leftImg {
+          width: 18px;
+          height: 18px;
+          margin-right: 1px;
+          > img {
+            width: 18px;
+            height: 18px;
+          }
+        }
+        > p {
+          font-size: 12px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          line-height: 17px;
+          margin-right: 7px;
+        }
+        > .rightImg {
+          width: 15px;
+          height: 20px;
+          margin-right: 1px;
+          > img {
+            width: 15px;
+            height: 20px;
+          }
+        }
+        > span {
+          display: block;
+          font-size: 12px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          line-height: 17px;
+        }
+      }
       > .centercontent {
         width: 345px;
         height: auto;
@@ -510,6 +615,7 @@ export default {
             }
           }
         }
+
         > .assets {
           > img {
             width: 24px;
