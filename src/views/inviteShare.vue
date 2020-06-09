@@ -12,7 +12,7 @@
 <template>
 	<div class="m_xbrain">
 		<div class="title">
-			<img :src="hadeurl" alt />
+			<img :src="headimgurl" alt />
 			<div class="right">
 				<p>{{name}}</p>
 				<h3>我的机器人事务所开张啦，快来看看吧！</h3>
@@ -28,7 +28,7 @@
 		name: "inviteShare",
 		data() {
 			return {
-				hadeurl : '',
+				headimgurl : '',
 				name : ''
 			};
 		},
@@ -59,7 +59,7 @@
 			result
 				.then(result => {
 					var res = result.result;
-					this.hadeurl = res.headimgurl;
+					this.headimgurl = res.headimgurl;
 					this.name = res.name;
 				})
 				.catch(reslove => {
