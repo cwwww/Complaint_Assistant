@@ -1,23 +1,5 @@
 <template>
   <div class="contain">
-    <van-popup class="cont2" v-model="vipNotification">
-      <div class="contwrap">
-        <div class="top">
-          <span>{{vipExpiryTime}}</span>
-          <!-- <img style="width:16px;height:16px;" :src=money alt=""> -->
-          <!-- <span>请前往【会员商店】领取</span> -->
-        </div>
-        <div style="margin-bottom:25px;">请前往【会员商店】领取</div>
-        <div class="isOk">
-          <div class="isNo" @click="noGet">
-            <span style="color:#666;">忽略</span>
-          </div>
-          <div class="isYes" @click="toGet">
-            <span style="color:#FFF;">去领取</span>
-          </div>
-        </div>
-      </div>
-    </van-popup>
     <div class="information">
       <div class="mes">
         <div class="topHalfPart">
@@ -100,7 +82,8 @@
           class="talkContent"
           id="talkContent"
           :class="{active:isOwn}"
-        >{{HistoryList.slice(-1)[0].content}}</div>
+        >来聊天把</div>
+        <!-- >{{HistoryList.slice(-1)[0].content}}</div> -->
         <div class="btnTalk">
           <img @click="previousPage" class="leftBtn" :src="nextpage2" alt />
           <img class="rightBtn" @click="nextPage" :src="nextpage" alt />
@@ -754,12 +737,13 @@ export default {
       let res = reqRobotHistory(param);
       res
         .then(res => {
+          alert(this.HistoryList)
           this.HistoryList = res.result;
           console.log(this.list3);
-          this.list4 = this.HistoryList.slice(-3);
+          // this.list4 = this.HistoryList.slice(-3);
           // this.list2 = 
-          this.list2 = this.list2.push(this.list3);
-          alert(JSOn.stringify(this.list2));
+          // this.list2 = this.list2.push(this.list3);
+          // alert(JSOn.stringify(this.list2));
         })
         .catch(reslove => {
           // console.log("error");
@@ -929,35 +913,9 @@ export default {
           // console.log("error");
         });
     },
-
     destoryTimer() {
       clearInterval(this.timer);
     }
-    // getCode(){ // 非静默授权，第一次有弹框
-    //     this.code = ''
-    //     // var local = window.location.href // 获取页面url
-    //     var local = "https://bebot-web.baoxianxia.com.cn/#/" // 获取页面url
-    //     var appid = 'wx026553ce8b4e59a3'
-    //     this.code = this.getUrlCode().code // 截取code
-    //     if (this.code == null || this.code === '') { // 如果没有code，则去请求
-    //         window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
-    //     } else {
-    //         // 你自己的业务逻辑
-    //     }
-    // },
-    // getUrlCode() { // 截取url中的code方法
-    //     var url = window.location.search
-    //     this.winUrl = url
-    //     var theRequest = new Object()
-    //     if (url.indexOf("?") != -1) {
-    //         var str = url.substr(1)
-    //         var strs = str.split("&")
-    //         for(var i = 0; i < strs.length; i ++) {
-    //             theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
-    //         }
-    //     }
-    //     return theRequest
-    // }
   },
   created() {
     // this.getCode()
@@ -972,18 +930,6 @@ export default {
     this.wxconfig();
   },
   mounted() {
-    // if(!window.localStorage.getItem('openId')){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
-    //     this.getCode()
-    // } else {
-    //     // 别的业务逻辑
-    // }
-    // let personalData = {
-    //   broker_id:this.$route.query.broker_id,
-    //   robot_id:this.$route.query.broker_id,
-    //   token:this.$route.query.token,
-    // }
-    // window.localStorage.setItem('personal',JSON.stringify(personalData))
-    // alert(JSON.stringify(JSON.parse(window.localStorage.getItem("personal"))))
     this.getHomeInit();
     this.getDetail();
     //定时获取粉丝数据

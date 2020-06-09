@@ -147,19 +147,17 @@ export default {
           COUNTRY: that.mes.country,
           PRIVILEGE: that.mes.privilege
         };
-        alert(JSON.stringify(param))
         let res = reqlogin(param);
         res
           .then(res => {
-            alert(JSON.stringify(res.result))
             that.messages = res.result;
-            // var broker_id = that.messages.ID;
-            // var robot_id = that.messages.ROBOT_ID;
-            // var token = that.messages.token;
-            // var info={broker_id:broker_id,robot_id:robot_id,token:token};
-            // // alert(info.broker_id);
-            // console.log('iii'+info.token)
-            // this.setStorge(info);
+            var broker_id = that.messages.ID;
+            var robot_id = that.messages.ROBOT_ID;
+            var token = that.messages.token;
+            var info={broker_id:broker_id,robot_id:robot_id,token:token};
+            // alert(info.broker_id);
+            console.log('iii'+info.token)
+            this.setStorge(info);
             that.$router.push({
               path: "/",
               query: {
@@ -252,7 +250,7 @@ export default {
     // alert(data2);
     }
   },
-  async created() {
+  created() {
     if (!window.localStorage.getItem("openId")) {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
       this.getCode();
@@ -267,7 +265,7 @@ export default {
     let VlidateToken = infosto.token || '';
     let VlidateBrokerid = infosto.broker_id || '';
     let param = { token: VlidateToken,broker_id: VlidateBrokerid};
-    let result = await validateToken(param);
+    let result =  validateToken(param);
     var msg = result.msg;
     if (msg == "token错误!") {
       //
