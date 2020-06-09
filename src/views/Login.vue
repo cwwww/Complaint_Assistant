@@ -235,34 +235,14 @@ export default {
       return theRequest;
     },
     setStorge(info){
-    // const info = { name: 'hou', age: 24, id: '001' };
-    // const str="0001";
-    // localStorage.setItem('hou', JSON.stringify(info));
-    // localStorage.setItem('zheng', str);
     localStorage.setItem('info', JSON.stringify(info));
     },
     getStorge(){
       var info =  JSON.parse(localStorage.getItem('info'));
       return info;
-    // var data1 = JSON.parse(localStorage.getItem('hou'));
-    // var data2 = localStorage.getItem('zheng');
-    // alert(data1);
-    // alert(data2);
     }
   },
-  // async created() {
-  //   if (!window.localStorage.getItem("openId")) {
-  //     // 如果缓存localStorage中没有微信openId，则需用code去后台获取
-  //     this.getCode();
-  //     this.impower();
-  //   } else {
-  //     // 别的业务逻辑
-  //   };
-  //   let infosto= this.getStorge();
-  //   console.log(infosto);
-  //   // alert(this.info);
-
-  created() {
+  async created() {
     if (!window.localStorage.getItem("openId")) {
       // 如果缓存localStorage中没有微信openId，则需用code去后台获取
       this.getCode();
@@ -270,9 +250,10 @@ export default {
     } else {
       // 别的业务逻辑
     };
-    // let infosto= this.getStorge();
+    let infosto= this.getStorge();
     console.log(infosto);
     // alert(this.info);
+
 
     let VlidateToken = infosto.token || '';
     let VlidateBrokerid = infosto.broker_id || '';
@@ -313,7 +294,7 @@ export default {
     }
   },
   mounted() {
-    // this.wxconfig()
+    // this.wxconfig()git a
     this.url = window.location.href.split("#")[0];
     var start = this.url.indexOf("=");
     var end = this.url.indexOf("&");
