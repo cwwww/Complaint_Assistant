@@ -82,8 +82,7 @@
           class="talkContent"
           id="talkContent"
           :class="{active:isOwn}"
-        >来聊天把</div>
-        <!-- >{{HistoryList.slice(-1)[0].content}}</div> -->
+        >{{detailList.content}}</div>
         <div class="btnTalk">
           <img @click="previousPage" class="leftBtn" :src="nextpage2" alt />
           <img class="rightBtn" @click="nextPage" :src="nextpage" alt />
@@ -299,6 +298,7 @@ export default {
   },
   data() {
     return {
+      detailList:Object,
       addStatus: Object,
       bxmove: false,
       content: "",
@@ -389,6 +389,9 @@ export default {
       nextpage2: require("../assets/images/上一页@2x.png"),
       success: require("../assets/images/success@2x.png")
     };
+  },
+    watch:{
+    
   },
   methods: {
     triggerBrotherMethods() {
@@ -737,9 +740,14 @@ export default {
       let res = reqRobotHistory(param);
       res
         .then(res => {
-          alert(this.HistoryList)
           this.HistoryList = res.result;
-          console.log(this.list3);
+          this.list2 = this.HistoryList.slice(-3);
+          if(this.HistoryList.length > 0){
+            this.historyContent = this.list2.slice(-1)[0].content
+          }else{
+            this.historyContent = this.detailList.content
+          }
+          console.log(this.list2);
           // this.list4 = this.HistoryList.slice(-3);
           // this.list2 = 
           // this.list2 = this.list2.push(this.list3);
@@ -777,8 +785,9 @@ export default {
       let res = reqRobotDetail(param);
       res
         .then(res => {
-          console.log(res.result.content);
-          this.list3 = res.result.content;
+          this.detailList = res.result
+          console.log('detail:'+JSON.stringify(res.result.content));
+          // this.list2 = res.result.content;
           this.getHistory();
           this.question = "";
         })
@@ -929,6 +938,7 @@ export default {
     this.impower();
     this.wxconfig();
   },
+
   mounted() {
     this.getHomeInit();
     this.getDetail();
@@ -936,7 +946,7 @@ export default {
     this.getFensi();
     this.getReqtaskStatus();
     // window.setInterval(() => {
-    //   setTimeout(this.getHistory(), 0);
+    //   setTimeout(this.getDetail(), 0);
     // }, 1000);
     this.timer = setInterval(this.getFensi, 60000); //定时间隔，
   }
