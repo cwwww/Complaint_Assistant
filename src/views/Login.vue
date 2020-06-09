@@ -251,14 +251,14 @@ export default {
       // 别的业务逻辑
     };
     let infosto= this.getStorge();
-    console.log(infosto);
+    console.log("infopre"+infosto);
     // alert(this.info);
 
 
     let VlidateToken = infosto.token || '';
     let VlidateBrokerid = infosto.broker_id || '';
     let param = { token: VlidateToken,broker_id: VlidateBrokerid};
-    let result =  validateToken(param);
+    let result =  await validateToken(param);
     var msg = result.msg;
     if (msg == "token错误!") {
       //
@@ -289,7 +289,7 @@ export default {
       var robot_id = "";
       var token = "";
       var info={broker_id:broker_id,robot_id:robot_id,token:token};
-      console.log(info);
+      console.log("infoafter"+info);
       this.setStorge(info);
     }
   },
