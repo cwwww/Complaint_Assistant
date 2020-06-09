@@ -12,7 +12,7 @@
 <template>
 	<div class="m_xbrain">
 		<div class="title">
-			<img :src="hadeurl" alt />
+			<img :src="headimgurl" alt />
 			<div class="right">
 				<p>{{name}}</p>
 				<h3>我的机器人事务所开张啦，快来看看吧！</h3>
