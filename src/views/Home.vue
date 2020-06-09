@@ -1,5 +1,24 @@
 <template>
   <div class="contain">
+    <van-popup class="cont2" v-model="vipNotification">
+      <div class="contwrap">
+        <div class="top">
+          <span>{{vipExpiryTime}}</span>
+          <!-- <img style="width:16px;height:16px;" :src=money alt=""> -->
+          <!-- <span>请前往【会员商店】领取</span> -->
+        </div>
+        <div style="margin-bottom:25px;">请前往【会员商店】领取</div>
+        <div class="isOk">
+          <div class="isNo" @click="noGet">
+            <span style="color:#666;">忽略</span>
+          </div>
+          <div class="isYes" @click="toGet">
+            <span style="color:#FFF;">去领取</span>
+          </div>
+        </div>
+      </div>
+    </van-popup>
+
     <div class="information">
       <div class="mes">
         <div class="topHalfPart">
@@ -78,11 +97,7 @@
     </div>
     <div>
       <div class="talk">
-        <div
-          class="talkContent"
-          id="talkContent"
-          :class="{active:isOwn}"
-        >{{detailList.content}}</div>
+        <div class="talkContent" id="talkContent" :class="{active:isOwn}">{{detailList.content}}</div>
         <div class="btnTalk">
           <img @click="previousPage" class="leftBtn" :src="nextpage2" alt />
           <img class="rightBtn" @click="nextPage" :src="nextpage" alt />
@@ -298,7 +313,7 @@ export default {
   },
   data() {
     return {
-      detailList:Object,
+      detailList: Object,
       addStatus: Object,
       bxmove: false,
       content: "",
@@ -390,9 +405,7 @@ export default {
       success: require("../assets/images/success@2x.png")
     };
   },
-    watch:{
-    
-  },
+  watch: {},
   methods: {
     triggerBrotherMethods() {
       // 父组件通过$ref调用子组件1中的事件方法
@@ -719,7 +732,7 @@ export default {
       } else {
         this.getDetail();
         // this.getHistory();
-        this.getReqtaskStatus();
+        this.getReqtaskStatus(1);
         if (this.addStatus.award_bcoin > 0) {
           this.bxmove = true;
           setTimeout(() => {
@@ -742,14 +755,14 @@ export default {
         .then(res => {
           this.HistoryList = res.result;
           this.list2 = this.HistoryList.slice(-3);
-          if(this.HistoryList.length > 0){
-            this.historyContent = this.list2.slice(-1)[0].content
-          }else{
-            this.historyContent = this.detailList.content
+          if (this.HistoryList.length > 0) {
+            this.historyContent = this.list2.slice(-1)[0].content;
+          } else {
+            this.historyContent = this.detailList.content;
           }
           console.log(this.list2);
           // this.list4 = this.HistoryList.slice(-3);
-          // this.list2 = 
+          // this.list2 =
           // this.list2 = this.list2.push(this.list3);
           // alert(JSOn.stringify(this.list2));
         })
@@ -785,9 +798,8 @@ export default {
       let res = reqRobotDetail(param);
       res
         .then(res => {
-          this.detailList = res.result
-          console.log('detail:'+JSON.stringify(res.result.content));
-          // this.list2 = res.result.content;
+          this.detailList = res.result;
+          console.log("detail:" + JSON.stringify(res.result.content));
           this.getHistory();
           this.question = "";
         })
@@ -797,11 +809,11 @@ export default {
       // }
     },
     //与机器人聊天任务
-    getReqtaskStatus() {
+    getReqtaskStatus(operation_type) {
       let param = {
         broker_id: this.$route.query.broker_id,
         robot_id: this.$route.query.robot_id,
-        operation_type: 1,
+        operation_type: operation_type,
         token: this.$route.query.token
       };
       let result = reqtaskStatus(param);
@@ -944,7 +956,7 @@ export default {
     this.getDetail();
     //定时获取粉丝数据
     this.getFensi();
-    this.getReqtaskStatus();
+    this.getReqtaskStatus(99);
     // window.setInterval(() => {
     //   setTimeout(this.getDetail(), 0);
     // }, 1000);
@@ -1004,7 +1016,7 @@ export default {
 }
 .m_xstrat {
   position: absolute;
-  top: 190px;
+  top: 175px;
   left: -60px;
   text-align: center;
   cursor: pointer;
@@ -1302,7 +1314,7 @@ export default {
   white-space: wrap;
   text-overflow: ellipsis;
   position: absolute;
-  bottom: 54%;
+  bottom: 55%;
   margin-left: 18.7%;
   text-align: center;
   font-weight: 400;
@@ -1363,7 +1375,7 @@ export default {
   border-right: 8px solid transparent;
   border-top: 10px dashed #2de2e6;
   position: absolute;
-  bottom: 52.8%;
+  bottom: 53.8%;
   left: 48%;
   // box-shadow:0px 0px 4px 0px rgba(45,226,230,0.75);
 }
@@ -1375,7 +1387,7 @@ export default {
   border-right: 8px solid transparent;
   border-top: 10px dashed #000;
   position: absolute;
-  bottom: 53.4%;
+  bottom: 54.4%;
   left: 48%;
   // box-shadow:0px 0px 4px 0px rgba(45,226,230,0.75);
 }
