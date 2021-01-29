@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import Element from 'element-ui'
+Vue.use(Element)
+
+
+import 'element-ui/lib/theme-chalk/index.css'
 import store from './store'
 import Vant from 'vant';
 import { Toast,Button,Overlay } from 'vant';
