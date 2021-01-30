@@ -18,15 +18,16 @@ class Bert:
     def __init__(self):
         print('Loading BERT tokenizer...')
         self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
-        self.output_file = fpath + "\\model\\model_bert_ft_cola_0.88.pth"
+        
+        ##### model parameter path
+        self.weight_file = fpath + "\\model\\model_bert_ft_cola.pth"
         self.model = BertForSequenceClassification.from_pretrained(
-                        "bert-base-uncased", # Use the 12-layer BERT model, with an uncased vocab.
-                        num_labels = 11, # The number of output labels--2 for binary classification.
-                                        # You can increase this for multi-class tasks.   
-                        output_attentions = False, # Whether the model returns attentions weights.
-                        output_hidden_states = False, # Whether the model returns all hidden-states.
+                        "bert-base-uncased", 
+                        num_labels = 11, 
+                        output_attentions = False,
+                        output_hidden_states = False, 
                     )
-        self.model.load_state_dict(torch.load(self.output_file,map_location='cpu')['model_state_dict'])
+        self.model.load_state_dict(torch.load(self.weight_file,map_location='cpu')['model_state_dict'])
         print(self.model)
 
 
@@ -55,7 +56,8 @@ class Bert:
         return input_ids,attention_masks
 
 
-# init with input file path
+##### Init with input file path
+
 class Classification:
     
     def __init__(self,path):
@@ -65,6 +67,7 @@ class Classification:
         # self.label_dic = 
         self.path = path
         self.df = pd.read_csv(path)
+        print(self.df.head())
         self.bert = Bert()
         
         
@@ -73,7 +76,9 @@ class Classification:
         input_ids = []
         input_masks = []
         
-        input_ids, input_masks = zip(*self.df[lambda df: df.columns[-1]].apply(lambda x:self.bert.pre_processing(x)))
+        # input_ids, input_masks = zip(*self.df[lambda df: df.columns[-1]].apply(lambda x:self.bert.pre_processing(x)))
+        input_ids, input_masks = zip(*self.df['Consumer complaint narrative'].apply(lambda x:self.bert.pre_processing(x)))
+        
         print(input_ids[0])
         print(input_masks[0])
         print(len(input_ids))
@@ -94,7 +99,10 @@ class Classification:
         print(df.head())
         print(output_path)
         return output_path 
-        
+
+
+
+##### Init with input file path    
 Classfi = Classification('./data/test_for_class.csv')
 Classfi.run_process()
 
