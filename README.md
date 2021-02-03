@@ -1,4 +1,32 @@
 # Aspect mining
+## 0. structure of this branch
+
+- `./code/`
+
+  - `frequency.py`
+  - `get_aspect.py`
+  - `getDataset.py`
+  - `getFinalAspect.py`
+  - `intersection.py`
+  - `main.py`
+
+- `./data/`
+
+  - `consumer_complaints.csv`
+
+    original dataset
+
+  - `contractions.json`
+
+    dictionary to remove contractions
+
+  - `test.csv`
+
+    test dataset
+
+- `./aspect_data/`
+
+  final csv files containing maps between aspects to key words(each product one csv file)
 
 ## 1. extract aspects and key words from data
 
