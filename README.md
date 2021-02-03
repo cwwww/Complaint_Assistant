@@ -1,6 +1,5 @@
 # Aspect mining
 ## 0. structure of this branch
-
 - `./code/`
 
   - `frequency.py`
