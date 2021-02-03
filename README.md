@@ -12,6 +12,8 @@
 
 - `./data/`
 
+  a bit huge so i put in into the [google drive](https://drive.google.com/drive/folders/1IxG46eOVxLowdCQvmi_edkQwtpdCYV98?usp=sharing)
+
   - `consumer_complaints.csv`
 
     original dataset
