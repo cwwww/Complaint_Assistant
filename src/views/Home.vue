@@ -147,7 +147,7 @@ export default {
         res
           .then(res => {
             this.input = "";
-            this.list.push({"content":res.result[0],"speaker":0,"create_time":curTime})
+            this.list.push({"content":res.result,"speaker":0,"create_time":curTime})
           })
           .catch(reslove => {
             console.log("error");

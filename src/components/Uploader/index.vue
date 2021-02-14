@@ -13,7 +13,7 @@
       ref="upload"
       class="upload-demo"
       action
-      accept=".xlsx"
+      accept=".csv"
       :limit=limit
       :auto-upload="true"
       :before-upload="beforeUpload"
@@ -62,8 +62,8 @@ import axios from 'axios'
       beforeUpload(file) {
       let extension = file.name.substring(file.name.lastIndexOf('.')+1)
         let size = file.size / 1024 / 1024 
-        if(extension !== 'xlsx') {
-          this.$message.warning('只能上传后缀是.xlsx的文件')
+        if(extension !== 'csv') {
+          this.$message.warning('只能上传后缀是.csv的文件')
         }
         if(size > 10) {
           this.$message.warning('文件大小不得超过10M')
