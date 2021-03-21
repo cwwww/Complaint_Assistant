@@ -1,0 +1,4 @@
+uploadFile/
+proj4_Django/model_bert_ft_cola.pth
+proj4_Django/Recommendation/data/consumer_complaints.csv
+venv
