@@ -1,30 +1,32 @@
 import re
 from nltk.corpus import wordnet
-import sys
-sys.path.append('.')
-from .get_aspect import getAspect
+import sys,os
+
+# sys.path.append(os.getcwd())
+# from get_aspect import getAspect
 import pandas as pd
 import os
 import numpy as np
 from .getDataset import *
 
-class solution:
+class solution():
+  def __init__(self):
+    self.s = getDataset()
+
   def recommend(self,initial_input,num):
     # get product
     def get_product(user_input):
-      s = getDataset()
       # product0 = 'start'
       list_syn_products = show_product()
       for intent, pattern in list_syn_products.items():
         if user_input in pattern:
           product0 = intent
 
-      list_aspects = s.getAspectName(product0)
+      list_aspects = self.s.getAspectName(product0)
       print("these are the aspects of this product:", list_aspects)
       return product0
 
     def get_aspect(product, num, user_aspect):
-      s = getDataset()
       list_syn_products = show_product()
       for intent, pattern in list_syn_products.items():
         if product in pattern:
@@ -32,12 +34,11 @@ class solution:
       if product is None:
         print("please choose the product:")
       else:
-        print("The company recommended by the system is:", s.getResult(product0, user_aspect, int(num) + 1))
+        print("The company recommended by the system is:", self.s.getResult(product0, user_aspect, int(num) + 1))
 
     def show_product():
-      s = getDataset()
       # Building a list of Keywords of products
-      list_products = s.getProduct()
+      list_products = self.s.getProduct()
       list_syn_products = {}
       for word in list_products:
         synonyms = []
@@ -76,6 +77,6 @@ class solution:
         break
       else:
         return None
-#
-# s = solution()
+
+s = solution()
 # s.recommend('the product you chose is consumer loan and the aspect name is/are unable to pay.',1)

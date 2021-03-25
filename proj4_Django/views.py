@@ -46,8 +46,9 @@ class DialogManager(object):
         success = False
         retry = 0
         titles = responses = sims = []
-        # rb_res = self.rulebase.recommend(sentence,1)
-        # print("[Debug]rb_res:",rb_res)
+        print("[Debug]wait res")
+        rb_res = self.rulebase.recommend(sentence,1)
+        print("[Debug]rb_res:",rb_res)
         while not success and retry < 3:
             # try:
                 titles, responses, sims = self.answerer.getResponse(sentence)
